@@ -63,16 +63,16 @@ main {
   aspect-ratio: 7/5;
   border-radius: 15px;
   background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
-  position: relative; 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.rectangle-display > img {
-  width: auto;
-  min-height: 100%;
+#car-image {
+  min-width: 80%;
+  min-height: auto;
   object-fit: contain;
+  display: block;
 }
 
 /* Form Styles */
@@ -261,13 +261,14 @@ h2 {
     aspect-ratio: 7/5;
     border-radius: 15px;
     background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
-    position: relative; 
   }
   
-  .rectangle-display > img {
-    width: auto;
-    min-height: 100%;
-    object-fit: contain;
+
+  #car-image{
+    width: 100%;
+    height: auto;
+    object-fit:contain;
+    display: block;
   }
   
 }
