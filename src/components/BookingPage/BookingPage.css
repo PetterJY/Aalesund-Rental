@@ -262,7 +262,6 @@ h2 {
     border-radius: 15px;
     background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
   }
-  
 
   #car-image{
     width: 100%;
@@ -270,5 +269,4 @@ h2 {
     object-fit:contain;
     display: block;
   }
-  
 }
