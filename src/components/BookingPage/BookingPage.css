@@ -12,10 +12,10 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  align-items: stretch;
   justify-content: space-evenly;
-  
+  max-height: fit-content;
+  min-height: 700px;
 }
 
 /* Header Styles */
@@ -31,10 +31,10 @@ main {
 
 .driver-information-form {
   padding: 20px;
-  height: 80dvh;
+  min-height: 700px;
+  max-height: 700px;
   width: 50%;
   min-width: 30em;
-  min-height: fit-content;
   margin: 20px;
   background-color: #FFFCF2;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -42,20 +42,23 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-end;
+  flex-shrink: 0;
   /*I want the items to be right side*/
   
 }
 
 .car-information-form {
   padding: 20px;
-  height: 80dvh;
+  min-height: 700px;
+  max-height: 700px;
   width: 30%;
   min-width: 20em;
-  min-height: fit-content;
   margin: 20px;
   background-color: #FFFCF2;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
+  flex-shrink: 0;
 }
 
 .rectangle-display {
