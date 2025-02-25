@@ -1,10 +1,12 @@
 .car-display {
-  width: 27.5vw;
-  height: 30vh;
+  width: 15vw;
+  aspect-ratio: 5/7;
   border-radius: 15px;
   background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
   position: relative; 
-  overflow: hidden; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .car-name {
@@ -50,13 +52,7 @@
 }
 
 .car-image-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  position: absolute; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-75%, -60%); 
+  
 }
 
 .rental-place {
@@ -92,5 +88,5 @@
 }
 
 #car-image {
-  height: 150px;
+  width: 50px;
 }

@@ -1,11 +1,8 @@
 import './RentalPage.css';
-import '../Header/Header.css';
-import '../Footer/Footer.css';
-import CarDisplay from '../CarDisplay/CarDisplay';
 
 export default function RentalPage(props) {
   return (
-    <div>
+    <div className="rental-page">
       <nav className="sort-bar">
         <label>
           <select name="Sort" className="sort-button">

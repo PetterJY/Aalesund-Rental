@@ -1,3 +1,7 @@
+.rental-page {
+  background-color: #FFFCF2;
+}
+
 .complete-section {
   display: flex;
   flex-direction: row;
@@ -10,7 +14,6 @@
   justify-content: space-between;
   margin: 25px;
 }
-
 
 .sort-bar {
   display: flex;
@@ -40,4 +43,3 @@
   flex-direction: column;
   margin-left: 15px;
 }
-
