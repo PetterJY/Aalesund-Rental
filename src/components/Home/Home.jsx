@@ -26,7 +26,7 @@ const Home = (props) => {
   );
 };
 
-const DatePicker = ({ label, date, time}) => {
+const DatePicker = ({label, date, time}) => {
   return (
       <section className="pickup-dropoff">
         <label className="pickup-dropoff-text">{label}</label>
