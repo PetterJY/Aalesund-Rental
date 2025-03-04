@@ -56,6 +56,9 @@ body {
 
 #styledContainer {
   position: absolute; /* Ensures it's above the background */
+  grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+  grid-template-rows: auto auto auto; /* Three rows: labels, bubbles, button */
+  display: grid;
   justify-content: space-evenly;
   flex-direction: row;
   z-index: 1; /* Higher than the background */
@@ -71,7 +74,6 @@ body {
   border-radius: 10px;
   text-align: center;
   background-position: center;
-  display: flex;
 }
 
 
@@ -79,6 +81,7 @@ body {
 .pickup-dropoff {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center; /* Center vertically */
   width: 15vw; /* Ensure it's still responsive */
 }
@@ -92,11 +95,9 @@ p {
   font-family: "Poppins", Sans-Serif;
   font-size: 25px;
   font-weight: bold;
-  margin: 10px;
   font-weight: 400;
   line-height: normal;
   justify-content: left;
-  display: flex;
 }
 
 .show-cars {
@@ -130,15 +131,15 @@ p {
 }
 
 .date-time-picker {
+  display: flex;
+  flex-direction: column;
   width: var(--center-element-width);
   height: 70px;
   flex-shrink: 0;
   border-radius: 20px;
   border: 2px solid #484848;
-  display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 22px;
 }
 
 .date-time-picker-content {
