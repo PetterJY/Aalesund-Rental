@@ -1,3 +1,4 @@
+import "../global.css";
 import './RentalPage.css';
 
 export default function RentalPage(props) {

@@ -1,6 +1,7 @@
+import "../global.css";
+import './Home.css';
 import React from "react";
 import calenderImage from "../../resources/images/calendar.png"
-import './Home.css';
 
 const Home = (props) => {
   return (
