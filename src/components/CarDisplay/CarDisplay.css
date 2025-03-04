@@ -1,11 +1,13 @@
 .car-display {
   width: 30vw;
+  max-height: 80%; 
   border-radius: 15px;
   background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
-
   position: relative; 
   display: flex;
   flex-direction: column;
+  
+  margin-top: 2%;
 }
 
 .car-name {
@@ -52,6 +54,7 @@
 .passenger-count {
   color: #fffcf2;
   font-size: 20px;
+
 
   margin-left: 8px;
 }
