@@ -289,7 +289,7 @@ form div {
   main {
     flex-direction: column-reverse;
     overflow: auto;
-    overflow-y: scroll;
+    align-items: center;
   }
   .driver-information-form {
     width: 80%;
