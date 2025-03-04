@@ -1,20 +1,35 @@
 .car-display {
-  width: 15vw;
-  aspect-ratio: 5/7;
+  width: 30vw;
   border-radius: 15px;
   background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
+
   position: relative; 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 
 .car-name {
   font-size: 20px;
-  font-family: serif;
   color: #FFFCF2;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+}
+
+.top-left-section {
+  display: flex;
+  flex-direction: column;
   margin-left: 15px;
-  margin-top: 5px;
+}
+
+.top-right-section {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: 10%;
+  margin-top: 5%;
 }
 
 .passenger-tag {
@@ -23,17 +38,22 @@
   display: flex;
   align-items: center; 
   justify-content: center; 
-  margin-left: 15px;
-  width: 4vw;
-  height: 5vh;
+  width: 60px;
+  height: 30px;
   border-radius: 25px;
+  margin-top: 5px;
+}
+
+#passenger-image {
+  width: 20px;
+  height: 20px;
 }
 
 .passenger-count {
-  font-family: serif;
   color: #fffcf2;
   font-size: 20px;
-  margin-left: 15px;
+
+  margin-left: 8px;
 }
 
 .car-tag {
@@ -42,24 +62,23 @@
   align-items: center; 
   justify-content: center; 
 
-  margin-left: 50%;
-  width: 4vw;
-  height: 5vh;
+  width: 80px;
+  height: 30px;
   border-radius: 25px;
 
-  font-family: serif;
   color: #FFFCF2;
 }
 
-.car-image-wrapper {
-  
+.bottom-section {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
 }
 
 .rental-place {
-  font-family: serif;
   color: #fffcf2;
   font-size: 16px;
-  margin-top: 60px;
+  text-align: left;
 }
 
 .price-section {
@@ -68,25 +87,19 @@
 }
 
 #price-day {
-  font-family: serif;
   color: #fffcf2;
   font-size: 16px;
   margin-bottom: 10px;
 }
 
 #price-total {
-  font-family: serif;
   color: #CCC5B9;
   font-size: 16px;
   margin-left: 10px;
 }
 
-#passenger-image {
-  max-width: 25px;
-  max-height: 50%;
-  margin-right: 5px; 
-}
-
 #car-image {
   width: 50px;
+  align-self: center; /* Ensures car image is centered */
+  height: auto;
 }
