@@ -6,7 +6,7 @@ footer {
   justify-content: space-between;
   background-color: #252422;
   color: #FFFCF2; /* Text color for visibility */
-  padding: 20px 16.67%; /* Adjusted padding */
+  padding: 5%; /* Adjusted padding */
   height: auto; /* Adjust height as needed */
 }
 
@@ -15,34 +15,67 @@ footer {
     flex-direction: column;
   }
 
-  nav {
-    border-bottom: 1px solid #FFFCF2;
+  footer nav {
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
 
+  footer nav#contact::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0vw; /* 5% of the viewport width */
+    width: 90vw; /* 90% of the viewport width */
+    height: 1px;
+    background-color: #FFFCF2;
+  }
+
+  footer nav#contact::after,
+  footer nav#links::after,
+  footer nav#creators::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0vw; /* 5% of the viewport width */
+    width: 90vw; /* 90% of the viewport width */
+    height: 1px;
+    background-color: #FFFCF2;
+  }
 }
 
+
+
 .menu {
-  position: relative;
   display: flex;
   flex-direction: row;
+  width: 100vw;
   align-items: center;
-  justify-content: space-evenly;
-  gap: 0.5rem;
-  background-color: transparent; /* Set background to transparent */
-  color: inherit; /* Inherit text color from parent */
-  border: none; /* Remove any border */
-  padding: 0; /* Remove padding */
-  font-size: 1.5rem; /* Inherit font size from parent */
-  cursor: pointer; /* Pointer cursor on hover */
+  justify-content: space-between; /* Ensures space between elements */
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.menu img {
+  position: relative;
+  right: 10vw;
+}
+
+.menu img:active {
+  rotate: 180deg;
+
 }
 
 
 .footer-item {
   display: flex;
+  align-items: flex-start;
   color: #FFFCF2;
-  justify-content: center; /* Center text horizontally */
   flex-direction: column;
-  font-family: "Poppins", Sans-Serif;
   font-size: 20px;
   list-style: none; /* Removes bullet points */
   padding: 0; /* Removes default padding */
@@ -76,5 +109,4 @@ footer a:hover::after {
   position: absolute;
   padding: 0px 0px 20px 20px;
   color: #CCC5B9;
-  font-family: "Poppins", Sans-Serif;
 }

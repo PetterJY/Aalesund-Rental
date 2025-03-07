@@ -19,7 +19,7 @@ const CarDisplay = (props) => {
         </section>
       </section>
 
-      <img id="car-image" src={carImage}></img>
+      <img id="car-image" src={carImage} alt="car-image"></img>
       <section class="bottom-section">
         <h2 class="rental-place">{props.rentalPlace}</h2>
         <section class="price-section">
