@@ -4,30 +4,34 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer>
-		<section id="contact">
-			<h3>Contact</h3>
+		<nav id="contact">
+			<button className="menu-button">Contact</button>
 			<address>
-				<ul class="footer-item">
+				<ul className="footer-item">
 					<li><a href="mailto:Ålesund@rental.com">Ålesund@rental.com</a></li>
 				</ul>
 			</address>
-		</section>
-		
+		</nav>
+
 		<nav id="links">
-			<h3>Links</h3>
-			<ul class="footer-item">
+			<div id="menu">
+				<h3>Menu</h3>
+				<img src="../../resources/images/caret-down.png" alt="dropdown-menu"></img>
+			</div>
+			<button className="menu-button">Links</button>
+			<ul className="footer-item">
 				<li><a href="https://github.com/PetterJY/Aalesund-Rental">GitHub</a></li>
 			</ul>
 		</nav>
-		
-		<section id="creators">
-			<h3>Creators</h3>
-			<ul class="footer-item">
+
+		<nav id="creators">
+			<button className="menu-button">Creators</button>
+			<ul className="footer-item">
 				<li>Mathias Løvnes</li>
 				<li>Marcus Skaue</li>
 				<li>Petter Ytterdahl</li>
 			</ul>
-		</section>
+		</nav>
 	</footer>
   );
 };

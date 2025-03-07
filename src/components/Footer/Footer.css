@@ -10,6 +10,17 @@ footer {
   height: auto; /* Adjust height as needed */
 }
 
+@media screen and (max-width: 750px) {
+  footer {
+    flex-direction: column;
+  }
+
+}
+
+.menu-button {
+
+}
+
 .footer-item {
   display: flex;
   color: #FFFCF2;
@@ -21,6 +32,8 @@ footer {
   padding: 0; /* Removes default padding */
   margin: 0; /* Removes default margin */
 }
+
+
 
 #contact, #links, #creators {
   display: flex;
