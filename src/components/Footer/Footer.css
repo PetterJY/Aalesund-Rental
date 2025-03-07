@@ -22,15 +22,17 @@ footer {
   padding: 0;
   font-size: 1.5rem;
   cursor: pointer;
+  overflow: hidden;
 }
 
-.dropdown-icon {
+
+.dropdown {
   position: relative;
   right: 10vw;
-  transition: rotate 0.2s ease-in-out;
+  transition: rotate 10s ease-in-out;
 }
 
-.dropdown-icon.clicked {
+.dropdown.clicked {
   rotate: 180deg;
   transition: rotate 0.2s ease-in-out;
 }

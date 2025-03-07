@@ -45,25 +45,19 @@ const Footer = () => {
 };
 
 const DropdownMenu = () => {
-	const [isClicked, setIsClicked] = useState(false)
+	const [isExpanded, setIsExpanded] = useState(false)
 
 	const handleDropDownMenuClick = () => {
-		setIsClicked(!isClicked)
+		setIsExpanded(!isExpanded)
 	}
 
 	return (
 		<img src={caretDown}
-				 className={`dropdown-icon ${isClicked ? 'clicked' : ''}`}
+				 className={`dropdown ${isClicked ? 'clicked' : ''}`}
 				 onClick={handleDropDownMenuClick}
 				 alt="dropdown-menu-icon"/>
 	)
 }
 
-
-
-
-// const dropdown = () => {
-// 	const []
-// }
 
 export default Footer;
