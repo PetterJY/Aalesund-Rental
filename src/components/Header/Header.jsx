@@ -26,9 +26,9 @@ const Header = () => {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Login</h2>
             <form>
-              <input type="text" placeholder="Username" required />
-              <input type="password" placeholder="Password" required />
-              <button type="submit">Login</button>
+              <input id="email-field" type="text" placeholder="E-mail" required />
+              <input id="password-field" type="password" placeholder="Password" required />
+              <button id="submit-button" type="submit">Login</button>
             </form>
           </div>
         </div>
