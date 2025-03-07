@@ -53,10 +53,36 @@
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: #FFFCF2;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   max-width: 500px;
   border-radius: 10px;
 }
+
+#submit-button {
+  padding: 20px;
+  background-color: #EB5E28;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 100%;
+}
+
+#submit-button:hover {
+  background-color: #eb5f28c9;
+}
+
+#email-field, #password-field {
+  background-color: #FFFCF2;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+
+
