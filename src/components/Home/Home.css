@@ -3,6 +3,7 @@
 :root {
   --center-container-width: 75vw;
   --center-element-width: calc(var(--center-container-width) / 4);
+  --date-time-picker-height: 75px;
 }
 
 .backgroundImage {
@@ -56,9 +57,7 @@ body {
 
 #styledContainer {
   position: absolute; /* Ensures it's above the background */
-  grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
-  grid-template-rows: auto auto auto; /* Three rows: labels, bubbles, button */
-  display: grid;
+  display: flex;
   justify-content: space-evenly;
   flex-direction: row;
   z-index: 1; /* Higher than the background */
@@ -72,7 +71,7 @@ body {
   background: #FFFCF2;
   box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  text-align: center;
+  align-items: center; /* Center vertically */
   background-position: center;
 }
 
@@ -93,11 +92,12 @@ p {
 .pickup-dropoff-text {
   color: #252422;
   font-family: "Poppins", Sans-Serif;
-  font-size: 25px;
+  font-size: 1.75em;
   font-weight: bold;
   font-weight: 400;
   line-height: normal;
-  justify-content: left;
+  justify-self: left;
+  transform: translateY(calc(-1 * var(--date-time-picker-height))) translateX(calc(-0.33 * var(--center-element-width)));
 }
 
 .show-cars {
@@ -131,15 +131,16 @@ p {
 }
 
 .date-time-picker {
+  position: absolute;
   display: flex;
   flex-direction: column;
   width: var(--center-element-width);
-  height: 70px;
+  height: var(--date-time-picker-height);
   flex-shrink: 0;
   border-radius: 20px;
   border: 2px solid #484848;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  overflow: hidden;
 }
 
 .date-time-picker-content {
@@ -162,6 +163,7 @@ p {
 
 .date-picker-button {
   position: absolute;
+  justify-content: space-evenly;
   width: 50%;
   height: 100%;
   opacity: 0;
@@ -170,6 +172,7 @@ p {
 
 .time-picker-button {
   position: absolute;
+  justify-content: space-evenly;
   width: 50%;
   height: 100%;
   opacity: 0;
@@ -187,7 +190,7 @@ p {
 
 .divider {
   width: 2px;
-  height: 105%;
+  height: 100%;
   background: #252422;
   position: absolute;
   left: 50%;
@@ -225,7 +228,6 @@ p {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  text-align: center;
   padding: 20px;
 }
 
@@ -239,13 +241,14 @@ p {
 }
 
 @media screen and (max-width: 1200px) {
-
   #styledContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    justify-items: start; /* Align items to the left within their cells */
     column-gap: 20px;
     padding-left: 20px; /* Gap on the left side */
     padding-right: 20px; /* Gap on the right side */
+    text-align: left; /* Ensure text aligns to the left */
   }
 
   #styledContainer > * {
@@ -256,8 +259,6 @@ p {
     grid-column: span 2; /* Make button span 2 columns */
     grid-row: span 1; /* Make button span 1 row */
     width: 100%; /* Ensure button spans the entire grid space */
-    margin-top: -33px;
-
   }
 
   .show-cars-button {
@@ -266,8 +267,16 @@ p {
 
   .date-time-picker {
     width: 100%;
-    justify-self: center;
+    position: static; /* Reset absolute positioning */
+    justify-self: center; /* Center the date-time-picker horizontally */
     grid-column: span 2; /* Make date-time-picker span 2 columns */
   }
 
+  .pickup-dropoff-text {
+    position: static; /* Reset absolute positioning */
+    justify-self: start; /* Align text to the left within its cell */
+    transform: none !important; /* Reset transform */
+    text-align: left; /* Ensure text aligns to the left */
+    width: 100%; /* Ensure the text container takes full width */
+  }
 }
