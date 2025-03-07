@@ -43,7 +43,7 @@ function HomeExample() {
 function RentalPageExample() {
   return (
     <RentalPage>
-      <CarDisplay carName="Volvo" carTag="Sedan" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr/dag" priceTotal="1500 kr"/>
+      <CarDisplay carName="Volkswagen Biggerstraum" carTag="Sedan" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr/dag" priceTotal="1500 kr"/>
       <CarDisplay carName="Mercedes" carTag="Sedan" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr/dag" priceTotal="1800 kr"/>
       <CarDisplay carName="Audi" carTag="Sedan" passengerCount="4" rentalPlace="Ålesund" priceDay="550 kr/dag" priceTotal="1650 kr"/>
     </RentalPage>
@@ -52,7 +52,7 @@ function RentalPageExample() {
 
 function BookingPageExample() {
   return (
-    <BookingPage carName="Volvo" rentalPeriod="5 days" pickUpLocation="Ålesund" pickUpTime="12:00" dropOffLocation="Oslo" dropOffTime="12:00" costPerDay="$100" totalCost="$500"/>
+    <BookingPage carName="Volkswagen Biggerstraum" rentalPeriod="5 days" pickUpLocation="Ålesund" pickUpTime="12:00" dropOffLocation="Oslo" dropOffTime="12:00" costPerDay="$100" totalCost="$500"/>
   );
 }
 

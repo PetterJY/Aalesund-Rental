@@ -286,6 +286,9 @@ form div {
 }
 
 @media (max-width: 1000px) {
+  button {
+    width: 100%;
+  } 
   main {
     flex-direction: column-reverse;
     overflow: auto;
