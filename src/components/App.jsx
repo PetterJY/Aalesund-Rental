@@ -43,9 +43,13 @@ function HomeExample() {
 function RentalPageExample() {
   return (
     <RentalPage>
-      <CarDisplay carName="Volkswagen Biggerstraum" carTag="Sedan" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr/dag" priceTotal="1500 kr"/>
-      <CarDisplay carName="Mercedes" carTag="Sedan" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr/dag" priceTotal="1800 kr"/>
-      <CarDisplay carName="Audi" carTag="Sedan" passengerCount="4" rentalPlace="Ålesund" priceDay="550 kr/dag" priceTotal="1650 kr"/>
+      <CarDisplay carName="Volvo" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
+      <CarDisplay carName="Mercedes" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
+      <CarDisplay carName="Audi" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="550 kr" priceTotal="1650 kr"/>
+      <CarDisplay carName="BMW" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="700 kr" priceTotal="2100 kr"/>
+      <CarDisplay carName="Toyota" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="450 kr" priceTotal="1350 kr"/>
+      <CarDisplay carName="Ford" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
+      <CarDisplay carName="Nissan" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
     </RentalPage>
   );
 }

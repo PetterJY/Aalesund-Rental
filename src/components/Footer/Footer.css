@@ -10,6 +10,33 @@ footer {
   height: auto; /* Adjust height as needed */
 }
 
+@media screen and (max-width: 750px) {
+  footer {
+    flex-direction: column;
+  }
+
+  nav {
+    border-bottom: 1px solid #FFFCF2;
+  }
+
+}
+
+.menu {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  background-color: transparent; /* Set background to transparent */
+  color: inherit; /* Inherit text color from parent */
+  border: none; /* Remove any border */
+  padding: 0; /* Remove padding */
+  font-size: 1.5rem; /* Inherit font size from parent */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+
 .footer-item {
   display: flex;
   color: #FFFCF2;
@@ -22,10 +49,7 @@ footer {
   margin: 0; /* Removes default margin */
 }
 
-#contact, #links, #creators {
-  display: flex;
-  flex-direction: column;
-}
+
 
 footer a {
   position: relative;

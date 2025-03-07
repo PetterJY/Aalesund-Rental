@@ -36,11 +36,8 @@ export default function RentalPage(props) {
           </select>
         </label>
       </nav>
-
       <main className="main-body">
-        <main className="complete-section">
-          {props.children}
-        </main>
+        {props.children}
       </main>
     </div>
   );
