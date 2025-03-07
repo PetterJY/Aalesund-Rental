@@ -1,3 +1,4 @@
+import "../global.css";
 import "./CarDisplay.css";
 import carImage from "../../resources/images/car.png"; 
 import passengerImage from "../../resources/images/passenger.png";
@@ -6,16 +7,19 @@ const CarDisplay = (props) => {
   return (
     <article className="car-display">
       <section className="top-section">
-        <h2 className="car-name">{props.carName}</h2>
-        <article className="car-tag">{props.carTag}</article>
+        <section className="top-left-section">
+          <h2 className="car-name">{props.carName}</h2>
+          <aside className="passenger-tag">
+            <img id="passenger-image" src={passengerImage} alt="Passenger" />
+            <h2 className="passenger-count">{props.passengerCount}</h2>
+          </aside>
+        </section>
+        <section className="top-right-section">
+          <article className="car-tag">{props.carTag}</article>
+        </section>
       </section>
-      <aside className="passenger-tag">
-        <img id="passenger-image" src={passengerImage} alt="Passenger" />
-        <h2 class="passenger-count">{props.passengerCount}</h2>
-      </aside>
-      <figure class="car-image-wrapper">
-        <img id="car-image" src={carImage}></img>
-      </figure>
+
+      <img id="car-image" src={carImage}></img>
       <section class="bottom-section">
         <h2 class="rental-place">{props.rentalPlace}</h2>
         <section class="price-section">

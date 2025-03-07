@@ -1,3 +1,4 @@
+import "../global.css";
 import "./BookingPage.css";
 import carImage from "../../resources/images/car.png";
 import storageLogo from "../../resources/images/storage-logo.png";
@@ -53,11 +54,11 @@ const BookingPage = (props) => {
 						</div>
 					</div>
 				</section>
-				<div class="payment-details">
+				<footer class="payment-details">
 					<p>Renting costs:</p>
-					<p>{props.costPerDay}</p>
-					<h3>{props.totalCost}</h3>
-				</div>
+					<p>{props.costPerDay}kr/day</p>
+					<h3>Total:{props.totalCost}kr</h3>
+				</footer>
 			</div>
 		</main>
   )
