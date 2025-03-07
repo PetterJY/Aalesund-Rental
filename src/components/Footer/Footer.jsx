@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Footer.css';
 import caretDown from "../../resources/images/caret-down.png";
 
@@ -6,9 +6,9 @@ const Footer = () => {
   return (
     <footer>
 		<nav id="contact">
-			<div class="menu">
+			<div className="menu">
 				<p>Contact</p>
-				<img src={caretDown} alt="dropdown-menu-contact"/>
+				<DropdownMenu/>
 			</div>
 			<address>
 				<ul className="footer-item">
@@ -18,9 +18,9 @@ const Footer = () => {
 		</nav>
 
 			<nav id="links">
-				<div class="menu">
+				<div className="menu">
 					<p>Links</p>
-					<img src={caretDown} alt="dropdown-menu-links"/>
+					<DropdownMenu/>
 				</div>
 				<ul className="footer-item">
 					<li>
@@ -30,9 +30,9 @@ const Footer = () => {
 			</nav>
 
 		<nav id="creators">
-			<div class="menu">
+			<div className="menu">
 				<p>Creators</p>
-				<img src={caretDown} alt="dropdown-menu-creators"/>
+				<DropdownMenu/>
 			</div>
 			<ul className="footer-item">
 				<li>Mathias Løvnes</li>
@@ -43,5 +43,27 @@ const Footer = () => {
 	</footer>
   );
 };
+
+const DropdownMenu = () => {
+	const [isClicked, setIsClicked] = useState(false)
+
+	const handleDropDownMenuClick = () => {
+		setIsClicked(!isClicked)
+	}
+
+	return (
+		<img src={caretDown}
+				 className={`dropdown-icon ${isClicked ? 'clicked' : ''}`}
+				 onClick={handleDropDownMenuClick}
+				 alt="dropdown-menu-icon"/>
+	)
+}
+
+
+
+
+// const dropdown = () => {
+// 	const []
+// }
 
 export default Footer;
