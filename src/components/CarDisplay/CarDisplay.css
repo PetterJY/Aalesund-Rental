@@ -1,18 +1,10 @@
 .car-display {
-  width: 30vw;
-  max-height: 80%; 
+  width: 300px;
   border-radius: 15px;
   background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
   position: relative; 
   display: flex;
   flex-direction: column;
-  
-  margin-top: 2%;
-}
-
-.car-name {
-  font-size: 20px;
-  color: #FFFCF2;
 }
 
 .top-section {
@@ -26,12 +18,9 @@
   margin-left: 15px;
 }
 
-.top-right-section {
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: 10%;
-  margin-top: 5%;
+.car-name {
+  font-size: 20px;
+  color: #FFFCF2;
 }
 
 .passenger-tag {
@@ -54,9 +43,15 @@
 .passenger-count {
   color: #fffcf2;
   font-size: 20px;
-
-
   margin-left: 8px;
+}
+
+.top-right-section {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: 10%;
+  margin-top: 5%;
 }
 
 .car-tag {
@@ -103,6 +98,6 @@
 
 #car-image {
   width: 50px;
-  align-self: center; /* Ensures car image is centered */
+  align-self: center; 
   height: auto;
 }

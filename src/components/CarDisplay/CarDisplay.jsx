@@ -23,8 +23,8 @@ const CarDisplay = (props) => {
       <section class="bottom-section">
         <h2 class="rental-place">{props.rentalPlace}</h2>
         <section class="price-section">
-          <h2 id="price-day">{props.priceDay}</h2>
-          <h2 id="price-total">{props.priceTotal}</h2>
+          <h2 id="price-day">{props.priceDay}/dag</h2>
+          <h2 id="price-total">{props.priceTotal}/total</h2>
         </section>
       </section>
     </article> 
