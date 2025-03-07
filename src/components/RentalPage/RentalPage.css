@@ -23,12 +23,14 @@
 }
 
 .sort-button {
-  background-color: #ccc5b9;
+  background-color: #FFFCF2;
+  color: #252422;
   position: relative;
   width: auto;
   height: auto;
   margin-right: 10px;
-  border-radius: 10px;
+  border: none;
+  border-bottom: #252422 1px solid;
 }
 
 .top-section {
