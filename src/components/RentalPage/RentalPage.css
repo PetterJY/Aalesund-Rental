@@ -1,19 +1,16 @@
 .rental-page {
   background-color: #FFFCF2;
+  display: flex;
+  flex-direction: column;
 }
 
-.complete-section {
+.main-body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 5%;
-}
-
-.triple-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 25px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .sort-bar {
@@ -27,10 +24,10 @@
 .sort-button {
   background-color: #ccc5b9;
   position: relative;
-  width: 125px;
-  height: 25px;
+  width: auto;
+  height: auto;
   margin-right: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .top-section {

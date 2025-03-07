@@ -1,5 +1,5 @@
 .car-display {
-  width: 30vw;
+  width: 300px;
   border-radius: 15px;
   background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
 
@@ -100,6 +100,6 @@
 
 #car-image {
   width: 50px;
-  align-self: center; /* Ensures car image is centered */
+  align-self: center; 
   height: auto;
 }
