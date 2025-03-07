@@ -72,6 +72,27 @@
   width: 100%;
 }
 
+#register-forgot-wrapper {
+  display: flex;
+  flex-direction: column;
+  float: left;
+}
+
+#register-button, #forgot-password-button {
+  font-size: 20px;
+  border-radius: 15px;
+  background-color: transparent;
+  color: #252422;
+  border: none;
+  width:auto;
+  height: fit-content;
+}
+
+#register-button:hover, #forgot-password-button:hover {
+  text-decoration: underline;
+  color: #EB5E28; /* Darker green on hover */
+}
+
 #submit-button:hover {
   background-color: #eb5f28c9;
 }
@@ -82,6 +103,12 @@
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  border-bottom: gray solid 2px;
+}
+
+#email-field:focus, #password-field:focus {
+  background-color: #FFFCF2;
+  border-bottom: #EB5E28 solid 2px;
 }
 
 
