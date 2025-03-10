@@ -5,7 +5,7 @@ import passengerImage from "../../resources/images/passenger.png";
 
 const CarDisplay = (props) => {
   return (
-    <article className="car-display">
+    <button className="car-display">
       <section className="top-section">
         <section className="top-left-section">
           <h2 className="car-name">{props.carName}</h2>
@@ -27,7 +27,7 @@ const CarDisplay = (props) => {
           <h2 id="price-total">{props.priceTotal}/total</h2>
         </section>
       </section>
-    </article> 
+    </button> 
   )
 }
 

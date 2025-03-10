@@ -36,9 +36,11 @@ export default function RentalPage(props) {
           </select>
         </label>
       </nav>
-      <main className="main-body">
-        {props.children}
-      </main>
+      <section class="main-section">
+        <main className="main-body">
+          {props.children}
+        </main>
+      </section>
     </div>
   );
 };
