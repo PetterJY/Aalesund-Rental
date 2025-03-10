@@ -53,7 +53,7 @@ const DropdownMenu = () => {
 
 	return (
 		<img src={caretDown}
-				 className={`dropdown ${isExpanded ? 'clicked' : ''}`}
+				 className={`dropdown ${isExpanded ? 'expanded' : ''}`}
 				 onClick={handleDropDownMenuClick}
 				 alt="dropdown-menu-icon"/>
 	)

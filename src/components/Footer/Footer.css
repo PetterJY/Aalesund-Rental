@@ -1,8 +1,6 @@
 footer {
   display: flex;
   flex-direction: row;
-  align-items: flex-start; /* Align items to the start */
-  justify-content: space-between;
   background-color: #252422;
   color: #FFFCF2; /* Text color for visibility */
   padding: 5%; /* Adjusted padding */
@@ -13,13 +11,12 @@ footer {
 .menu {
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: 27.5vw;
   align-items: center;
   justify-content: space-between; /* Ensures space between elements */
   background-color: transparent;
   color: inherit;
   border: none;
-  padding: 0;
   font-size: 1.5rem;
   cursor: pointer;
   overflow: hidden;
@@ -28,13 +25,16 @@ footer {
 
 .dropdown {
   position: relative;
-  right: 10vw;
   transition: rotate 10s ease-in-out;
 }
 
 .dropdown.clicked {
   rotate: 180deg;
   transition: rotate 0.2s ease-in-out;
+}
+
+#creators, #contact, #links {
+  padding: 3vh;
 }
 
 
@@ -83,6 +83,14 @@ footer a:hover::after {
     flex-direction: column;
   }
 
+  .menu {
+    width: 100vw;
+  }
+
+  #creators, #contact, #links {
+    padding: 0 0 0.7rem;
+  }
+
   footer nav {
     position: relative;
     padding-bottom: 10px;
@@ -109,5 +117,15 @@ footer a:hover::after {
     width: 90vw; /* 90% of the viewport width */
     height: 1px;
     background-color: #FFFCF2;
+  }
+
+  .dropdown {
+    position: relative;
+    right: 10vw;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .dropdown.expanded {
+    transform: rotate(180deg); /* Rotate the caret when expanded */
   }
 }
