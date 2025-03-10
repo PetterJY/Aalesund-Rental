@@ -4,14 +4,25 @@
   flex-direction: column;
 }
 
+.main-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;      
+}
+
 .main-body {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 15px;
   margin-bottom: 20px;
+  max-width: 1230px;
 }
 
 .sort-bar {
@@ -43,4 +54,16 @@
   display: flex;
   flex-direction: column;
   margin-left: 15px;
+}
+
+@media screen and (max-width: 1240px) {
+  .main-body {
+    max-width: 815px;
+  }
+}
+
+@media screen and (max-width: 830px) {
+  .main-body {
+    max-width: 400px;
+  }
 }
