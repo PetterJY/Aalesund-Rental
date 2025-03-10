@@ -3,58 +3,77 @@ import './Footer.css';
 import caretDown from "../../resources/images/caret-down.png";
 
 const Footer = () => {
+
+	// State variables for each section
+	const [isContactExpanded, setIsContactExpanded] = useState(false);
+	const [isLinksExpanded, setIsLinksExpanded] = useState(false);
+	const [isCreatorsExpanded, setIsCreatorsExpanded] = useState(false);
+
+	// Handler functions for each section
+	const toggleContact = () => {
+		setIsContactExpanded(!isContactExpanded);
+	};
+
+	const toggleLinks = () => {
+		setIsLinksExpanded(!isLinksExpanded);
+	};
+
+	const toggleCreators = () => {
+		setIsCreatorsExpanded(!isCreatorsExpanded);
+	};
+
   return (
     <footer>
 		<nav id="contact">
 			<div className="menu">
 				<p>Contact</p>
-				<DropdownMenu/>
+				<DropdownMenu isExpanded={isContactExpanded} onClick={toggleContact}/>
 			</div>
-			<address>
-				<ul className="footer-item">
-					<li><a href="mailto:Ålesund@rental.com">Ålesund@rental.com</a></li>
-				</ul>
-			</address>
+			{isContactExpanded && (
+				<address>
+					<ul className="footer-item">
+						<li><a href="mailto:Ålesund@rental.com">Ålesund@rental.com</a></li>
+					</ul>
+				</address>
+			)}
 		</nav>
 
 			<nav id="links">
 				<div className="menu">
 					<p>Links</p>
-					<DropdownMenu/>
+					<DropdownMenu isExpanded={isLinksExpanded} onClick={toggleLinks}/>
 				</div>
-				<ul className="footer-item">
-					<li>
-						<a href="https://github.com/PetterJY/Aalesund-Rental">GitHub</a>
-					</li>
-				</ul>
+				{isLinksExpanded && (
+					<ul className="footer-item">
+						<li>
+							<a href="https://github.com/PetterJY/Aalesund-Rental">GitHub</a>
+						</li>
+					</ul>
+				)}
 			</nav>
 
 		<nav id="creators">
 			<div className="menu">
 				<p>Creators</p>
-				<DropdownMenu/>
+				<DropdownMenu isExpanded={isCreatorsExpanded} onClick={toggleCreators}/>
 			</div>
-			<ul className="footer-item">
-				<li>Mathias Løvnes</li>
-				<li>Marcus Skaue</li>
-				<li>Petter Ytterdahl</li>
-			</ul>
+			{isCreatorsExpanded && (
+				<ul className="footer-item">
+					<li>Mathias Løvnes</li>
+					<li>Marcus Skaue</li>
+					<li>Petter Ytterdahl</li>
+				</ul>
+			)}
 		</nav>
 	</footer>
   );
 };
 
-const DropdownMenu = () => {
-	const [isExpanded, setIsExpanded] = useState(false)
-
-	const handleDropDownMenuClick = () => {
-		setIsExpanded(!isExpanded)
-	}
-
+const DropdownMenu = ({isExpanded, onClick}) => {
 	return (
 		<img src={caretDown}
 				 className={`dropdown ${isExpanded ? 'expanded' : ''}`}
-				 onClick={handleDropDownMenuClick}
+				 onClick={onClick}
 				 alt="dropdown-menu-icon"/>
 	)
 }
