@@ -30,7 +30,7 @@ footer {
 
 .dropdown.clicked {
   rotate: 180deg;
-  transition: rotate 0.2s ease-in-out;
+  transition: rotate 0.15s ease-in-out;
 }
 
 #creators, #contact, #links {
@@ -78,6 +78,16 @@ footer a:hover::after {
   color: #CCC5B9;
 }
 
+.dropdown {
+  position: relative;
+  right: 10vw;
+  transition: transform 0.15s ease-in-out;
+}
+
+.dropdown.expanded {
+  transform: rotate(180deg); /* Rotate the caret when expanded */
+}
+
 @media screen and (max-width: 750px) {
   footer {
     flex-direction: column;
@@ -117,15 +127,5 @@ footer a:hover::after {
     width: 90vw; /* 90% of the viewport width */
     height: 1px;
     background-color: #FFFCF2;
-  }
-
-  .dropdown {
-    position: relative;
-    right: 10vw;
-    transition: transform 0.2s ease-in-out;
-  }
-
-  .dropdown.expanded {
-    transform: rotate(180deg); /* Rotate the caret when expanded */
   }
 }
