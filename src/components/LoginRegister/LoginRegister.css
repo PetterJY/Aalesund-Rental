@@ -39,26 +39,27 @@
   float: left;
 }
 
-#register-button, #forgot-password-button {
+.toggle-login-register-button, #forgot-password-button {
   font-size: 20px;
   border-radius: 15px;
   background-color: transparent;
   color: #252422;
   border: none;
-  width:auto;
+  width: auto;
   height: fit-content;
 }
 
-#register-button:hover, #forgot-password-button:hover {
+.toggle-login-register-button:hover, #forgot-password-button:hover {
   text-decoration: underline;
   color: #EB5E28; /* Darker green on hover */
+  background-color: transparent; /* Ensure no background color on hover */
 }
 
 #submit-button:hover {
   background-color: #eb5f28c9;
 }
 
-#email-field, #password-field {
+#email-field, #first-name-field, #last-name-field, #password-field, #confirm-password-field {
   background-color: #FFFCF2;
   width: 100%;
   padding: 12px 20px;
@@ -67,7 +68,25 @@
   border-bottom: gray solid 2px;
 }
 
-#email-field:focus, #password-field:focus {
+#email-field:focus, #first-name-field:focus, #last-name-field:focus, #password-field:focus, #confirm-password-field:focus {
   background-color: #FFFCF2;
   border-bottom: #EB5E28 solid 2px;
+}
+
+#title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#name-wrapper, #password-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
 }

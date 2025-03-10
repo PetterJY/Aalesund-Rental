@@ -23,6 +23,7 @@
   gap: 15px;
   margin-bottom: 20px;
   max-width: 1230px;
+  padding: 10px;
 }
 
 .sort-bar {
@@ -44,6 +45,11 @@
   border-bottom: #252422 1px solid;
 }
 
+.sort-button:hover {
+  border-bottom: #EB5E28 1px solid;
+  transition: 0.1s;
+}
+
 .top-section {
   display: flex;
   flex-direction: row;
@@ -56,14 +62,15 @@
   margin-left: 15px;
 }
 
-@media screen and (max-width: 1240px) {
+@media screen and (max-width: 1300px) {
   .main-body {
     max-width: 815px;
   }
 }
 
-@media screen and (max-width: 830px) {
+@media screen and (max-width: 850px) {
   .main-body {
-    max-width: 400px;
+    max-width: 430px;
+    justify-content: center
   }
 }
