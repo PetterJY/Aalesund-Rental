@@ -63,13 +63,13 @@ body {
   justify-content: center;
   justify-items: center;
   align-items: center; /* Center vertically */
+  min-width: 100px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: var(--center-container-width);
   height: 25vh;
   min-height: 250px;
-  min-width: 500px;
   background: #FFFCF2;
   box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
@@ -150,7 +150,6 @@ body {
 
 .date-time-picker-content {
   display: flex;
-  flex: 1;
   align-items: center;
   justify-content: space-between;
   position: relative; /* Needed for the absolute divider */
@@ -245,7 +244,7 @@ body {
   font-size: 1.2rem;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
   #styledContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two equal columns */
@@ -283,5 +282,64 @@ body {
     transform: none !important; /* Reset transform */
     text-align: left; /* Ensure text aligns to the left */
     width: 100%; /* Ensure the text container takes full width */
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+  #styledContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto;
+    justify-items: start;
+    column-gap: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+  }
+
+  .date-time-picker {
+    width: 100%;
+    position: static;
+    grid-column: span 2;
+    grid-row: span 3;
+    height: 75px; /* Adjusted height */
+    min-height: 100px; /* Ensure it doesn't collapse */
+    overflow: hidden;
+  }
+
+  .date-time-picker-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 0;
+  }
+
+  .divider {
+    height: 400%;
+    transform: rotate(90deg) translateY(0); /* Adjusted positioning */
+    background-color: black;
+  }
+
+  .date-picker-content, .time-picker-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 20px;
+    height: 50%;
+  }
+
+  .pickup-dropoff-text {
+    position: static;
+    justify-self: start;
+    transform: none !important;
+    text-align: left;
+  }
+
+  .calendar-image {
+    width: 25px; /* Adjust as needed */
+    height: auto;
   }
 }
