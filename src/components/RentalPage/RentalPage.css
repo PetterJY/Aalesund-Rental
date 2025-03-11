@@ -29,9 +29,9 @@
 .sort-bar {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-self: flex-start;
   padding: 10px;
-  margin-left: 25px;
+  align-self: flex-start;
 }
 
 .sort-button {
@@ -50,18 +50,30 @@
   transition: 0.1s;
 }
 
-.top-section {
-  display: flex;
-  flex-direction: row;
-  margin-top: 5px;
+.filter-button {
+  background-color: #FFFCF2;
+  color: #252422;
+  position: relative;
+  width: auto;
+  height: auto;
+  margin-right: 10px;
+  border: none;
+  border-bottom: #252422 1px solid;
+  border-radius: 0%;
 }
 
-.bottom-section {
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
+.filter-button:hover {
+  border-bottom: #EB5E28 1px solid;
+  transition: 0.1s;
+  background-color: #FFFCF2;
 }
 
+@media screen and (min-width:850px) {
+  .filter-button {
+  display: none;
+  }
+  
+}
 @media screen and (max-width: 1300px) {
   .main-body {
     max-width: 815px;
@@ -72,5 +84,16 @@
   .main-body {
     max-width: 430px;
     justify-content: center
+  }
+
+  .sort-bar {
+    justify-content: center;
+    justify-self: center;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+
+  .sort-button {
+    display: none;
   }
 }
