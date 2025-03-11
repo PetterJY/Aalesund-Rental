@@ -1,7 +1,5 @@
 import "../global.css";
 import './RentalPage.css';
-import React from "react";
-import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 import { FunnelSimple } from "@phosphor-icons/react";
 

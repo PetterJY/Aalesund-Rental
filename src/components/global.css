@@ -4,6 +4,10 @@
   font-family: 'Poppins', serif; 
 }
 
+*:hover {
+  transition: 0.1s ease-in-out;
+}
+
 h1, h2, h3 {
   font-family: 'Montserrat', serif; 
 }
