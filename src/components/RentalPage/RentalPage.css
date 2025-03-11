@@ -1,8 +1,8 @@
-
 .rental-page {
   background-color: #FFFCF2;
   display: flex;
   flex-direction: column;
+  position: relative; /* For absolute positioning of filter-panel */
 }
 
 .main-section {
@@ -12,7 +12,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 15px;
-  margin-bottom: 20px;      
+  margin-bottom: 20px;
 }
 
 .main-body {
@@ -63,6 +63,9 @@
   border-radius: 0%;
   justify-self: flex-start;
   align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .filter-button:hover {
@@ -73,7 +76,6 @@
 
 .filter-button svg {
   fill: #252422;
-  margin-right: 10px;
   margin-bottom: -2px;
 }
 
@@ -81,13 +83,40 @@
   fill: #EB5E28;
 }
 
-
-@media screen and (min-width:861px) {
-  .filter-button {
-  display: none;
-  }
-  
+/* Filter panel styles */
+.filter-panel {
+  display: none; /* Hidden by default */
 }
+
+.panel-sort-button {
+  background-color: white;
+  color: #252422;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  border: none;
+  border-bottom: #252422 1px solid;
+}
+
+.panel-sort-button:hover {
+  border-bottom: #EB5E28 1px solid;
+}
+
+.close-button {
+  background-color: #EB5E28;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 861px) {
+  .filter-button {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 1300px) {
   .main-body {
     max-width: 815px;
@@ -97,7 +126,7 @@
 @media screen and (max-width: 860px) {
   .main-body {
     max-width: 430px;
-    justify-content: center
+    justify-content: center;
   }
 
   .sort-bar {
@@ -111,4 +140,87 @@
   .sort-button {
     display: none;
   }
+
+  .filter-button {
+    width: 100%;
+    justify-content: center;
+  }
+  .sort-bar .dropdown-group {
+    display: none; /* Hide dropdowns on mobile */
+  }
+
+  .filter-panel {
+    display: block;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 65px);
+    background: white;
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  color: #252422;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  margin-right: 8px;
+}
+
+/* Adjustments for mobile filter panel */
+.filter-panel .filter-group {
+  margin: 10px 0;
+}
+
+/* Dropdown styles for desktop */
+.dropdown-group {
+  position: relative;
+  margin-right: 15px;
+}
+
+.dropdown-button {
+  background-color: #FFFCF2;
+  color: #252422;
+  border: none;
+  border-bottom: 1px solid #252422;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: auto;
+  border-radius: 0%;
+}
+
+.dropdown-button:hover {
+  border-bottom: 1px solid #EB5E28;
+  background-color: #FFFCF2;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #FFFCF2;
+  border: 1px solid #252422;
+  padding: 10px;
+  z-index: 20;
+  min-width: 150px;
+  max-height: 200px;
+  overflow-y: auto;
 }
