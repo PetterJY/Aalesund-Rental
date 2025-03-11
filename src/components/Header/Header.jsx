@@ -20,7 +20,9 @@ const Header = () => {
   
   return (
     <header className="top-header">
-      <img src={logo} id="logo-image" alt="Logo" />
+      <a href="http://localhost:3000/home" className="logoButton">
+        <img src={logo} id="logo-image" alt="Logo" />
+      </a>
       <nav className="nav-bar">
         <LoginButton showModal={showModal} closeModal={closeModal} isModalVisible={isModalVisible} defaultMode="login" />
         <button id="login-create" onClick={showModal}>
