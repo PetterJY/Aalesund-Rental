@@ -28,7 +28,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
               <ForgotPassword closeModal={closeModal} isModalVisible={isModalVisible} toggleMode={() => toggleMode('login')} />
             ) : (
               <>
-                <h2>Login</h2>
+                <h2 class="title">Login</h2>
                 <form>
                   <input id="email-field" type="text" placeholder="E-mail" required />
                   <input id="password-field" type="password" placeholder="Password" required />
