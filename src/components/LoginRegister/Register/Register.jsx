@@ -8,7 +8,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       {isModalVisible && (
         <div id="registerModal" className="modal" onMouseDown={closeModal}>
           <div className="modal-content" onMouseDown={(e) => e.stopPropagation()}>
-            <h2 id="title">Create Account</h2>
+            <h2 class="title">Create Account</h2>
             <form id="wrapper">
               <input id="email-field" type="text" placeholder="E-mail" required />
               <div id="name-wrapper">
