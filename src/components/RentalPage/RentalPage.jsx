@@ -1,6 +1,9 @@
 import "../global.css";
 import './RentalPage.css';
-import sortImage from "../../resources/images/sort.png";
+import React from "react";
+import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+import { FunnelSimple } from "@phosphor-icons/react";
 
 export default function RentalPage(props) {
   return (
@@ -40,7 +43,7 @@ export default function RentalPage(props) {
           <option value="7">7+</option>
         </select>
         <button class="filter-button">
-        <img src={sortImage} alt="" class="sortImage"/>Sort and filter
+        <FunnelSimple size={20} color="#252322" />Sort and filter
         </button>
       </nav>
         <main className="main-body">
@@ -51,3 +54,6 @@ export default function RentalPage(props) {
     </div>
   );
 };
+
+const root = createRoot(document.getElementById("root"));
+root.render(<RentalPage />);
