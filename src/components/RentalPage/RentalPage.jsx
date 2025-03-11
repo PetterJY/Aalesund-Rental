@@ -1,9 +1,12 @@
 import "../global.css";
 import './RentalPage.css';
+import sortImage from "../../resources/images/sort.png";
 
 export default function RentalPage(props) {
   return (
     <div className="rental-page">
+      <section class="main-section">
+        <div>
       <nav className="sort-bar">
         <select name="Sort" className="sort-button" label = "Sort">
           <option value="price">Price</option>
@@ -32,11 +35,14 @@ export default function RentalPage(props) {
           <option value="9">9</option>
           <option value="10">10</option>
         </select>
+        <button class="filter-button">
+        <img src={sortImage} alt="" class="sortImage"/>Sort and filter
+        </button>
       </nav>
-      <section class="main-section">
         <main className="main-body">
           {props.children}
         </main>
+        </div>
       </section>
     </div>
   );
