@@ -39,7 +39,7 @@
   float: left;
 }
 
-.toggle-login-register-button, #forgot-password-button {
+.toggle-login-register-button, .forgot-password-button {
   font-size: 20px;
   border-radius: 15px;
   background-color: transparent;
@@ -49,7 +49,7 @@
   height: fit-content;
 }
 
-.toggle-login-register-button:hover, #forgot-password-button:hover {
+.toggle-login-register-button:hover, .forgot-password-button:hover {
   text-decoration: underline;
   color: #EB5E28; /* Darker green on hover */
   background-color: transparent; /* Ensure no background color on hover */

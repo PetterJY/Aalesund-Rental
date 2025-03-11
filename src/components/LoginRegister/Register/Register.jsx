@@ -20,8 +20,8 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
                 <input id="confirm-password-field" type="password" placeholder="Confirm Password" required />
               </div>
               <button id="submit-button" type="submit">Register</button>
+              <button class="toggle-login-register-button" onClick={toggleMode}>Already have an account? Login</button>
             </form> 
-            <button class="toggle-login-register-button" onClick={toggleMode}>Already have an account? Login</button>
           </div>
         </div>
       )}

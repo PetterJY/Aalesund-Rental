@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import RegisterButton from '../RegisterButton/RegisterButton';
+import RegisterButton from '../Register/Register';
+import ForgotPassword from '../ForgotPassword/ForgotPassword'; // Import ForgotPassword component
 import '../../global.css';
 import '../LoginRegister.css';
 
-const LoginButton = ({ showModal, closeModal, isModalVisible, defaultMode }) => {
-  const [isRegisterMode, setIsRegisterMode] = useState(defaultMode === 'register');
+const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
+  const [mode, setMode] = useState(defaultMode);
 
   useEffect(() => {
     if (!isModalVisible) {
-      setIsRegisterMode(defaultMode === 'register');
+      setMode(defaultMode);
     }
   }, [isModalVisible, defaultMode]);
 
-  const toggleMode = () => {
-    setIsRegisterMode(!isRegisterMode);
+  const toggleMode = (newMode) => {
+    setMode(newMode);
   };
 
   return (
@@ -21,8 +22,10 @@ const LoginButton = ({ showModal, closeModal, isModalVisible, defaultMode }) => 
       {isModalVisible && (
         <div id="loginModal" className="modal" onMouseDown={closeModal}>
           <div className="modal-content" onMouseDown={(e) => e.stopPropagation()}>
-            {isRegisterMode ? (
-              <RegisterButton closeModal={closeModal} isModalVisible={isModalVisible} toggleMode={toggleMode} />
+            {mode === 'register' ? (
+              <RegisterButton closeModal={closeModal} isModalVisible={isModalVisible} toggleMode={() => toggleMode('login')} />
+            ) : mode === 'forgotPassword' ? (
+              <ForgotPassword closeModal={closeModal} isModalVisible={isModalVisible} toggleMode={() => toggleMode('login')} />
             ) : (
               <>
                 <h2>Login</h2>
@@ -32,8 +35,8 @@ const LoginButton = ({ showModal, closeModal, isModalVisible, defaultMode }) => 
                   <button id="submit-button" type="submit">Login</button>
                 </form>
                 <section id="register-forgot-wrapper">
-                  <button class="toggle-login-register-button" onClick={toggleMode}>Create account</button>
-                  <button id="forgot-password-button">Forgot password</button>
+                  <button className="toggle-login-register-button" onClick={() => toggleMode('register')}>Create account</button>
+                  <button className="forgot-password-button" onClick={() => toggleMode('forgotPassword')}>Forgot password</button>
                 </section>
               </>
             )}
