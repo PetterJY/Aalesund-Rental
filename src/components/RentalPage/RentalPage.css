@@ -33,6 +33,7 @@
   justify-self: flex-start;
   padding: 10px;
   align-self: flex-start;
+  width: 100%;
 }
 
 .sort-button {
@@ -48,7 +49,6 @@
 
 .sort-button:hover {
   border-bottom: #EB5E28 1px solid;
-  transition: 0.1s;
 }
 
 .filter-button {
@@ -61,31 +61,28 @@
   border: none;
   border-bottom: #252422 1px solid;
   border-radius: 0%;
-  
+  justify-self: flex-start;
+  align-self: flex-start;
 }
 
 .filter-button:hover {
   border-bottom: #EB5E28 1px solid;
-  transition: 0.1s;
   background-color: #FFFCF2;
   color: #EB5E28;
-  transition: 0.1s ease-in-out;
 }
 
 .filter-button svg {
   fill: #252422;
-  transition: 0.1s;
   margin-right: 10px;
   margin-bottom: -2px;
 }
 
 .filter-button:hover svg {
   fill: #EB5E28;
-  transition: 0.1s;
 }
 
 
-@media screen and (min-width:850px) {
+@media screen and (min-width:861px) {
   .filter-button {
   display: none;
   }
@@ -97,7 +94,7 @@
   }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 860px) {
   .main-body {
     max-width: 430px;
     justify-content: center
@@ -108,6 +105,7 @@
     justify-self: center;
     flex-wrap: wrap;
     flex-direction: column-reverse;
+    width: 85%;
   }
 
   .sort-button {
