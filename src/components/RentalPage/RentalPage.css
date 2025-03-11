@@ -1,3 +1,4 @@
+
 .rental-page {
   background-color: #FFFCF2;
   display: flex;
@@ -55,18 +56,34 @@
   color: #252422;
   position: relative;
   width: auto;
-  height: auto;
+  height: 55px;
   margin-right: 10px;
   border: none;
   border-bottom: #252422 1px solid;
   border-radius: 0%;
+  
 }
 
 .filter-button:hover {
   border-bottom: #EB5E28 1px solid;
   transition: 0.1s;
   background-color: #FFFCF2;
+  color: #EB5E28;
+  transition: 0.1s ease-in-out;
 }
+
+.filter-button svg {
+  fill: #252422;
+  transition: 0.1s;
+  margin-right: 10px;
+  margin-bottom: -2px;
+}
+
+.filter-button:hover svg {
+  fill: #EB5E28;
+  transition: 0.1s;
+}
+
 
 @media screen and (min-width:850px) {
   .filter-button {
