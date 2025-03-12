@@ -156,7 +156,7 @@
     left: 0;
     width: 100%;
     height: calc(100vh - 65px);
-    background: white;
+    background: #FFFCF2;
     z-index: 10;
     padding: 20px;
     box-sizing: border-box;
@@ -165,10 +165,12 @@
   
 }
 
+
 .checkbox-group {
   display: flex;
   flex-direction: column;
 }
+
 
 .checkbox-label {
   display: flex;
@@ -176,11 +178,49 @@
   margin: 5px 0;
   color: #252422;
   cursor: pointer;
+  accent-color: #FFFCF2;
 }
 
 .checkbox-label input {
   margin-right: 8px;
+  accent-color: #EB5E28;
 }
+
+/* hides the checkbox visually but remains accessible to screen readers */
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkbox-label span {
+  background-color: #FFFCF2;
+  color: #252422;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: #FFFCF2 1px solid;
+}
+
+.checkbox-label span:hover {
+border-bottom: #EB5E28 1px solid;
+background-color: #FFFCF2;
+color: #EB5E28;
+border-radius: 0%;
+}
+
+.checkbox-label input:checked + span {
+  background-color: #252422;
+  color:#FFFCF2;
+  border-radius: 5px;
+  border-bottom: #FFFCF2 1px solid;
+}
+
+.checkbox-label input:checked + span:hover {
+  background-color: #403D39;
+  color:#FFFCF2;
+  border-bottom: #FFFCF2 1px solid;
+  border-radius: 5px;
+}
+
 
 /* Adjustments for mobile filter panel */
 .filter-panel .filter-group {
@@ -224,3 +264,4 @@
   max-height: 200px;
   overflow-y: auto;
 }
+

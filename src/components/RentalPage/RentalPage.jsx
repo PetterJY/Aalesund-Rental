@@ -47,7 +47,7 @@ export default function RentalPage(props) {
             checked={filters[category].includes(value)}
             onChange={() => handleCheckboxChange(category, value)}
           />
-          {label}
+          <span>{label}</span>
         </label>
       ))}
     </div>

@@ -17,6 +17,13 @@
   cursor: pointer;
   padding: 0px;
   width: 200px;
+  border-radius: 0%;
+  border-bottom: #252422 1px solid;
+}
+
+#login-create:hover {
+  border-bottom: #FFFCF2 1px solid;
+  transition: 0.5s ease all ; 
 }
 
 .nav-bar {
