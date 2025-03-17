@@ -1,5 +1,7 @@
 import React from 'react';
+import { useState } from "react";
 import {Route, RouterProvider, createBrowserRouter, createRoutesFromElements, Navigate, Outlet} from "react-router-dom";
+import { Car } from '@phosphor-icons/react';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import BookingPage from './BookingPage/BookingPage';
@@ -8,7 +10,6 @@ import CarDisplay from './CarDisplay/CarDisplay';
 import CarSelected from './CarSelected/CarSelected';
 import Home from './Home/Home';
 import './App.css';
-import { Car } from '@phosphor-icons/react';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path={"/"} element={<Root />}>
@@ -43,24 +44,50 @@ function HomeExample() {
 }
 
 function RentalPageExample() {
+  const [selectedCarId, setSelectedCarId] = useState(null);
+
+  const cars = [
+    { id: "1", name: "Volvo", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
+    { id: "2", name: "Mercedes", tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr" },
+    { id: "3", name: "Audi", tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "550 kr", totalPrice: "1650 kr" },
+    { id: "4", name: "BMW", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "700 kr", totalPrice: "2100 kr" },
+    { id: "5", name: "Toyota", tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "450 kr", totalPrice: "1350 kr" },
+    { id: "6", name: "Ford", tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
+    { id: "7", name: "Nissan", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr" },
+  ];
 
   return (
     <RentalPage>
-      <CarDisplay carName="Volvo" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
-      <CarDisplay carName="Mercedes" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
-      <CarDisplay carName="Audi" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="550 kr" priceTotal="1650 kr"/>
-      <CarDisplay carName="BMW" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="700 kr" priceTotal="2100 kr"/>
-      <CarDisplay carName="Toyota" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="450 kr" priceTotal="1350 kr"/>
-      <CarDisplay carName="Ford" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
-      <CarDisplay carName="Nissan" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
-      
-      <CarSelected carName="Volvo" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
-      <CarSelected carName="Mercedes" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
-      <CarSelected carName="Audi" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="550 kr" priceTotal="1650 kr"/>
-      <CarSelected carName="BMW" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="700 kr" priceTotal="2100 kr"/>
-      <CarSelected carName="Toyota" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="450 kr" priceTotal="1350 kr"/>
-      <CarSelected carName="Ford" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
-      <CarSelected carName="Nissan" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
+      {/* Car Display Buttons */}
+      {cars.map(car => (
+        <CarDisplay 
+          key={`CD${car.id}`}
+          id={`CD${car.id}`}
+          carName={car.name}
+          carTag={car.tag}
+          passengerCount={car.passengers}
+          rentalPlace={car.place}
+          priceDay={car.dayPrice}
+          priceTotal={car.totalPrice}
+          onClick={() => setSelectedCarId(car.id)} // Set the selected car when clicked
+        />
+      ))}
+
+      {/* Car Selected Displays */}
+      {cars.map(car => (
+        <CarSelected 
+          key={`CS${car.id}`}
+          id={`CS${car.id}`}
+          className="menu"
+          carName={car.name}
+          carTag={car.tag}
+          passengerCount={car.passengers}
+          rentalPlace={car.place}
+          priceDay={car.dayPrice}
+          priceTotal={car.totalPrice}
+          style={{ display: selectedCarId === car.id ? 'block' : 'none' }}
+        />
+      ))}
     </RentalPage>
   );
 }
