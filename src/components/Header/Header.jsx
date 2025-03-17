@@ -8,6 +8,12 @@ import { User, PencilSimple} from "@phosphor-icons/react";
 const Header = ({page}) => {
   const showMenu = page === "rental";
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
+
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -32,9 +38,17 @@ const Header = ({page}) => {
               19. March | 12.30 - 05. April | 08.30
             </p>
           </div>
-          <button className="edit-button">
-            <PencilSimple size={32} className="edit-icon"/>
+          <button id="showMenuButton" onClick={toggleMenu}>
+            <PencilSimple size={30} className="edit-icon"/>
           </button>
+        </div>
+      )}
+
+      {isMenuOpen && (
+        <div className="date-time-popup-menu">
+          <div className="popup-pickup">Edit dates</div>
+          <div className="popup-dropOff">Change location</div>
+          {/* Add more menu items as needed */}
         </div>
       )}
 
