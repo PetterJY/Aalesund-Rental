@@ -5,8 +5,10 @@ import Footer from './Footer/Footer';
 import BookingPage from './BookingPage/BookingPage';
 import RentalPage from './RentalPage/RentalPage';
 import CarDisplay from './CarDisplay/CarDisplay';
+import CarSelected from './CarSelected/CarSelected';
 import Home from './Home/Home';
 import './App.css';
+import { Car } from '@phosphor-icons/react';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path={"/"} element={<Root />}>
@@ -41,6 +43,7 @@ function HomeExample() {
 }
 
 function RentalPageExample() {
+
   return (
     <RentalPage>
       <CarDisplay carName="Volvo" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
@@ -50,6 +53,14 @@ function RentalPageExample() {
       <CarDisplay carName="Toyota" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="450 kr" priceTotal="1350 kr"/>
       <CarDisplay carName="Ford" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
       <CarDisplay carName="Nissan" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
+      
+      <CarSelected carName="Volvo" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
+      <CarSelected carName="Mercedes" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
+      <CarSelected carName="Audi" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="550 kr" priceTotal="1650 kr"/>
+      <CarSelected carName="BMW" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="700 kr" priceTotal="2100 kr"/>
+      <CarSelected carName="Toyota" carTag="Diesel" passengerCount="4" rentalPlace="Ålesund" priceDay="450 kr" priceTotal="1350 kr"/>
+      <CarSelected carName="Ford" carTag="Gasoline" passengerCount="4" rentalPlace="Ålesund" priceDay="500 kr" priceTotal="1500 kr"/>
+      <CarSelected carName="Nissan" carTag="Electric" passengerCount="4" rentalPlace="Ålesund" priceDay="600 kr" priceTotal="1800 kr"/>
     </RentalPage>
   );
 }
