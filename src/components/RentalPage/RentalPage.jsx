@@ -6,10 +6,10 @@ import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
 export default function RentalPage(props) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState({
-    sort: [],
+    sort: "",
     carType: [],
     transmission: [],
-    passengers: []
+    passengers: ""
   });
   const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
 
@@ -38,6 +38,13 @@ export default function RentalPage(props) {
     });
   };
 
+  const handleRadioChange = (category, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [category]: value // Set the single selected value
+    }));
+  };
+
   const renderCheckboxes = (category, options) => (
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
@@ -53,6 +60,22 @@ export default function RentalPage(props) {
     </div>
   );
 
+  const renderRadioButtons = (category, options) => (
+    <div className="checkbox-group">
+      {options.map(({ value, label }) => (
+        <label key={value} className="checkbox-label">
+          <input
+            type="radio"
+            name={category}
+            checked={filters[category] === value}
+            onChange={() => handleRadioChange(category, value)}
+          />
+          <span>{label}</span>
+        </label>
+      ))}
+    </div>
+  );
+  
   const renderDropdown = (category, title, options) => (
     <div className="dropdown-group">
       <button
@@ -63,11 +86,14 @@ export default function RentalPage(props) {
       </button>
       {openDropdown === category && (
         <div className="dropdown-content">
-          {renderCheckboxes(category, options)}
+          {category === "sort" || category === "passengers"
+            ? renderRadioButtons(category, options)
+            : renderCheckboxes(category, options)}
         </div>
       )}
     </div>
   );
+
 
   const filterOptions = {
     sort: [
@@ -119,7 +145,7 @@ export default function RentalPage(props) {
               <h2>Sort and Filter</h2>
               <div className="filter-group">
                 <h3>Sort</h3>
-                {renderCheckboxes("sort", filterOptions.sort)}
+                {renderRadioButtons("sort", filterOptions.sort)}
               </div>
               <div className="filter-group">
                 <h3>Car Type</h3>
@@ -131,7 +157,7 @@ export default function RentalPage(props) {
               </div>
               <div className="filter-group">
                 <h3>Passengers</h3>
-                {renderCheckboxes("passengers", filterOptions.passengers)}
+                {renderRadioButtons("passengers", filterOptions.passengers)}
               </div>
               <button className="close-button" onClick={toggleFilter}>Close</button>
             </div>
