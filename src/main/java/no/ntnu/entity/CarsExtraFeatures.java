@@ -1,22 +1,20 @@
 package no.ntnu.entity;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class CarsExtraFeatures {
   @EmbeddedId
-  private CarsExtraFeaturesId id;
+  private CarsExtraFeaturesId id = new CarsExtraFeaturesId();
 
   @ManyToOne
-  @JoinColumn(name = "car_id", insertable = false, updatable = false)
+  @MapsId("carId") // Links carId from CarsExtraFeaturesId
+  @JoinColumn(name = "car_id")
   private Cars car;
 
   @ManyToOne
-  @JoinColumn(name = "extra_feature_id", insertable = false, updatable = false)
+  @MapsId("extraFeatureId") // Links extraFeatureId from CarsExtraFeaturesId
+  @JoinColumn(name = "extra_feature_id")
   private ExtraFeatures extraFeature;
 
   public CarsExtraFeaturesId getId() {
@@ -33,6 +31,7 @@ public class CarsExtraFeatures {
 
   public void setCar(Cars car) {
     this.car = car;
+    this.id.setCarId(car.getId()); // Sync ID
   }
 
   public ExtraFeatures getExtraFeature() {
@@ -41,6 +40,7 @@ public class CarsExtraFeatures {
 
   public void setExtraFeature(ExtraFeatures extraFeature) {
     this.extraFeature = extraFeature;
+    this.id.setExtraFeatureId(extraFeature.getId()); // Sync ID
   }
 }
 
@@ -69,17 +69,12 @@ class CarsExtraFeaturesId implements java.io.Serializable {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-
     CarsExtraFeaturesId that = (CarsExtraFeaturesId) o;
-
-    if (carId != that.carId) return false;
-    return extraFeatureId == that.extraFeatureId;
+    return carId == that.carId && extraFeatureId == that.extraFeatureId;
   }
 
   @Override
   public int hashCode() {
-    int result = carId;
-    result = 31 * result + extraFeatureId;
-    return result;
+    return 31 * carId + extraFeatureId;
   }
 }

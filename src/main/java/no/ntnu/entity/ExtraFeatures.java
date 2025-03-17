@@ -23,36 +23,36 @@ public class ExtraFeatures {
 
   @ManyToMany(mappedBy = "extraFeatures")
   private Set<Cars> cars;
-
-  public int getId() {
-    return id;
-  }
-
+  
   public void setId(int id) {
     this.id = id;
   }
-
-  public String getName() {
-    return name;
-  }
-
+  
   public void setName(String name) {
     this.name = name;
+  }
+  
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setCars(Set<Cars> cars) {
+    this.cars = cars;
+  }
+  
+  public int getId() {
+    return id;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public String getName() {
+    return name;
   }
-
+  
   public Set<Cars> getCars() {
     return cars;
-  }
-
-  public void setCars(Set<Cars> cars) {
-    this.cars = cars;
   }
 }

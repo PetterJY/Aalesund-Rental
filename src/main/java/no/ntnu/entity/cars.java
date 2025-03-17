@@ -66,4 +66,8 @@ public class Cars {
   public enum EnergySource {
     GAS, DIESEL, HYBRID, ELECTRIC
   }
+
+  public int getId() {
+    return id;
+  }
 }

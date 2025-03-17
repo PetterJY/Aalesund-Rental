@@ -17,28 +17,28 @@ public class Admin {
   @OneToOne
   @JoinColumn(name = "id", referencedColumnName = "id")
   private Accounts account;
-
-  public Long getId() {
-    return id;
-  }
-
+  
   public void setId(Long id) {
     this.id = id;
+  }
+  
+  public void setName(String name) {
+    this.name = name;
+  }
+  
+  public void setAccount(Accounts account) {
+    this.account = account;
+  }
+  
+  public Long getId() {
+    return id;
   }
 
   public String getName() {
     return name;
   }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
+  
   public Accounts getAccount() {
     return account;
-  }
-
-  public void setAccount(Accounts account) {
-    this.account = account;
   }
 }
