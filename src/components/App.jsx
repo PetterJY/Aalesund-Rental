@@ -1,5 +1,13 @@
 import React from 'react';
-import {Route, RouterProvider, createBrowserRouter, createRoutesFromElements, Navigate, Outlet} from "react-router-dom";
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Outlet,
+  useLocation
+} from "react-router-dom";
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import BookingPage from './BookingPage/BookingPage';
@@ -25,9 +33,20 @@ function App() {
 }
 
 function Root() {
+  const location = useLocation();
+
+  let currentPage = "";
+  if (location.pathname === "/home") {
+    currentPage = "home";
+  } else if (location.pathname === "/rental") {
+    currentPage = "rental";
+  } else if (location.pathname === "/booking") {
+    currentPage = "booking";
+  }
+
   return (
     <div className="App">
-      <Header />
+      <Header page={currentPage}/>
       <Outlet />
       <Footer />
     </div>
