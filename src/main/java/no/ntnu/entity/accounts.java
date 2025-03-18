@@ -29,11 +29,11 @@ public class Accounts {
   public String getRole() {
     return role;
   }
-
+  
   public void setRole(String role) {
     this.role = role;
   }
-
+  
   public String getPassword() {
     return password;
   }

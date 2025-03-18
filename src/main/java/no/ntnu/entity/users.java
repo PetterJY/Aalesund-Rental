@@ -21,6 +21,9 @@ public class Users {
   private String lastName;
 
   @Column(nullable = false)
+  private String email; 
+
+  @Column(nullable = false)
   private LocalDateTime createdAt;
 
   public Long getId() {
@@ -53,5 +56,13 @@ public class Users {
 
   public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 }
