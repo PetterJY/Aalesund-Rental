@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect, useRef } from 'react';
 import {Route, RouterProvider, createBrowserRouter, createRoutesFromElements, Navigate, Outlet} from "react-router-dom";
 import { Car } from '@phosphor-icons/react';
 import Header from './Header/Header';
@@ -64,6 +64,39 @@ function RentalPageExample() {
     });
   };
 
+  const carDisplays = document.querySelectorAll('.car-display');
+  const rentalPage = document.querySelector('.rental-page');
+  
+  function getCarsPerRow() {
+    const carDisplay = carDisplays[0];
+    const carDisplayStyles = window.getComputedStyle(carDisplay);
+    const carDisplayWidth = carDisplay.offsetWidth + parseInt(carDisplayStyles.marginLeft) + parseInt(carDisplayStyles.marginRight);
+    const rentalPageStyles = window.getComputedStyle(rentalPage);
+    const rentalPageWidth = rentalPage.offsetWidth - parseInt(rentalPageStyles.paddingLeft) - parseInt(rentalPageStyles.paddingRight);
+    const carsPerRow = Math.floor(rentalPageWidth / carDisplayWidth);
+    return carsPerRow;
+  }
+
+  carDisplays.forEach(carDisplay => {
+    carDisplay.addEventListener('click', () => {
+    const carId = cars.id;
+    const carSelected = document.getElementById(`CS${carId}`);
+    const carsPerRow = getCarsPerRow();
+    const carDisplayIndex = Array.from(carDisplay.parentNode.children).indexOf(carDisplay);
+    const rowEndIndex = Math.ceil((carDisplayIndex + 1) / carsPerRow) * carsPerRow - 1;
+
+    document.querySelectorAll('.car-selected').forEach(carSelected => {
+      carSelected.classList.remove('active');
+      rentalPage.appendChild(carSelected);
+    });
+
+    const insertAfter = carDisplays[Math.min(rowEndIndex, carDisplays.length - 1)];
+    insertAfter.insertAdjacentElement('afterend', carSelected);
+  
+    carSelected.classList.toggle('active');
+    });
+  });
+
   return (
     <RentalPage>
       {/* Car Display Buttons */}
@@ -83,21 +116,27 @@ function RentalPageExample() {
         />
       ))}
 
+      
+
       {/* Car Selected Displays */}
-      {cars.map(car => (
-        <CarSelected 
-          key={`CS${car.id}`}
-          id={`CS${car.id}`}
-          className="menu"
-          carName={car.name}
-          carTag={car.tag}
-          passengerCount={car.passengers}
-          rentalPlace={car.place}
-          priceDay={car.dayPrice}
-          priceTotal={car.totalPrice}
-          style={{ display: selectedCarId === car.id ? 'block' : 'none' }}
-        />
-      ))}
+      {cars.map(car => {
+  return (
+    <CarSelected 
+      key={`CS${car.id}`}
+      id={`CS${car.id}`}
+      className="menu"
+      carName={car.name}
+      carTag={car.tag}
+      passengerCount={car.passengers}
+      rentalPlace={car.place}
+      priceDay={car.dayPrice}
+      priceTotal={car.totalPrice}
+      style={{ 
+        display: selectedCarId === car.id ? 'inline-block' : 'none',
+      }}
+    />
+  );
+})}
     </RentalPage>
   );
 }

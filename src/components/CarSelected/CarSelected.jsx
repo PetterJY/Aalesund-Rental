@@ -3,7 +3,7 @@ import './CarSelected.css';
 
 const CarSelected = (props) => {
   return (
-    <div className="car-selected">
+    <div className="car-selected" style={props.style}>
       <h2>{props.carName}</h2>
       <h3>Passenger count: {props.passengerCount}</h3>
       <h3>Car type: {props.carTag}</h3>
