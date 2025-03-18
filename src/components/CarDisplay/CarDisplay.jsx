@@ -5,7 +5,7 @@ import passengerImage from "../../resources/images/passenger.png";
 
 const CarDisplay = (props) => {
   return (
-    <button className="car-display">
+    <button className="car-display" onClick={props.onClick}>
       <section className="top-section">
         <section className="top-left-section">
           <h2 className="car-name">{props.carName}</h2>

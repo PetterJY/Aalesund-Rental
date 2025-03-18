@@ -46,6 +46,7 @@ function HomeExample() {
 function RentalPageExample() {
   const [selectedCarId, setSelectedCarId] = useState(null);
 
+
   const cars = [
     { id: "1", name: "Volvo", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
     { id: "2", name: "Mercedes", tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr" },
@@ -55,6 +56,14 @@ function RentalPageExample() {
     { id: "6", name: "Ford", tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
     { id: "7", name: "Nissan", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr" },
   ];
+
+  const handleCarClick = (carId) => {
+    console.log("ID of selected car:", carId); // Debug: Confirm this runs
+    setSelectedCarId(prevId => {
+      const newId = prevId === carId ? null : carId;
+      return newId;
+    });
+  };
 
   return (
     <RentalPage>
@@ -69,7 +78,9 @@ function RentalPageExample() {
           rentalPlace={car.place}
           priceDay={car.dayPrice}
           priceTotal={car.totalPrice}
-          onClick={() => setSelectedCarId(car.id)} // Set the selected car when clicked
+          onClick={() => {
+            handleCarClick(car.id);
+          }} // Set the selected car when clicked
         />
       ))}
 
