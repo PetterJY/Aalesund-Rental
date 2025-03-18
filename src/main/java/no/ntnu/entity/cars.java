@@ -70,4 +70,104 @@ public class Cars {
   public int getId() {
     return id;
   }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public Providers getProvider() {
+    return provider;
+  }
+
+  public void setProvider(Providers provider) {
+    this.provider = provider;
+  }
+
+  public String getPlateNumber() {
+    return plateNumber;
+  }
+
+  public void setPlateNumber(String plateNumber) {
+    this.plateNumber = plateNumber;
+  }
+
+  public String getCarBrand() {
+    return carBrand;
+  }
+
+  public void setCarBrand(String carBrand) {
+    this.carBrand = carBrand;
+  }
+
+  public String getModelName() {
+    return modelName;
+  }
+
+  public void setModelName(String modelName) {
+    this.modelName = modelName;
+  }
+
+  public String getCarType() {
+    return carType;
+  }
+
+  public void setCarType(String carType) {
+    this.carType = carType;
+  }
+
+  public int getPricePerDay() {
+    return pricePerDay;
+  }
+
+  public void setPricePerDay(int pricePerDay) {
+    this.pricePerDay = pricePerDay;
+  }
+
+  public int getProductionYear() {
+    return productionYear;
+  }
+
+  public void setProductionYear(int productionYear) {
+    this.productionYear = productionYear;
+  }
+
+  public byte getPassengers() {
+    return passengers;
+  }
+
+  public void setPassengers(byte passengers) {
+    this.passengers = passengers;
+  }
+
+  public boolean isAutomatic() {
+    return automatic;
+  }
+
+  public void setAutomatic(boolean automatic) {
+    this.automatic = automatic;
+  }
+
+  public EnergySource getEnergySource() {
+    return energySource;
+  }
+
+  public void setEnergySource(EnergySource energySource) {
+    this.energySource = energySource;
+  }
+
+  public boolean isAvailable() {
+    return available;
+  }
+
+  public void setAvailable(boolean available) {
+    this.available = available;
+  }
+
+  public Set<ExtraFeatures> getExtraFeatures() {
+    return extraFeatures;
+  }
+
+  public void setExtraFeatures(Set<ExtraFeatures> extraFeatures) {
+    this.extraFeatures = extraFeatures;
+  }
 }

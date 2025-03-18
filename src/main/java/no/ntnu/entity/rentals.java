@@ -52,4 +52,84 @@ public class Rentals {
   public enum Status {
     PENDING, ACTIVE, COMPLETED, CANCELED
   }
+
+  public Long getRentalId() {
+    return rentalId;
+  }
+
+  public void setRentalId(Long rentalId) {
+    this.rentalId = rentalId;
+  }
+
+  public Accounts getRenter() {
+    return renter;
+  }
+
+  public void setRenter(Accounts renter) {
+    this.renter = renter;
+  }
+
+  public Providers getProvider() {
+    return provider;
+  }
+
+  public void setProvider(Providers provider) {
+    this.provider = provider;
+  }
+
+  public Cars getCar() {
+    return car;
+  }
+
+  public void setCar(Cars car) {
+    this.car = car;
+  }
+
+  public LocalDateTime getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
+  }
+
+  public LocalDateTime getEndDate() {
+    return endDate;
+  }
+
+  public void setEndDate(LocalDateTime endDate) {
+    this.endDate = endDate;
+  }
+
+  public String getPickupLocation() {
+    return pickupLocation;
+  }
+
+  public void setPickupLocation(String pickupLocation) {
+    this.pickupLocation = pickupLocation;
+  }
+
+  public String getDropoffLocation() {
+    return dropoffLocation;
+  }
+
+  public void setDropoffLocation(String dropoffLocation) {
+    this.dropoffLocation = dropoffLocation;
+  }
+
+  public int getTotalCost() {
+    return totalCost;
+  }
+
+  public void setTotalCost(int totalCost) {
+    this.totalCost = totalCost;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
 }
