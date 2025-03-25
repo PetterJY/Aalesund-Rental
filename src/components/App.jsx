@@ -8,6 +8,8 @@ import BookingPage from './BookingPage/BookingPage';
 import RentalPage from './RentalPage/RentalPage';
 import CarDisplay from './CarDisplay/CarDisplay';
 import CarSelected from './CarSelected/CarSelected';
+import Account from './Account/Account/Account';
+import Bookings from './Account/Bookings/Bookings';
 import Home from './Home/Home';
 import './App.css';
 
@@ -17,6 +19,8 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path={"home"} element={<HomeExample />} />
     <Route path={"rental"} element={<RentalPageExample />} />
     <Route path={"booking"} element={<BookingPageExample />} />
+    <Route path={"account/account"} element={<AccountExample />} />
+    <Route path={"account/bookings"} element={<BookingsExample />} />
   </Route>
 ))
 
@@ -39,6 +43,18 @@ function Root() {
 function HomeExample() {
   return (
     <Home pickUpDate="2021-10-10" pickUpTime="12:00" dropOffDate="2021-10-15" dropOffTime="12:00"/>
+  );
+}
+
+function AccountExample() {
+  return (
+    <Account />
+  );
+}
+
+function BookingsExample() {
+  return (
+    <Bookings />
   );
 }
 
