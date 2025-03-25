@@ -27,11 +27,11 @@ const Home = (props) => {
 
   return (
     <main id="content">
-      <section id="styledContainer">
+      <div id="styledContainer">
         {pickupSection}
         {dropoffSection}
         {showCarsSection}
-      </section>
+      </div>
     </main>
   );
 };
