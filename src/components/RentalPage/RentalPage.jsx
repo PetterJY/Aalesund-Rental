@@ -129,10 +129,7 @@ export default function RentalPage(props) {
 
   const handleCarClick = (carId) => {
     console.log("ID of selected car:", carId); 
-    setSelectedCarId(prevId => {
-      const newId = prevId === carId ? null : carId;
-      return newId;
-    });
+    setSelectedCarId((prevId) => (prevId === carId ? null : carId));
   };
 
   return (
@@ -188,7 +185,7 @@ export default function RentalPage(props) {
               if (child.type.name === "CarSelected") {
                 return React.cloneElement(child, {
                   style: {
-                    display: selectedCarId === child.props.id ? 'inline-block' : 'none', 
+                    display: selectedCarId === child.props.id ? 'inline-block' : 'none',
                   },
                 });
               }
