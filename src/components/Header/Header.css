@@ -174,3 +174,116 @@ p {
   cursor: pointer; /* Optional: Makes it clear it's clickable */
 }
 
+
+/* Ensure the popup appears above other elements */
+.date-picker-popper {
+  z-index: 1000;
+}
+
+/* Style the main date picker popup container */
+.date-picker-popper .react-datepicker {
+  background: #ffffff; /* White background */
+  border: 2px solid #000000; /* Thin black border */
+  border-radius: 10px; /* Rounded corners */
+  display: flex; /* Display months side by side */
+  gap: 20px; /* Space between months */
+  padding: 10px;
+  font-family: "Arial", sans-serif; /* Clean sans-serif font */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Style each month container */
+.date-picker-popper .react-datepicker__month-container {
+  width: 350px; /* Fixed width for each month */
+  padding: 10px;
+}
+
+/* Style the month header */
+.date-picker-popper .react-datepicker__header {
+  background: none; /* No background */
+  border-bottom: none; /* Remove default border */
+  padding: 0 0 10px 0; /* Bottom padding for spacing */
+}
+
+/* Style the month and year text */
+.date-picker-popper .react-datepicker__current-month {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000; /* Black text */
+  text-transform: uppercase; /* Uppercase like "MARS 2025" */
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* Style the day names (MA, TI, ON, TO, FR, LØ, SØ) */
+.date-picker-popper .react-datepicker__day-name {
+  color: #999999; /* Light gray for day names */
+  width: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 2px;
+  font-weight: normal;
+  text-transform: uppercase; /* Uppercase for consistency */
+}
+
+/* Style the days */
+.date-picker-popper .react-datepicker__day {
+  color: #000000; /* Black text for active dates */
+  width: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 2px;
+  cursor: pointer;
+  border: none; /* No borders between cells */
+  background: none; /* No background by default */
+}
+
+/* Style days outside the current month */
+.date-picker-popper .react-datepicker__day--outside-month {
+  color: #999999; /* Light gray for out-of-month dates */
+}
+
+/* Style the selected date range (March 26th to March 30th) */
+.date-picker-popper .react-datepicker__day--in-range {
+  background-color: #000000; /* Black background */
+  color: #ffffff; /* White text */
+  border-radius: 0; /* Flat edges for the range */
+}
+
+/* Add rounded corners to the start and end of the range */
+.date-picker-popper .react-datepicker__day--range-start {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.date-picker-popper .react-datepicker__day--range-end {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+/* Style the selected day within the range */
+.date-picker-popper .react-datepicker__day--selected {
+  background-color: #000000; /* Black background */
+  color: #ffffff; /* White text */
+  border-radius: 50%; /* Circular shape */
+}
+
+/* Style the navigation arrows */
+.date-picker-popper .react-datepicker__navigation {
+  top: 10px;
+  line-height: 30px;
+}
+
+.date-picker-popper .react-datepicker__navigation-icon::before {
+  border-color: #000000; /* Black arrows */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1000px) {
+  .date-picker-popper .react-datepicker__month-container {
+    width: 180px; /* Smaller width for smaller screens */
+  }
+  .date-picker-popper .react-datepicker {
+    gap: 10px; /* Reduced spacing */
+  }
+}
