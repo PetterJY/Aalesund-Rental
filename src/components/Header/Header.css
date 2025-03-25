@@ -278,6 +278,17 @@ p {
   border-color: #000000; /* Black arrows */
 }
 
+.date-picker-popper .react-datepicker__navigation:hover {
+  transform: scale(1.125); /* Increase size by 20% on hover (from your previous request) */
+  border-color: black !important;
+  color: black;
+  background-color: white; /* Light beige background on hover */
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: #000000;
+}
+
 /* Responsive adjustments */
 @media screen and (max-width: 1000px) {
   .date-picker-popper .react-datepicker__month-container {
