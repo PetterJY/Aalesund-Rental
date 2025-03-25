@@ -74,7 +74,7 @@ main {
 }
 
 #car-image {
-  min-width: 80%;
+  min-width: 70%;
   min-height: auto;
   object-fit: contain;
   display: block;
