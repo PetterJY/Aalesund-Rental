@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
 
 \title{Design Guideline}
 \author{Authors: }
@@ -10,58 +11,106 @@
 \maketitle
 
 \newpage
-\section{Consept phase}
+\section{Concept phase}
 In the concept phase, before writing code, you should decide the general rules and direction:
 \begin{enumerate}
-    \item Theme: how serious or playful the design should be
+    \item Theme: The design should be serious, since it's a car rental rental company, which should show professionalism.
     \item Color scheme:
     \begin{itemize}
-        \item Does the company have a color scheme?
-        \item Which colors are suggested by the theme of the site?
-        \item Pick the main color
-        \item Pick an accent color (optional)
+        \item The color theme of the company is Orange and Gray.
     \end{itemize}
     \item Hierarchy and layout:
     \begin{itemize}
         \item What is the most important message/product on the page?
+        \begin{itemize}
+            \item The most important product are the cars that are being displayed.
+        \end{itemize}
         \item What is the order of importance for the different elements?
+        \begin{enumerate}
+            \item Availability
+            \item Price
+            \item Type
+            \item Other details.
+        \end{enumerate}
         \item What sections will there be on the page?
+        \begin{itemize}
+            \item Rentalpage
+            \item Bookingpage
+            \item Homepage.
+        \end{itemize}
         \item What layout(s) will you use for the sections?
+        \begin{itemize}
+            \item We have a nav-bar in the header. Which consist of logo, time-picker and login button.
+            \item In the hero section we have the date-time-picker for pickup and dropoff with a 'show cars' call to action button.
+            \item The booking page's hero section consists of the avilable cars.
+            \item In the footer we have contacts and social network.
+        \end{itemize}
     \end{itemize}
     \item Images:
     \begin{itemize}
         \item Gather the available images
         \item Will there be text on images or aside images?
+        \begin{itemize}
+            \item There will be text on the side of the images.
+        \end{itemize}
+        
+        There will be information on the images. 
         \item Will we use clear images or a color-overlay?
+        \begin{itemize}
+            \item Depends on what image it is, and where it will be used.
+        \end{itemize}
         \item Will there be blur for images?
+        \begin{itemize}
+            \item Depends on what image it is, and where it will be used.
+        \end{itemize}
     \end{itemize}
     \item Icons:
     \begin{itemize}
         \item Will we use icons and for what?
+        \begin{itemize}
+            \item Yes, to indicate certain actions, which are mostly universal in design, to improve user interaction.
+        \end{itemize}
         \item Colored or black-and-white/greyscale icons?
+        \begin{itemize}
+            \item Not colored, only black/white/greyscaled.
+        \end{itemize}
     \end{itemize}
     \item Typography:
     \begin{itemize}
         \item Should it by a Serif or Sans-Serif font?
+        \begin{itemize}
+            \item Sans-Serif
+        \end{itemize}
         \item Bold or thin font?
+        \begin{itemize}
+            \item Thin on some, bold on some. It depends on the importance of each text-section.
+        \end{itemize}
         \item Rounded or sharp edges?
+        \begin{itemize}
+            \item We use mostly sharp edges.
+        \end{itemize}
     \end{itemize}
     \item Border rounding:
     \begin{itemize}
         \item How rounded should be the edges, according to the theme?
+        \begin{itemize}
+            \item 15 degrees
+        \end{itemize}
     \end{itemize}
         \item Shadows:
     \begin{itemize}
         \item How much shadow will we use in general, according to the theme?
+        \begin{itemize}
+            \item We use shadows in most elements, according to theme.
+        \end{itemize}
     \end{itemize}
 \end{enumerate}
 
-
-\newpage
 \section{Sketching}
 Create a sketch of the page which shows the general layout of the page.
+d
+\href{https://www.figma.com/design/Bad0CJ6dLRK9TCG3znJ58A/Rental-Roulette?node-id=5-2&t=mhheIDBxt3o2sYmw-0https://www.figma.com/design/Bad0CJ6dLRK9TCG3znJ58A/Rental-Roulette?node-id=5-2&t=mhheIDBxt3o2sYmw-0}{This is the figma.}
 
-\noindent\hrulefill
 
 \section{Specific Technical Decisions }
 This comes at a later stage when you start implementing the site:
@@ -69,12 +118,18 @@ This comes at a later stage when you start implementing the site:
     \item Colours:
     \begin{itemize}
         \item Generate color shades/tints (See video 2.2.3 Colors)
+        \item FFFCF2 - Floral White 
+        \item CCC5B9 - Pale Silver
+        \item 403D39 - Black Olive
+        \item 252422 - Raisin Black
+        \item EB5E28 - Halloween Orange
     \end{itemize}
     \item Typography:
     \begin{enumerate}
         \item[a] Choose a font for titles (You will probably want to change it when you see the site, but
-start with something)
+start with something) - Poppins, Serif.
         \item[b] If body text needs another font, choose it. Preferably, use the same font for all texts.
+        We use Poppins
         \item[c] Define font scale using https://type-scale.com/
     \end{enumerate}
     \item Hierarchy and layout:
@@ -86,6 +141,7 @@ hierarchy?
     \item Icons:
     \begin{enumerate}
         \item[a] Choose icon pack if you need one. See http://codingheroes.io/resources/icons
+        \item \href{https://phosphoricons.com/}{Icon samples}
     \end{enumerate}
     \item  Spacing:
         \begin{enumerate}
