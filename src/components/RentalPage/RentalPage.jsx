@@ -125,6 +125,16 @@ export default function RentalPage(props) {
     ]
   };
 
+  const [selectedCarId, setSelectedCarId] = useState(null);
+
+  const handleCarClick = (carId) => {
+    console.log("ID of selected car:", carId); 
+    setSelectedCarId(prevId => {
+      const newId = prevId === carId ? null : carId;
+      return newId;
+    });
+  };
+
   return (
     <div className="rental-page">
       <section className="main-section">
@@ -162,9 +172,28 @@ export default function RentalPage(props) {
               <button className="close-button" onClick={toggleFilter}>Close</button>
             </div>
           )}
-
           <main className="main-body">
-            {props.children}
+            {/* Render CarDisplay components */}
+            {React.Children.map(props.children, (child) => {
+              if (child.type.name === "CarDisplay") {
+                return React.cloneElement(child, {
+                  onClick: () => handleCarClick(child.props.id), 
+                });
+              }
+              return null;
+            })}
+
+            {/* Render CarSelected components */}
+            {React.Children.map(props.children, (child) => {
+              if (child.type.name === "CarSelected") {
+                return React.cloneElement(child, {
+                  style: {
+                    display: selectedCarId === child.props.id ? 'inline-block' : 'none', 
+                  },
+                });
+              }
+              return null;
+            })}
           </main>
         </div>
       </section>

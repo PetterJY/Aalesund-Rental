@@ -1,5 +1,6 @@
 import "../global.css";
 import "./CarDisplay.css";
+import React, { useState } from "react";
 import carImage from "../../resources/images/car.png"; 
 import passengerImage from "../../resources/images/passenger.png";
 
@@ -20,9 +21,9 @@ const CarDisplay = (props) => {
       </section>
 
       <img id="car-image" src={carImage} alt="car-image"></img>
-      <section class="bottom-section">
-        <h2 class="rental-place">{props.rentalPlace}</h2>
-        <section class="price-section">
+      <section className="bottom-section">
+        <h2 className="rental-place">{props.rentalPlace}</h2>
+        <section className="price-section">
           <h2 id="price-day">{props.priceDay}/dag</h2>
           <h2 id="price-total">{props.priceTotal}/total</h2>
         </section>
