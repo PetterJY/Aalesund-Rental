@@ -72,15 +72,15 @@ const Header = ({page}) => {
       )}
 
       <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
-        <div className="popup-section">
-          <h3>Pickup Date & Time</h3>
+        <div className="pickup-section">
+          <label>Pickup</label>
           <div className="date-time-inputs">
             <input type="date" className="date-input" />
             <input type="time" className="time-input" />
           </div>
         </div>
-        <div className="popup-section">
-          <h3>Drop-off Date & Time</h3>
+        <div className="dropoff-section">
+          <label>Drop-off</label>
           <div className="date-time-inputs">
             <input type="date" className="date-input" />
             <input type="time" className="time-input" />
