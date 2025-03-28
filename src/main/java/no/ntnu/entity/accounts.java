@@ -1,5 +1,7 @@
 package no.ntnu.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +19,9 @@ public class Accounts {
 
   @Column(nullable = false)
   private String password;
+
+  @Column(nullable = false)
+  private LocalDateTime createdAt;
 
   public Long getId() {
     return id;
@@ -40,5 +45,13 @@ public class Accounts {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+    public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 }

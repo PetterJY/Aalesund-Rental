@@ -23,9 +23,6 @@ public class Users {
   @Column(nullable = false)
   private String email; 
 
-  @Column(nullable = false)
-  private LocalDateTime createdAt;
-
   public Long getId() {
     return id;
   }
@@ -48,14 +45,6 @@ public class Users {
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
-  }
-
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(LocalDateTime createdAt) {
-    this.createdAt = createdAt;
   }
 
   public String getEmail() {
