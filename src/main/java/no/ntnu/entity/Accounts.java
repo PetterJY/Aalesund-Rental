@@ -2,6 +2,7 @@ package no.ntnu.entity;
 
 import java.time.LocalDateTime;
 
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,15 +13,19 @@ import jakarta.persistence.Id;
 public class Accounts {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @ApiModelProperty("The ID of the account")
   private Long id;
 
   @Column(nullable = false)
+  @ApiModelProperty("The role of the account")
   private String role;
 
   @Column(nullable = false)
+  @ApiModelProperty("The password of the account")
   private String password;
 
   @Column(nullable = false)
+  @ApiModelProperty("The creation time of the account")
   private LocalDateTime createdAt;
 
   public Long getId() {

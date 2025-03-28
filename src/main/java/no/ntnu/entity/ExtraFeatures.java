@@ -2,6 +2,7 @@ package no.ntnu.entity;
 
 import java.util.Set;
 
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,15 +14,19 @@ import jakarta.persistence.ManyToMany;
 public class ExtraFeatures {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @ApiModelProperty("The ID of the extra feature")
   private int id;
 
   @Column(nullable = false, length = 32)
+  @ApiModelProperty("The name of the extra feature")
   private String name;
 
   @Column(length = 255)
+  @ApiModelProperty("The description of the extra feature")
   private String description;
 
   @ManyToMany(mappedBy = "extraFeatures")
+  @ApiModelProperty("The cars that have this extra feature")
   private Set<Cars> cars;
   
   public void setId(int id) {

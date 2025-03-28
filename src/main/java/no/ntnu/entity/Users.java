@@ -1,5 +1,6 @@
 package no.ntnu.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,15 +11,19 @@ import jakarta.persistence.Id;
 public class Users {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @ApiModelProperty("The ID of the user")
   private Long id;
 
   @Column(nullable = false)
+  @ApiModelProperty("The first name of the user")
   private String firstName;
 
   @Column(nullable = false)
+  @ApiModelProperty("The last name of the user")
   private String lastName;
 
   @Column(nullable = false)
+  @ApiModelProperty("The email of the user")
   private String email; 
 
   public Long getId() {

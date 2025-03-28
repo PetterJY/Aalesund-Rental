@@ -1,7 +1,7 @@
 package no.ntnu.entity;
 
 import java.util.Set;
-
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,37 +22,48 @@ public class Cars {
 
   @ManyToOne
   @JoinColumn(name = "provider_id", referencedColumnName = "id")
+  @ApiModelProperty("The provider of the car")
   private Providers provider;
 
   @Column(nullable = false, unique = true)
+  @ApiModelProperty("The plate number of the car")
   private String plateNumber;
 
   @Column(nullable = false)
+  @ApiModelProperty("The brand of the car")
   private String carBrand;
 
   @Column(nullable = false)
+  @ApiModelProperty("The model name of the car")
   private String modelName;
 
   @Column(nullable = false)
+  @ApiModelProperty("The type of the car")
   private String carType;
 
   @Column(nullable = false)
+  @ApiModelProperty("The price per day of the car")
   private int pricePerDay;
 
   @Column(nullable = false)
+  @ApiModelProperty("The production year of the car")
   private int productionYear;
 
   @Column(nullable = false)
+  @ApiModelProperty("The number of passengers the car can carry")
   private byte passengers;
 
   @Column(nullable = false)
+  @ApiModelProperty("Whether the car is automatic or not")
   private boolean automatic;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
+  @ApiModelProperty("The energy source of the car")
   private EnergySource energySource;
 
   @Column(nullable = false)
+  @ApiModelProperty("Whether the car is available or not")
   private boolean available;
 
   @ManyToMany
@@ -61,8 +72,13 @@ public class Cars {
     joinColumns = @JoinColumn(name = "car_id"),
     inverseJoinColumns = @JoinColumn(name = "extra_feature_id")
   )
+  @ApiModelProperty("The extra features of the car")
   private Set<ExtraFeatures> extraFeatures;
 
+  /**
+   * Enum for the energy source of the car.
+   * Allowed values are GAS, DIESEL, HYBRID, ELECTRIC.
+   */
   public enum EnergySource {
     GAS, DIESEL, HYBRID, ELECTRIC
   }

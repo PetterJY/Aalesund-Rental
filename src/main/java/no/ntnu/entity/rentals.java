@@ -2,6 +2,7 @@ package no.ntnu.entity;
 
 import java.time.LocalDateTime;
 
+import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,39 +17,56 @@ import jakarta.persistence.ManyToOne;
 public class Rentals {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @ApiModelProperty("The ID of the rental")
   private Long rentalId;
 
   @ManyToOne
   @JoinColumn(name = "renter_id", referencedColumnName = "id")
+  @ApiModelProperty("The account of the renter")
   private Accounts renter;
 
   @ManyToOne
   @JoinColumn(name = "provider_id", referencedColumnName = "id")
+  @ApiModelProperty("The provider of the rental")
   private Providers provider;
 
   @ManyToOne
   @JoinColumn(name = "car_id", referencedColumnName = "id")
+  @ApiModelProperty("The car of the rental")
   private Cars car;
 
   @Column(nullable = false)
+  @ApiModelProperty("The start date of the rental")
   private LocalDateTime startDate;
 
   @Column(nullable = false)
+  @ApiModelProperty("The end date of the rental")
   private LocalDateTime endDate;
 
   @Column(nullable = false)
+  @ApiModelProperty("The pickup location of the rental")
   private String pickupLocation;
 
   @Column(nullable = false)
+  @ApiModelProperty("The drop-off location of the rental")
   private String dropoffLocation;
 
   @Column(nullable = false)
+  @ApiModelProperty("The total cost of the rental")
   private int totalCost;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
+  @ApiModelProperty("The status of the rental")
   private Status status = Status.PENDING;
 
+  /**
+   * The status of the rental.
+   * PENDING: The rental is pending.
+   * ACTIVE: The rental is active.
+   * COMPLETED: The rental is completed.
+   * CANCELED: The rental is canceled.
+   */
   public enum Status {
     PENDING, ACTIVE, COMPLETED, CANCELED
   }
