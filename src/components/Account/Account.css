@@ -1,0 +1,44 @@
+.booking {
+  background-color: #fffcf2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.account {
+  background-color: #fffcf2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 10vh 0 10vh;
+
+  border-bottom: #252422 1px solid;
+}
+
+.account-menu-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.account-menu-list li {
+  list-style-type: none;
+  margin-right: 20px;
+}
+
+.account-menu-list li a {
+  text-decoration: none;
+  color: #252422;
+}
+
+.account-menu-list li a:hover {
+  color: #EB5E28;
+  border-bottom: #EB5E28 1px solid;
+  transition: 1ms;
+}
+
+#selected-site-link {
+  color: #EB5E28;
+  border-bottom: #EB5E28 1px solid;
+}

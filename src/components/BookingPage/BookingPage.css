@@ -64,8 +64,10 @@ main {
 }
 
 .rectangle-display {
-  width: 15vw;
-  aspect-ratio: 7/5;
+  margin-top: 10px;
+  width: 150px;
+  min-width: 150px;
+  height: 120px;
   border-radius: 15px;
   background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
   display: flex;
@@ -74,8 +76,8 @@ main {
 }
 
 #car-image {
-  min-width: 80%;
-  min-height: auto;
+  max-width: 70%;
+  height: auto;
   object-fit: contain;
   display: block;
 }
@@ -202,10 +204,12 @@ button:hover {
   background-color: #FFFCF2;
   display: flex;
   flex-direction: column;
+  text-align: left;
   color: #252422;
   margin-top: auto;
   gap: 1px;
   padding-left: 25px;
+  align-self: flex-start;
 }
 
 .payment-details p {
@@ -333,19 +337,6 @@ form div {
     grid-column: 1;
     grid-row: 5
   }
-  .rectangle-display {
-    width: 30vw;
-    aspect-ratio: 7/5;
-    border-radius: 15px;
-    background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
-  }
-  
 
-  #car-image{
-    width: 100%;
-    height: auto;
-    object-fit:contain;
-    display: block;
-  }
   
 }

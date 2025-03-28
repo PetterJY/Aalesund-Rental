@@ -5,6 +5,8 @@ import CarDisplay from './CarDisplay/CarDisplay';
 import CarSelected from './CarSelected/CarSelected';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
+import Account from './Account/Account/Account';
+import Bookings from './Account/Bookings/Bookings';
 import Home from './Home/Home';
 import RentalPage from './RentalPage/RentalPage';
 
@@ -14,6 +16,8 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path={"home"} element={<HomeExample />} />
     <Route path={"rental"} element={<RentalPageExample />} />
     <Route path={"booking"} element={<BookingPageExample />} />
+    <Route path={"account/account"} element={<AccountExample />} />
+    <Route path={"account/bookings"} element={<BookingsExample />} />
   </Route>
 ))
 
@@ -36,6 +40,18 @@ function Root() {
 function HomeExample() {
   return (
     <Home pickUpDate="2021-10-10" pickUpTime="12:00" dropOffDate="2021-10-15" dropOffTime="12:00"/>
+  );
+}
+
+function AccountExample() {
+  return (
+    <Account />
+  );
+}
+
+function BookingsExample() {
+  return (
+    <Bookings />
   );
 }
 
