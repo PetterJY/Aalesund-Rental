@@ -1,17 +1,10 @@
 package no.ntnu.logic.service;
 
-<<<<<<< HEAD
-import no.ntnu.entity.Accounts;
-import no.ntnu.entity.exceptions.AccountNotFoundException;
-import no.ntnu.logic.repository.AccountsRepository;
-=======
-import java.util.Optional;
-
->>>>>>> 0c0c556166b24c6e352300eb99ce71e88efd2559
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.Accounts;
+import no.ntnu.entity.exceptions.AccountNotFoundException;
 import no.ntnu.logic.repository.AccountsRepository;
 
 @Service
