@@ -14,9 +14,10 @@ import no.ntnu.logic.repository.CarsRepository;
 @RestController
 @RequestMapping("/cars")
 public class CarsController {
-  @Autowired
+
   private final CarsRepository carsRepository;
 
+  @Autowired
   public CarsController(CarsRepository carsRepository) {
     this.carsRepository = carsRepository;
   }

@@ -14,10 +14,10 @@ import no.ntnu.logic.repository.ExtraFeaturesRepository;
 @RestController
 @RequestMapping("/extra-features")
 public class ExtraFeaturesController {
-  @Autowired
+
   private final ExtraFeaturesRepository extraFeaturesRepository;
 
-
+  @Autowired
   public ExtraFeaturesController(ExtraFeaturesRepository extraFeaturesRepository) {
     this.extraFeaturesRepository = extraFeaturesRepository;
   }

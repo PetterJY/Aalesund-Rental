@@ -14,9 +14,10 @@ import no.ntnu.logic.repository.AdminRepository;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-  @Autowired
+
   private final AdminRepository adminRepository;
 
+  @Autowired
   public AdminController(AdminRepository adminRepository) {
     this.adminRepository = adminRepository;
   }
