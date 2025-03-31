@@ -34,7 +34,8 @@ public class ExtraFeaturesController {
   }
 
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
+  @ApiOperation(value = "Returns an extra feature by its ID.",
+          notes = "If the extra feature is not found, a 404 error is returned.")
   public ResponseEntity<ExtraFeatures> getExtraFeatureById(@PathVariable long id) {
     Optional<ExtraFeatures> extraFeature = extraFeaturesRepository.findById(id);
     return extraFeature.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -47,8 +48,10 @@ public class ExtraFeaturesController {
   }
 
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
-  public ResponseEntity<ExtraFeatures> updateExtraFeature(@PathVariable long id, @RequestBody ExtraFeatures extraFeatureDetails) {
+  @ApiOperation(value = "Updates an extra feature by its ID.",
+          notes = "If the extra feature is not found, a 404 error is returned.")
+  public ResponseEntity<ExtraFeatures> updateExtraFeature
+          (@PathVariable long id, @RequestBody ExtraFeatures extraFeatureDetails) {
     Optional<ExtraFeatures> extraFeature = extraFeaturesRepository.findById(id);
     if (extraFeature.isPresent()) {
       ExtraFeatures updatedExtraFeature = extraFeature.get();
@@ -62,7 +65,8 @@ public class ExtraFeaturesController {
   }
 
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
+  @ApiOperation(value = "Deletes an extra feature by its ID.",
+          notes = "If the extra feature is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteExtraFeature(@PathVariable long id) {
     if (extraFeaturesRepository.existsById(id)) {
       extraFeaturesRepository.deleteById(id);
