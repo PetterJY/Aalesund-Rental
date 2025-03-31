@@ -21,17 +21,17 @@ public class Rentals {
   private Long rentalId;
 
   @ManyToOne
-  @JoinColumn(name = "renter_id", referencedColumnName = "id")
+  @JoinColumn(name = "renter_id", referencedColumnName = "id", nullable = false)
   @ApiModelProperty("The account of the renter")
   private Accounts renter;
 
   @ManyToOne
-  @JoinColumn(name = "provider_id", referencedColumnName = "id")
+  @JoinColumn(name = "provider_id", referencedColumnName = "id", nullable = false)
   @ApiModelProperty("The provider of the rental")
   private Providers provider;
 
   @ManyToOne
-  @JoinColumn(name = "car_id", referencedColumnName = "id")
+  @JoinColumn(name = "car_id", referencedColumnName = "id", nullable = false)
   @ApiModelProperty("The car of the rental")
   private Cars car;
 
