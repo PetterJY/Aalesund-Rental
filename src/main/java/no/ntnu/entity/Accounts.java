@@ -3,11 +3,7 @@ package no.ntnu.entity;
 import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModelProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Accounts {
@@ -28,8 +24,13 @@ public class Accounts {
   @ApiModelProperty("The creation time of the account")
   private LocalDateTime createdAt;
 
+  @PrePersist
+  protected void onCreate() {
+    this.createdAt = LocalDateTime.now();
+  }
+
   public Long getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(Long id) {
@@ -37,7 +38,7 @@ public class Accounts {
   }
 
   public String getRole() {
-    return role;
+    return this.role;
   }
   
   public void setRole(String role) {
@@ -45,7 +46,7 @@ public class Accounts {
   }
   
   public String getPassword() {
-    return password;
+    return this.password;
   }
 
   public void setPassword(String password) {
@@ -53,7 +54,7 @@ public class Accounts {
   }
 
     public LocalDateTime getCreatedAt() {
-    return createdAt;
+    return this.createdAt;
   }
 
   public void setCreatedAt(LocalDateTime createdAt) {

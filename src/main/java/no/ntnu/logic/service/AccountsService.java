@@ -1,13 +1,18 @@
 package no.ntnu.logic.service;
 
+<<<<<<< HEAD
 import no.ntnu.entity.Accounts;
 import no.ntnu.entity.exceptions.AccountNotFoundException;
 import no.ntnu.logic.repository.AccountsRepository;
+=======
+import java.util.Optional;
+
+>>>>>>> 0c0c556166b24c6e352300eb99ce71e88efd2559
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import no.ntnu.entity.Accounts;
+import no.ntnu.logic.repository.AccountsRepository;
 
 @Service
 public class AccountsService {
@@ -30,9 +35,5 @@ public class AccountsService {
 
   public void deleteById(Long id) {
     accountsRepository.deleteById(id);
-  }
-
-  public Optional<Accounts> findByEmail(String email) {
-    return accountsRepository.findByEmail(email);
   }
 }
