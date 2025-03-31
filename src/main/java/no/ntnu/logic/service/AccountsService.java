@@ -1,6 +1,7 @@
 package no.ntnu.logic.service;
 
 import no.ntnu.entity.Accounts;
+import no.ntnu.entity.exceptions.AccountNotFoundException;
 import no.ntnu.logic.repository.AccountsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,9 @@ public class AccountsService {
     return accountsRepository.findAll();
   }
 
-  public Optional<Accounts> findById(Long id) {
-    return accountsRepository.findById(id);
+  public Accounts findById(Long id) {
+    return accountsRepository.findById(id)
+      .orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + id));
   }
 
   public Accounts save(Accounts account) {
