@@ -1,12 +1,12 @@
 package no.ntnu.logic.service;
 
-import no.ntnu.entity.Accounts;
-import no.ntnu.logic.repository.AccountsRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import no.ntnu.entity.Accounts;
+import no.ntnu.logic.repository.AccountsRepository;
 
 @Service
 public class AccountsService {
@@ -28,9 +28,5 @@ public class AccountsService {
 
   public void deleteById(Long id) {
     accountsRepository.deleteById(id);
-  }
-
-  public Optional<Accounts> findByEmail(String email) {
-    return accountsRepository.findByEmail(email);
   }
 }
