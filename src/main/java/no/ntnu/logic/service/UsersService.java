@@ -12,8 +12,9 @@ import no.ntnu.logic.repository.UsersRepository;
 @Service
 public class UsersService {
 
-  private static final Logger logger = LoggerFactory.getLogger(UsersService.class);
   private final UsersRepository usersRepository;
+
+  private static final Logger logger = LoggerFactory.getLogger(UsersService.class);
 
   @Autowired
   public UsersService(UsersRepository usersRepository) {

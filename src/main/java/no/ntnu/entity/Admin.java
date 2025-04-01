@@ -1,10 +1,12 @@
 package no.ntnu.entity;
 
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -17,9 +19,10 @@ public class Admin {
   @ApiModelProperty("The name of the admin")
   private String name;
 
-  @OneToOne
-  @JoinColumn(name = "id", referencedColumnName = "id")
-  @ApiModelProperty("The account of the admin")
+  @OneToOne(cascade = CascadeType.ALL) 
+  @JoinColumn(name = "id")
+  @MapsId
+  @ApiModelProperty("The account associated with the user")
   private Accounts account;
   
   public void setId(Long id) {
