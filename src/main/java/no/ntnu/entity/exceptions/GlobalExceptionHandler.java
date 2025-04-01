@@ -43,4 +43,11 @@ public class GlobalExceptionHandler {
     logger.error("Car not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
+
+
+  @ExceptionHandler(ExtraFeatureNotFoundException.class)
+  public ResponseEntity<String> handleExtraFeatureNotFoundException(ExtraFeatureNotFoundException ex) {
+    logger.error("Extra feature not found exception: ", ex);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+  }
 }
