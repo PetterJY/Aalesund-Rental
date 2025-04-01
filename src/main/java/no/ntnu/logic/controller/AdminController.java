@@ -1,8 +1,9 @@
 package no.ntnu.logic.controller;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,48 +17,56 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.Admin;
-import no.ntnu.logic.repository.AdminRepository;
+import no.ntnu.entity.exceptions.AccountNotFoundException;
+import no.ntnu.logic.service.AdminService;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
-  private final AdminRepository adminRepository;
+  private final AdminService adminService;
+
+  private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
   @Autowired
-  public AdminController(AdminRepository adminRepository) {
-    this.adminRepository = adminRepository;
+  public AdminController(AdminService adminService) {
+    this.adminService = adminService;
   }
 
   @GetMapping
   @ApiOperation(value = "Returns all admins.")
   public List<Admin> getAllAdmins() {
-    return (List<Admin>) adminRepository.findAll();
+    return adminService.findAll();
   }
 
   @GetMapping("/{id}")
   @ApiOperation(value = "Returns an admin by its ID.", notes = "If the admin is not found, a 404 error is returned.")
   public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
-    Optional<Admin> admin = adminRepository.findById(id);
-    return admin.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    try {
+      Admin admin = adminService.findById(id);
+      return ResponseEntity.ok(admin);
+    } catch (AccountNotFoundException e) {
+      logger.error("Account not found with id: {}", id, e);
+      return ResponseEntity.notFound().build();
+    }
   }
 
   @PostMapping
   @ApiOperation(value = "Creates a new admin.", notes = "The newly created admin is returned.")
   public Admin createAdmin(@RequestBody Admin admin) {
-    return adminRepository.save(admin);
+    return adminService.save(admin);
   }
 
   @PutMapping("/{id}")
   @ApiOperation(value = "Updates an admin by its ID.", notes = "If the admin is not found, a 404 error is returned.")
   public ResponseEntity<Admin> updateAdmin(@PathVariable Long id, @RequestBody Admin adminDetails) {
-    Optional<Admin> admin = adminRepository.findById(id);
-    if (admin.isPresent()) {
-      Admin updatedAdmin = admin.get();
-      updatedAdmin.setName(adminDetails.getName());
-      updatedAdmin.setAccount(adminDetails.getAccount());
-      return ResponseEntity.ok(adminRepository.save(updatedAdmin));
-    } else {
+    try {
+      Admin admin = adminService.findById(id);
+      admin.setName(adminDetails.getName());
+      admin.setAccount(adminDetails.getAccount());
+      return ResponseEntity.ok(adminService.save(admin));
+    } catch (AccountNotFoundException e) {
+      logger.error("Account not found with id: ", id, e);
       return ResponseEntity.notFound().build();
     }
   }
@@ -65,10 +74,10 @@ public class AdminController {
   @DeleteMapping("/{id}")
   @ApiOperation(value = "Deletes an admin by its ID.", notes = "If the admin is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
-    if (adminRepository.existsById(id)) {
-      adminRepository.deleteById(id);
+    try {
+      adminService.deleteById(id);
       return ResponseEntity.noContent().build();
-    } else {
+    } catch (AccountNotFoundException e) {
       return ResponseEntity.notFound().build();
     }
   }
