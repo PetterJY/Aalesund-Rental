@@ -65,6 +65,48 @@
     margin-bottom: 20px;
     color: #252422;
   }
+
+  .save-button {
+    background-color: #EB5E28;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    max-width: 100px;
+    margin: 10px 0;
+  }
+
+  .save-button:hover {
+    transition: 0.3s;
+  }
+
+  .bottom-button-list {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  .bottom-button {
+    background-color: transparent;
+    border-radius: 0%;
+    color: #252422;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    max-width: fit-content;
+    min-width: fit-content;
+  }
+
+  .bottom-button:hover {
+    background-color: transparent;
+    color: #EB5E28;
+    border-bottom: 1px solid #EB5E28;
+    border-radius: 0%;
+    transition: 0.3s;
+  }
+
   /**
   * Booking css
   * Styles for the booking section of the account page.
