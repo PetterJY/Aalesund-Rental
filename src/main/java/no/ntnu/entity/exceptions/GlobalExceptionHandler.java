@@ -37,4 +37,10 @@ public class GlobalExceptionHandler {
     logger.error("Account not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
+
+  @ExceptionHandler(CarNotFoundException.class)
+  public ResponseEntity<String> handleCarNotFoundException(CarNotFoundException ex) {
+    logger.error("Car not found exception: ", ex);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+  }
 }
