@@ -1,10 +1,12 @@
 package no.ntnu.entity;
 
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -21,9 +23,10 @@ public class Providers {
   @ApiModelProperty("The name of the company of the provider")
   private String companyName;
 
-  @OneToOne
-  @JoinColumn(name = "id", referencedColumnName = "id")
-  @ApiModelProperty("The account of the provider")
+  @OneToOne(cascade = CascadeType.ALL) 
+  @JoinColumn(name = "id")
+  @MapsId
+  @ApiModelProperty("The account associated with the user")
   private Accounts account;
 
   public Long getId() {
