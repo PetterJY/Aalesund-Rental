@@ -67,6 +67,7 @@ public class UsersController {
     user.setFirstName(userDetails.getFirstName());
     user.setLastName(userDetails.getLastName());
     user.setEmail(userDetails.getEmail());
+    // TODO: Add validation for user details && handle exceptions
     Users updatedUser = usersService.save(user);
     logger.debug("Updated user: {}", updatedUser);
     return ResponseEntity.ok(updatedUser);

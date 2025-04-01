@@ -2,6 +2,7 @@ package no.ntnu.logic.service;
 
 import java.util.List;
 
+import no.ntnu.entity.exceptions.AdminNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,21 @@ import no.ntnu.logic.repository.AdminRepository;
 public class AdminService {
   private final AdminRepository adminRepository;
 
-  private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
+  private static final Logger logger = LoggerFactory.getLogger(AdminService.class);
 
   @Autowired
   public AdminService(AdminRepository adminRepository) {
+    logger.info("AdminService initialized");
     this.adminRepository = adminRepository;
   }
 
   public List<Admin> findAll() {
+    logger.info("Fetching all admins");
     return (List<Admin>) adminRepository.findAll();
   }
 
-  public Admin findById(Long id) throws AccountNotFoundException {
+  public Admin findById(Long id) throws AdminNotFoundException {
+    logger.info("Fetching admin with id: {}", id);
     return adminRepository.findById(id)
     .orElseThrow(() -> new AccountNotFoundException("Admin not found with id: " + id));
   }
@@ -36,15 +40,11 @@ public class AdminService {
     return adminRepository.save(admin);
   }
 
-  public void deleteById(Long id) {
+  public void deleteById(Long id) throws AdminNotFoundException {
+    logger.info("Deleting admin with id: {}", id);
     if (!adminRepository.existsById(id)) {
-      logger.error("Attempted to delete non-existing admin with id: ", id);
       throw new AccountNotFoundException("Admin not found with id: " + id);
     }
     adminRepository.deleteById(id);
-  }
-
-  public boolean existsById(Long id) {
-    return adminRepository.existsById(id);
   }
 }

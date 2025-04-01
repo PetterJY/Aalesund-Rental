@@ -1,78 +1,76 @@
 package no.ntnu.logic.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.ExtraFeatures;
-import no.ntnu.logic.repository.ExtraFeaturesRepository;
+import no.ntnu.logic.service.ExtraFeaturesService;
 
 @RestController
 @RequestMapping("/extra-features")
 public class ExtraFeaturesController {
 
-  private final ExtraFeaturesRepository extraFeaturesRepository;
+  private final ExtraFeaturesService extraFeaturesService;
+  private static final Logger logger = LoggerFactory.getLogger(ExtraFeaturesController.class);
 
   @Autowired
-  public ExtraFeaturesController(ExtraFeaturesRepository extraFeaturesRepository) {
-    this.extraFeaturesRepository = extraFeaturesRepository;
+  public ExtraFeaturesController(ExtraFeaturesService extraFeaturesService) {
+    this.extraFeaturesService = extraFeaturesService;
   }
 
-  /**
-   * Returns all extra features.
-   *
-   * @return all the extra features.
-   */
   @GetMapping
   @ApiOperation(value = "Returns all extra features.")
-  public List<ExtraFeatures> getAllExtraFeatures() {
-    return (List<ExtraFeatures>) extraFeaturesRepository.findAll();
+  public ResponseEntity<List<ExtraFeatures>> getAllExtraFeatures() {
+    logger.info("Fetching all extra features");
+    List<ExtraFeatures> extraFeatures = extraFeaturesService.findAll();
+    logger.debug("Fetched {} extra features", extraFeatures.size());
+    return ResponseEntity.status(HttpStatus.OK).body(extraFeatures);
   }
 
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns an extra feature by its ID.",
-          notes = "If the extra feature is not found, a 404 error is returned.")
-  public ResponseEntity<ExtraFeatures> getExtraFeatureById(@PathVariable long id) {
-    Optional<ExtraFeatures> extraFeature = extraFeaturesRepository.findById(id);
-    return extraFeature.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+  @ApiOperation(value = "Returns an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
+  public ResponseEntity<ExtraFeatures> getExtraFeatureById(@PathVariable Long id) {
+    logger.info("Fetching extra feature with id: {}", id);
+    ExtraFeatures extraFeature = extraFeaturesService.findById(id);
+    logger.debug("Fetched extra feature: {}", extraFeature);
+    return ResponseEntity.status(HttpStatus.OK).body(extraFeature);
   }
 
   @PostMapping
   @ApiOperation(value = "Creates a new extra feature.", notes = "The newly created extra feature is returned.")
-  public ExtraFeatures createExtraFeature(@RequestBody ExtraFeatures extraFeature) {
-    return extraFeaturesRepository.save(extraFeature);
+  public ResponseEntity<ExtraFeatures> createExtraFeature(@RequestBody ExtraFeatures extraFeature) {
+    logger.info("Creating new extra feature");
+    ExtraFeatures createdExtraFeature = extraFeaturesService.save(extraFeature);
+    logger.debug("Created extra feature: {}", createdExtraFeature);
+    return ResponseEntity.status(HttpStatus.CREATED).body(createdExtraFeature);
   }
 
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates an extra feature by its ID.",
-          notes = "If the extra feature is not found, a 404 error is returned.")
-  public ResponseEntity<ExtraFeatures> updateExtraFeature
-          (@PathVariable long id, @RequestBody ExtraFeatures extraFeatureDetails) {
-    Optional<ExtraFeatures> extraFeature = extraFeaturesRepository.findById(id);
-    if (extraFeature.isPresent()) {
-      ExtraFeatures updatedExtraFeature = extraFeature.get();
-      updatedExtraFeature.setName(extraFeatureDetails.getName());
-      updatedExtraFeature.setDescription(extraFeatureDetails.getDescription());
-      updatedExtraFeature.setCars(extraFeatureDetails.getCars());
-      return ResponseEntity.ok(extraFeaturesRepository.save(updatedExtraFeature));
-    } else {
-      return ResponseEntity.notFound().build();
-    }
+  @ApiOperation(value = "Updates an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
+  public ResponseEntity<ExtraFeatures> updateExtraFeature(@PathVariable Long id, @RequestBody ExtraFeatures extraFeatureDetails) {
+    logger.info("Updating extra feature with id: {}", id);
+    ExtraFeatures extraFeature = extraFeaturesService.findById(id);
+    extraFeature.setName(extraFeatureDetails.getName());
+    extraFeature.setDescription(extraFeatureDetails.getDescription());
+    // TODO: Add validation for details && handle exceptions
+    ExtraFeatures updatedExtraFeature = extraFeaturesService.save(extraFeature);
+    logger.debug("Updated extra feature: {}", updatedExtraFeature);
+    return ResponseEntity.status(HttpStatus.OK).body(updatedExtraFeature);
   }
 
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes an extra feature by its ID.",
-          notes = "If the extra feature is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteExtraFeature(@PathVariable long id) {
-    if (extraFeaturesRepository.existsById(id)) {
-      extraFeaturesRepository.deleteById(id);
-      return ResponseEntity.noContent().build();
-    } else {
-      return ResponseEntity.notFound().build();
-    }
+  @ApiOperation(value = "Deletes an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
+  public ResponseEntity<Void> deleteExtraFeature(@PathVariable Long id) {
+    logger.info("Deleting extra feature with id: {}", id);
+    extraFeaturesService.deleteById(id);
+    logger.debug("Deleted extra feature with id: {}", id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 }
