@@ -3,14 +3,11 @@ package no.ntnu.logic.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.Users;
 import no.ntnu.entity.exceptions.UserNotFoundException;
 import no.ntnu.logic.repository.UsersRepository;
-
-import javax.validation.ConstraintViolationException;
 
 @Service
 public class UsersService {
@@ -27,7 +24,7 @@ public class UsersService {
     return usersRepository.findAll();
   }
 
-  public Users findById(Long id) {
+  public Users findById(Long id) throws UserNotFoundException {
     return usersRepository.findById(id)
       .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
   }
@@ -36,7 +33,7 @@ public class UsersService {
     return usersRepository.save(user);
   }
 
-  public void deleteById(Long id) {
+  public void deleteById(Long id) throws UserNotFoundException {
     if (!usersRepository.existsById(id)) {
       throw new UserNotFoundException("User not found with id: " + id);
     }
