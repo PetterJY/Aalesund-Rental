@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import no.ntnu.entity.Users;
 
 public interface UsersRepository extends CrudRepository<Users, Long> {
+
+
 }
