@@ -18,6 +18,7 @@ public class UsersService {
 
   @Autowired
   public UsersService(UsersRepository usersRepository) {
+    logger.info("UsersService initialized");
     this.usersRepository = usersRepository;
   }
 

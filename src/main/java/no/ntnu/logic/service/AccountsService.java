@@ -19,6 +19,7 @@ public class AccountsService {
 
   @Autowired
   public AccountsService(AccountsRepository accountsRepository) {
+    logger.info("AccountsService initialized");
     this.accountsRepository = accountsRepository;
   }
 
