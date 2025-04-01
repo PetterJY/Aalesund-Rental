@@ -2,10 +2,6 @@ package no.ntnu.logic.controller;
 
 import java.util.List;
 
-import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.exceptions.AccountNotFoundException;
-import no.ntnu.entity.Accounts;
-import no.ntnu.logic.service.AccountsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
+import no.ntnu.entity.Accounts;
+import no.ntnu.entity.exceptions.AccountNotFoundException;
+import no.ntnu.logic.service.AccountsService;
 
 @RestController
 @RequestMapping("/accounts")
 public class AccountsController {
   private final AccountsService accountsService;
+  
   private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
   @Autowired

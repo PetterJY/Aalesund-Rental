@@ -17,9 +17,12 @@ const Account = () => {
         <input type="text" />
         <h2>Last name</h2>
         <input type="text" />
-        <button>Save</button>
-        <button>Delete Account</button>
-        <button>Changge Password</button>
+        <button className='save-button'>Save</button>
+        <ul className='bottom-button-list'>
+          <li><button className='bottom-button'>Delete Account</button></li>
+          <li><button className='bottom-button'>Change Password</button></li>
+        </ul>
+
       </section>
     </div>
   );
