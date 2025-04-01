@@ -3,20 +3,18 @@ package no.ntnu.logic.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.Users;
 import no.ntnu.entity.exceptions.UserNotFoundException;
 import no.ntnu.logic.repository.UsersRepository;
 
-import javax.validation.ConstraintViolationException;
-
 @Service
 public class UsersService {
 
-  private static final Logger logger = LoggerFactory.getLogger(UsersService.class);
   private final UsersRepository usersRepository;
+
+  private static final Logger logger = LoggerFactory.getLogger(UsersService.class);
 
   @Autowired
   public UsersService(UsersRepository usersRepository) {
