@@ -13,10 +13,10 @@ const Account = () => {
       <section className="account-section">
         <h1>Account</h1>
         <h2>Personal Information</h2>
-        <h2>First name</h2>
-        <input type="text" />
-        <h2>Last name</h2>
-        <input type="text" />
+        <h3>First name</h3>
+        <input type="text" id="name" name="name" required></input>
+        <h3>Last name</h3>
+        <input type="text" id="last-name" name="last-name" required></input>
         <button className='save-button'>Save</button>
         <ul className='bottom-button-list'>
           <li><button className='bottom-button'>Delete Account</button></li>
