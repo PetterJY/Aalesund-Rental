@@ -31,4 +31,10 @@ public class GlobalExceptionHandler {
     logger.error("Data integrity violation exception: ", ex);
     return ResponseEntity.status(HttpStatus.CONFLICT).body("Data integrity violation occurred");
   }
+
+  @ExceptionHandler(AccountNotFoundException.class)
+  public ResponseEntity<String> handleAccountNotFoundException(AccountNotFoundException ex) {
+    logger.error("Account not found exception: ", ex);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+  }
 }
