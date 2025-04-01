@@ -74,10 +74,12 @@ public class Rentals {
   public Long getRentalId() {
     return rentalId;
   }
+  // TODO: Change method name to getId?
 
   public void setRentalId(Long rentalId) {
     this.rentalId = rentalId;
   }
+  // TODO: Change method name to setId?
 
   public Accounts getRenter() {
     return renter;

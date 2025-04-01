@@ -2,6 +2,7 @@ package no.ntnu.logic.service;
 
 import java.util.List;
 
+import no.ntnu.entity.exceptions.AdminNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class AdminService {
     return (List<Admin>) adminRepository.findAll();
   }
 
-  public Admin findById(Long id) throws AccountNotFoundException {
+  public Admin findById(Long id) throws AdminNotFoundException {
     logger.info("Fetching admin with id: {}", id);
     return adminRepository.findById(id)
     .orElseThrow(() -> new AccountNotFoundException("Admin not found with id: " + id));
@@ -39,7 +40,7 @@ public class AdminService {
     return adminRepository.save(admin);
   }
 
-  public void deleteById(Long id) throws AccountNotFoundException {
+  public void deleteById(Long id) throws AdminNotFoundException {
     logger.info("Deleting admin with id: {}", id);
     if (!adminRepository.existsById(id)) {
       throw new AccountNotFoundException("Admin not found with id: " + id);

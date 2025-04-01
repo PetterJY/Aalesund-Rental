@@ -1,6 +1,7 @@
 package no.ntnu.logic;
 
 import no.ntnu.entity.exceptions.AccountNotFoundException;
+import no.ntnu.entity.exceptions.AdminNotFoundException;
 import no.ntnu.entity.exceptions.CarNotFoundException;
 import no.ntnu.entity.exceptions.ExtraFeatureNotFoundException;
 import no.ntnu.entity.exceptions.ProviderNotFoundException;
@@ -19,8 +20,20 @@ public class GlobalExceptionHandler {
 
   private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+  @ExceptionHandler(AccountNotFoundException.class)
+  public ResponseEntity<String> handleAccountNotFoundException(AccountNotFoundException ex) {
+    logger.error("Account not found exception: ", ex);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+  }
+
   @ExceptionHandler(UserNotFoundException.class)
   public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
+    logger.error("User not found exception: ", ex);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+  }
+
+  @ExceptionHandler(AdminNotFoundException.class)
+  public ResponseEntity<String> handleAdminNotFoundException(AdminNotFoundException ex) {
     logger.error("User not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
@@ -35,12 +48,6 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
     logger.error("Data integrity violation exception: ", ex);
     return ResponseEntity.status(HttpStatus.CONFLICT).body("Data integrity violation occurred");
-  }
-
-  @ExceptionHandler(AccountNotFoundException.class)
-  public ResponseEntity<String> handleAccountNotFoundException(AccountNotFoundException ex) {
-    logger.error("Account not found exception: ", ex);
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
   @ExceptionHandler(CarNotFoundException.class)
