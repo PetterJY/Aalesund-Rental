@@ -60,7 +60,7 @@ public class RentalsController {
     rental.setStartDate(rentalDetails.getStartDate());
     rental.setEndDate(rentalDetails.getEndDate());
     rental.setCar(rentalDetails.getCar());
-    rental.setUser(rentalDetails.getUser());
+    rental.setRenter(rentalDetails.getRenter());
     Rentals updatedRental = rentalsService.save(rental);
     logger.debug("Updated rental: {}", updatedRental);
     return ResponseEntity.status(HttpStatus.OK).body(updatedRental);
