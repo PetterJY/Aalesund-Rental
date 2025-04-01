@@ -59,6 +59,7 @@ public class ExtraFeaturesController {
     ExtraFeatures extraFeature = extraFeaturesService.findById(id);
     extraFeature.setName(extraFeatureDetails.getName());
     extraFeature.setDescription(extraFeatureDetails.getDescription());
+    // TODO: Add validation for details && handle exceptions
     ExtraFeatures updatedExtraFeature = extraFeaturesService.save(extraFeature);
     logger.debug("Updated extra feature: {}", updatedExtraFeature);
     return ResponseEntity.status(HttpStatus.OK).body(updatedExtraFeature);

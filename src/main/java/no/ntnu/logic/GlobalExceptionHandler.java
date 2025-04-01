@@ -1,5 +1,10 @@
-package no.ntnu.entity.exceptions;
+package no.ntnu.logic;
 
+import no.ntnu.entity.exceptions.AccountNotFoundException;
+import no.ntnu.entity.exceptions.CarNotFoundException;
+import no.ntnu.entity.exceptions.ExtraFeatureNotFoundException;
+import no.ntnu.entity.exceptions.ProviderNotFoundException;
+import no.ntnu.entity.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -48,6 +53,13 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(ExtraFeatureNotFoundException.class)
   public ResponseEntity<String> handleExtraFeatureNotFoundException(ExtraFeatureNotFoundException ex) {
     logger.error("Extra feature not found exception: ", ex);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+  }
+
+
+  @ExceptionHandler(ProviderNotFoundException.class)
+  public ResponseEntity<String> handleProviderNotFoundException(ProviderNotFoundException ex) {
+    logger.error("Provider not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 }

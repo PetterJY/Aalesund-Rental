@@ -59,6 +59,7 @@ public class AccountsController {
     account.setRole(accountDetails.getRole());
     account.setPassword(accountDetails.getPassword());
     account.setCreatedAt(accountDetails.getCreatedAt());
+    // TODO: Add validation for details && handle exceptions
     Accounts updatedAccount = accountsService.save(account);
     logger.debug("Updated account: {}", updatedAccount);
     return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);

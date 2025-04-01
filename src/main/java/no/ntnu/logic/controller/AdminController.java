@@ -59,6 +59,7 @@ public class AdminController {
     Admin admin = adminService.findById(id);
     admin.setName(adminDetails.getName());
     admin.setAccount(adminDetails.getAccount());
+    // TODO: Add validation for details && handle exceptions
     Admin updatedAdmin = adminService.save(admin);
     logger.debug("Updated admin: {}", updatedAdmin);
     return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);

@@ -68,6 +68,7 @@ public class CarsController {
     car.setEnergySource(carDetails.getEnergySource());
     car.setAvailable(carDetails.isAvailable());
     car.setExtraFeatures(carDetails.getExtraFeatures());
+    // TODO: Add validation for details && handle exceptions
     Cars updatedCar = carsService.save(car);
     logger.debug("Updated car: {}", updatedCar);
     return ResponseEntity.status(HttpStatus.OK).body(updatedCar);
