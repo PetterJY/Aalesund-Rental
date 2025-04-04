@@ -1,7 +1,7 @@
-import "../global.css";
-import './RentalPage.css';
 import React, { useState } from "react";
 import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
+import "../App.css";
+import './RentalPage.css';
 
 export default function RentalPage(props) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);

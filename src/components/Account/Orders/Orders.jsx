@@ -1,4 +1,4 @@
-import '../../global.css';
+import '../../App.css';
 import '../Account.css';
 import OrdersCarDisplay from './OrdersCarDisplay'; // Import the BookingsCarDisplay component
 

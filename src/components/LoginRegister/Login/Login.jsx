@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RegisterButton from '../Register/Register';
 import ForgotPassword from '../ForgotPassword/ForgotPassword'; // Import ForgotPassword component
-import '../../global.css';
+import '../../App.css';
 import '../LoginRegister.css';
 
 const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {

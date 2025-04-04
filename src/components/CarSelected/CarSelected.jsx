@@ -1,5 +1,5 @@
+import '../App.css';
 import './CarSelected.css';
-
 
 const CarSelected = (props) => {
   return (
