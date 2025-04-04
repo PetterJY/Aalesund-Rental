@@ -130,11 +130,17 @@
   }
 
   /**
-  * Booking css
+  * Orders css
   * Styles for the booking section of the account page.
   */
 
-  .booking {
+  .orders {
     background-color: #fffcf2;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+
+  /**
+  * Orders CarDisplay css
+  * Styles for the orders car display section of "My Orders".
+  */
+
