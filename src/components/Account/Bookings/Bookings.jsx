@@ -1,4 +1,4 @@
-import '../../global.css';
+import '../../App.css';
 import '../Account.css';
 
 const Booking = ({ booking }) => {

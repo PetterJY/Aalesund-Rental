@@ -1,5 +1,5 @@
-import './App.css';
-import { createBrowserRouter, createRoutesFromElements, Navigate, Outlet, Route, RouterProvider } from "react-router-dom";
+import React from 'react';
+import { createBrowserRouter, createRoutesFromElements, Navigate, Outlet, Route, RouterProvider } from "react-router";
 import BookingPage from './BookingPage/BookingPage';
 import CarDisplay from './CarDisplay/CarDisplay';
 import CarSelected from './CarSelected/CarSelected';
@@ -9,6 +9,7 @@ import Account from './Account/Account/Account';
 import Bookings from './Account/Bookings/Bookings';
 import Home from './Home/Home';
 import RentalPage from './RentalPage/RentalPage';
+import './App.css';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path={"/"} element={<Root />}>

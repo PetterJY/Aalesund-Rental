@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../global.css';
+import '../../App.css';
 import '../LoginRegister.css';
 
 const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {

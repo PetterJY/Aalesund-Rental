@@ -1,4 +1,4 @@
-import "../global.css";
+import "../App.css";
 import "./CarDisplay.css";
 import React, { useState } from "react";
 import carImage from "../../resources/images/car.png"; 

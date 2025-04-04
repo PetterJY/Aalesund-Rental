@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import LoginButton from '../LoginRegister/Login/Login';
 import logo from '../../resources/images/logo.png';
 import loginImage from '../../resources/images/login.png';
-import '../global.css';
-import './Header.css';
 import { createRoot } from "react-dom/client";
 import { User } from "@phosphor-icons/react";
+import '../App.css';
+import './Header.css';
 
 const Header = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);

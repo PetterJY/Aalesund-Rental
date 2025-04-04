@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import './Footer.css';
 import caretDown from "../../resources/images/caret-down.png";
+import './Footer.css';
 
 const Footer = () => {
 
