@@ -9,6 +9,7 @@ import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css"; // Required for analog clock UI
 import "react-datepicker/dist/react-datepicker.css";
 import {enGB} from "date-fns/locale/en-GB";
+import { format } from 'date-fns';
 
 const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange }) => {
   const datePickerRef = useRef(null);
@@ -53,6 +54,7 @@ const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange
           timeIntervals={30}
           timeCaption="Time"
           dateFormat="HH:mm"
+          timeFormat="HH:mm"
           className="time-input"
         />
       </div>
@@ -123,7 +125,11 @@ const Header = ({ page }) => {
       {showMenu && (
         <div className="top-menu-container">
           <div className="date-time-menu">
-            <p>19. March | 12.30 - 05. April | 08.30</p>
+            <p className="date-range-display">
+              {format(pickupDate, 'MMM d')} | {format(pickupTime, 'h:mm a')}
+              <span className="separator"> - </span>
+              {format(dropoffDate, 'MMM d')} | {format(dropoffTime, 'h:mm a')}
+            </p>
           </div>
           <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu}>
             <PencilSimple size={30} className="edit-icon" />

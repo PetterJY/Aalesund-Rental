@@ -258,6 +258,14 @@ p {
   border: 2px solid turquoise;
 }
 
+.date-range-display {
+
+}
+
+.separator {
+  margin-right: 10px;
+  margin-left: 10px;
+}
 
 
 .save-button:hover {
