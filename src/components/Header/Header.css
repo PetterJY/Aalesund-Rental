@@ -107,11 +107,8 @@ p {
 }
 
 .date-time-popup-menu {
+  display: flex;
   position: absolute; /* Change from absolute to fixed */
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
-
   top: 0;
   left: 0;
   height: 20vh;
@@ -124,14 +121,23 @@ p {
   transition: transform 0.3s ease-in-out, box-shadow 1s 0.3s ease-in-out, visibility 0s 0.3s;
   visibility: hidden;
   text-align: left;
-  justify-items: center; /* Center items horizontally in their cells */
-  align-items: center;
 }
 
 .date-time-popup-menu.open {
   transform: translateY(0);
   visibility: visible;
   transition: transform 0.3s ease-in-out, box-shadow 1s 0.3s ease-in-out, visibility 0.3s;
+}
+
+.selection-items {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 285px; /* Reduce this */
+  max-width: 1300px;
+  margin: 0 auto; /* Add this to center the grid */
+  justify-items: center; /* Center items horizontally in their cells */
+  align-items: center;
 }
 
 

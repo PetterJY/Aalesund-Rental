@@ -33,8 +33,8 @@ const Header = ({ page }) => {
   }, [isMenuOpen]);
 
   const handleSave = () => {
-    console.log("Pickup Date:", pickupDate);
-    console.log("Dropoff Date:", dropoffDate);
+    console.log("Pickup Date: ", pickupDate);
+    console.log("Dropoff Date: ", dropoffDate);
     toggleMenu();
   };
 
@@ -64,6 +64,7 @@ const Header = ({ page }) => {
       )}
 
       <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
+        <div className="selection-items">
         <div className="pickup-section">
           <label>Pickup</label>
           <div className="date-time-inputs">
@@ -97,6 +98,7 @@ const Header = ({ page }) => {
           </div>
         </div>
         <button className="save-button" onClick={handleSave}>Save Changes</button>
+      </div>
       </div>
 
       <nav className="nav-bar">
