@@ -1,5 +1,6 @@
 import './App.css';
 import { createBrowserRouter, createRoutesFromElements, Navigate, Outlet, Route, RouterProvider } from "react-router-dom";
+import BookingsCarDisplay from './Account/Bookings/BookingsCarDisplay';
 import BookingPage from './BookingPage/BookingPage';
 import CarDisplay from './CarDisplay/CarDisplay';
 import CarSelected from './CarSelected/CarSelected';
@@ -50,9 +51,13 @@ function AccountExample() {
 }
 
 function BookingsExample() {
-  return (
-    <Bookings />
-  );
+const bookings = [
+    { id:"1", name: "Volkswagen Biggerstraum", model: "2021", pricePerDay: 100, seats: 5, image: "src\resources\images\car.png" },
+    { id:"2", name: "Audi A4", model: "2020", pricePerDay: 120, seats: 5, image: "src\resources\images\car.png" },
+
+];
+
+return <Bookings bookings={bookings} />;
 }
 
 function RentalPageExample() {

@@ -1,7 +1,10 @@
 import '../../global.css';
 import '../Account.css';
+import BookingsCarDisplay from './BookingsCarDisplay'; // Import the BookingsCarDisplay component
 
-const Booking = ({ booking }) => {
+
+
+const Booking = ({ bookings = [] }) => { // Default to an empty array
   return (
     <div className="booking">
       <header className="account-menu">
@@ -10,7 +13,21 @@ const Booking = ({ booking }) => {
           <li id="selected-site-link"><a href="/account/bookings">Bookings</a></li>
         </ul>
       </header>
-      <p>dick</p>
+      <section>
+        <h2 className="title">My Bookings</h2>
+        <div className="bookings-list">
+        {bookings.map((booking) => (
+            <BookingsCarDisplay
+              key={booking.id}
+              name={booking.name}
+              model={booking.model}
+              pricePerDay={booking.pricePerDay}
+              seats={booking.seats}
+              image={booking.image}
+            />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
