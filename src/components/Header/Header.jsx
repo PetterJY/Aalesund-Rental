@@ -11,36 +11,30 @@ import "react-clock/dist/Clock.css"; // Required for analog clock UI
 import "react-datepicker/dist/react-datepicker.css";
 import { enGB } from "date-fns/locale/en-GB";
 
-const DateTimePicker = ({ format }) => {
+const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange }) => {
   const datePickerRef = useRef(null);
   const timePickerRef = useRef(null);
-  const [pickupDate, setPickupDate] = useState(null);
-  const [dropoffDate, setDropoffDate] = useState(null);
-  const [pickUpTime, setpickUpTime] = useState(null);
-  const [dropoffTime, setdropoffTime] = useState(null);
 
   function openTimePicker() {
-    timePickerRef.current.showPicker?.(); // Attempt to open the native time picker
+    if (timePickerRef.current) {
+      timePickerRef.current.setOpen(true);
+    }
   }
 
   function openDatePicker() {
-    datePickerRef.current.showPicker?.(); // react-datepicker method to open it
-  }
+    if (datePickerRef.current) {
+      datePickerRef.current.setOpen(true); // Open the date picker
+    }  }
 
   return (
     <div className="date-time">
       <div className="date-picker">
         <button className="date-picker-button" onClick={openDatePicker}></button>
+        {selectedDate ? selectedDate.toLocaleDateString() : "Select Date"}
         <DatePicker
           ref={datePickerRef}
-          selected={format === "pickup" ? pickupDate : dropoffDate} // Possibly buggy
-          onChange={(date) => {
-            if (format === "pickup") {
-              setPickupDate(date)
-          } else {
-              setDropoffDate(date)
-              }
-          }}
+          selected={selectedDate}
+          onChange={onDateChange}
           monthsShown={2}
           dateFormat="yyyy-MM-dd"
           className="date-input"
@@ -50,19 +44,18 @@ const DateTimePicker = ({ format }) => {
       </div>
       <div className="time-picker">
         <button className="time-picker-button" onClick={openTimePicker}></button>
-        <TimePicker
+        {selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Select Time"}
+        <DatePicker
+          ref={timePickerRef}
+          selected={selectedTime}
+          onChange={onTimeChange}
+          showTimeSelect
+          showTimeSelectOnly
+          timeIntervals={30}
+          timeCaption="Time"
+          dateFormat="HH:mm"
           className="time-input"
-          value={format === "pickup" ? pickUpTime : dropoffTime}
-          onChange={(time) => {
-            if (format === "pickup") {
-              setpickUpTime(time)
-          } else {
-              setdropoffTime(time)
-            }
-          }}
-          disableClock={true} // Set to false for an analog clock
         />
-        <input type="time" className="time-input" ref={timePickerRef}/>
       </div>
     </div>
   );
@@ -74,6 +67,10 @@ const Header = ({ page }) => {
   const showMenu = page === "rental";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [pickupDate, setPickupDate] = useState(null);
+  const [dropoffDate, setDropoffDate] = useState(null);
+  const [pickupTime, setPickUpTime] = useState(null);
+  const [dropoffTime, setDropoffTime] = useState(null);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -124,13 +121,19 @@ const Header = ({ page }) => {
           <div className="pickup-section">
             <label>Pickup</label>
             <DateTimePicker
-              format="pickup"
+              selectedDate={pickupDate}
+              onDateChange={setPickupDate}
+              selectedTime={pickupTime}
+              onTimeChange={setPickUpTime}
             />
           </div>
           <div className="dropoff-section">
             <label>Drop-off</label>
             <DateTimePicker
-              format="dropoff"
+              selectedDate={dropoffDate}
+              onDateChange={setDropoffDate}
+              selectedTime={dropoffTime}
+              onTimeChange={setDropoffTime}
             />
           </div>
           <button className="save-button" onClick={handleSave}>
