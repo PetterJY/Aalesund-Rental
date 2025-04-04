@@ -5,17 +5,42 @@ import '../global.css';
 import './Header.css';
 import { User, PencilSimple } from "@phosphor-icons/react";
 import DatePicker from "react-datepicker";
+import TimePicker from "react-time-picker";
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css"; // Required for analog clock UI
 import "react-datepicker/dist/react-datepicker.css";
 import { enGB } from "date-fns/locale/en-GB";
 
-const DateTimePicker = ({ selected, onChange }) => {
+const DateTimePicker = ({ format }) => {
+  const datePickerRef = useRef(null);
+  const timePickerRef = useRef(null);
+  const [pickupDate, setPickupDate] = useState(null);
+  const [dropoffDate, setDropoffDate] = useState(null);
+  const [pickUpTime, setpickUpTime] = useState(null);
+  const [dropoffTime, setdropoffTime] = useState(null);
+
+  function openTimePicker() {
+    timePickerRef.current.showPicker?.(); // Attempt to open the native time picker
+  }
+
+  function openDatePicker() {
+    datePickerRef.current.showPicker?.(); // react-datepicker method to open it
+  }
+
   return (
     <div className="date-time">
       <div className="date-picker">
-        <button className="date-picker-button"></button>
+        <button className="date-picker-button" onClick={openDatePicker}></button>
         <DatePicker
-          selected={selected}
-          onChange={onChange}
+          ref={datePickerRef}
+          selected={format === "pickup" ? pickupDate : dropoffDate} // Possibly buggy
+          onChange={(date) => {
+            if (format === "pickup") {
+              setPickupDate(date)
+          } else {
+              setDropoffDate(date)
+              }
+          }}
           monthsShown={2}
           dateFormat="yyyy-MM-dd"
           className="date-input"
@@ -24,18 +49,30 @@ const DateTimePicker = ({ selected, onChange }) => {
         />
       </div>
       <div className="time-picker">
-        <button className="time-picker-button"></button>
-        <input type="time" className="time-input" />
+        <button className="time-picker-button" onClick={openTimePicker}></button>
+        <TimePicker
+          className="time-input"
+          value={format === "pickup" ? pickUpTime : dropoffTime}
+          onChange={(time) => {
+            if (format === "pickup") {
+              setpickUpTime(time)
+          } else {
+              setdropoffTime(time)
+            }
+          }}
+          disableClock={true} // Set to false for an analog clock
+        />
+        <input type="time" className="time-input" ref={timePickerRef}/>
       </div>
     </div>
   );
 };
 
+
+
 const Header = ({ page }) => {
   const showMenu = page === "rental";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [pickupDate, setPickupDate] = useState(null);
-  const [dropoffDate, setDropoffDate] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
@@ -59,8 +96,6 @@ const Header = ({ page }) => {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   const handleSave = () => {
-    console.log("Pickup Date:", pickupDate);
-    console.log("Dropoff Date:", dropoffDate);
     toggleMenu();
   };
 
@@ -90,16 +125,12 @@ const Header = ({ page }) => {
             <label>Pickup</label>
             <DateTimePicker
               format="pickup"
-              selected={pickupDate}
-              onChange={setPickupDate}
             />
           </div>
           <div className="dropoff-section">
             <label>Drop-off</label>
             <DateTimePicker
               format="dropoff"
-              selected={dropoffDate}
-              onChange={setDropoffDate}
             />
           </div>
           <button className="save-button" onClick={handleSave}>
