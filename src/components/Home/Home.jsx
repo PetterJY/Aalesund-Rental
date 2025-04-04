@@ -8,14 +8,14 @@ const Home = (props) => {
   const pickupSection = (
     <div className="pickup-dropoff">
       <label id="pickup-label" className="pickup-dropoff-text">Pickup</label>
-      <DatePicker date={props.pickUpDate} time={props.pickUpTime} />
+      <DateTimePicker date={props.pickUpDate} time={props.pickUpTime} />
     </div>
   );
 
   const dropoffSection = (
     <div className="pickup-dropoff">
       <label className="dropoff-label pickup-dropoff-text">Dropoff</label>
-      <DatePicker date={props.dropOffDate} time={props.dropOffTime} />
+      <DateTimePicker date={props.dropOffDate} time={props.dropOffTime} />
     </div>
   );
 
@@ -36,7 +36,7 @@ const Home = (props) => {
   );
 };
 
-const DatePicker = ({ date, time }) => {
+const DateTimePicker = ({ date, time }) => {
   return (
     <div className="date-time-picker">
       <div className="date-time-picker-content">

@@ -108,7 +108,7 @@ p {
 
 .date-time-popup-menu {
   display: flex;
-  position: absolute; /* Change from absolute to fixed */
+  position: absolute;
   top: 0;
   left: 0;
   height: 20vh;
@@ -130,9 +130,13 @@ p {
 }
 
 .selection-items {
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  align-self: center;
+  border: 2px solid blue;
+  height: auto;
+  display: flex;
+  /*display: grid;*/
+  /*grid-template-rows: repeat(3, 1fr);*/
+  /*grid-template-columns: repeat(3, 1fr);*/
   grid-column-gap: 285px; /* Reduce this */
   max-width: 1300px;
   margin: 0 auto; /* Add this to center the grid */
@@ -140,10 +144,83 @@ p {
   align-items: center;
 }
 
+.date-picker {
+  width: 50%;
+  height: 100%;
+  border-right: 1px solid black;
+}
+
+.time-picker {
+  width: 50%;
+  height: 100%;
+}
+
+.date-time {
+  position: relative;
+  height: 50px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  border-radius: 15px;
+  overflow: visible;
+}
+
+.date-input {
+  visibility: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  line-height: normal;
+}
+
+.time-input {
+  visibility: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  line-height: normal;
+}
+
+
+.date-picker-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  opacity: 0; /* Invisible as intended */
+}
+
+.time-picker-button {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  opacity: 0; /* Invisible as intended */
+}
+
+
+.date-picker-button:hover, .time-picker-button:hover{
+  cursor: pointer;
+}
+
 
 .save-button {
-  grid-row: 2;
-  grid-column: 3;
+  margin-top: auto;
+  /*grid-row: 2;*/
+  /*grid-column: 3;*/
   font-size: 1em;
   justify-content: center;
   align-items: center;
@@ -157,16 +234,24 @@ p {
 }
 
 .pickup-section {
+  display: flex;
+  flex-direction: column;
   align-self: center;
-  grid-column: 1;
-  grid-row: 2;
+  /*grid-column: 1;*/
+  /*grid-row: 2;*/
+  border: 2px solid pink;
 }
 
 .dropoff-section {
+  display: flex;
+  flex-direction: column;
   align-self: center;
-  grid-column: 2;
-  grid-row: 2;
+  /*grid-column: 2;*/
+  /*grid-row: 2;*/
+  border: 2px solid turquoise;
 }
+
+
 
 .save-button:hover {
   background: #C64D1F; /* Darker shade of #EB5E28 */
@@ -189,7 +274,6 @@ p {
 /* Style the main date picker popup container */
 .date-picker-popper .react-datepicker {
   background: #ffffff; /* White background */
-  border: 2px solid #000000; /* Thin black border */
   border-radius: 10px; /* Rounded corners */
   display: flex; /* Display months side by side */
   gap: 20px; /* Space between months */

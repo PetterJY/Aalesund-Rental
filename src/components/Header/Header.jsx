@@ -46,6 +46,62 @@ const Header = ({ page }) => {
   const showModal = () => setIsModalVisible(true);
   const closeModal = () => setIsModalVisible(false);
 
+  const DateTimePicker = ({ format, date, time }) => {
+    console.log("Rendering DateTimePicker with format:", format, "date:", date, "time:", time); // Debug log
+
+    if (format === "dropoff") {
+      return (
+        <div className="date-time">
+          <div className="date-picker">
+            <button className="date-picker-button"></button>
+            <DatePicker
+              selected={dropoffDate}
+              onChange={(date) => setDropoffDate(date)}
+              monthsShown={2}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="Select dropoff date"
+              className="date-input"
+              popperClassName="date-picker-popper"
+              locale={enGB}
+            />
+            {/*<p>{date}</p>*/}
+          </div>
+          <div className="time-picker">
+            <button className="time-picker-button"></button>
+            <input type="time" className="time-input" />
+            {/*<p>{time}</p>*/}
+          </div>
+        </div>
+      );
+    } else if (format === "pickup") {
+      return (
+        <div className="date-time">
+          <div className="date-picker">
+            <button className="date-picker-button"></button>
+            <DatePicker
+              selected={pickupDate}
+              onChange={(date) => setPickupDate(date)}
+              monthsShown={2}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="Select pickup date"
+              className="date-input"
+              popperClassName="date-picker-popper"
+              locale={enGB}
+            />
+            {/*<p>{date}</p>*/}
+          </div>
+          <div className="time-picker">
+            <button className="time-picker-button"></button>
+            <input type="time" className="time-input" />
+            {/*<p>{time}</p>*/}
+          </div>
+        </div>
+      );
+    } else {
+      console.log("Typo in format - could not select for either pickup or dropoff.");
+    }
+  };
+
   return (
     <header className="top-header">
       <a href="http://localhost:3000/home" className="logoButton">
@@ -67,39 +123,16 @@ const Header = ({ page }) => {
         <div className="selection-items">
         <div className="pickup-section">
           <label>Pickup</label>
-          <div className="date-time-inputs">
-            <DatePicker
-              selected={pickupDate}
-              onChange={(date) => setPickupDate(date)}
-              monthsShown={3}
-              dateFormat="yyyy-MM-dd"
-              placeholderText="Select pickup date"
-              className="date-input"
-              popperClassName="date-picker-popper"
-              locale={enGB}
-            />
-            <input type="time" className="time-input" />
-          </div>
+            <DateTimePicker format={"pickup"} date={21} time={27}></DateTimePicker>
         </div>
         <div className="dropoff-section">
           <label>Drop-off</label>
-          <div className="date-time-inputs">
-            <DatePicker
-              selected={dropoffDate}
-              onChange={(date) => setDropoffDate(date)}
-              monthsShown={3}
-              dateFormat="yyyy-MM-dd"
-              placeholderText="Select dropoff date"
-              className="date-input"
-              popperClassName="date-picker-popper"
-              locale={enGB}
-            />
-            <input type="time" className="time-input" />
-          </div>
+          <DateTimePicker format={"dropoff"} date={12} time={13}></DateTimePicker>
         </div>
         <button className="save-button" onClick={handleSave}>Save Changes</button>
       </div>
       </div>
+
 
       <nav className="nav-bar">
         <LoginButton showModal={showModal} closeModal={closeModal} isModalVisible={isModalVisible} defaultMode="login" />
@@ -110,6 +143,9 @@ const Header = ({ page }) => {
       </nav>
     </header>
   );
+
 };
+
+
 
 export default Header;
