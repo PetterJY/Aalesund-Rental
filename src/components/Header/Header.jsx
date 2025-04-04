@@ -6,15 +6,39 @@ import './Header.css';
 import { User, PencilSimple } from "@phosphor-icons/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {enGB} from "date-fns/locale/en-GB";
+import { enGB } from "date-fns/locale/en-GB";
+
+const DateTimePicker = ({ selected, onChange }) => {
+  return (
+    <div className="date-time">
+      <div className="date-picker">
+        <button className="date-picker-button"></button>
+        <DatePicker
+          selected={selected}
+          onChange={onChange}
+          monthsShown={2}
+          dateFormat="yyyy-MM-dd"
+          className="date-input"
+          popperClassName="date-picker-popper"
+          locale={enGB}
+        />
+      </div>
+      <div className="time-picker">
+        <button className="time-picker-button"></button>
+        <input type="time" className="time-input" />
+      </div>
+    </div>
+  );
+};
 
 const Header = ({ page }) => {
   const showMenu = page === "rental";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
-  const buttonRef = useRef(null);
   const [pickupDate, setPickupDate] = useState(null);
   const [dropoffDate, setDropoffDate] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -32,75 +56,16 @@ const Header = ({ page }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMenuOpen]);
 
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
   const handleSave = () => {
-    console.log("Pickup Date: ", pickupDate);
-    console.log("Dropoff Date: ", dropoffDate);
+    console.log("Pickup Date:", pickupDate);
+    console.log("Dropoff Date:", dropoffDate);
     toggleMenu();
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => setIsModalVisible(true);
   const closeModal = () => setIsModalVisible(false);
-
-  const DateTimePicker = ({ format, date, time }) => {
-    console.log("Rendering DateTimePicker with format:", format, "date:", date, "time:", time); // Debug log
-
-    if (format === "dropoff") {
-      return (
-        <div className="date-time">
-          <div className="date-picker">
-            <button className="date-picker-button"></button>
-            <DatePicker
-              selected={dropoffDate}
-              onChange={(date) => setDropoffDate(date)}
-              monthsShown={2}
-              dateFormat="yyyy-MM-dd"
-              placeholderText="Select dropoff date"
-              className="date-input"
-              popperClassName="date-picker-popper"
-              locale={enGB}
-            />
-            {/*<p>{date}</p>*/}
-          </div>
-          <div className="time-picker">
-            <button className="time-picker-button"></button>
-            <input type="time" className="time-input" />
-            {/*<p>{time}</p>*/}
-          </div>
-        </div>
-      );
-    } else if (format === "pickup") {
-      return (
-        <div className="date-time">
-          <div className="date-picker">
-            <button className="date-picker-button"></button>
-            <DatePicker
-              selected={pickupDate}
-              onChange={(date) => setPickupDate(date)}
-              monthsShown={2}
-              dateFormat="yyyy-MM-dd"
-              placeholderText="Select pickup date"
-              className="date-input"
-              popperClassName="date-picker-popper"
-              locale={enGB}
-            />
-            {/*<p>{date}</p>*/}
-          </div>
-          <div className="time-picker">
-            <button className="time-picker-button"></button>
-            <input type="time" className="time-input" />
-            {/*<p>{time}</p>*/}
-          </div>
-        </div>
-      );
-    } else {
-      console.log("Typo in format - could not select for either pickup or dropoff.");
-    }
-  };
 
   return (
     <header className="top-header">
@@ -121,21 +86,35 @@ const Header = ({ page }) => {
 
       <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
         <div className="selection-items">
-        <div className="pickup-section">
-          <label>Pickup</label>
-            <DateTimePicker format={"pickup"} date={21} time={27}></DateTimePicker>
+          <div className="pickup-section">
+            <label>Pickup</label>
+            <DateTimePicker
+              format="pickup"
+              selected={pickupDate}
+              onChange={setPickupDate}
+            />
+          </div>
+          <div className="dropoff-section">
+            <label>Drop-off</label>
+            <DateTimePicker
+              format="dropoff"
+              selected={dropoffDate}
+              onChange={setDropoffDate}
+            />
+          </div>
+          <button className="save-button" onClick={handleSave}>
+            Save Changes
+          </button>
         </div>
-        <div className="dropoff-section">
-          <label>Drop-off</label>
-          <DateTimePicker format={"dropoff"} date={12} time={13}></DateTimePicker>
-        </div>
-        <button className="save-button" onClick={handleSave}>Save Changes</button>
       </div>
-      </div>
-
 
       <nav className="nav-bar">
-        <LoginButton showModal={showModal} closeModal={closeModal} isModalVisible={isModalVisible} defaultMode="login" />
+        <LoginButton
+          showModal={showModal}
+          closeModal={closeModal}
+          isModalVisible={isModalVisible}
+          defaultMode="login"
+        />
         <button id="login-create" onClick={showModal}>
           <User size={32} />
           Login | Register
@@ -143,9 +122,6 @@ const Header = ({ page }) => {
       </nav>
     </header>
   );
-
 };
-
-
 
 export default Header;
