@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import no.ntnu.entity.ExtraFeatures;
 import no.ntnu.entity.exceptions.ExtraFeatureNotFoundException;
+import no.ntnu.entity.models.ExtraFeatures;
 import no.ntnu.logic.repository.ExtraFeaturesRepository;
 
 @Service

@@ -3,12 +3,13 @@ package no.ntnu.logic.service;
 import java.util.List;
 
 import no.ntnu.entity.exceptions.AdminNotFoundException;
+import no.ntnu.entity.models.Admin;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import no.ntnu.entity.Admin;
 import no.ntnu.entity.exceptions.AccountNotFoundException;
 import no.ntnu.logic.controller.AccountsController;
 import no.ntnu.logic.repository.AdminRepository;

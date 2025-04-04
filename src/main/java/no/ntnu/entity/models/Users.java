@@ -1,4 +1,4 @@
-package no.ntnu.entity;
+package no.ntnu.entity.models;
 
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.CascadeType;
@@ -26,7 +26,7 @@ public class Users {
   @ApiModelProperty("The last name of the user")
   private String lastName;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   @ApiModelProperty("The email of the user")
   private String email; 
 

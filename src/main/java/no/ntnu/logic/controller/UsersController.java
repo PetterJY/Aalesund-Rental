@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.Users;
+import no.ntnu.entity.dto.RegisterRequest;
+import no.ntnu.entity.models.Accounts;
+import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.UsersService;
 
 @RestController
@@ -52,7 +54,18 @@ public class UsersController {
 
   @PostMapping
   @ApiOperation(value = "Creates a new user.", notes = "The newly created user is returned.")
-  public ResponseEntity<Users> createUser(@RequestBody Users user) {
+  public ResponseEntity<Users> createUser(@RequestBody RegisterRequest registerRequest) {
+    Users user = new Users();
+    user.setFirstName(registerRequest.getFirstName());
+    user.setLastName(registerRequest.getLastName());
+    user.setEmail(registerRequest.getEmail());
+
+    Accounts account = new Accounts();
+    account.setPassword(registerRequest.getPassword());
+    account.setRole(registerRequest.getRole());
+
+    user.setAccount(account);
+
     logger.info("Creating new user");
     Users createdUser = usersService.save(user);
     logger.debug("Created user: {}", createdUser);

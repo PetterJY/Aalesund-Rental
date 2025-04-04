@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import no.ntnu.entity.Cars;
 import no.ntnu.entity.exceptions.CarNotFoundException;
+import no.ntnu.entity.models.Cars;
 import no.ntnu.logic.repository.CarsRepository;
 
 @Service

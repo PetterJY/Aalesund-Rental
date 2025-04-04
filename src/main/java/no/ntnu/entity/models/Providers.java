@@ -1,4 +1,4 @@
-package no.ntnu.entity;
+package no.ntnu.entity.models;
 
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.CascadeType;
