@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.Providers;
+import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.service.ProvidersService;
 
 @RestController

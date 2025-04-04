@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import no.ntnu.entity.Rentals;
 import no.ntnu.entity.exceptions.RentalNotFoundException;
+import no.ntnu.entity.models.Rentals;
 import no.ntnu.logic.repository.RentalsRepository;
 
 @Service

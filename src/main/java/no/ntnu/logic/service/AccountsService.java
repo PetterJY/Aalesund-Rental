@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import no.ntnu.entity.Accounts;
 import no.ntnu.entity.exceptions.AccountNotFoundException;
+import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.repository.AccountsRepository;
 
 @Service

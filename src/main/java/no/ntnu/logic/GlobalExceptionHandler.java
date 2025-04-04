@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -19,6 +20,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
   private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    logger.error("Validation error: ", ex);
+    String errorMessage = ex.getBindingResult().getFieldErrors().stream()
+      .map(error -> error.getField() + ": " + error.getDefaultMessage())
+      .reduce((msg1, msg2) -> msg1 + ", " + msg2)
+      .orElse("Validation error occurred");
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+}
 
   @ExceptionHandler(AccountNotFoundException.class)
   public ResponseEntity<String> handleAccountNotFoundException(AccountNotFoundException ex) {
