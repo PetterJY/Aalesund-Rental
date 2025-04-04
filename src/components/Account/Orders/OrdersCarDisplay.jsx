@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 import '../Account.css';
 
-const BookingsCarDisplay = (car) => {
+const OrdersCarDisplay = (car) => {
   return (
     <div className="car-display-card">
       <img src={car.image} alt={car.name} className="car-image" />
@@ -16,4 +16,4 @@ const BookingsCarDisplay = (car) => {
   );
 };
 
-export default BookingsCarDisplay;
+export default OrdersCarDisplay;

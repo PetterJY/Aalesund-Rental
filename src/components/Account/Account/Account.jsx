@@ -7,7 +7,7 @@ const Account = () => {
        <header className="account-menu">
         <ul className="account-menu-list">
           <li id="selected-site-link"><a href="/account/account">Account</a></li>
-          <li><a href="/account/bookings">Bookings</a></li>
+          <li><a href="/account/orders">Orders</a></li>
         </ul>
       </header>
       <section className="account-section">

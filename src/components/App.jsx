@@ -6,9 +6,10 @@ import CarSelected from './CarSelected/CarSelected';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Account from './Account/Account/Account';
-import Bookings from './Account/Bookings/Bookings';
+import Orders from './Account/Orders/Orders';
 import Home from './Home/Home';
 import RentalPage from './RentalPage/RentalPage';
+import carImage from '../resources/images/car.png';
 import './App.css';
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -18,7 +19,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path={"rental"} element={<RentalPageExample />} />
     <Route path={"booking"} element={<BookingPageExample />} />
     <Route path={"account/account"} element={<AccountExample />} />
-    <Route path={"account/bookings"} element={<BookingsExample />} />
+    <Route path={"account/orders"} element={<OrdersExample />} />
   </Route>
 ))
 
@@ -50,14 +51,14 @@ function AccountExample() {
   );
 }
 
-function BookingsExample() {
-const bookings = [
-    { id:"1", name: "Volkswagen Biggerstraum", model: "2021", pricePerDay: 100, seats: 5, image: "src\resources\images\car.png" },
-    { id:"2", name: "Audi A4", model: "2020", pricePerDay: 120, seats: 5, image: "src\resources\images\car.png" },
+function OrdersExample() {
+const orders = [
+    { id:"1", name: "Volkswagen Biggerstraum", model: "2021", pricePerDay: 100, seats: 5, image: {carImage} },
+    { id:"2", name: "Audi A4", model: "2020", pricePerDay: 120, seats: 5, image: {carImage} },
 
 ];
 
-return <Bookings bookings={bookings} />;
+return <Orders orders={orders} />;
 }
 
 function RentalPageExample() {
