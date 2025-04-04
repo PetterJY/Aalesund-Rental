@@ -1,15 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import LoginButton from '../LoginRegister/Login/Login';
 import logo from '../../resources/images/logo.png';
 import '../global.css';
 import './Header.css';
-import { User, PencilSimple } from "@phosphor-icons/react";
+import {PencilSimple, User} from "@phosphor-icons/react";
 import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css"; // Required for analog clock UI
 import "react-datepicker/dist/react-datepicker.css";
-import { enGB } from "date-fns/locale/en-GB";
+import {enGB} from "date-fns/locale/en-GB";
 
 const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange }) => {
   const datePickerRef = useRef(null);
@@ -30,7 +29,7 @@ const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange
     <div className="date-time">
       <div className="date-picker">
         <button className="date-picker-button" onClick={openDatePicker}></button>
-        {selectedDate ? selectedDate.toLocaleDateString() : "Select Date"}
+        {/*{selectedDate ? selectedDate.toLocaleDateString() : "Select Date"}*/}
         <DatePicker
           ref={datePickerRef}
           selected={selectedDate}
@@ -44,7 +43,7 @@ const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange
       </div>
       <div className="time-picker">
         <button className="time-picker-button" onClick={openTimePicker}></button>
-        {selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Select Time"}
+        {/*{selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Select Time"}*/}
         <DatePicker
           ref={timePickerRef}
           selected={selectedTime}
@@ -67,10 +66,26 @@ const Header = ({ page }) => {
   const showMenu = page === "rental";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [pickupDate, setPickupDate] = useState(null);
-  const [dropoffDate, setDropoffDate] = useState(null);
-  const [pickupTime, setPickUpTime] = useState(null);
-  const [dropoffTime, setDropoffTime] = useState(null);
+  const [pickupDate, setPickupDate] = useState(() => {
+    return new Date();
+  });
+  const [dropoffDate, setDropoffDate] = useState(() => {
+    const time = new Date();
+    time.setDate(time.getDate()+1);
+    return time;
+  });
+  const [pickupTime, setPickUpTime] = useState(() => {
+    const time = new Date();
+    time.setHours(time.getHours()+1);
+    time.setMinutes(0);
+    return time;
+  });
+  const [dropoffTime, setDropoffTime] = useState(() => {
+    const time = new Date();
+    time.setHours(time.getHours()+2);
+    time.setMinutes(0);
+    return time;
+  });
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
