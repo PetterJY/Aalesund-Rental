@@ -51,9 +51,13 @@ function AccountExample() {
 }
 
 function BookingsExample() {
-  return (
-    <Bookings />
-  );
+const bookings = [
+    { id:"1", name: "Volkswagen Biggerstraum", model: "2021", pricePerDay: 100, seats: 5, image: "src\resources\images\car.png" },
+    { id:"2", name: "Audi A4", model: "2020", pricePerDay: 120, seats: 5, image: "src\resources\images\car.png" },
+
+];
+
+return <Bookings bookings={bookings} />;
 }
 
 function RentalPageExample() {
