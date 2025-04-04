@@ -6,7 +6,7 @@ import './Header.css';
 import {PencilSimple, User} from "@phosphor-icons/react";
 import DatePicker from "react-datepicker";
 import "react-time-picker/dist/TimePicker.css";
-import "react-clock/dist/Clock.css"; // Required for analog clock UI
+import "react-clock/dist/Clock.css";
 import "react-datepicker/dist/react-datepicker.css";
 import {enGB} from "date-fns/locale/en-GB";
 import { format } from 'date-fns';
@@ -14,6 +14,10 @@ import { format } from 'date-fns';
 const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange }) => {
   const datePickerRef = useRef(null);
   const timePickerRef = useRef(null);
+  const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
+  const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
+
+
 
   function openTimePicker() {
     if (timePickerRef.current) {
@@ -23,32 +27,34 @@ const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange
 
   function openDatePicker() {
     if (datePickerRef.current) {
-      datePickerRef.current.setOpen(true); // Open the date picker
+      datePickerRef.current.setOpen(true);
     }  }
 
   return (
     <div className="date-time">
-      <div className="date-picker">
+      <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
         <button className="date-picker-button" onClick={openDatePicker}></button>
-        {/*{selectedDate ? selectedDate.toLocaleDateString() : "Select Date"}*/}
         <DatePicker
           ref={datePickerRef}
+          onCalendarOpen={() => setIsDatePickerSelected(true)}
+          onCalendarClose={() => setIsDatePickerSelected(false)}
           selected={selectedDate}
           onChange={onDateChange}
           monthsShown={2}
-          dateFormat="yyyy-MM-dd"
+          dateFormat="dd-MM"
           className="date-input"
           popperClassName="date-picker-popper"
           locale={enGB}
         />
       </div>
-      <div className="time-picker">
+      <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
         <button className="time-picker-button" onClick={openTimePicker}></button>
-        {/*{selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Select Time"}*/}
         <DatePicker
           ref={timePickerRef}
           selected={selectedTime}
           onChange={onTimeChange}
+          onCalendarOpen={() => setIsTimePickerSelected(true)}
+          onCalendarClose={() => setIsTimePickerSelected(false)}
           showTimeSelect
           showTimeSelectOnly
           timeIntervals={30}

@@ -75,7 +75,7 @@
   border-radius: 50px;
   justify-content: space-between;
   min-width: 350px;
-  transition: all 2s ease-in-out;
+  transition: transform 2s ease-in-out;
 }
 
 .edit-icon {
@@ -152,6 +152,7 @@ p {
   width: 50%;
   height: 100%;
   border-right: 1px solid black;
+  border-radius: 10px 0 0 10px;
 }
 
 .time-picker {
@@ -159,7 +160,19 @@ p {
   height: 100%;
   text-align: center;
   position: relative;
+  border-radius: 0 10px 10px 0;
 }
+
+.date-picker.selected {
+  outline: 3px solid #EB5E28;
+  border-radius: 15px 0 0 15px;
+}
+
+.time-picker.selected {
+  outline: 3px solid #EB5E28;
+  border-radius: 0 15px 15px 0;
+}
+
 
 .date-time {
   position: relative;
@@ -222,6 +235,7 @@ p {
 .date-picker-button:hover, .time-picker-button:hover{
   cursor: pointer;
 }
+
 
 
 .save-button {
