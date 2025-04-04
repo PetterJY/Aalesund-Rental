@@ -53,8 +53,10 @@ function AccountExample() {
 
 function OrdersExample() {
 const orders = [
-    { id:"1", name: "Volkswagen Biggerstraum", model: "2021", pricePerDay: 100, seats: 5, image: {carImage} },
-    { id:"2", name: "Audi A4", model: "2020", pricePerDay: 120, seats: 5, image: {carImage} },
+    { id:"1", brand: "Volkswagen", model: "Biggerstraum", rentingTime: 6, pickUpLocation: "Ålesund", dropOffLocation: "Ålesund",
+      pickUpTime:"Th., 18. Mar., 2025 || 10:00", dropOffTime:"Th., 25. Mar., 2025 || 18:00", pricePerDay: 100, 
+      priceTotal:600, image: carImage },
+
 
 ];
 
