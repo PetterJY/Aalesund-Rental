@@ -14,7 +14,7 @@
 }
 
 .modal-content {
-  background-color: #FFFCF2;
+  background-color: white;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -60,7 +60,7 @@
 }
 
 #email-field, #first-name-field, #last-name-field, #password-field, #confirm-password-field {
-  background-color: #FFFCF2;
+  background-color: white;
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -69,7 +69,7 @@
 }
 
 #email-field:focus, #first-name-field:focus, #last-name-field:focus, #password-field:focus, #confirm-password-field:focus {
-  background-color: #FFFCF2;
+  background-color: white;
   border-bottom: #EB5E28 solid 2px;
 }
 

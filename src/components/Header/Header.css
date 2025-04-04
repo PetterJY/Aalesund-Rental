@@ -12,7 +12,7 @@
 #login-create {
   position: relative;
   font-size: 20px;
-  color: #FFFCF2;
+  color: white;
   display: flex;
   flex-direction: row;
   right: 2%;
@@ -63,7 +63,6 @@
 }
 
 .top-menu-container {
-  border-color: red;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -79,7 +78,7 @@
 }
 
 .edit-icon {
-  color: #FFFCF2;
+  color: white;
   align-self: center;
 }
 
@@ -100,13 +99,8 @@
   background-color: #333333;
 }
 
-/* Optional hover effect */
-.edit-button:hover .edit-icon {
-  opacity: 0.7;
-}
-
 p {
-  color: #FFFCF2;
+  color: white;
   margin: 1rem;
 }
 
@@ -115,9 +109,9 @@ p {
   position: absolute;
   top: 0;
   left: 0;
-  height: 20vh;
+  height: 15vh;
   width: 100%;
-  background-color: #FFFCF2;
+  background-color: white;
   z-index: 1000;
   box-shadow: 0 0 100vmax 5000px rgba(0, 0, 0, 0.4);
   flex-direction: row;
@@ -135,12 +129,8 @@ p {
 
 .selection-items {
   align-self: center;
-  border: 2px solid blue;
   height: auto;
   display: flex;
-  /*display: grid;*/
-  /*grid-template-rows: repeat(3, 1fr);*/
-  /*grid-template-columns: repeat(3, 1fr);*/
   grid-column-gap: 285px; /* Reduce this */
   max-width: 1300px;
   margin: 0 auto; /* Add this to center the grid */
@@ -152,7 +142,6 @@ p {
   width: 50%;
   height: 100%;
   border-right: 1px solid black;
-  border-radius: 10px 0 0 10px;
 }
 
 .time-picker {
@@ -160,7 +149,7 @@ p {
   height: 100%;
   text-align: center;
   position: relative;
-  border-radius: 0 10px 10px 0;
+  border: none;
 }
 
 .date-picker.selected {
@@ -240,8 +229,6 @@ p {
 
 .save-button {
   margin-top: auto;
-  /*grid-row: 2;*/
-  /*grid-column: 3;*/
   font-size: 1em;
   justify-content: center;
   align-items: center;
@@ -258,18 +245,12 @@ p {
   display: flex;
   flex-direction: column;
   align-self: center;
-  /*grid-column: 1;*/
-  /*grid-row: 2;*/
-  border: 2px solid pink;
 }
 
 .dropoff-section {
   display: flex;
   flex-direction: column;
   align-self: center;
-  /*grid-column: 2;*/
-  /*grid-row: 2;*/
-  border: 2px solid turquoise;
 }
 
 .date-range-display {

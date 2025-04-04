@@ -90,7 +90,7 @@ const Header = ({ page }) => {
   });
   const [dropoffTime, setDropoffTime] = useState(() => {
     const time = new Date();
-    time.setHours(time.getHours()+2);
+    time.setHours(time.getHours()+1);
     time.setMinutes(0);
     return time;
   });

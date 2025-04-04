@@ -2,7 +2,7 @@ footer {
   display: flex;
   flex-direction: row;
   background-color: #252422;
-  color: #FFFCF2; /* Text color for visibility */
+  color: white; /* Text color for visibility */
   padding: 5%; /* Adjusted padding */
   height: auto; /* Adjust height as needed */
 }
@@ -41,7 +41,7 @@ footer {
 .footer-item {
   display: flex;
   align-items: flex-start;
-  color: #FFFCF2;
+  color: white;
   flex-direction: column;
   font-size: 20px;
   list-style: none; /* Removes bullet points */
@@ -54,7 +54,7 @@ footer {
 footer a {
   position: relative;
   text-decoration: none; /* Remove default underline */
-  color: #FFFCF2; /* Keep original text color */
+  color: white; /* Keep original text color */
 }
 
 footer a::after {
@@ -114,7 +114,7 @@ footer a:hover::after {
     left: 0vw; /* 5% of the viewport width */
     width: 90vw; /* 90% of the viewport width */
     height: 1px;
-    background-color: #FFFCF2;
+    background-color: white;
   }
 
   footer nav#contact::after,
@@ -126,6 +126,6 @@ footer a:hover::after {
     left: 0vw; /* 5% of the viewport width */
     width: 90vw; /* 90% of the viewport width */
     height: 1px;
-    background-color: #FFFCF2;
+    background-color: white;
   }
 }
