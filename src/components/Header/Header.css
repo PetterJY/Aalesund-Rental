@@ -89,8 +89,26 @@
   align-self: center;
 }
 
-.cross-icon {
+.xCircleButton {
+  position: relative; /* Creates positioning context */
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
   align-self: center;
+  width: 1px;
+  height: 1px;
+  background-color: transparent;
+}
+
+.xCircleButton:hover {
+  background-color: transparent;
+}
+
+.cross-icon {
+  position: absolute;
+  align-self: center;
+  justify-self: center;
+  color: black;
 }
 
 .text-input {
@@ -270,8 +288,6 @@ p {
   cursor: pointer;
 }
 
-
-
 .save-button {
   margin-top: auto;
   font-size: 1em;
@@ -342,6 +358,8 @@ p {
   margin-right: 10px;
   margin-left: 10px;
 }
+
+
 
 
 .save-button:hover {

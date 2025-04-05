@@ -151,6 +151,12 @@ const Header = ({ page }) => {
     }
   }
 
+  function handleXCircleClick() {
+
+  }
+
+
+
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -169,9 +175,9 @@ const Header = ({ page }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMenuOpen]);
-
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const showModal = () => setIsModalVisible(true);
+
   const closeModal = () => setIsModalVisible(false);
 
   const handleSave = () => {
@@ -205,6 +211,10 @@ const Header = ({ page }) => {
             <label>Pickup</label>
             <div className="pickup-destination">
               <MagnifyingGlass size={24} weight="bold" className="search-icon" />
+              <input type="text" className="text-input"></input>
+              <button className="xCircleButton" onClick={handleXCircleClick}>
+                <XCircle size={24} weight="bold" className="cross-icon"/>
+              </button>
             </div>
           </div>
           <div className="dropoff-destination-section">
@@ -220,7 +230,7 @@ const Header = ({ page }) => {
             <DateTimePicker
               format={"pickup"}
               selectedDate={pickupDate}
-              onDateChange={handlePickupDateChange}
+              onDateChange={asdhandlePickupDateChange}
               selectedTime={pickupTime}
               onTimeChange={setPickUpTime}
               pickupDate={pickupDate}
