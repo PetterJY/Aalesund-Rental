@@ -3,7 +3,7 @@ import LoginButton from '../LoginRegister/Login/Login';
 import logo from '../../resources/images/logo.png';
 import '../global.css';
 import './Header.css';
-import {PencilSimple, User, MagnifyingGlass, XCircle} from "@phosphor-icons/react";
+import {PencilSimple, User, MagnifyingGlass, XCircle, CalendarBlank} from "@phosphor-icons/react";
 import DatePicker from "react-datepicker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
@@ -71,7 +71,9 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
   return (
       <div className="date-time">
         <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
-          <button className="date-picker-button" onClick={openDatePicker}></button>
+          <button className="date-picker-button" onClick={openDatePicker}>
+          </button>
+          <CalendarBlank weight="bold" className="calendar-icon"/>
           <DatePicker
             ref={datePickerRef}
             onCalendarOpen={() => setIsDatePickerSelected(true)}
@@ -80,7 +82,7 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
             onChange={onDateChange}
             highlightDates={highlightWithRanges}
             monthsShown={3}
-            dateFormat="dd-MM"
+            dateFormat="d. MMM"
             className="date-input"
             popperClassName="date-picker-popper"
             minDate={today}
@@ -157,12 +159,14 @@ const Header = ({ page }) => {
   function handlePickupXCircleClick() {
     const inputField = document.getElementById("pickup-destination-input-field");
     inputField.value = "";
+    inputField.focus();
   }
 
 
   function handleDropoffXCircleClick() {
     const inputField = document.getElementById("dropoff-destination-input-field");
     inputField.value = "";
+    inputField.focus();
   }
 
 
@@ -225,7 +229,11 @@ const Header = ({ page }) => {
             <label>Pickup</label>
             <div className="pickup-destination">
               <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-              <input type="text" className="text-input" id="pickup-destination-input-field"></input>
+              <input type="text"
+                     className="text-input"
+                     id="pickup-destination-input-field"
+                     placeholder="Pickup location">
+              </input>
               <button className="xCircleButton" onClick={handlePickupXCircleClick}>
                 <XCircle size={24} weight="bold" className="cross-icon"/>
               </button>
@@ -235,7 +243,11 @@ const Header = ({ page }) => {
             <label>Dropoff</label>
             <div className="dropoff-destination">
               <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-              <input type="text" className="text-input" id="dropoff-destination-input-field"></input>
+              <input type="text"
+                     className="text-input"
+                     id="dropoff-destination-input-field"
+                     placeholder="Drop-off location">
+              </input>
               <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
                 <XCircle size={24} weight="bold" className="cross-icon"/>
               </button>

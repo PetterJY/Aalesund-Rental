@@ -3,6 +3,7 @@
   font-size: 12px;
   line-height: 18px;
   font-family: HelveticaNow, Helvetica, "Roboto Condensed", Arial, sans-serif;
+  font-weight: 700;
 }
 
 .top-header {
@@ -53,8 +54,6 @@
   cursor: pointer;
 }
 
-
-
 .nav-bar {
   display: flex;
   flex-direction: row;
@@ -101,7 +100,14 @@
   align-self: center;
 }
 
-.xCircleButton {
+.calendar-icon {
+  margin-left: 8px;
+  min-width: 24px; /* Prevent the icon from shrinking */
+  min-height: 24px;
+  box-sizing: content-box; /* This ensures padding doesn't affect dimensions */
+}
+
+.xCircleButton, .xCircleButton:hover {
   position: relative; /* Creates positioning context */
   display: flex;
   justify-content: center; /* Horizontal centering */
@@ -109,10 +115,6 @@
   align-self: center;
   width: 1px;
   height: 1px;
-  background-color: transparent;
-}
-
-.xCircleButton:hover {
   background-color: transparent;
 }
 
@@ -125,7 +127,6 @@
   transition: transform 0.1s ease-in-out;
 }
 
-
 .cross-icon:hover {
   transform: scale(1.125);
 }
@@ -133,15 +134,17 @@
 .text-input {
   width: 100%;
   border: none;
-  line-height: 24px;
   font-size: 16px;
   opacity: 0.75;
   font-weight: 600;
   margin: 0 0 0 12px;
+  caret-color: #C64D1F;
+  line-height: 150%;
 }
 
 .text-input:focus {
   outline: none;
+  caret-color: #C64D1F;
 }
 
 #showMenuButton {
@@ -175,19 +178,27 @@ p {
   width: 100%;
   background-color: white;
   z-index: 1000;
-  box-shadow: 0 0 100vmax 5000px rgba(0, 0, 0, 0.4);
   flex-direction: row;
-  transform: translateY(-100%);
-  transition: transform 0.3s ease-in-out, box-shadow 1s 0.3s ease-in-out, visibility 0s 0.3s;
   visibility: hidden;
   text-align: left;
+  transform: translateY(-100%);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  transition:
+          transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+          box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+          visibility 0s 0.4s;
 }
 
 .date-time-popup-menu.open {
   transform: translateY(0);
   visibility: visible;
-  transition: transform 0.3s ease-in-out, box-shadow 1s 0.3s ease-in-out, visibility 0.3s;
+  box-shadow: 0 0 100vmax 5000px rgba(0, 0, 0, 0.4);
+  transition:
+          transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+          box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+          visibility 0s;
 }
+
 
 .selection-items {
   align-self: center;
@@ -214,15 +225,16 @@ p {
 
 
 .date-picker {
-  border: 1px solid black;
+  border: 1px solid #C9C9CF;
+  padding: 2px;
   border-radius: 12px 0 0 12px;
 }
 
 .time-picker {
   border-radius: 0 12px 12px 0;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-top: 1px solid #C9C9CF;
+  border-right: 1px solid #C9C9CF;
+  border-bottom: 1px solid #C9C9CF;
 }
 
 .date-picker,
@@ -231,8 +243,8 @@ p {
   width: 50%;
   height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 *.selected {
@@ -241,6 +253,7 @@ p {
 
 .date-picker.selected {
   border: 3px solid #EB5E28;
+  padding: 0; /* Remove padding when border is thicker */
 }
 
 .time-picker.selected {
@@ -319,6 +332,7 @@ p {
   border-radius: 10px;
   text-align: center;
   align-self: center;
+  font-weight: 700;
 }
 
 .pickup-date-section {
@@ -343,7 +357,7 @@ p {
   position: relative;
   height: var(--center-container-height);
   width: 372px;
-  border: 1px solid black;
+  border: 1px solid #C9C9CF;
   display: flex;
   flex-direction: row;
   gap: 0;
@@ -364,7 +378,7 @@ p {
   height: var(--center-container-height);
   width: 372px;
   padding: 0 12px 0 12px;
-  border: 1px solid black;
+  border: 1px solid #C9C9CF;
   display: flex;
   flex-direction: row;
   gap: 0;
@@ -401,7 +415,6 @@ p {
   left: 50% !important; /* Center horizontally */
   transform: translate(-50%, 10%) !important; /* Adjust for the popper's own dimensions */
   z-index: 1000; /* Ensure it’s on top */
-
 }
 
 .react-datepicker__triangle {
@@ -418,6 +431,7 @@ p {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   font-size: 1.25rem;
   border-radius: 12px;
+
 }
 
 /* Style each month container */
@@ -525,7 +539,7 @@ p {
 }
 
 .react-datepicker__day--highlighted-custom-4 {
-  border-radius: 0 12px 12px 0;
+  border-radius: 0 12px 12px 0 !important;
   background-color: #000000 !important; /* Black background */
   color: #ffffff !important; /* White text */
 }
