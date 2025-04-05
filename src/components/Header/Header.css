@@ -23,9 +23,9 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0px;
+  padding: 0;
   width: 200px;
-  border-radius: 0%;
+  border-radius: 0;
   border-bottom: #252422 1px solid;
 }
 
@@ -125,10 +125,14 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.1s ease-in-out;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
 }
 
-.cross-icon:hover {
-  transform: scale(1.125);
+.cross-icon.visible {
+  visibility: visible;
+  transform: scale(24);
 }
 
 .text-input {
@@ -347,37 +351,23 @@ p {
   align-self: center;
 }
 
-.pickup-destination-section {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.pickup-destination {
-  position: relative;
-  height: var(--center-container-height);
-  width: 372px;
-  border: 1px solid #C9C9CF;
-  display: flex;
-  flex-direction: row;
-  gap: 0;
-  border-radius: 12px;
-  overflow: visible;
-  text-align: center;
-  padding: 0 12px 0 12px;
-}
-
 .dropoff-destination-section {
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
-.dropoff-destination {
+.pickup-destination-section {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.pickup-destination, .dropoff-destination {
+  box-sizing: border-box;
   position: relative;
   height: var(--center-container-height);
   width: 372px;
-  padding: 0 12px 0 12px;
   border: 1px solid #C9C9CF;
   display: flex;
   flex-direction: row;
@@ -385,18 +375,29 @@ p {
   border-radius: 12px;
   overflow: visible;
   text-align: center;
+  padding: 2px 14px 2px 14px;
+}
+
+.pickup-destination.selected {
+  border: 3px solid #C64D1F;
+  padding: 0 12px 0 12px;
+}
+
+.dropoff-destination.selected {
+  border: 3px solid #C64D1F;
+  padding: 0 12px 0 12px;
 }
 
 .separator {
-  margin-right: 10px;
-  margin-left: 10px;
+margin-right: 10px;
+margin-left: 10px;
 }
 
 
 
 
 .save-button:hover {
-  background: #C64D1F; /* Darker shade of #EB5E28 */
+background: #C64D1F; /* Darker shade of #EB5E28 */
   color: #F2F2F2;
   cursor: pointer; /* Optional: Makes it clear it's clickable */
 }

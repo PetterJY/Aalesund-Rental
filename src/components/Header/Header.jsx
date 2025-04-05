@@ -57,15 +57,11 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
   ];
 
   function openTimePicker() {
-    if (timePickerRef.current) {
-      timePickerRef.current.setOpen(true);
-    }
+    timePickerRef.current.setOpen(true);
   }
 
   function openDatePicker() {
-    if (datePickerRef.current) {
-      datePickerRef.current.setOpen(true);
-    }
+    datePickerRef.current.setOpen(true);
   }
 
   return (
@@ -115,8 +111,16 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
 const Header = ({ page }) => {
   const showMenu = page === "rental";
   const navigate = useNavigate();
+  const pickupTextFieldRef = useRef(null);
+  const dropoffTextFieldRef = useRef(null);
+  const [isPickupTextInputHovered, setIsPickupTextInputHovered] = useState(false);
+  const [isDropoffTextInputHovered, setIsDropoffTextInputHovered] = useState(false);
+  const [isPickupTextFieldSelected, setIsPickupTextFieldSelected] = useState(false);
+  const [isDropoffTextFieldSelected, setIsDropoffTextFieldSelected] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
   const [pickupDate, setPickupDate] = useState(() => {
     return new Date();
   });
@@ -175,8 +179,7 @@ const Header = ({ page }) => {
   }
 
 
-  const menuRef = useRef(null);
-  const buttonRef = useRef(null);
+  // event listeners
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -193,6 +196,39 @@ const Header = ({ page }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMenuOpen]);
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isPickupTextFieldSelected &&
+        pickupTextFieldRef.current &&
+        !pickupTextFieldRef.current.contains(event.target)
+      ) {
+        setIsPickupTextFieldSelected(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return() => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isPickupTextFieldSelected]);
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isDropoffTextFieldSelected &&
+        dropoffTextFieldRef.current &&
+        !dropoffTextFieldRef.current.contains(event.target)
+      ) {
+        setIsDropoffTextFieldSelected(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return() => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isDropoffTextFieldSelected]);
+
+
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const showModal = () => setIsModalVisible(true);
 
@@ -227,21 +263,32 @@ const Header = ({ page }) => {
         <div className="selection-items">
           <div className="pickup-destination-section">
             <label>Pickup</label>
-            <div className="pickup-destination">
+            <div className={`pickup-destination ${isPickupTextFieldSelected ? 'selected' : ''}`}
+                 ref={pickupTextFieldRef}
+                 onMouseEnter={() => setIsPickupTextInputHovered(true)}
+                 onMouseLeave={() => setIsPickupTextInputHovered(false)}
+                 onClick={() => setIsPickupTextFieldSelected(true)}>
               <MagnifyingGlass size={24} weight="bold" className="search-icon" />
               <input type="text"
                      className="text-input"
                      id="pickup-destination-input-field"
                      placeholder="Pickup location">
               </input>
-              <button className="xCircleButton" onClick={handlePickupXCircleClick}>
-                <XCircle size={24} weight="bold" className="cross-icon"/>
+              <button className="xCircleButton"
+                      onClick={handlePickupXCircleClick}>
+                <XCircle className={`cross-icon ${isPickupTextInputHovered ? 'visible' : ''}`}
+                         size={24}
+                         weight="bold"/>
               </button>
             </div>
           </div>
           <div className="dropoff-destination-section">
             <label>Dropoff</label>
-            <div className="dropoff-destination">
+            <div className={`dropoff-destination ${isDropoffTextFieldSelected ? 'selected' : ''}`}
+                 ref={dropoffTextFieldRef}
+                 onMouseEnter={() => setIsDropoffTextInputHovered(true)}
+                 onMouseLeave={() => setIsDropoffTextInputHovered(false)}
+                 onClick={() => setIsDropoffTextFieldSelected(true)}>
               <MagnifyingGlass size={24} weight="bold" className="search-icon" />
               <input type="text"
                      className="text-input"
@@ -249,7 +296,9 @@ const Header = ({ page }) => {
                      placeholder="Drop-off location">
               </input>
               <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
-                <XCircle size={24} weight="bold" className="cross-icon"/>
+                <XCircle  className={`cross-icon ${isDropoffTextInputHovered ? 'visible' : ''}`}
+                  size={24}
+                  weight="bold"/>
               </button>
             </div>
           </div>
