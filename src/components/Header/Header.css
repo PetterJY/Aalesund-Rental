@@ -493,6 +493,11 @@ p {
   color: #ffffff !important; /* White text */
 }
 
+.react-datepicker__day--highlighted-custom-5 {
+  color: #999999 !important; /* unavailable days*/
+  cursor: not-allowed !important;
+}
+
 .date-picker-popper .react-datepicker__day--selected {
   background-color: #000000; /* Black background */
   color: #ffffff !important; /* White text */

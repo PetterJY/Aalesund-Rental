@@ -17,20 +17,24 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
   const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
 
 
-  const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
   const daysOfRental = [];
-  const accompanyingDate = [];
+  const unavailableDays = [];
+  const today = new Date();
 
-  if (format === "pickup") {
+  for (let i = 1; i < today.getDate() + 7; i++) {
+    unavailableDays.push(subDays(today, i));
+  }
+
+
+  const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
+  if (format === "pickup" && dropoffDate !== null && pickupDate !== null) {
     for (let i = 1; i < nrOfDaysOfRental; i++) {
       daysOfRental.push(addDays(pickupDate, i));
     }
-    accompanyingDate.push(dropoffDate);
-  } else if (format === "dropoff") {
+  } else if (format === "dropoff" && dropoffDate !== null && pickupDate !== null) {
     for (let i = 1; i < nrOfDaysOfRental; i++) {
       daysOfRental.push(subDays(dropoffDate, i));
     }
-    accompanyingDate.push(pickupDate);
   }
 
   const highlightWithRanges = [
@@ -39,12 +43,14 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
     },
     {
       "react-datepicker__day--highlighted-custom-2": [
-        new Date() // highlight today's date
+        today // highlight today's date
       ],
     }, {
       "react-datepicker__day--highlighted-custom-3": [pickupDate], // highlight pickup-date with uniquely rounded corners
     }, {
       "react-datepicker__day--highlighted-custom-4": [dropoffDate], // highlight dropoff-date with uniquely rounded corners
+    }, {
+      "react-datepicker__day--highlighted-custom-5": unavailableDays,
     },
   ];
 
@@ -75,6 +81,7 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
             dateFormat="dd-MM"
             className="date-input"
             popperClassName="date-picker-popper"
+            minDate={today}
             locale={enGB}
           />
         </div>
@@ -110,7 +117,7 @@ const Header = ({ page }) => {
   });
   const [dropoffDate, setDropoffDate] = useState(() => {
     const time = new Date();
-    time.setDate(time.getDate()+5);
+    time.setDate(time.getDate()+100);
     return time;
   });
   const [pickupTime, setPickUpTime] = useState(() => {
@@ -125,6 +132,25 @@ const Header = ({ page }) => {
     time.setMinutes(0);
     return time;
   });
+
+  const handlePickupDateChange = (date) => {
+    if (date.getTime() > dropoffDate.getTime()) {
+      setDropoffDate(date);
+      setPickupDate(null);
+    } else {
+      setPickupDate(date);
+    }
+  }
+
+  const handleDropoffDateChange = (date) => {
+    if (pickupDate.getTime() > date.getTime()) {
+      setPickupDate(date);
+      setDropoffDate(null);
+    } else {
+      setDropoffDate(date);
+    }
+  }
+
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -145,13 +171,12 @@ const Header = ({ page }) => {
   }, [isMenuOpen]);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const showModal = () => setIsModalVisible(true);
+  const closeModal = () => setIsModalVisible(false);
 
   const handleSave = () => {
     toggleMenu();
   };
-
-  const showModal = () => setIsModalVisible(true);
-  const closeModal = () => setIsModalVisible(false);
 
   return (
     <header className="top-header">
@@ -195,7 +220,7 @@ const Header = ({ page }) => {
             <DateTimePicker
               format={"pickup"}
               selectedDate={pickupDate}
-              onDateChange={setPickupDate}
+              onDateChange={handlePickupDateChange}
               selectedTime={pickupTime}
               onTimeChange={setPickUpTime}
               pickupDate={pickupDate}
@@ -207,7 +232,7 @@ const Header = ({ page }) => {
             <DateTimePicker
               format={"dropoff"}
               selectedDate={dropoffDate}
-              onDateChange={setDropoffDate}
+              onDateChange={handleDropoffDateChange}
               selectedTime={dropoffTime}
               onTimeChange={setDropoffTime}
               pickupDate={pickupDate}
