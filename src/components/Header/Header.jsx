@@ -240,6 +240,7 @@ const Header = ({ page }) => {
 
   return (
     <header className="top-header">
+      <div className="header-wrapper">
       <button onClick={navigateToHomePage} className="home-button">
         <img src={logo} id="logo-image" alt="Logo" />
       </button>
@@ -254,7 +255,7 @@ const Header = ({ page }) => {
             </p>
           </div>
           <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu}>
-            <PencilSimple size={24} className="edit-icon" />
+            <PencilSimple size={24} weight="fill" className="edit-icon" />
           </button>
         </div>
       )}
@@ -340,10 +341,11 @@ const Header = ({ page }) => {
           defaultMode="login"
         />
         <button id="login-create" onClick={showModal}>
-          <User size={32} />
+          <User size={24} />
           Login | Register
         </button>
       </nav>
+      </div>
     </header>
   );
 };
