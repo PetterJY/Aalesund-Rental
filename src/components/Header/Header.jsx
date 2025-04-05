@@ -341,7 +341,7 @@ const Header = ({ page }) => {
           defaultMode="login"
         />
         <button id="login-create" onClick={showModal}>
-          <User size={24} />
+          <User size={24} className="user-logo" />
           Login | Register
         </button>
       </nav>

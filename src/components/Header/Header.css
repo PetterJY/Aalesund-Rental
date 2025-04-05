@@ -9,36 +9,44 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  min-width: 1600px;
-  align-self: center;
-  justify-self: center;
+  align-items: center;
+  background-color: #1A1A1A;
+  padding: 10px 5%;
 }
 
 .header-wrapper {
   display: flex;
   flex-direction: row;
-  align-self: center;
-  justify-self: center;
-  min-width: 1250px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 80px 0 80px;
+  padding: 0 20px;
+}
+
+#logo-image {
+  width: 64px;
+  height: 64px;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
 }
 
 #login-create {
   font-size: 16px;
   margin-left: auto;
-  justify-content: center;
-  justify-self: end;
+  display: flex;
   align-items: center;
   color: white;
-  display: flex;
-  flex-direction: row;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   width: 175px;
-  border-radius: 0;
   border-bottom: #252422 1px solid;
 }
 
@@ -101,8 +109,6 @@
   width: 576px;
   border-radius: 24px;
   justify-content: space-between;
-  min-width: 500px;
-  max-width: 576px;
   transition: transform 2s ease-in-out;
 }
 
