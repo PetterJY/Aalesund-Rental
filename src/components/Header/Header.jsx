@@ -3,21 +3,50 @@ import LoginButton from '../LoginRegister/Login/Login';
 import logo from '../../resources/images/logo.png';
 import '../global.css';
 import './Header.css';
-import {PencilSimple, User} from "@phosphor-icons/react";
+import {PencilSimple, User, MagnifyingGlass, XCircle} from "@phosphor-icons/react";
 import DatePicker from "react-datepicker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
 import "react-datepicker/dist/react-datepicker.css";
 import {enGB} from "date-fns/locale/en-GB";
-import { format } from 'date-fns';
-
-const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange }) => {
+import {format, addDays, subDays, differenceInDays} from 'date-fns';
+const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTimeChange, pickupDate, dropoffDate }) => {
   const datePickerRef = useRef(null);
   const timePickerRef = useRef(null);
   const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
   const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
 
 
+  const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
+  const daysOfRental = [];
+  const accompanyingDate = [];
+
+  if (format === "pickup") {
+    for (let i = 1; i < nrOfDaysOfRental; i++) {
+      daysOfRental.push(addDays(pickupDate, i));
+    }
+    accompanyingDate.push(dropoffDate);
+  } else if (format === "dropoff") {
+    for (let i = 1; i < nrOfDaysOfRental; i++) {
+      daysOfRental.push(subDays(dropoffDate, i));
+    }
+    accompanyingDate.push(pickupDate);
+  }
+
+  const highlightWithRanges = [
+    {
+      "react-datepicker__day--highlighted-custom-1": daysOfRental, // highlight days between pickup and dropoff
+    },
+    {
+      "react-datepicker__day--highlighted-custom-2": [
+        new Date() // highlight today's date
+      ],
+    }, {
+      "react-datepicker__day--highlighted-custom-3": [pickupDate], // highlight pickup-date with uniquely rounded corners
+    }, {
+      "react-datepicker__day--highlighted-custom-4": [dropoffDate], // highlight dropoff-date with uniquely rounded corners
+    },
+  ];
 
   function openTimePicker() {
     if (timePickerRef.current) {
@@ -28,43 +57,45 @@ const DateTimePicker = ({ selectedDate, onDateChange, selectedTime, onTimeChange
   function openDatePicker() {
     if (datePickerRef.current) {
       datePickerRef.current.setOpen(true);
-    }  }
+    }
+  }
 
   return (
-    <div className="date-time">
-      <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
-        <button className="date-picker-button" onClick={openDatePicker}></button>
-        <DatePicker
-          ref={datePickerRef}
-          onCalendarOpen={() => setIsDatePickerSelected(true)}
-          onCalendarClose={() => setIsDatePickerSelected(false)}
-          selected={selectedDate}
-          onChange={onDateChange}
-          monthsShown={2}
-          dateFormat="dd-MM"
-          className="date-input"
-          popperClassName="date-picker-popper"
-          locale={enGB}
-        />
+      <div className="date-time">
+        <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
+          <button className="date-picker-button" onClick={openDatePicker}></button>
+          <DatePicker
+            ref={datePickerRef}
+            onCalendarOpen={() => setIsDatePickerSelected(true)}
+            onCalendarClose={() => setIsDatePickerSelected(false)}
+            selected={selectedDate}
+            onChange={onDateChange}
+            highlightDates={highlightWithRanges}
+            monthsShown={3}
+            dateFormat="dd-MM"
+            className="date-input"
+            popperClassName="date-picker-popper"
+            locale={enGB}
+          />
+        </div>
+        <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
+          <button className="time-picker-button" onClick={openTimePicker}></button>
+          <DatePicker
+            ref={timePickerRef}
+            selected={selectedTime}
+            onChange={onTimeChange}
+            onCalendarOpen={() => setIsTimePickerSelected(true)}
+            onCalendarClose={() => setIsTimePickerSelected(false)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={30}
+            timeCaption="Time"
+            dateFormat="HH:mm"
+            timeFormat="HH:mm"
+            className="time-input"
+          />
+        </div>
       </div>
-      <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
-        <button className="time-picker-button" onClick={openTimePicker}></button>
-        <DatePicker
-          ref={timePickerRef}
-          selected={selectedTime}
-          onChange={onTimeChange}
-          onCalendarOpen={() => setIsTimePickerSelected(true)}
-          onCalendarClose={() => setIsTimePickerSelected(false)}
-          showTimeSelect
-          showTimeSelectOnly
-          timeIntervals={30}
-          timeCaption="Time"
-          dateFormat="HH:mm"
-          timeFormat="HH:mm"
-          className="time-input"
-        />
-      </div>
-    </div>
   );
 };
 
@@ -79,7 +110,7 @@ const Header = ({ page }) => {
   });
   const [dropoffDate, setDropoffDate] = useState(() => {
     const time = new Date();
-    time.setDate(time.getDate()+1);
+    time.setDate(time.getDate()+5);
     return time;
   });
   const [pickupTime, setPickUpTime] = useState(() => {
@@ -138,29 +169,49 @@ const Header = ({ page }) => {
             </p>
           </div>
           <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu}>
-            <PencilSimple size={30} className="edit-icon" />
+            <PencilSimple size={24} className="edit-icon" />
           </button>
         </div>
       )}
 
       <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
         <div className="selection-items">
-          <div className="pickup-section">
+          <div className="pickup-destination-section">
             <label>Pickup</label>
+            <div className="pickup-destination">
+              <MagnifyingGlass size={24} weight="bold" className="search-icon" />
+            </div>
+          </div>
+          <div className="dropoff-destination-section">
+            <label>Dropoff</label>
+            <div className="dropoff-destination">
+              <MagnifyingGlass size={24} weight="bold" className="search-icon" />
+              <input type="text" className="text-input"></input>
+              <XCircle size={24} weight="bold" className="cross-icon"/>
+            </div>
+          </div>
+          <div className="pickup-date-section">
+            <label>Pickup Date</label>
             <DateTimePicker
+              format={"pickup"}
               selectedDate={pickupDate}
               onDateChange={setPickupDate}
               selectedTime={pickupTime}
               onTimeChange={setPickUpTime}
+              pickupDate={pickupDate}
+              dropoffDate={dropoffDate}
             />
           </div>
-          <div className="dropoff-section">
-            <label>Drop-off</label>
+          <div className="dropoff-date-section">
+            <label>Drop-off Date</label>
             <DateTimePicker
+              format={"dropoff"}
               selectedDate={dropoffDate}
               onDateChange={setDropoffDate}
               selectedTime={dropoffTime}
               onTimeChange={setDropoffTime}
+              pickupDate={pickupDate}
+              dropoffDate={dropoffDate}
             />
           </div>
           <button className="save-button" onClick={handleSave}>
