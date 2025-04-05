@@ -10,6 +10,8 @@ import "react-clock/dist/Clock.css";
 import "react-datepicker/dist/react-datepicker.css";
 import {enGB} from "date-fns/locale/en-GB";
 import {format, addDays, subDays, differenceInDays} from 'date-fns';
+import { useNavigate } from "react-router-dom";
+
 const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTimeChange, pickupDate, dropoffDate }) => {
   const datePickerRef = useRef(null);
   const timePickerRef = useRef(null);
@@ -110,6 +112,7 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
 
 const Header = ({ page }) => {
   const showMenu = page === "rental";
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [pickupDate, setPickupDate] = useState(() => {
@@ -151,10 +154,21 @@ const Header = ({ page }) => {
     }
   }
 
-  function handleXCircleClick() {
-
+  function handlePickupXCircleClick() {
+    const inputField = document.getElementById("pickup-destination-input-field");
+    inputField.value = "";
   }
 
+
+  function handleDropoffXCircleClick() {
+    const inputField = document.getElementById("dropoff-destination-input-field");
+    inputField.value = "";
+  }
+
+
+  const navigateToHomePage = () => {
+    navigate('/home');
+  }
 
 
   const menuRef = useRef(null);
@@ -186,9 +200,9 @@ const Header = ({ page }) => {
 
   return (
     <header className="top-header">
-      <a href="http://localhost:3000/home" className="logoButton">
+      <button onClick={navigateToHomePage} className="home-button">
         <img src={logo} id="logo-image" alt="Logo" />
-      </a>
+      </button>
 
       {showMenu && (
         <div className="top-menu-container">
@@ -211,8 +225,8 @@ const Header = ({ page }) => {
             <label>Pickup</label>
             <div className="pickup-destination">
               <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-              <input type="text" className="text-input"></input>
-              <button className="xCircleButton" onClick={handleXCircleClick}>
+              <input type="text" className="text-input" id="pickup-destination-input-field"></input>
+              <button className="xCircleButton" onClick={handlePickupXCircleClick}>
                 <XCircle size={24} weight="bold" className="cross-icon"/>
               </button>
             </div>
@@ -221,8 +235,10 @@ const Header = ({ page }) => {
             <label>Dropoff</label>
             <div className="dropoff-destination">
               <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-              <input type="text" className="text-input"></input>
-              <XCircle size={24} weight="bold" className="cross-icon"/>
+              <input type="text" className="text-input" id="dropoff-destination-input-field"></input>
+              <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
+                <XCircle size={24} weight="bold" className="cross-icon"/>
+              </button>
             </div>
           </div>
           <div className="pickup-date-section">
@@ -230,7 +246,7 @@ const Header = ({ page }) => {
             <DateTimePicker
               format={"pickup"}
               selectedDate={pickupDate}
-              onDateChange={asdhandlePickupDateChange}
+              onDateChange={handlePickupDateChange}
               selectedTime={pickupTime}
               onTimeChange={setPickUpTime}
               pickupDate={pickupDate}
