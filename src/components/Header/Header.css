@@ -335,30 +335,24 @@ p {
 
 .time-options {
   display: grid;
-  grid-template-columns: repeat(2, 1fr) !important;
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(24, 1fr);
+  justify-items: center;
   row-gap: 16px;
   width: 100%;
 }
 
-.time-options-label:nth-child(odd) {
-  grid-column: 1;
-}
 
-.time-options-label:nth-child(even) {
-  grid-column: 2;
-}
 .time-options-label {
   margin: 0;
   box-sizing: border-box;
-  background-color: rgba(247, 247, 247, 1);
+  background-color: #F4F4F9;
   border-radius: 12px; /* Optional: rounded corners */
   height: 52px;
   width: 150px;
 }
 
 .time-options-label input {
-  margin-right: 8px;
   accent-color: #EB5E28;
 }
 
@@ -369,34 +363,33 @@ p {
 }
 
 .time-options-label span {
-  display: block;
   width: 100%;
-  padding: 8px 4px;
-  text-align: center;
+  display: flex;
   box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 14px;
 }
 
-.time-options-label span:hover {
-  border-bottom: #EB5E28 1px solid;
-  background-color: rgba(201, 201, 207, 1);
+.time-options-label:hover {
+  background-color: #c9c9cf;
   color: #EB5E28;
-  border-radius: 0;
+  border-color: transparent !important;
 }
-
-
 
 .time-options-label input:checked + span {
   background-color: #252422;
   color:white;
-  border-radius: 5px;
-  border-bottom: white 1px solid;
+  border-radius: inherit;
+  border-bottom: transparent !important;
 }
 
 .time-options-label input:checked + span:hover {
   background-color: #403D39;
   color:white;
   border-bottom: white 1px solid;
-  border-radius: 5px;
+  border-radius: inherit;
 }
 
 

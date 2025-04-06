@@ -18,7 +18,7 @@ const Header = ({ page }) => {
   const navigate = useNavigate();
 
 
-  const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTimeChange, pickupDate, dropoffDate }) => {
+  const DateTimePicker = ({ format, selectedDate, onDateChange, pickupDate, dropoffDate }) => {
     const datePickerRef = useRef(null);
     const timePickerRef = useRef(null);
     const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
