@@ -12,59 +12,110 @@ import {enGB} from "date-fns/locale/en-GB";
 import {format, addDays, subDays, differenceInDays} from 'date-fns';
 import { useNavigate } from "react-router-dom";
 
-const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTimeChange, pickupDate, dropoffDate }) => {
-  const datePickerRef = useRef(null);
-  const timePickerRef = useRef(null);
-  const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
-  const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
+
+const Header = ({ page }) => {
+  const showMenu = page === "rental";
+  const navigate = useNavigate();
 
 
-  const daysOfRental = [];
-  const unavailableDays = [];
-  const today = new Date();
-
-  for (let i = 1; i < today.getDate() + 7; i++) {
-    unavailableDays.push(subDays(today, i));
-  }
+  const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTimeChange, pickupDate, dropoffDate }) => {
+    const datePickerRef = useRef(null);
+    const timePickerRef = useRef(null);
+    const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
+    const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
 
 
-  const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
-  if (format === "pickup" && dropoffDate !== null && pickupDate !== null) {
-    for (let i = 1; i < nrOfDaysOfRental; i++) {
-      daysOfRental.push(addDays(pickupDate, i));
+    const daysOfRental = [];
+    const unavailableDays = [];
+    const today = new Date();
+
+    for (let i = 1; i < today.getDate() + 7; i++) {
+      unavailableDays.push(subDays(today, i));
     }
-  } else if (format === "dropoff" && dropoffDate !== null && pickupDate !== null) {
-    for (let i = 1; i < nrOfDaysOfRental; i++) {
-      daysOfRental.push(subDays(dropoffDate, i));
+
+
+    const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
+    if (format === "pickup" && dropoffDate !== null && pickupDate !== null) {
+      for (let i = 1; i < nrOfDaysOfRental; i++) {
+        daysOfRental.push(addDays(pickupDate, i));
+      }
+    } else if (format === "dropoff" && dropoffDate !== null && pickupDate !== null) {
+      for (let i = 1; i < nrOfDaysOfRental; i++) {
+        daysOfRental.push(subDays(dropoffDate, i));
+      }
     }
-  }
 
-  const highlightWithRanges = [
-    {
-      "react-datepicker__day--highlighted-custom-1": daysOfRental, // highlight days between pickup and dropoff
-    },
-    {
-      "react-datepicker__day--highlighted-custom-2": [
-        today // highlight today's date
-      ],
-    }, {
-      "react-datepicker__day--highlighted-custom-3": [pickupDate], // highlight pickup-date with uniquely rounded corners
-    }, {
-      "react-datepicker__day--highlighted-custom-4": [dropoffDate], // highlight dropoff-date with uniquely rounded corners
-    }, {
-      "react-datepicker__day--highlighted-custom-5": unavailableDays,
-    },
-  ];
+    const highlightWithRanges = [
+      {
+        "react-datepicker__day--highlighted-custom-1": daysOfRental, // highlight days between pickup and dropoff
+      },
+      {
+        "react-datepicker__day--highlighted-custom-2": [
+          today // highlight today's date
+        ],
+      }, {
+        "react-datepicker__day--highlighted-custom-3": [pickupDate], // highlight pickup-date with uniquely rounded corners
+      }, {
+        "react-datepicker__day--highlighted-custom-4": [dropoffDate], // highlight dropoff-date with uniquely rounded corners
+      }, {
+        "react-datepicker__day--highlighted-custom-5": unavailableDays,
+      },
+    ];
 
-  function openTimePicker() {
-    timePickerRef.current.setOpen(true);
-  }
+    function openDatePicker() {
+      datePickerRef.current.setOpen(true);
+    }
 
-  function openDatePicker() {
-    datePickerRef.current.setOpen(true);
-  }
 
-  return (
+
+    const generateTimeOptions = () => {
+      let timeOptions = [];
+      for (let hour = 0; hour < 24; hour++) {
+        for (let minute of ['00', '30']) {
+          let hourValue = hour.toString().padStart(2, '0');
+          let timeValue = `${hourValue}:${minute}`;
+          timeOptions.push({label: timeValue, value: timeValue});
+        }
+      }
+      return timeOptions;
+    }
+
+    const [timeOptions] = useState({
+      pickup: generateTimeOptions(),
+      dropoff: generateTimeOptions()
+    });
+
+    const [selectedTimes, setSelectedTimes] = useState({
+        pickup: "",
+        dropoff: "",
+      }
+    );
+
+    const handleRadioChange = (format, value) => {
+      setSelectedTimes(prev => ({
+        ...prev,
+        [format]: value
+      }))
+    }
+
+    const renderRadioButton = (format, options) => (
+      <div className="time-options">
+        {options.map(({value, label}) => (
+          <label key={value} className="time-options-label">
+            <input
+              type="radio"
+              name={`${format}-time`}
+              checked={selectedTimes[format] === value}
+              onChange={() => handleRadioChange(format, value)}/>
+            <span>{label}</span>
+          </label>
+        ))
+        }
+      </div>
+    )
+
+
+    return (
       <div className="date-time">
         <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
           <button className="date-picker-button" onClick={openDatePicker}>
@@ -86,31 +137,19 @@ const DateTimePicker = ({ format, selectedDate, onDateChange, selectedTime, onTi
           />
         </div>
         <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
-          <button className="time-picker-button" onClick={openTimePicker}></button>
-          <DatePicker
-            ref={timePickerRef}
-            selected={selectedTime}
-            onChange={onTimeChange}
-            onCalendarOpen={() => setIsTimePickerSelected(true)}
-            onCalendarClose={() => setIsTimePickerSelected(false)}
-            showTimeSelect
-            showTimeSelectOnly
-            timeIntervals={30}
-            timeCaption="Time"
-            dateFormat="HH:mm"
-            timeFormat="HH:mm"
-            className="time-input"
-          />
+          <button className="time-picker-button" onClick={() => setIsTimePickerSelected(true)}></button>
+          {isTimePickerSelected && (
+            <div className="time-picker-radio" ref={timePickerRef}>
+              {renderRadioButton(format, timeOptions[format])}
+            </div>
+          )}
         </div>
       </div>
-  );
-};
+    );
+  };
 
 
 
-const Header = ({ page }) => {
-  const showMenu = page === "rental";
-  const navigate = useNavigate();
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);
   const [isPickupTextInputHovered, setIsPickupTextInputHovered] = useState(false);
@@ -177,7 +216,6 @@ const Header = ({ page }) => {
   const navigateToHomePage = () => {
     navigate('/home');
   }
-
 
   // event listeners
 
