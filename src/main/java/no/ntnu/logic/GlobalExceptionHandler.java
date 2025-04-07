@@ -16,20 +16,32 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * Global exception handler for handling various exceptions in the application.
+ * This class uses Spring's @ControllerAdvice to handle exceptions globally.
+ * It provides methods to handle specific exceptions and return appropriate HTTP responses.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
   private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+  /**
+   * Handles validation exceptions thrown by the application.
+   * Returns a 400 Bad Request response with the validation error message.
+   *
+   * @param ex the MethodArgumentNotValidException thrown by the application
+   * @return ResponseEntity with status 400 and error message
+   */
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
     logger.error("Validation error: ", ex);
     String errorMessage = ex.getBindingResult().getFieldErrors().stream()
-      .map(error -> error.getField() + ": " + error.getDefaultMessage())
-      .reduce((msg1, msg2) -> msg1 + ", " + msg2)
-      .orElse("Validation error occurred");
+        .map(error -> error.getField() + ": " + error.getDefaultMessage())
+        .reduce((msg1, msg2) -> msg1 + ", " + msg2)
+        .orElse("Validation error occurred");
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
-}
+  }
 
   @ExceptionHandler(AccountNotFoundException.class)
   public ResponseEntity<String> handleAccountNotFoundException(AccountNotFoundException ex) {
@@ -49,14 +61,23 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
+  /**
+   * Handles DataAccessException thrown by the application.
+   * Returns a 500 Internal Server Error response with a generic error message.
+   *
+   * @param ex the DataAccessException thrown by the application
+   * @return ResponseEntity with status 500 and error message
+   */
   @ExceptionHandler(DataAccessException.class)
   public ResponseEntity<String> handleDataAccessException(DataAccessException ex) {
     logger.error("Data access exception: ", ex);
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Data access error occurred");
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    .body("Data access error occurred");
   }
 
   @ExceptionHandler(DataIntegrityViolationException.class)
-  public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+  public ResponseEntity<String> handleDataIntegrityViolationException(
+      DataIntegrityViolationException ex) {
     logger.error("Data integrity violation exception: ", ex);
     return ResponseEntity.status(HttpStatus.CONFLICT).body("Data integrity violation occurred");
   }
@@ -67,9 +88,9 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
-
   @ExceptionHandler(ExtraFeatureNotFoundException.class)
-  public ResponseEntity<String> handleExtraFeatureNotFoundException(ExtraFeatureNotFoundException ex) {
+  public ResponseEntity<String> handleExtraFeatureNotFoundException(
+      ExtraFeatureNotFoundException ex) {
     logger.error("Extra feature not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
