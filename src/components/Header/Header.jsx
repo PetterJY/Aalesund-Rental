@@ -66,8 +66,6 @@ const Header = ({ page }) => {
       datePickerRef.current.setOpen(true);
     }
 
-
-
     const generateTimeOptions = () => {
       let timeOptions = [];
       for (let hour = 0; hour < 24; hour++) {
@@ -114,6 +112,21 @@ const Header = ({ page }) => {
       </div>
     )
 
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (
+          isTimePickerSelected &&
+          timePickerRef.current &&
+          !timePickerRef.current.contains(event.target)
+        ) {
+          setIsTimePickerSelected(false);
+        }
+      }
+
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isTimePickerSelected]);
+
 
     return (
       <div className="date-time">
@@ -152,6 +165,8 @@ const Header = ({ page }) => {
 
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);
+  const pickupTimeFieldRef = useRef(null);
+  const dropoffTimeFieldRef = useRef(null);
   const [isPickupTextInputHovered, setIsPickupTextInputHovered] = useState(false);
   const [isDropoffTextInputHovered, setIsDropoffTextInputHovered] = useState(false);
   const [isPickupTextFieldSelected, setIsPickupTextFieldSelected] = useState(false);
