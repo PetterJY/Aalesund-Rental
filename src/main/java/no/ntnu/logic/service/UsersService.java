@@ -1,23 +1,28 @@
 package no.ntnu.logic.service;
 
-import no.ntnu.entity.exceptions.UserNotFoundException;
-import no.ntnu.entity.models.Users;
-import no.ntnu.logic.repository.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import no.ntnu.entity.exceptions.UserNotFoundException;
+import no.ntnu.entity.models.Users;
+import no.ntnu.logic.repository.UsersRepository;
 
 /**
  * Service class for managing user-related operations.
  * This class provides methods to find, save, delete, and authenticate users.
  */
 @Service
-public class UsersService {
-
+public class UsersService implements UserDetailsService {
+  private static final Logger logger = 
+      LoggerFactory.getLogger(UsersService.class.getSimpleName());
+  
   private final UsersRepository usersRepository;
-
-  private static final Logger logger = LoggerFactory.getLogger(UsersService.class);
 
   @Autowired
   public UsersService(UsersRepository usersRepository) {
@@ -49,13 +54,40 @@ public class UsersService {
   }
 
   /**
+   * Returns a user based on their email.
+   *
+   * @param email the email of the user to find
+   * @return the found user
+   * @throws UserNotFoundException if no user is found with the given email
+   */
+  public Users findByEmail(String email) throws UserNotFoundException {
+    logger.info("Fetching user with email: {}", email);
+    return usersRepository.findByEmail(email)
+      .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    try {
+      Users user = findByEmail(email);
+      return User.builder()
+              .username(user.getEmail())
+              .password(user.getAccount().getPassword())
+              .roles(user.getAccount().getRole())
+              .build();
+    } catch (UserNotFoundException e) {
+      throw new UsernameNotFoundException("User not found with email: " + email);
+    }
+  }
+
+  /**
    * Saves a user to the database.
    *
    * @param user the user to save.
    * @return the saved user.
    */
   public Users save(Users user) {
-    logger.info("Saving user with id: {}", user.getId());
+    logger.info("Saving user with email: {}", user.getEmail());
     return usersRepository.save(user);
   }
 

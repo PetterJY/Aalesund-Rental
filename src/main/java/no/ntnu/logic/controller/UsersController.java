@@ -1,19 +1,26 @@
 package no.ntnu.logic.controller;
 
-import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.dto.RegisterRequest;
-import no.ntnu.entity.exceptions.AuthenticationException;
-import no.ntnu.entity.models.Accounts;
-import no.ntnu.entity.models.Users;
-import no.ntnu.logic.service.UsersService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import io.swagger.annotations.ApiOperation;
+import no.ntnu.entity.dto.RegisterRequest;
+import no.ntnu.entity.models.Accounts;
+import no.ntnu.entity.models.Users;
+import no.ntnu.logic.service.UsersService;
 
 /**
  * Controller for managing user-related operations.
@@ -21,9 +28,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UsersController {
-
+  private static final Logger logger = 
+      LoggerFactory.getLogger(UsersController.class.getSimpleName());
+  
   private final UsersService usersService;
-  private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
   @Autowired
   public UsersController(UsersService usersService) {
@@ -51,7 +59,9 @@ public class UsersController {
    * @return The user with the specified ID.
    */
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns a user by its ID.", notes = "If the user is not found, a 404 error is returned.")
+  @ApiOperation(
+      value = "Returns a user by its ID.", 
+      notes = "If the user is not found, a 404 error is returned.")
   public ResponseEntity<Users> getUserById(@PathVariable Long id) {
     logger.info("Fetching user with id: {}", id);
     Users user = usersService.findById(id);

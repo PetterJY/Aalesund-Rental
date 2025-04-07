@@ -1,21 +1,24 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
-import no.ntnu.entity.exceptions.ProviderNotFoundException;
-import no.ntnu.entity.models.Providers;
-import no.ntnu.logic.repository.ProvidersRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import no.ntnu.entity.exceptions.ProviderNotFoundException;
+import no.ntnu.entity.models.Providers;
+import no.ntnu.logic.repository.ProvidersRepository;
 
 /**
  * Service class for managing providers.
  */
 @Service
 public class ProvidersService {
+  private static final Logger logger = 
+      LoggerFactory.getLogger(ProvidersService.class.getSimpleName());
 
-  private static final Logger logger = LoggerFactory.getLogger(ProvidersService.class);
   private final ProvidersRepository providersRepository;
 
   /**

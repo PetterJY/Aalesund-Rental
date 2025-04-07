@@ -1,13 +1,15 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
-import no.ntnu.entity.exceptions.AdminNotFoundException;
-import no.ntnu.entity.models.Admin;
-import no.ntnu.logic.repository.AdminRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import no.ntnu.entity.exceptions.AdminNotFoundException;
+import no.ntnu.entity.models.Admin;
+import no.ntnu.logic.repository.AdminRepository;
 
 /**
  * Service class for managing admin-related operations.
@@ -16,7 +18,8 @@ import org.springframework.stereotype.Service;
 public class AdminService {
 
   private final AdminRepository adminRepository;
-  private static final Logger logger = LoggerFactory.getLogger(AdminService.class);
+  private static final Logger logger = 
+      LoggerFactory.getLogger(AdminService.class.getSimpleName());
 
   /**
    * Constructor for AdminService.

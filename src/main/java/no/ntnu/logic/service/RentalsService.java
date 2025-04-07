@@ -1,13 +1,15 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
-import no.ntnu.entity.exceptions.RentalNotFoundException;
-import no.ntnu.entity.models.Rentals;
-import no.ntnu.logic.repository.RentalsRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import no.ntnu.entity.exceptions.RentalNotFoundException;
+import no.ntnu.entity.models.Rentals;
+import no.ntnu.logic.repository.RentalsRepository;
 
 /**
  * Service class for managing rental-related operations.
@@ -15,8 +17,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RentalsService {
+  private static final Logger logger = 
+      LoggerFactory.getLogger(RentalsService.class.getSimpleName());
 
-  private static final Logger logger = LoggerFactory.getLogger(RentalsService.class);
   private final RentalsRepository rentalsRepository;
 
   @Autowired

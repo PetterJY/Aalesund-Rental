@@ -1,11 +1,5 @@
 package no.ntnu.logic;
 
-import no.ntnu.entity.exceptions.AccountNotFoundException;
-import no.ntnu.entity.exceptions.AdminNotFoundException;
-import no.ntnu.entity.exceptions.CarNotFoundException;
-import no.ntnu.entity.exceptions.ExtraFeatureNotFoundException;
-import no.ntnu.entity.exceptions.ProviderNotFoundException;
-import no.ntnu.entity.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -16,6 +10,13 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import no.ntnu.entity.exceptions.AccountNotFoundException;
+import no.ntnu.entity.exceptions.AdminNotFoundException;
+import no.ntnu.entity.exceptions.CarNotFoundException;
+import no.ntnu.entity.exceptions.ExtraFeatureNotFoundException;
+import no.ntnu.entity.exceptions.ProviderNotFoundException;
+import no.ntnu.entity.exceptions.UserNotFoundException;
+
 /**
  * Global exception handler for handling various exceptions in the application.
  * This class uses Spring's @ControllerAdvice to handle exceptions globally.
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+  private static final Logger logger = 
+      LoggerFactory.getLogger(GlobalExceptionHandler.class.getSimpleName());
 
   /**
    * Handles validation exceptions thrown by the application.

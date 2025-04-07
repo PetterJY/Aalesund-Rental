@@ -1,22 +1,25 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
-import no.ntnu.entity.exceptions.CarNotFoundException;
-import no.ntnu.entity.models.Cars;
-import no.ntnu.logic.repository.CarsRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import no.ntnu.entity.exceptions.CarNotFoundException;
+import no.ntnu.entity.models.Cars;
+import no.ntnu.logic.repository.CarsRepository;
 
 /**
  * Service class for managing cars.
  */
 @Service
 public class CarsService {
-
-  private static final Logger logger = LoggerFactory.getLogger(CarsService.class);
-  private final CarsRepository carsRepository;
+  private static final Logger logger = 
+      LoggerFactory.getLogger(CarsService.class.getSimpleName());
+      
+      private final CarsRepository carsRepository;
 
   /**
    * Constructor for CarsService.

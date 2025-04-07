@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,9 @@ import io.jsonwebtoken.Jwts;
  */
 @Component
 public class JwtUtility {
+  private static final Logger logger = 
+      LoggerFactory.getLogger(JwtUtility.class.getSimpleName());
+  
   @Value("${jwt_secret_key}")
   private String secretKey;  
 
@@ -31,6 +36,7 @@ public class JwtUtility {
    * @return the generated JWT token.
    */
   public String generateToken(UserDetails userDetails) {
+    logger.info("Generating JWT token for username: {}", userDetails.getUsername());
     return Jwts.builder()
         .setSubject(userDetails.getUsername())
         .claim(ROLE_KEY, userDetails.getAuthorities())
@@ -48,6 +54,7 @@ public class JwtUtility {
    * @return True if the token matches the current user and is still valid
    */
   public boolean validateToken(String token, UserDetails userDetails) throws JwtException {
+    logger.info("Validating JWT token for username: {}", userDetails.getUsername());
     final String username = getUsernameFromToken(token);
     return userDetails != null
         && username.equals(userDetails.getUsername())
@@ -55,6 +62,7 @@ public class JwtUtility {
   }
   
   private SecretKey getSigningKey() {
+    logger.debug("Retrieving signing key for JWT.");
     byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
     return new SecretKeySpec(keyBytes, 0, keyBytes.length, "HmacSHA256");
   }
@@ -67,6 +75,7 @@ public class JwtUtility {
    * @throws IllegalArgumentException if the token is invalid or expired.
    */
   public String getUsernameFromToken(String token) throws IllegalArgumentException {
+    logger.debug("Extracting username from JWT token.");
     return Jwts.parserBuilder()
         .setSigningKey(getSigningKey())
         .build()

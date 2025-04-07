@@ -1,22 +1,25 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
-import no.ntnu.entity.exceptions.ExtraFeatureNotFoundException;
-import no.ntnu.entity.models.ExtraFeatures;
-import no.ntnu.logic.repository.ExtraFeaturesRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import no.ntnu.entity.exceptions.ExtraFeatureNotFoundException;
+import no.ntnu.entity.models.ExtraFeatures;
+import no.ntnu.logic.repository.ExtraFeaturesRepository;
 
 /**
  * Service class for managing extra features.
  */
 @Service
 public class ExtraFeaturesService {
-
-  private static final Logger logger = LoggerFactory.getLogger(ExtraFeaturesService.class);
-  private final ExtraFeaturesRepository extraFeaturesRepository;
+  private static final Logger logger = 
+      LoggerFactory.getLogger(ExtraFeaturesService.class.getSimpleName());
+      
+      private final ExtraFeaturesRepository extraFeaturesRepository;
 
   /**
    * Constructor for ExtraFeaturesService.

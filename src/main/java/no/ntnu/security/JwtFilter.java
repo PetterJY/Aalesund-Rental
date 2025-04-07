@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +29,8 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-  private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class.getSimpleName());
+  private static final Logger logger = 
+      LoggerFactory.getLogger(JwtFilter.class.getSimpleName());
 
   @Autowired
   private JwtUtility jwtUtility; 
@@ -38,22 +40,50 @@ public class JwtFilter extends OncePerRequestFilter {
   
   @Override
   protected void doFilterInternal(
-      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      @NonNull HttpServletRequest request, 
+      @NonNull HttpServletResponse response, 
+      @NonNull FilterChain filterChain)
       throws ServletException, IOException {
+    logger.info("Starting JWT filter for request: {}", request.getRequestURI());
+    
     String jwtToken = getJwtToken(request);
-    String username = jwtToken != null ? getUsernameFrom(jwtToken) : null;
+    if (jwtToken != null) {
+      logger.debug("JWT token extracted: {}", jwtToken);
+    } else {
+      logger.debug("No JWT token found in the request.");
+      filterChain.doFilter(request, response);
+      return;
+    }
+
+    String username = getUsernameFrom(jwtToken);
+    if (username != null) {
+      logger.info("Extracted username from token: {}", username);
+    } else {
+      logger.warn("Failed to extract username from token.");
+    }
 
     if (username != null && notAuthenticatedYet()) {
       UserDetails userDetails = getUserDetailsFromDatabase(username);
+      if (userDetails != null) {
+        logger.debug("User details loaded for username: {}", username);
+      } else {
+        logger.warn("User details not found for username: {}", username);
+      }
+
       if (jwtUtility.validateToken(jwtToken, userDetails)) {
+        logger.info("JWT token validated successfully for username: {}", username);
         registerUserAsAuthenticated(request, userDetails);
+      } else {
+        logger.warn("JWT token validation failed for username: {}", username);
       }
     }
 
     filterChain.doFilter(request, response);
+    logger.info("Completed JWT filter for request: {}", request.getRequestURI());
   }
 
   private UserDetails getUserDetailsFromDatabase(String username) {
+    logger.debug("Loading user details for username: {}", username);
     UserDetails userDetails = null;
     try {
       userDetails = userDetailsService.loadUserByUsername(username);
@@ -70,6 +100,7 @@ public class JwtFilter extends OncePerRequestFilter {
    * @return The JWT token, or null if not found
    */
   private String getJwtToken(HttpServletRequest request) {
+    logger.debug("Extracting JWT token from Authorization header.");
     final String authorizationHeader = request.getHeader("Authorization");
     String jwt = null;
     if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
@@ -96,6 +127,7 @@ public class JwtFilter extends OncePerRequestFilter {
    * @return The username, or null if the token is malformed or invalid
    */
   private String getUsernameFrom(String jwtToken) {
+    logger.debug("Extracting username from JWT token.");
     String username = null;
     try {
       username = jwtUtility.getUsernameFromToken(jwtToken);

@@ -1,9 +1,17 @@
 package no.ntnu.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -14,11 +22,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+  private static final Logger logger = 
+      LoggerFactory.getLogger(SecurityConfig.class.getSimpleName());
 
   private final JwtFilter jwtFilter;
 
-  public SecurityConfig(JwtFilter jwtFilter) {
+  private final UserDetailsService userDetailsService; 
+  
+  @Autowired
+  public SecurityConfig(JwtFilter jwtFilter, UserDetailsService userDetailsService) {
     this.jwtFilter = jwtFilter;
+    this.userDetailsService = userDetailsService;
   }
 
   /**
@@ -31,12 +45,24 @@ public class SecurityConfig {
    */
   @Bean
   public DefaultSecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    logger.info("Configuring security filter chain.");
     http.csrf(csrfCustomizer -> csrfCustomizer.disable())
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/auth/login", "/users/**").permitAll()
+            .requestMatchers("/auth/login", "/users/**", "/accounts/**").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
+    logger.info("Security filter chain configured successfully.");
     return http.build();
+  }
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return NoOpPasswordEncoder.getInstance(); 
+  }
+
+  @Bean
+  public AuthenticationManager authenticationManager(
+      AuthenticationConfiguration authConfig) throws Exception {
+    return authConfig.getAuthenticationManager();
   }
 }
