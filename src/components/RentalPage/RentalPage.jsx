@@ -149,22 +149,24 @@ export default function RentalPage(props) {
           {/* Filter panel for mobile */}
           {isFilterOpen && (
             <div className="filter-panel">
-              <h2>Sort and Filter</h2>
-              <div className="filter-group">
-                <h3>Sort</h3>
-                {renderRadioButtons("sort", filterOptions.sort)}
-              </div>
-              <div className="filter-group">
-                <h3>Car Type</h3>
-                {renderCheckboxes("carType", filterOptions.carType)}
-              </div>
-              <div className="filter-group">
-                <h3>Transmission</h3>
-                {renderCheckboxes("transmission", filterOptions.transmission)}
-              </div>
-              <div className="filter-group">
-                <h3>Passengers</h3>
-                {renderRadioButtons("passengers", filterOptions.passengers)}
+              <div className="filter-content"> 
+                <h2>Sort and Filter</h2>
+                <div className="filter-group">
+                  <h3>Sort</h3>
+                  {renderRadioButtons("sort", filterOptions.sort)}
+                </div>
+                <div className="filter-group">
+                  <h3>Car Type</h3>
+                  {renderCheckboxes("carType", filterOptions.carType)}
+                </div>
+                <div className="filter-group">
+                  <h3>Transmission</h3>
+                  {renderCheckboxes("transmission", filterOptions.transmission)}
+                </div>
+                <div className="filter-group">
+                  <h3>Passengers</h3>
+                  {renderRadioButtons("passengers", filterOptions.passengers)}
+                </div>
               </div>
               <button className="close-button" onClick={toggleFilter}>Close</button>
             </div>
