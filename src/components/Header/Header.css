@@ -376,7 +376,6 @@ p {
 
 .time-options-label:hover {
   background-color: #c9c9cf;
-  color: #EB5E28;
   border-color: transparent !important;
 }
 
@@ -411,6 +410,11 @@ p {
   width: 50%;
   height: 100%;
   opacity: 0; /* Invisible as intended */
+}
+
+.selected-time-option-text {
+  opacity: 1;
+  font-size: 1.25rem;
 }
 
 
@@ -473,12 +477,12 @@ p {
 }
 
 .pickup-destination.selected {
-  border: 3px solid #C64D1F;
+  border: 3px solid #EB5E28;
   padding: 0 12px 0 12px;
 }
 
 .dropoff-destination.selected {
-  border: 3px solid #C64D1F;
+  border: 3px solid #EB5E28;
   padding: 0 12px 0 12px;
 }
 

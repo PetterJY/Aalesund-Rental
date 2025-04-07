@@ -21,9 +21,9 @@ const Header = ({ page }) => {
   const DateTimePicker = ({ format, selectedDate, onDateChange, pickupDate, dropoffDate }) => {
     const datePickerRef = useRef(null);
     const timePickerRef = useRef(null);
+    const selectedTimeRef = useRef(null);
     const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
     const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
-
 
     const daysOfRental = [];
     const unavailableDays = [];
@@ -33,10 +33,9 @@ const Header = ({ page }) => {
       unavailableDays.push(subDays(today, i));
     }
 
-
     const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
     if (format === "pickup" && dropoffDate !== null && pickupDate !== null) {
-      for (let i = 1; i < nrOfDaysOfRental; i++) {
+      for (let i = 1; i <= nrOfDaysOfRental; i++) {
         daysOfRental.push(addDays(pickupDate, i));
       }
     } else if (format === "dropoff" && dropoffDate !== null && pickupDate !== null) {
@@ -62,7 +61,7 @@ const Header = ({ page }) => {
       },
     ];
 
-    function openDatePicker() {
+    const openDatePicker = () => {
       datePickerRef.current.setOpen(true);
     }
 
@@ -83,20 +82,22 @@ const Header = ({ page }) => {
       dropoff: generateTimeOptions()
     });
 
-    const [selectedTimes, setSelectedTimes] = useState({
+    const [selectedTimes, setSelectedTime] = useState({
         pickup: "",
         dropoff: "",
       }
     );
 
     const handleRadioChange = (format, value) => {
-      setSelectedTimes(prev => ({
+      setSelectedTime(prev => ({
         ...prev,
         [format]: value
       }))
+      selectedTimeRef.current.textContent = value;
+      setIsTimePickerSelected(false);
     }
 
-    const renderRadioButton = (format, options) => (
+    const renderRadioButtons = (format, options) => (
       <div className="time-options">
         {options.map(({value, label}) => (
           <label key={value} className="time-options-label">
@@ -151,9 +152,10 @@ const Header = ({ page }) => {
         </div>
         <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
           <button className="time-picker-button" onClick={() => setIsTimePickerSelected(true)}></button>
+          <span className="selected-time-option-text" ref={selectedTimeRef}>12:00</span>
           {isTimePickerSelected && (
             <div className="time-picker-radio" ref={timePickerRef}>
-              {renderRadioButton(format, timeOptions[format])}
+              {renderRadioButtons(format, timeOptions[format])}
             </div>
           )}
         </div>
@@ -161,12 +163,10 @@ const Header = ({ page }) => {
     );
   };
 
-
-
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);
-  const pickupTimeFieldRef = useRef(null);
-  const dropoffTimeFieldRef = useRef(null);
+  const [pickupLocationValue, setPickupLocationValue] = useState("");
+  const [dropoffLocationValue, setDropoffLocationValue] = useState("");
   const [isPickupTextInputHovered, setIsPickupTextInputHovered] = useState(false);
   const [isDropoffTextInputHovered, setIsDropoffTextInputHovered] = useState(false);
   const [isPickupTextFieldSelected, setIsPickupTextFieldSelected] = useState(false);
@@ -176,11 +176,13 @@ const Header = ({ page }) => {
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
   const [pickupDate, setPickupDate] = useState(() => {
-    return new Date();
+    const time = new Date();
+    time.setDate(time.getDate()+1)
+    return time;
   });
   const [dropoffDate, setDropoffDate] = useState(() => {
     const time = new Date();
-    time.setDate(time.getDate()+100);
+    time.setDate(time.getDate()+13);
     return time;
   });
   const [pickupTime, setPickUpTime] = useState(() => {
@@ -218,6 +220,7 @@ const Header = ({ page }) => {
     const inputField = document.getElementById("pickup-destination-input-field");
     inputField.value = "";
     inputField.focus();
+    setPickupLocationValue("");
   }
 
 
@@ -225,6 +228,7 @@ const Header = ({ page }) => {
     const inputField = document.getElementById("dropoff-destination-input-field");
     inputField.value = "";
     inputField.focus();
+    setDropoffLocationValue("");
   }
 
 
@@ -326,11 +330,12 @@ const Header = ({ page }) => {
               <input type="text"
                      className="text-input"
                      id="pickup-destination-input-field"
-                     placeholder="Pickup location">
+                     placeholder="Pickup location"
+              onChange={(e) => setPickupLocationValue(e.target.value)}>
               </input>
               <button className="xCircleButton"
                       onClick={handlePickupXCircleClick}>
-                <XCircle className={`cross-icon ${isPickupTextInputHovered ? 'visible' : ''}`}
+                <XCircle className={`cross-icon ${isPickupTextInputHovered && pickupLocationValue !== "" ? 'visible' : ''}`}
                          size={24}
                          weight="bold"/>
               </button>
@@ -347,10 +352,11 @@ const Header = ({ page }) => {
               <input type="text"
                      className="text-input"
                      id="dropoff-destination-input-field"
-                     placeholder="Drop-off location">
+                     placeholder="Drop-off location"
+                     onChange={(e) => setDropoffLocationValue(e.target.value)}>
               </input>
               <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
-                <XCircle  className={`cross-icon ${isDropoffTextInputHovered ? 'visible' : ''}`}
+                <XCircle  className={`cross-icon ${isDropoffTextInputHovered && dropoffLocationValue !== "" ? 'visible' : ''}`}
                   size={24}
                   weight="bold"/>
               </button>
