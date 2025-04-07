@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, memo} from 'react';
 import LoginButton from '../LoginRegister/Login/Login';
 import logo from '../../resources/images/logo.png';
 import '../global.css';
@@ -13,155 +13,160 @@ import {format, addDays, subDays, differenceInDays} from 'date-fns';
 import { useNavigate } from "react-router-dom";
 
 
+const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDateChange, pickupDate, dropoffDate }) {
+  console.log("DateTimePicker was rendered!")
+  const datePickerRef = useRef(null);
+  const timePickerRef = useRef(null);
+  const selectedTimeRef = useRef(null);
+  const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
+  const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
+
+  const daysOfRental = [];
+  const unavailableDays = [];
+  const today = new Date();
+
+  for (let i = 1; i < today.getDate() + 7; i++) {
+    unavailableDays.push(subDays(today, i));
+  }
+
+  const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
+  if (format === "pickup" && dropoffDate !== null && pickupDate !== null) {
+    for (let i = 1; i <= nrOfDaysOfRental; i++) {
+      daysOfRental.push(addDays(pickupDate, i));
+    }
+  } else if (format === "dropoff" && dropoffDate !== null && pickupDate !== null) {
+    for (let i = 1; i < nrOfDaysOfRental; i++) {
+      daysOfRental.push(subDays(dropoffDate, i));
+    }
+  }
+
+  const highlightWithRanges = [
+    {
+      "react-datepicker__day--highlighted-custom-1": daysOfRental, // highlight days between pickup and dropoff
+    },
+    {
+      "react-datepicker__day--highlighted-custom-2": [
+        today // highlight today's date
+      ],
+    }, {
+      "react-datepicker__day--highlighted-custom-3": [pickupDate], // highlight pickup-date with uniquely rounded corners
+    }, {
+      "react-datepicker__day--highlighted-custom-4": [dropoffDate], // highlight dropoff-date with uniquely rounded corners
+    }, {
+      "react-datepicker__day--highlighted-custom-5": unavailableDays,
+    },
+  ];
+
+  const openDatePicker = () => {
+    datePickerRef.current.setOpen(true);
+  }
+
+  const generateTimeOptions = () => {
+    let timeOptions = [];
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute of ['00', '30']) {
+        let hourValue = hour.toString().padStart(2, '0');
+        let timeValue = `${hourValue}:${minute}`;
+        timeOptions.push({label: timeValue, value: timeValue});
+      }
+    }
+    return timeOptions;
+  }
+
+  const [timeOptions] = useState({
+    pickup: generateTimeOptions(),
+    dropoff: generateTimeOptions()
+  });
+
+  const [selectedTimes, setSelectedTime] = useState({
+      pickup: "",
+      dropoff: "",
+    }
+  );
+
+  const handleRadioChange = (format, value) => {
+    setSelectedTime(prev => ({
+      ...prev,
+      [format]: value
+    }))
+    selectedTimeRef.current.textContent = value;
+    setIsTimePickerSelected(false);
+  }
+
+  const renderRadioButtons = (format, options) => (
+    <div className="time-options">
+      {options.map(({value, label}) => (
+        <label key={value} className="time-options-label">
+          <input
+            type="radio"
+            name={`${format}-time`}
+            checked={selectedTimes[format] === value}
+            onChange={() => handleRadioChange(format, value)}/>
+          <span>{label}</span>
+        </label>
+      ))
+      }
+    </div>
+  )
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isTimePickerSelected &&
+        timePickerRef.current &&
+        !timePickerRef.current.contains(event.target)
+      ) {
+        setIsTimePickerSelected(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isTimePickerSelected]);
+
+
+  return (
+    <div className="date-time">
+      <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
+        <button className="date-picker-button" onClick={openDatePicker}>
+        </button>
+        <CalendarBlank weight="bold" className="calendar-icon"/>
+        <DatePicker
+          ref={datePickerRef}
+          onCalendarOpen={() => setIsDatePickerSelected(true)}
+          onCalendarClose={() => setIsDatePickerSelected(false)}
+          selected={selectedDate}
+          onChange={onDateChange}
+          highlightDates={highlightWithRanges}
+          monthsShown={3}
+          dateFormat="d. MMM"
+          className="date-input"
+          popperClassName="date-picker-popper"
+          minDate={today}
+          startDate={new Date()}
+          openToDate={new Date()}
+          shouldCloseOnSelect={false}
+          locale={enGB}
+        />
+      </div>
+      <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
+        <button className="time-picker-button" onClick={() => setIsTimePickerSelected(true)}></button>
+        <span className="selected-time-option-text" ref={selectedTimeRef}>12:00</span>
+        {isTimePickerSelected && (
+          <div className="time-picker-radio" ref={timePickerRef}>
+            {renderRadioButtons(format, timeOptions[format])}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+});
+
+
 const Header = ({ page }) => {
   const showMenu = page === "rental";
   const navigate = useNavigate();
 
-
-  const DateTimePicker = ({ format, selectedDate, onDateChange, pickupDate, dropoffDate }) => {
-    const datePickerRef = useRef(null);
-    const timePickerRef = useRef(null);
-    const selectedTimeRef = useRef(null);
-    const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
-    const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
-
-    const daysOfRental = [];
-    const unavailableDays = [];
-    const today = new Date();
-
-    for (let i = 1; i < today.getDate() + 7; i++) {
-      unavailableDays.push(subDays(today, i));
-    }
-
-    const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
-    if (format === "pickup" && dropoffDate !== null && pickupDate !== null) {
-      for (let i = 1; i <= nrOfDaysOfRental; i++) {
-        daysOfRental.push(addDays(pickupDate, i));
-      }
-    } else if (format === "dropoff" && dropoffDate !== null && pickupDate !== null) {
-      for (let i = 1; i < nrOfDaysOfRental; i++) {
-        daysOfRental.push(subDays(dropoffDate, i));
-      }
-    }
-
-    const highlightWithRanges = [
-      {
-        "react-datepicker__day--highlighted-custom-1": daysOfRental, // highlight days between pickup and dropoff
-      },
-      {
-        "react-datepicker__day--highlighted-custom-2": [
-          today // highlight today's date
-        ],
-      }, {
-        "react-datepicker__day--highlighted-custom-3": [pickupDate], // highlight pickup-date with uniquely rounded corners
-      }, {
-        "react-datepicker__day--highlighted-custom-4": [dropoffDate], // highlight dropoff-date with uniquely rounded corners
-      }, {
-        "react-datepicker__day--highlighted-custom-5": unavailableDays,
-      },
-    ];
-
-    const openDatePicker = () => {
-      datePickerRef.current.setOpen(true);
-    }
-
-    const generateTimeOptions = () => {
-      let timeOptions = [];
-      for (let hour = 0; hour < 24; hour++) {
-        for (let minute of ['00', '30']) {
-          let hourValue = hour.toString().padStart(2, '0');
-          let timeValue = `${hourValue}:${minute}`;
-          timeOptions.push({label: timeValue, value: timeValue});
-        }
-      }
-      return timeOptions;
-    }
-
-    const [timeOptions] = useState({
-      pickup: generateTimeOptions(),
-      dropoff: generateTimeOptions()
-    });
-
-    const [selectedTimes, setSelectedTime] = useState({
-        pickup: "",
-        dropoff: "",
-      }
-    );
-
-    const handleRadioChange = (format, value) => {
-      setSelectedTime(prev => ({
-        ...prev,
-        [format]: value
-      }))
-      selectedTimeRef.current.textContent = value;
-      setIsTimePickerSelected(false);
-    }
-
-    const renderRadioButtons = (format, options) => (
-      <div className="time-options">
-        {options.map(({value, label}) => (
-          <label key={value} className="time-options-label">
-            <input
-              type="radio"
-              name={`${format}-time`}
-              checked={selectedTimes[format] === value}
-              onChange={() => handleRadioChange(format, value)}/>
-            <span>{label}</span>
-          </label>
-        ))
-        }
-      </div>
-    )
-
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (
-          isTimePickerSelected &&
-          timePickerRef.current &&
-          !timePickerRef.current.contains(event.target)
-        ) {
-          setIsTimePickerSelected(false);
-        }
-      }
-
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isTimePickerSelected]);
-
-
-    return (
-      <div className="date-time">
-        <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
-          <button className="date-picker-button" onClick={openDatePicker}>
-          </button>
-          <CalendarBlank weight="bold" className="calendar-icon"/>
-          <DatePicker
-            ref={datePickerRef}
-            onCalendarOpen={() => setIsDatePickerSelected(true)}
-            onCalendarClose={() => setIsDatePickerSelected(false)}
-            selected={selectedDate}
-            onChange={onDateChange}
-            highlightDates={highlightWithRanges}
-            monthsShown={3}
-            dateFormat="d. MMM"
-            className="date-input"
-            popperClassName="date-picker-popper"
-            minDate={today}
-            locale={enGB}
-          />
-        </div>
-        <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
-          <button className="time-picker-button" onClick={() => setIsTimePickerSelected(true)}></button>
-          <span className="selected-time-option-text" ref={selectedTimeRef}>12:00</span>
-          {isTimePickerSelected && (
-            <div className="time-picker-radio" ref={timePickerRef}>
-              {renderRadioButtons(format, timeOptions[format])}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
 
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);
@@ -199,20 +204,26 @@ const Header = ({ page }) => {
   });
 
   const handlePickupDateChange = (date) => {
-    if (date.getTime() > dropoffDate.getTime()) {
-      setDropoffDate(date);
-      setPickupDate(null);
-    } else {
-      setPickupDate(date);
+    if (dropoffDate !== null && date !== null) {
+      console.log("pickup date is not null!")
+      if (date.getTime() > dropoffDate.getTime()) {
+        setDropoffDate(date);
+        setPickupDate(null);
+      } else {
+        setPickupDate(date);
+      }
     }
   }
 
   const handleDropoffDateChange = (date) => {
-    if (pickupDate.getTime() > date.getTime()) {
-      setPickupDate(date);
-      setDropoffDate(null);
-    } else {
-      setDropoffDate(date);
+    if (pickupDate !== null && date !== null) {
+      console.log("Dropoff date is not null!")
+      if (pickupDate.getTime() > date.getTime()) {
+        setPickupDate(date);
+        setDropoffDate(null);
+      } else {
+        setDropoffDate(date);
+      }
     }
   }
 

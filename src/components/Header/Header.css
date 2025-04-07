@@ -327,8 +327,8 @@ p {
   position: absolute;
   top: 120%; /* Position below the picker */
   width: 374px;
-  height: 800px;
-  max-height: 800px;
+  height: auto;
+  max-height: calc(70vh - 135px);
   overflow-y: auto; /* Add scroll for vertical overflow */
   border-radius: 12px;
   padding-top: 16px;
