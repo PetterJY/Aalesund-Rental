@@ -1,19 +1,23 @@
 package no.ntnu.security;
 
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 
 /**
  * Utility class for handling JWT (JSON Web Token) operations.
  * Operations like token generation, validation, and parsing.
  */
+@Component
 public class JwtUtility {
   @Value("${jwt_secret_key}")
   private String secretKey;  
