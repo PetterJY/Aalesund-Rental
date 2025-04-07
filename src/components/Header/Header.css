@@ -540,7 +540,7 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
 /* Style each month container */
 .date-picker-popper .react-datepicker__month-container {
   width: 400px; /* Fixed width for each month */
-  padding: 10px;
+  padding: 12px;
 }
 
 /* Style the month header */
@@ -660,10 +660,10 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
 /* Responsive adjustments */
 @media screen and (max-width: 1500px) {
   .date-picker-popper .react-datepicker__month-container {
-    width: 180px; /* Smaller width for smaller screens */
+    width: 375px;
   }
   .date-picker-popper .react-datepicker {
-    gap: 10px; /* Reduced spacing */
+    gap: 10px;
   }
 
   .menu-wrapper {
@@ -691,22 +691,21 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
     width: 100%;
   }
 
-
   .date-time-picker-wrapper {
     width: 100%;
     gap: 12px;
   }
 
   .date-picker {
-    width: 67%;
+    width: 50%;
   }
 
   .time-picker {
-    width: 33%;
+    width: 50%;
   }
 
   .save-button {
-    width: 50%;
+    max-width: 50%;
   }
 
   .date-time {

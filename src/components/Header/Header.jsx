@@ -20,6 +20,7 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
   const selectedTimeRef = useRef(null);
   const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
   const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
+  const [monthsToShow, setMonthsToShow] = useState(3);
 
   const daysOfRental = [];
   const unavailableDays = [];
@@ -125,6 +126,23 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
   }, [isTimePickerSelected]);
 
 
+  useEffect(() => {
+    const handleWindowResize = () => {
+      if (window.innerWidth >= 1500) {
+        setMonthsToShow(3);
+      } else if (window.innerWidth > 1000) {
+        setMonthsToShow(2);
+      } else {
+        setMonthsToShow(1);
+      }
+    }
+
+    handleWindowResize();
+
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, []);
+
   return (
     <div className="date-time">
       <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
@@ -138,7 +156,7 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
           selected={selectedDate}
           onChange={onDateChange}
           highlightDates={highlightWithRanges}
-          monthsShown={3}
+          monthsShown={monthsToShow}
           dateFormat="d. MMM"
           className="date-input"
           popperClassName="date-picker-popper"
