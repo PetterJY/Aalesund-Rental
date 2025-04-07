@@ -1,6 +1,7 @@
 .car-selected {
   display: inline-block;
-  flex: 0 0 100%; /* Full width of container */
+  width: 100%;
+  max-width: 1300px;
   background-color: #f1f1f1;
   padding: 15px;
   border-radius: 4px;

@@ -1,59 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
 import "../App.css";
-import './RentalPage.css';
+import "./RentalPage.css";
 
 export default function RentalPage(props) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [filters, setFilters] = useState({
-    sort: "",
-    carType: [],
-    transmission: [],
-    passengers: ""
-  });
-  const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [selectedCarId, setSelectedCarId] = useState(null);
+  const containerRef = useRef(null);
+  const [carsPerRow, setCarsPerRow] = useState(1);
 
-  const toggleFilter = () => {
-    setIsFilterOpen(!isFilterOpen);
-  };
-
-  const toggleDropdown = (category) => {
+  const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
+  const toggleDropdown = (category) =>
     setOpenDropdown(openDropdown === category ? null : category);
-  };
 
-  const handleCheckboxChange = (category, value) => {
-    setFilters(prev => {
-      const categoryValues = prev[category];
-      if (categoryValues.includes(value)) {
-        return {
-          ...prev,
-          [category]: categoryValues.filter(item => item !== value)
-        };
-      } else {
-        return {
-          ...prev,
-          [category]: [...categoryValues, value]
-        };
-      }
-    });
-  };
-
-  const handleRadioChange = (category, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [category]: value // Set the single selected value
-    }));
-  };
-
+  // (Dummy filter render functions remain unchanged)
   const renderCheckboxes = (category, options) => (
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
-          <input
-            type="checkbox"
-            checked={filters[category].includes(value)}
-            onChange={() => handleCheckboxChange(category, value)}
-          />
+          <input type="checkbox" />
           <span>{label}</span>
         </label>
       ))}
@@ -64,18 +30,13 @@ export default function RentalPage(props) {
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
-          <input
-            type="radio"
-            name={category}
-            checked={filters[category] === value}
-            onChange={() => handleRadioChange(category, value)}
-          />
+          <input type="radio" name={category} />
           <span>{label}</span>
         </label>
       ))}
     </div>
   );
-  
+
   const renderDropdown = (category, title, options) => (
     <div className="dropdown-group">
       <button
@@ -86,7 +47,7 @@ export default function RentalPage(props) {
       </button>
       {openDropdown === category && (
         <div className="dropdown-content">
-          {category === "sort" || category === "passengers"
+          {(category === "sort" || category === "passengers")
             ? renderRadioButtons(category, options)
             : renderCheckboxes(category, options)}
         </div>
@@ -94,12 +55,11 @@ export default function RentalPage(props) {
     </div>
   );
 
-
   const filterOptions = {
     sort: [
       { value: "newest", label: "Newest" },
       { value: "price", label: "Price" },
-      { value: "alphabet", label: "Alphabet" }
+      { value: "alphabet", label: "Alphabet" },
     ],
     carType: [
       { value: "sedan", label: "Sedan" },
@@ -111,25 +71,88 @@ export default function RentalPage(props) {
       { value: "hybrid", label: "Hybrid" },
       { value: "diesel", label: "Diesel" },
       { value: "gas", label: "Gas" },
-      { value: "luxury", label: "Luxury" }
+      { value: "luxury", label: "Luxury" },
     ],
     transmission: [
       { value: "automatic", label: "Automatic" },
-      { value: "manual", label: "Manual" }
+      { value: "manual", label: "Manual" },
     ],
     passengers: [
       { value: "2", label: "2+" },
       { value: "4", label: "4+" },
       { value: "5", label: "5+" },
-      { value: "7", label: "7+" }
-    ]
+      { value: "7", label: "7+" },
+    ],
   };
 
-  const [selectedCarId, setSelectedCarId] = useState(null);
-
   const handleCarClick = (carId) => {
-    console.log("ID of selected car:", carId); 
-    setSelectedCarId((prevId) => (prevId === carId ? null : carId));
+    console.log("Selected car:", carId);
+    setSelectedCarId((prev) => (prev === carId ? null : carId));
+  };
+
+  // Compute number of cars per row based on measured widths
+  const getCarsPerRow = () => {
+    const container = containerRef.current;
+    if (!container) return 1;
+    const containerWidth = container.offsetWidth;
+    const firstItem = container.querySelector(".car-display");
+    if (!firstItem) return 1;
+    const itemWidth = firstItem.offsetWidth;
+    // Assuming a gap of 10px between items.
+    return Math.floor((containerWidth + 10) / (itemWidth + 10));
+  };
+
+  // update carsPerRow on mount and resize
+  useEffect(() => {
+    const updateCarsPerRow = () => {
+      setCarsPerRow(getCarsPerRow());
+    };
+    updateCarsPerRow();
+    window.addEventListener("resize", updateCarsPerRow);
+    return () => window.removeEventListener("resize", updateCarsPerRow);
+  }, []);
+
+  // Reassemble children with inserted menu for the selected car.
+  const renderWithInsertedMenu = () => {
+    // Get an array of CarDisplay children.
+    const displays = React.Children.toArray(props.children).filter(
+      (child) => child.type.name === "CarDisplay"
+    );
+    // Get the CarSelected matching selectedCarId.
+    const selectedMenu = React.Children.toArray(props.children).find(
+      (child) =>
+        child.type.name === "CarSelected" && child.props.id === selectedCarId
+    );
+    if (displays.length === 0) return null;
+    // Find the index of the selected display.
+    const selectedIndex = displays.findIndex(
+      (child) => child.props.id === selectedCarId
+    );
+    let insertionIndex = -1;
+    if (selectedIndex >= 0) {
+      // Determine the end index of the row.
+      insertionIndex =
+        Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
+      insertionIndex = Math.min(insertionIndex, displays.length - 1);
+    }
+    // Build final array.
+    const combined = [];
+    displays.forEach((child, index) => {
+      combined.push(
+        React.cloneElement(child, {
+          onClick: () => handleCarClick(child.props.id),
+          key: child.props.id,
+        })
+      );
+      if (index === insertionIndex && selectedMenu) {
+        combined.push(
+          <div key={`menu-${selectedCarId}`} className="car-selected-menu">
+            {selectedMenu}
+          </div>
+        );
+      }
+    });
+    return combined;
   };
 
   return (
@@ -146,10 +169,9 @@ export default function RentalPage(props) {
             </button>
           </nav>
 
-          {/* Filter panel for mobile */}
           {isFilterOpen && (
             <div className="filter-panel">
-              <div className="filter-content"> 
+              <div className="filter-content">
                 <h2>Sort and Filter</h2>
                 <div className="filter-group">
                   <h3>Sort</h3>
@@ -168,31 +190,14 @@ export default function RentalPage(props) {
                   {renderRadioButtons("passengers", filterOptions.passengers)}
                 </div>
               </div>
-              <button className="close-button" onClick={toggleFilter}>Close</button>
+              <button className="close-button" onClick={toggleFilter}>
+                Close
+              </button>
             </div>
           )}
-          <main className="main-body">
-            {/* Render CarDisplay components */}
-            {React.Children.map(props.children, (child) => {
-              if (child.type.name === "CarDisplay") {
-                return React.cloneElement(child, {
-                  onClick: () => handleCarClick(child.props.id), 
-                });
-              }
-              return null;
-            })}
 
-            {/* Render CarSelected components */}
-            {React.Children.map(props.children, (child) => {
-              if (child.type.name === "CarSelected") {
-                return React.cloneElement(child, {
-                  style: {
-                    display: selectedCarId === child.props.id ? 'inline-block' : 'none',
-                  },
-                });
-              }
-              return null;
-            })}
+          <main className="main-body" ref={containerRef}>
+            {renderWithInsertedMenu()}
           </main>
         </div>
       </section>

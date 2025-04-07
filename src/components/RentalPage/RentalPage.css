@@ -300,3 +300,13 @@ border-radius: 0%;
   max-height: 200px;
   overflow-y: auto;
 }
+
+.car-selected-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
