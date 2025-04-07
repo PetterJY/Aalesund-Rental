@@ -21,7 +21,6 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
   const [isDatePickerSelected, setIsDatePickerSelected] = useState(false);
   const [isTimePickerSelected, setIsTimePickerSelected] = useState(false);
   const [monthsToShow, setMonthsToShow] = useState(3);
-
   const daysOfRental = [];
   const unavailableDays = [];
   const today = new Date();
@@ -130,7 +129,7 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
     const handleWindowResize = () => {
       if (window.innerWidth >= 1500) {
         setMonthsToShow(3);
-      } else if (window.innerWidth > 1000) {
+      } else if (window.innerWidth > 900) {
         setMonthsToShow(2);
       } else {
         setMonthsToShow(1);
@@ -184,8 +183,6 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
 const Header = ({ page }) => {
   const showMenu = page === "rental";
   const navigate = useNavigate();
-
-
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);
   const [pickupLocationValue, setPickupLocationValue] = useState("");
@@ -198,6 +195,7 @@ const Header = ({ page }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
+  const [mobileDisplaySize, setMobileDisplaySize] = useState(false);
   const [pickupDate, setPickupDate] = useState(() => {
     const time = new Date();
     time.setDate(time.getDate()+1)
@@ -315,6 +313,24 @@ const Header = ({ page }) => {
   }, [isDropoffTextFieldSelected]);
 
 
+  useEffect(() => {
+    const handleWindowResize = () => {
+      if (window.innerWidth >= 1500) {
+        setMobileDisplaySize(false);
+      } else if (window.innerWidth > 900) {
+        setMobileDisplaySize(false);
+      } else {
+        setMobileDisplaySize(true);
+      }
+    }
+
+    handleWindowResize();
+
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, []);
+
+
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const showModal = () => setIsModalVisible(true);
 
@@ -393,34 +409,42 @@ const Header = ({ page }) => {
             </div>
           </div>
           </div>
-          <div className="date-time-picker-wrapper">
-          <div className="pickup-date-section">
-            <label>Pickup Date</label>
-            <DateTimePicker
-              format={"pickup"}
-              selectedDate={pickupDate}
-              onDateChange={handlePickupDateChange}
-              selectedTime={pickupTime}
-              onTimeChange={setPickUpTime}
-              pickupDate={pickupDate}
-              dropoffDate={dropoffDate}
-            />
-          </div>
-          <div className="dropoff-date-section">
-            <label>Drop-off Date</label>
-            <DateTimePicker
-              format={"dropoff"}
-              selectedDate={dropoffDate}
-              onDateChange={handleDropoffDateChange}
-              selectedTime={dropoffTime}
-              onTimeChange={setDropoffTime}
-              pickupDate={pickupDate}
-              dropoffDate={dropoffDate}
-            />
-          </div>
-          <button className="save-button" onClick={handleSave}>
-            Save Changes
-          </button>
+          {mobileDisplaySize && (
+            <hr className="mobile-display-divider"></hr>
+          )}
+          <div className="schedule-and-save-container">
+            <div className="schedule-container">
+              <div className="pickup-date-section">
+                <label>Pickup Date</label>
+                <DateTimePicker
+                  format={"pickup"}
+                  selectedDate={pickupDate}
+                  onDateChange={handlePickupDateChange}
+                  selectedTime={pickupTime}
+                  onTimeChange={setPickUpTime}
+                  pickupDate={pickupDate}
+                  dropoffDate={dropoffDate}
+                />
+              </div>
+              <div className="dropoff-date-section">
+                <label>Drop-off Date</label>
+                <DateTimePicker
+                  format={"dropoff"}
+                  selectedDate={dropoffDate}
+                  onDateChange={handleDropoffDateChange}
+                  selectedTime={dropoffTime}
+                  onTimeChange={setDropoffTime}
+                  pickupDate={pickupDate}
+                  dropoffDate={dropoffDate}
+                />
+              </div>
+              {mobileDisplaySize && (
+                <hr className="mobile-display-divider"></hr>
+              )}
+              <button className="save-button" onClick={handleSave}>
+                Save Changes
+              </button>
+            </div>
           </div>
         </div>
       </div>
