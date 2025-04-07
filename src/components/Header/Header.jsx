@@ -329,10 +329,11 @@ const Header = ({ page }) => {
       )}
 
       <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
-        <div className="selection-items">
-          <div className="pickup-destination-section">
+        <div className="menu-wrapper">
+          <div className="location-section">
+          <div className="pickup-location-section">
             <label>Pickup</label>
-            <div className={`pickup-destination ${isPickupTextFieldSelected ? 'selected' : ''}`}
+            <div className={`pickup-location ${isPickupTextFieldSelected ? 'selected' : ''}`}
                  ref={pickupTextFieldRef}
                  onMouseEnter={() => setIsPickupTextInputHovered(true)}
                  onMouseLeave={() => setIsPickupTextInputHovered(false)}
@@ -352,9 +353,9 @@ const Header = ({ page }) => {
               </button>
             </div>
           </div>
-          <div className="dropoff-destination-section">
+          <div className="dropoff-location-section">
             <label>Dropoff</label>
-            <div className={`dropoff-destination ${isDropoffTextFieldSelected ? 'selected' : ''}`}
+            <div className={`dropoff-location ${isDropoffTextFieldSelected ? 'selected' : ''}`}
                  ref={dropoffTextFieldRef}
                  onMouseEnter={() => setIsDropoffTextInputHovered(true)}
                  onMouseLeave={() => setIsDropoffTextInputHovered(false)}
@@ -373,6 +374,8 @@ const Header = ({ page }) => {
               </button>
             </div>
           </div>
+          </div>
+          <div className="date-time-picker-wrapper">
           <div className="pickup-date-section">
             <label>Pickup Date</label>
             <DateTimePicker
@@ -400,6 +403,7 @@ const Header = ({ page }) => {
           <button className="save-button" onClick={handleSave}>
             Save Changes
           </button>
+          </div>
         </div>
       </div>
 

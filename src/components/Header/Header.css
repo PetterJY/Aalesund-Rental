@@ -225,7 +225,7 @@ p {
 }
 
 
-.selection-items {
+.menu-wrapper {
   align-self: center;
   height: auto;
   display: flex;
@@ -437,31 +437,34 @@ p {
   font-weight: 700;
 }
 
-.pickup-date-section {
+.date-time-picker-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  gap: 12px;
+}
+
+.pickup-date-section, .dropoff-date-section {
   display: flex;
   flex-direction: column;
   align-self: center;
 }
 
-.dropoff-date-section {
+.location-section {
   display: flex;
-  flex-direction: column;
-  align-self: center;
+  flex-direction: row;
+  text-align: left;
+  gap: 12px;
 }
 
-.dropoff-destination-section {
+.dropoff-location-section, .pickup-location-section {
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
-.pickup-destination-section {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
 
-.pickup-destination, .dropoff-destination {
+.pickup-location, .dropoff-location {
   box-sizing: border-box;
   position: relative;
   height: var(--center-container-height);
@@ -476,12 +479,12 @@ p {
   padding: 2px 14px 2px 14px;
 }
 
-.pickup-destination.selected {
+.pickup-location.selected {
   border: 3px solid #EB5E28;
   padding: 0 12px 0 12px;
 }
 
-.dropoff-destination.selected {
+.dropoff-location.selected {
   border: 3px solid #EB5E28;
   padding: 0 12px 0 12px;
 }
@@ -655,11 +658,68 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1500px) {
   .date-picker-popper .react-datepicker__month-container {
     width: 180px; /* Smaller width for smaller screens */
   }
   .date-picker-popper .react-datepicker {
     gap: 10px; /* Reduced spacing */
   }
-}
+
+  .menu-wrapper {
+    flex-direction: column;
+    width: 80vw;
+  }
+
+  .location-section {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .dropoff-location-section, .pickup-location-section {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 50%;
+  }
+
+  .pickup-location, .dropoff-location {
+    width: 100%;
+  }
+
+
+  .date-time-picker-wrapper {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .date-picker {
+    width: 67%;
+  }
+
+  .time-picker {
+    width: 33%;
+  }
+
+  .save-button {
+    width: 50%;
+  }
+
+  .date-time {
+    width: 100%;
+  }
+
+  .pickup-date-section, .dropoff-date-section {
+    flex: 1 1 0;
+    max-width: 1000px;
+  }
+
+  .save-button {
+    width: 217px;
+  }
+
+  }
