@@ -1,11 +1,38 @@
 .car-selected {
-  display: inline-block;
-  flex: 0 0 100%; /* Full width of container */
+  display: flex;
+  width: 100%;
+  max-width: 1300px;
   background-color: #f1f1f1;
   padding: 15px;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   margin-bottom: 10px;
+}
+
+.next-button {
+  align-self: flex-end;
+  margin-left: auto;
+  height: fit-content;
+  width: fit-content;
+  background-color: #EB5E28;
+  color: #fff;
+  border: none;
+  padding: 10px 100px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.car-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#car-info-figure {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 

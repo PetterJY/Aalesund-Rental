@@ -53,8 +53,10 @@ function AccountExample() {
 
 function OrdersExample() {
 const orders = [
-    { id:"1", name: "Volkswagen Biggerstraum", model: "2021", pricePerDay: 100, seats: 5, image: {carImage} },
-    { id:"2", name: "Audi A4", model: "2020", pricePerDay: 120, seats: 5, image: {carImage} },
+    { id:"1", brand: "Volkswagen", model: "Biggerstraum", rentingTime: 6, pickUpLocation: "Ålesund", dropOffLocation: "Ålesund",
+      pickUpTime:"Th., 18. Mar., 2025 || 10:00", dropOffTime:"Th., 25. Mar., 2025 || 18:00", pricePerDay: 100, 
+      priceTotal:600, image: carImage },
+
 
 ];
 
@@ -63,13 +65,13 @@ return <Orders orders={orders} />;
 
 function RentalPageExample() {
   const cars = [
-    { id: "1", name: "Volvo", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
-    { id: "2", name: "Mercedes", tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr" },
-    { id: "3", name: "Audi", tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "550 kr", totalPrice: "1650 kr" },
-    { id: "4", name: "BMW", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "700 kr", totalPrice: "2100 kr" },
-    { id: "5", name: "Toyota", tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "450 kr", totalPrice: "1350 kr" },
-    { id: "6", name: "Ford", tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
-    { id: "7", name: "Nissan", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr" },
+    { id: "1", brand: "Volvo", model: "V33", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
+    { id: "2", brand: "Mercedes", model: "7039" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr" },
+    { id: "3", brand: "Audi", model: "R8" , tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "550 kr", totalPrice: "1650 kr" },
+    { id: "4", brand: "BMW", model: "WMB" , tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "700 kr", totalPrice: "2100 kr" },
+    { id: "5", brand: "Toyota", model: "Corolla" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "450 kr", totalPrice: "1350 kr" },
+    { id: "6", brand: "Ford", model: "Focus" , tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
+    { id: "7", brand: "Nissan", model: "Speed" , tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr"},
   ];
 
   return (
@@ -78,12 +80,14 @@ function RentalPageExample() {
         <CarDisplay 
           key={`CD${car.id}`}
           id={car.id}
-          carName={car.name}
+          carBrand={car.brand}
+          carModel={car.model}
           carTag={car.tag}
           passengerCount={car.passengers}
           rentalPlace={car.place}
           priceDay={car.dayPrice}
           priceTotal={car.totalPrice}
+          image={carImage}
         />
       ))}
 
@@ -93,12 +97,14 @@ function RentalPageExample() {
             key={`CS${car.id}`}
             id={car.id}
             className="menu"
-            carName={car.name}
+            carBrand={car.brand}
+            carModel={car.model}
             carTag={car.tag}
             passengerCount={car.passengers}
             rentalPlace={car.place}
             priceDay={car.dayPrice}
             priceTotal={car.totalPrice}
+            image={carImage}
           />
         );
       })}

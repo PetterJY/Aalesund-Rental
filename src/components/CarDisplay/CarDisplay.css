@@ -1,7 +1,7 @@
 .car-display {
   width: 400px;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
+  background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #252422);
   position: relative; 
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
 }
 
 .car-display:hover {
-  outline: #403d39 3px solid;
+  outline: #252422 3px solid;
   outline-offset: 3px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: 0.1s;
@@ -41,11 +41,6 @@
   width: 60px;
   height: 30px;
   border-radius: 25px;
-}
-
-#passenger-image {
-  width: 20px;
-  height: 20px;
 }
 
 .passenger-count {

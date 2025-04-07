@@ -13,16 +13,21 @@ const Orders = ({ orders = [] }) => { // Default to an empty array
           <li id="selected-site-link"><a href="/account/orders">Orders</a></li>
         </ul>
       </header>
-      <section>
-        <h2 className="title">My Bookings</h2>
+      <section className="orders-section">
         <div className="orders-list">
+        <h2 className="title">My Bookings</h2>
         {orders.map((order) => (
             <OrdersCarDisplay
               key={order.id}
-              name={order.name}
+              brand={order.brand}
               model={order.model}
               pricePerDay={order.pricePerDay}
-              seats={order.seats}
+              rentingTime={order.rentingTime}
+              pickUpLocation={order.pickUpLocation}
+              dropOffLocation={order.dropOffLocation}
+              pickUpTime={order.pickUpTime}
+              dropOffTime={order.dropOffTime}
+              priceTotal={order.priceTotal}
               image={order.image}
             />
           ))}
