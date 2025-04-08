@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState, memo} from 'react';
 import LoginButton from '../LoginRegister/Login/Login';
 import logo from '../../resources/images/logo.png';
-import '../global.css';
+import '../App.css';
 import './Header.css';
 import {PencilSimple, User, MagnifyingGlass, XCircle, CalendarBlank, X} from "@phosphor-icons/react";
 import DatePicker from "react-datepicker";
@@ -335,7 +335,7 @@ const Header = ({ page }) => {
     const handleWindowResize = () => {
       if (window.innerWidth >= 1500) {
         setMobileDisplaySize(false);
-      } else if (window.innerWidth > 1200) {
+      } else if (window.innerWidth > 1000) {
         setMobileDisplaySize(false);
       } else {
         setMobileDisplaySize(true);
