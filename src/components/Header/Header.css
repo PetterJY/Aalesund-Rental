@@ -866,10 +866,12 @@ background: #e94100; /* Darker shade of #FF5F00 */
     cursor: pointer;
     margin-left: 12px;
     padding: 0;
+    transition: transform 0.1s ease-in-out;
   }
 
   .x-button:hover {
     background-color: transparent;
+    transform: scale(1.15);
   }
 
   .date-time-popup-menu {
