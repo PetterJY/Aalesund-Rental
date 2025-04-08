@@ -37,14 +37,92 @@
   border-radius: 10px;
   background: white center;
   padding: 16px;
+  gap: 12px;
 }
 
 .booking-form-container {
   display: flex;
   justify-content: center;
-  justify-items: center;
   align-items: center; /* Center vertically */
   border-radius: 10px;
+}
+
+.testimonials-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  background-color: white;
+  width: 100vw;
+  top: 400px;
+  height: 500px;
+  box-shadow: 0 0 33px 10px rgba(0, 0, 0, 0.7);
+}
+
+.testimonials-section {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  border: 5px solid pink;
+  width: 70%;
+  height: 100%;
+}
+
+.testimonials-slideshow {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  border: 5px solid lightblue;
+  width: 70%;
+  height: 100%;
+}
+
+.testimoinal-controls {
+  position: absolute;
+  top: 30px;
+  left: 67%;
+
+  border: 2px solid red;
+}
+
+.testimonials-section h2 {
+  position: absolute;
+  top: 30px; /* Distance from the top */
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0;
+}
+
+
+
+.testimonials {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin-top: auto;
+  margin-bottom: auto;
+  border: 2px solid purple;
+  padding: 15px;
+  gap: 12px;
+  height: 300px;
+}
+
+.testimonials div {
+  border: 2px solid green;
+  width: 100%;
+}
+
+.testimonial p {
+  color: black !important;
+}
+
+.testimonial {
+  box-shadow: 0 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 

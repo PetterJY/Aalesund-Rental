@@ -35,7 +35,35 @@ const Home = () => {
           />
         </div>
       </div>
-      {/* Rest of your home page content */}
+      <div className="testimonials-wrapper">
+        <div className="testimonials-section">
+          <div className="testimonials-slideshow">
+            <div className="testimoinal-controls">
+              <button className="prev-button">Prev</button>
+              <button className="next-button">Next</button>
+            </div>
+          <h2>What Our Customers Say</h2>
+          <div className="testimonials">
+            <div className="testimonial">
+              <p>"Great service and friendly staff!"</p>
+              <p>- John Doe</p>
+            </div>
+            <div className="testimonial">
+              <p>"The best car rental experience I've ever had!"</p>
+              <p>- Jane Smith</p>
+            </div>
+            <div className="testimonial">
+              <p>"The best car rental experience I've ever had!"</p>
+              <p>- Jane Smith</p>
+            </div>
+            <div className="testimonial">
+              <p>"The best car rental experience I've ever had!"</p>
+              <p>- Jane Smith</p>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
     </div>
   );
 };
