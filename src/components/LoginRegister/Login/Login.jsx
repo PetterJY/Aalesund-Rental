@@ -18,14 +18,14 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   };
 
   const handleLogin = (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault(); 
     console.log("Login button clicked.");
     const data = {
       email: document.getElementById('email-field').value,
       password: document.getElementById('password-field').value,
     };
 
-    fetch('http://localhost:8080/login', {
+    fetch('http://localhost:8080/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,12 +35,18 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
       .then((response) => {
         if (response.ok) {
           console.log("User has been logged in.");
-          alert("Login successful!");
-          closeModal();
+          return response.json(); 
         } else {
           console.log("Error logging in.");
           alert("Error logging in. Please try again.");
         }
+      })
+      .then((data) => { 
+        const token = data.jwt; 
+        localStorage.setItem('jwt', token); 
+        console.log("Token: ", token);
+        console.log("User has been logged in. Token stored.");
+        closeModal();
       });
   }
 
@@ -55,13 +61,11 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
               <ForgotPassword closeModal={closeModal} isModalVisible={isModalVisible} toggleMode={() => toggleMode('login')} />
             ) : (
               <>
-                <h2 class="title">Login</h2>
-                <form>
+                <h2 className="title">Login</h2>
+                <form onSubmit={handleLogin}>
                   <input id="email-field" type="text" placeholder="E-mail" required />
                   <input id="password-field" type="password" placeholder="Password" required />
-                  <button id="submit-button" type="submit">
-                    Login
-                  </button>
+                  <button id="submit-button" type="submit">Login</button>
                 </form>
                 <section id="register-forgot-wrapper">
                   <button className="toggle-login-register-button" onClick={() => toggleMode('register')}>Create account</button>

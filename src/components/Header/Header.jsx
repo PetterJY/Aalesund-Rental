@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import LoginButton from '../LoginRegister/Login/Login';
 import logo from '../../resources/images/logo.png';
-import '../global.css';
-import './Header.css';
 import {PencilSimple, User, MagnifyingGlass, XCircle, CalendarBlank} from "@phosphor-icons/react";
+import '../App.css';
+import './Header.css';
 import DatePicker from "react-datepicker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
