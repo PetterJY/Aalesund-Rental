@@ -160,8 +160,15 @@
     z-index: 10;
     padding: 20px;
     box-sizing: border-box;
+  }
+
+  .filter-content {
+    flex-direction: column;
+    gap: 10px;
+    height: 80%;
     overflow-y: auto;
   }
+
 
   .checkbox-group {
     display: flex;
@@ -292,4 +299,14 @@ border-radius: 0%;
   min-width: 150px;
   max-height: 200px;
   overflow-y: auto;
+}
+
+.car-selected-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }

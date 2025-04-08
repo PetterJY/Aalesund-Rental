@@ -1,4 +1,4 @@
-package no.ntnu.entity;
+package no.ntnu.entity.models;
 
 import java.util.Set;
 import io.swagger.annotations.ApiModelProperty;

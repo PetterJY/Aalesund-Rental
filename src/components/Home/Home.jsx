@@ -1,10 +1,9 @@
-import "../global.css";
-import './Home.css';
 import React from "react";
 import calenderImage from "../../resources/images/calendar.png";
+import "../App.css";
+import './Home.css';
 
 const Home = (props) => {
-
   const pickupSection = (
     <div className="pickup-dropoff">
       <label id="pickup-label" className="pickup-dropoff-text">Pickup</label>
@@ -22,7 +21,7 @@ const Home = (props) => {
   const showCarsSection = (
     <div className="show-cars">
       <button className="show-cars-button">Show cars</button>
-    </div>
+    </div>  
   );
 
   return (

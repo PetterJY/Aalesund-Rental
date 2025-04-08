@@ -130,11 +130,102 @@
   }
 
   /**
-  * Booking css
+  * Orders css
   * Styles for the booking section of the account page.
   */
 
-  .booking {
+  .orders {
     background-color: #fffcf2;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .orders-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .orders-list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fffcf2;
+    width: 1200px;
+  }
+
+  /**
+  * Orders CarDisplay css
+  * Styles for the orders car display section of "My Orders".
+  */
+
+  .car-display-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #fffcf2;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border: #252422 2px solid;
+  }
+
+  .car-background{
+    width: 480px;
+    border-radius: 15px;
+    background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #252422);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    align-self: flex-start; 
+  }
+
+  .car-image {
+    width: 275px;
+    height: auto;
+    align-self: center;
+  }
+
+  .car-image img {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+  }
+
+  #provider-name {
+    font-size: 20px;
+    color: #ffffff;
+    margin-left: 10px;
+    margin-top: -20px;
+    font-weight: 200;
+  }
+
+  .car-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+  }
+
+  .car-details h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    color: #252422;
+  }
+
+  .car-details p {
+    margin: 3px 0;
+    padding: 0;
+    font-size: 16px;
+    color: #252422;
+  }
+
+  .rental-schedule-container {
+    border-bottom: transparent;
+  }
+
+  .rental-schedule-text {
+    margin: 5px 10px 5px 10px;
   }

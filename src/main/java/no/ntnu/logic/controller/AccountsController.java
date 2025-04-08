@@ -7,17 +7,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.Accounts;
+import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.service.AccountsService;
 
 @RestController
 @RequestMapping("/accounts")
 public class AccountsController {
   private final AccountsService accountsService;
-  private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
+  private static final Logger logger = 
+      LoggerFactory.getLogger(AccountsController.class.getSimpleName());
 
   @Autowired
   public AccountsController(AccountsService accountsService) {

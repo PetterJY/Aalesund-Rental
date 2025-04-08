@@ -1,31 +1,27 @@
 import React from 'react';
-import '../../global.css';
+import '../../App.css';
 import '../LoginRegister.css';
 
 const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
-  const applyEventListener = (event) => {
+  const handleRegister = (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
     console.log("Register button clicked.");
     const data = {
       firstName: document.getElementById('first-name-field').value,
       lastName: document.getElementById('last-name-field').value,
       email: document.getElementById('email-field').value,
-      account: {
-        role: "USER", // Default role
-        password: document.getElementById('password-field').value,
-      },
+      password: document.getElementById('password-field').value,
+      role: "USER"
     };
 
     const confirmPassword = document.getElementById('confirm-password-field').value;
-    if (data.account.password !== confirmPassword) {
+    if (data.password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-
-    delete data.confirmPassword; // Remove confirmPassword from the data object
     console.log("Data object: ", data);
 
-    fetch('http://localhost:8080/users', {
+    fetch('http://localhost:8080/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,12 +56,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
                 <input id="password-field" type="password" placeholder="Password" required />
                 <input id="confirm-password-field" type="password" placeholder="Confirm Password" required />
               </div>
-              <button
-                id="submit-button"
-                type="submit"
-                onClick={applyEventListener}
-                className="submit-button"
-              >
+              <button id="submit-button" type="submit" onClick={handleRegister} className="submit-button">
                 Register
               </button>
               <button className="toggle-login-register-button" onClick={toggleMode}>
