@@ -1,23 +1,73 @@
+@font-face {
+  font-family: 'HelveticaNow';
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --center-container-height: 50px;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: HelveticaNow, Helvetica, "Roboto Condensed", Arial, sans-serif !important;
+}
+
+/* Or use more specific selectors */
+body, html {
+  font-family: HelveticaNow, Helvetica, "Roboto Condensed", Arial, sans-serif !important;
+  overflow-x: hidden; /* prevents horizontal scrolling */
+}
+
 .top-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 10px;
+  align-items: center;
+  background-color: #1A1A1A;
+  padding: 10px 5%;
+}
+
+.desktop-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.mobile-header {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping */
+  justify-content: space-between; /* Pushes first and second divs apart */
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+#logo-image {
+  width: 64px;
+  height: 64px;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
 }
 
 #login-create {
-  position: relative;
-  font-size: 20px;
-  color: #FFFCF2;
+  font-size: 16px;
+  margin-left: auto;
   display: flex;
-  flex-direction: row;
-  right: 2%;
+  align-items: center;
+  color: white;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0px;
-  width: 200px;
-  border-radius: 0%;
+  padding: 0;
+  width: fit-content;
   border-bottom: #252422 1px solid;
 }
 
@@ -36,24 +86,806 @@
   width: 100%;
 }
 
-.nav-bar {
-  display: flex;
-  flex-direction: row;
-  margin: 25px;
-  align-self: center;
+.home-button, .home-button:hover {
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
 }
 
 .nav-bar svg {
   color: #ffffff;
-  margin-right: 15px;
 }
 
 
 #logo-image {
-  width: 100px;
-  height: 100px;
+  width: 64px;
+  height: 64px;
 }
 
 .logo-button {
   cursor: pointer;
 }
+
+.date-time-menu-desktop {
+  display: flex;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: 24px;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+  background-color: #333335;
+  height: 44px;
+  width: 500px;
+  border-radius: 16px;
+  padding: 12px;
+  justify-content: space-between;
+  transition: transform 2s ease-in-out;
+}
+
+.date-time-menu-mobile {
+  display: flex;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+  height: 44px;
+  width: 100%;
+  border-radius: 160px;
+  padding: 12px;
+  margin-bottom: 6px;
+  justify-content: space-between;
+  transition: transform 2s ease-in-out;
+  background-color: #333335;
+}
+
+.edit-icon {
+  color: white;
+  align-self: center;
+}
+
+.search-icon {
+  align-self: center;
+}
+
+.calendar-icon {
+  margin-left: 8px;
+  min-width: 24px; /* Prevent the icon from shrinking */
+  min-height: 24px;
+  box-sizing: content-box; /* This ensures padding doesn't affect dimensions */
+}
+
+.user-icon {
+  margin-right: 6px;
+}
+
+.xCircleButton, .xCircleButton:hover {
+  position: relative; /* Creates positioning context */
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  align-self: center;
+  width: 1px;
+  height: 1px;
+  background-color: transparent;
+}
+
+.cross-icon {
+  position: absolute;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease-in-out;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+}
+
+.cross-icon.visible {
+  visibility: visible;
+  transform: scale(24);
+}
+
+.text-input {
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  opacity: 0.75;
+  font-weight: 600;
+  margin: 0 0 0 12px;
+  caret-color: #FF5F00;
+  line-height: 150%;
+}
+
+.text-input:focus {
+  outline: none;
+  caret-color: #FF5F00;
+}
+
+#showMenuButton {
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0;
+  cursor: pointer;
+  display: flex; /* Make the button a flex container */
+  align-items: center; /* Center the icon vertically */
+  justify-content: center; /* Center the icon horizontally */
+  height: auto; /* Let the button size to its content */
+  width: auto;
+  margin-right: 1rem;
+}
+
+.edit-button:hover {
+  background-color: #333333;
+}
+
+p {
+  color: white;
+  margin: 1rem;
+}
+
+.date-time-popup-menu {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 217px;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  flex-direction: row;
+  visibility: hidden;
+  text-align: left;
+  transform: translateY(-100%);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  transition:
+          transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+          box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+          visibility 0s 0.4s;
+}
+
+.date-time-popup-menu.open {
+  transform: translateY(0);
+  visibility: visible;
+  box-shadow: 0 0 100vmax 5000px rgba(0, 0, 0, 0.4);
+  transition:
+          transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+          box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+          visibility 0s;
+}
+
+
+.date-range-display {
+  color: white;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+.location-display {
+  font-size: 14px;
+}
+
+.time-display {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.menu-wrapper {
+  align-self: center;
+  height: auto;
+  display: flex;
+  grid-column-gap: 12px; /* Reduce this */
+  max-width: 1440px;
+  margin: 0 auto; /* Add this to center the grid */
+  justify-items: center; /* Center items horizontally in their cells */
+  align-items: center;
+}
+
+.schedule-and-save-container {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.schedule-container {
+  gap: 12px;
+  display: flex;
+  flex-direction: row;
+}
+
+.date-time {
+  position: relative;
+  height: 50px;
+  width: 216px;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  border-radius: 12px;
+  overflow: visible;
+  text-align: center;
+}
+
+
+.date-picker {
+  border: 1px solid #C9C9CF;
+  padding: 2px;
+  border-radius: 12px 0 0 12px;
+}
+
+.time-picker {
+  border-radius: 0 12px 12px 0;
+  border-top: 1px solid #C9C9CF;
+  border-right: 1px solid #C9C9CF;
+  border-bottom: 1px solid #C9C9CF;
+}
+
+.date-picker,
+.time-picker {
+  box-sizing: border-box;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+*.selected {
+  transition: none !important;
+}
+
+.date-picker.selected {
+  border: 3px solid #FF5F00;
+  padding: 0; /* Remove padding when border is thicker */
+}
+
+.time-picker.selected {
+  border: 3px solid #FF5F00;
+}
+
+.date-picker:focus {
+  border: none;
+}
+
+.time-picker:focus {
+  border: none;
+}
+
+.date-input {
+  height: var(--center-container-height);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  line-height: normal;
+}
+
+.time-input {
+  height: var(--center-container-height);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  line-height: normal;
+}
+
+.time-picker-radio {
+  flex-direction: row;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.30);
+  position: absolute;
+  top: 120%; /* Position below the picker */
+  width: 374px;
+  height: auto;
+  max-height: calc(70vh - 135px);
+  overflow-y: auto; /* Add scroll for vertical overflow */
+  border-radius: 12px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.time-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+  justify-items: center;
+  row-gap: 16px;
+  width: 100%;
+}
+
+
+.time-options-label {
+  margin: 0;
+  box-sizing: border-box;
+  background-color: #F4F4F9;
+  border-radius: 12px; /* Optional: rounded corners */
+  height: 52px;
+  width: 150px;
+}
+
+.time-options-label input {
+  accent-color: #FF5F00;
+}
+
+/* hides the checkbox visually but remains accessible to screen readers */
+.time-options-label input {
+  position: absolute;
+  opacity: 0;
+}
+
+.time-options-label span {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 14px;
+}
+
+.time-options-label:hover {
+  background-color: #c9c9cf;
+  border-color: transparent !important;
+}
+
+.time-options-label input:checked + span {
+  background-color: #252422;
+  color:white;
+  border-radius: inherit;
+  border-bottom: transparent !important;
+}
+
+.time-options-label input:checked + span:hover {
+  background-color: #403D39;
+  color:white;
+  border-bottom: white 1px solid;
+  border-radius: inherit;
+}
+
+
+.date-picker-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  opacity: 0; /* Invisible as intended */
+}
+
+.time-picker-button {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  opacity: 0; /* Invisible as intended */
+}
+
+.selected-time-option-text {
+  opacity: 1;
+  font-size: 1.25rem;
+}
+
+
+.date-picker-button:hover, .time-picker-button:hover{
+  cursor: pointer;
+}
+
+.save-button {
+  margin-top: auto;
+  font-size: 1em;
+  justify-content: center;
+  align-items: center;
+  height: 52px;
+  width: 200px;
+  line-height: 52px; /* Match line-height to button height */
+  padding: 0;
+  border-radius: 10px;
+  text-align: center;
+  align-self: center;
+  font-weight: 700;
+}
+
+.schedule-and-save-container {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+
+.pickup-date-section, .dropoff-date-section {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.location-section {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  gap: 12px;
+}
+
+.dropoff-location-section, .pickup-location-section {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+
+.pickup-location, .dropoff-location {
+  box-sizing: border-box;
+  position: relative;
+  height: var(--center-container-height);
+  width: 372px;
+  border: 1px solid #C9C9CF;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  border-radius: 12px;
+  overflow: visible;
+  text-align: center;
+  padding: 2px 14px 2px 14px;
+}
+
+.pickup-location.selected {
+  border: 3px solid #FF5F00;
+  padding: 0 12px 0 12px;
+}
+
+.dropoff-location.selected {
+  border: 3px solid #FF5F00;
+  padding: 0 12px 0 12px;
+}
+
+.separator {
+margin-right: 10px;
+margin-left: 10px;
+}
+
+
+
+
+.save-button:hover {
+background: #e94100; /* Darker shade of #FF5F00 */
+  color: #F2F2F2;
+  cursor: pointer; /* Optional: Makes it clear it's clickable */
+}
+
+.save-button:active {
+  background: #d85000; /* Darker shade of #FF5F00 */
+  color: #E6E6E6;
+  cursor: pointer; /* Optional: Makes it clear it's clickable */
+}
+
+
+/* Ensure the popup appears above other elements */
+.date-picker-popper {
+  position: fixed !important; /* Anchor to the viewport */
+  top: 50% !important; /* Center vertically */
+  left: 50% !important; /* Center horizontally */
+  transform: translate(-50%, 10%) !important; /* Adjust for the popper's own dimensions */
+  z-index: 1000; /* Ensure it’s on top */
+  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.1); /* No spread, just blur */
+}
+
+.react-datepicker__triangle {
+  display: none !important; /* Hide the arrow */
+}
+
+/* Style the main date picker popup container */
+.date-picker-popper .react-datepicker {
+  background: #ffffff; /* White background */
+  display: flex; /* Display months side by side */
+  gap: 20px; /* Space between months */
+  padding: 10px;
+  font-family: "Arial", sans-serif; /* Clean sans-serif font */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-size: 1.25rem;
+  border-radius: 12px;
+
+}
+
+/* Style each month container */
+.date-picker-popper .react-datepicker__month-container {
+  width: 400px; /* Fixed width for each month */
+  padding: 12px;
+}
+
+/* Style the month header */
+.date-picker-popper .react-datepicker__header {
+  background: none; /* No background */
+  border-bottom: none; /* Remove default border */
+  padding: 0 0 10px 0; /* Bottom padding for spacing */
+}
+
+/* Style the month and year text */
+.date-picker-popper .react-datepicker__current-month {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000; /* Black text */
+  text-transform: uppercase; /* Uppercase like "MARS 2025" */
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* Style the day names (MA, TI, ON, TO, FR, LØ, SØ) */
+.date-picker-popper .react-datepicker__day-name {
+  color: #999999; /* Light gray for day names */
+  width: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 2px;
+  font-weight: normal;
+  text-transform: uppercase; /* Uppercase for consistency */
+}
+
+/* Style the days */
+.date-picker-popper .react-datepicker__day {
+  color: #000000; /* Black text for active dates */
+  width: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 2px;
+  cursor: pointer;
+  border: none; /* No borders between cells */
+  background: none; /* No background by default */
+}
+
+/* Style days outside the current month */
+.date-picker-popper .react-datepicker__day--outside-month {
+  color: #999999; /* Light gray for out-of-month dates */
+}
+
+/* Style the selected date range (March 26th to March 30th) */
+.date-picker-popper .react-datepicker__day--in-range {
+  background-color: #000000; /* Black background */
+  color: #ffffff; /* White text */
+}
+
+/* Add rounded corners to the start and end of the range */
+.date-picker-popper .react-datepicker__day--range-start {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.date-picker-popper .react-datepicker__day--range-end {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+
+/* Style the navigation arrows */
+.date-picker-popper .react-datepicker__navigation {
+  top: 10px;
+  line-height: 30px;
+}
+
+.date-picker-popper .react-datepicker__navigation-icon::before {
+  border-color: #000000; /* Black arrows */
+}
+
+.date-picker-popper .react-datepicker__navigation:hover {
+  transform: scale(1.125); /* Increase size by 20% on hover (from your previous request) */
+  border-color: black !important;
+  color: black;
+  background-color: white; /* Light beige background on hover */
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: #000000;
+}
+
+.react-datepicker__day--highlighted-custom-1 {
+  background-color: #F4F4F9 !important;
+}
+
+.react-datepicker__day--highlighted-custom-2 {
+  color: #FF5F00 !important;
+}
+
+.react-datepicker__day--highlighted-custom-3 {
+  border-radius: 12px 0 0 12px !important;
+  background-color: #000000 !important; /* Black background */
+  color: #ffffff !important; /* White text */
+}
+
+.react-datepicker__day--highlighted-custom-4 {
+  border-radius: 0 12px 12px 0 !important;
+  background-color: #000000 !important; /* Black background */
+  color: #ffffff !important; /* White text */
+}
+
+.react-datepicker__day--highlighted-custom-5 {
+  color: #999999 !important; /* unavailable days*/
+  cursor: not-allowed !important;
+}
+
+.date-picker-popper .react-datepicker__day--selected {
+  background-color: #000000; /* Black background */
+  color: #ffffff !important; /* White text */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1500px) {
+
+  .date-picker-popper .react-datepicker__month-container {
+    width: 375px;
+  }
+  .date-picker-popper .react-datepicker {
+    gap: 10px;
+  }
+
+  .menu-wrapper {
+    flex-direction: column;
+    width: 80vw;
+  }
+
+  .location-section {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .dropoff-location-section, .pickup-location-section {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 50%;
+  }
+
+  .pickup-location, .dropoff-location {
+    width: 100%;
+  }
+  
+  .schedule-and-save-container {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+
+
+  .schedule-container {
+    flex: 1 1 0;
+    width: 100%;
+  }
+
+  .date-picker {
+    width: 50%;
+  }
+
+  .time-picker {
+    width: 50%;
+  }
+
+  .save-button {
+    width: 217px;
+    max-width: 50%;
+  }
+
+  .date-time {
+    width: 100%;
+  }
+
+  .pickup-date-section, .dropoff-date-section {
+    flex: 1 1 0;
+  }
+
+
+  }
+
+@media screen and (max-width: 1000px) {
+
+  .date-time-popup-menu {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .menu-wrapper {
+    margin-bottom: auto;
+    margin-top: 12px;
+    margin-right: 12px;
+    width: calc(100vw - 75px);
+    padding: 24px;
+  }
+
+  .location-section {
+    flex-direction: column;
+  }
+
+  .pickup-location-section, .dropoff-location-section {
+    width: 100%;
+  }
+
+  .schedule-and-save-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .schedule-container {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    overflow: visible;
+  }
+
+  .save-button {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .mobile-display-divider {
+    height: 6px;
+    background-color: lightgray;
+    border: none;
+    justify-self: center;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .mobile-display-top-menu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+  }
+
+  .booking-details-title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .date-input {
+    flex-direction: column;
+  }
+
+  .x-icon {
+    position: absolute;
+    color: black;
+  }
+
+  .x-button {
+    border-radius: 0;
+    position: absolute;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 12px;
+    padding: 0;
+    transition: transform 0.1s ease-in-out;
+  }
+
+  .x-button:hover {
+    background-color: transparent;
+    transform: scale(1.15);
+  }
+
+  .date-time-popup-menu {
+    transition: none;
+  }
+
+}
+

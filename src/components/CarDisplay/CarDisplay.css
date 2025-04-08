@@ -1,7 +1,7 @@
 .car-display {
   width: 400px;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #252422);
+  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
   position: relative; 
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@
 
 .car-display .car-name {
   font-size: 20px;
-  color: #FFFCF2;
+  color: white;
 }
 
 .car-display .passenger-tag {
@@ -44,7 +44,7 @@
 }
 
 .car-display .passenger-count {
-  color: #fffcf2;
+  color: white;
   font-size: 20px;
   margin-left: 8px;
 }
@@ -66,7 +66,7 @@
   height: 30px;
   border-radius: 25px;
 
-  color: #FFFCF2;
+  color: white;
 }
 
 .car-display .bottom-section {
@@ -75,7 +75,7 @@
 }
 
 .car-display .rental-place {
-  color: #fffcf2;
+  color: white;
   font-size: 16px;
   text-align: left;
 }
@@ -86,7 +86,7 @@
 }
 
 .car-display #price-day {
-  color: #fffcf2;
+  color: white;
   font-size: 16px;
 }
 

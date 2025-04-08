@@ -6,22 +6,28 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
   const handleRegister = (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
     console.log("Register button clicked.");
-    const data = {
-      firstName: document.getElementById('first-name-field').value,
-      lastName: document.getElementById('last-name-field').value,
-      email: document.getElementById('email-field').value,
-      password: document.getElementById('password-field').value,
-      role: "USER"
-    };
 
-    const confirmPassword = document.getElementById('confirm-password-field').value;
-    if (data.password !== confirmPassword) {
+    const data = retrieveData();
+
+    /**
+     * Check if the password and confirm password fields match.
+     */
+    if (data.password !== document.getElementById('confirm-password-field').value) {
       alert("Passwords do not match!");
       return;
     }
+
+    /**
+     * Check if the email format is valid.
+     */
+    if (!checkIfEmailIsValid(data.email)) {
+      alert("Invalid email format!");
+      return;
+    }
+    
     console.log("Data object: ", data);
 
-    fetch('http://localhost:8080/users', {
+    fetch('http://localhost:8080/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,6 +45,21 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
         }
       });
   };
+
+  function retrieveData() {
+    return {
+      firstName: document.getElementById('first-name-field').value,
+      lastName: document.getElementById('last-name-field').value,
+      email: document.getElementById('email-field').value,
+      password: document.getElementById('password-field').value,
+      role: "USER"
+    };
+  }
+
+  function checkIfEmailIsValid(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 
   return (
     <>

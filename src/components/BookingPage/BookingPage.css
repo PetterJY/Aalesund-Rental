@@ -37,7 +37,7 @@ body {
   width: 50%;
   min-width: 30em;
   margin: 20px;
-  background-color: #FFFCF2;
+  background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   display: flex;
@@ -56,7 +56,7 @@ body {
   width: 30%;
   min-width: 20em;
   margin: 20px;
-  background-color: #FFFCF2;
+  background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   flex-shrink: 0;
@@ -68,7 +68,7 @@ body {
   min-width: 150px;
   height: 120px;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #403d39);
+  background: radial-gradient(50% 50% at 50% 50%, white, #403d39);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,7 +92,7 @@ body {
 .booking-page form textarea {
   background-color: #FFFCF2;
   border: none;
-  border-bottom: 2px solid #EB5E28;
+  border-bottom: 2px solid #FF5F00;
   margin-bottom: 15px;
   padding: 10px;
 }
@@ -114,7 +114,7 @@ body {
 
 .booking-page button {
   padding: 20px;
-  background-color: #EB5E28;
+  background-color: #FF5F00;
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 15px;
@@ -202,15 +202,13 @@ body {
 
 .booking-page .payment-details {
   /*border for payment details*/
-  background-color: #FFFCF2;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  text-align: left;
   color: #252422;
   margin-top: auto;
   gap: 1px;
   padding-left: 25px;
-  align-self: flex-start;
 }
 
 .booking-page .payment-details p {
