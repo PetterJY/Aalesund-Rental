@@ -116,7 +116,7 @@ body {
 }
 
 .show-cars-button {
-  background: #EB5E28;
+  background: #FF5F00;
   width: var(--center-element-width);
   height: var(--date-time-picker-height); /* Match exactly the picker height */
   color: white;
@@ -128,13 +128,13 @@ body {
 }
 
 .show-cars-button:hover {
-  background: #C64D1F; /* Darker shade of #EB5E28 */
+  background: #C64D1F; /* Darker shade of #FF5F00 */
   color: #F2F2F2;
   cursor: pointer; /* Optional: Makes it clear it's clickable */
 }
 
 .show-cars-button:active {
-  background: #A33F19; /* Darker shade of #EB5E28 */
+  background: #d85000; /* Darker shade of #FF5F00 */
   color: #E6E6E6;
   cursor: pointer; /* Optional: Makes it clear it's clickable */
 }

@@ -89,7 +89,7 @@ form label {
 form input, form select, form textarea {
   background-color: white;
   border: none;
-  border-bottom: 2px solid #EB5E28;
+  border-bottom: 2px solid #FF5F00;
   margin-bottom: 15px;
   padding: 10px;
 }
@@ -110,7 +110,7 @@ input:-webkit-autofill:active {
 
 button {
   padding: 20px;
-  background-color: #EB5E28;
+  background-color: #FF5F00;
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 15px;

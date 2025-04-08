@@ -32,7 +32,7 @@ function App() {
 function Root() {
   return (
     <div className="App">
-      <Header />
+      <Header page="rental"/>
       <Outlet />
       <Footer />
     </div>
