@@ -13,7 +13,7 @@ import {format, addDays, subDays, differenceInDays} from 'date-fns';
 import { useNavigate } from "react-router-dom";
 
 
-const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDateChange, pickupDate, dropoffDate }) {
+const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDateChange, onTimeChange, pickupDate, dropoffDate }) {
   console.log("DateTimePicker was rendered!")
   const datePickerRef = useRef(null);
   const timePickerRef = useRef(null);
@@ -90,6 +90,7 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
       [format]: value
     }))
     selectedTimeRef.current.textContent = value;
+    onTimeChange(value);
     setIsTimePickerSelected(false);
   }
 
@@ -168,7 +169,7 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
       </div>
       <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
         <button className="time-picker-button" onClick={() => setIsTimePickerSelected(true)}></button>
-        <span className="selected-time-option-text" ref={selectedTimeRef}>12:00</span>
+        <span className="selected-time-option-text" ref={selectedTimeRef}>11:00</span>
         {isTimePickerSelected && (
           <div className="time-picker-radio" ref={timePickerRef}>
             {renderRadioButtons(format, timeOptions[format])}
@@ -221,7 +222,6 @@ const Header = ({ page }) => {
 
   const handlePickupDateChange = (date) => {
     if (dropoffDate !== null && date !== null) {
-      console.log("pickup date is not null!")
       if (date.getTime() > dropoffDate.getTime()) {
         setDropoffDate(date);
         setPickupDate(null);
@@ -233,7 +233,6 @@ const Header = ({ page }) => {
 
   const handleDropoffDateChange = (date) => {
     if (pickupDate !== null && date !== null) {
-      console.log("Dropoff date is not null!")
       if (pickupDate.getTime() > date.getTime()) {
         setPickupDate(date);
         setDropoffDate(null);
@@ -241,6 +240,21 @@ const Header = ({ page }) => {
         setDropoffDate(date);
       }
     }
+  }
+
+  const handleDropoffTimeChange = (timeString) => {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const newTime = new Date();
+    newTime.setHours(hours);
+    newTime.setMinutes(minutes);
+    setPickUpTime(newTime);  }
+
+  const handlePickupTimeChange = (timeString) => {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const newTime = new Date();
+    newTime.setHours(hours);
+    newTime.setMinutes(minutes);
+    setPickUpTime(newTime);
   }
 
   function handlePickupXCircleClick() {
@@ -256,6 +270,10 @@ const Header = ({ page }) => {
     inputField.value = "";
     inputField.focus();
     setDropoffLocationValue("");
+  }
+
+  const handleXClick = () => {
+    setIsMenuOpen(false);
   }
 
 
@@ -317,7 +335,7 @@ const Header = ({ page }) => {
     const handleWindowResize = () => {
       if (window.innerWidth >= 1500) {
         setMobileDisplaySize(false);
-      } else if (window.innerWidth > 900) {
+      } else if (window.innerWidth > 1200) {
         setMobileDisplaySize(false);
       } else {
         setMobileDisplaySize(true);
@@ -340,33 +358,44 @@ const Header = ({ page }) => {
     toggleMenu();
   };
 
+  const dateTimeMenu = () => {
+    return (
+      <div className={mobileDisplaySize ? "date-time-menu-mobile" : "date-time-menu-desktop"}>
+      <div className="date-range-display">
+        <div className="location-display">
+          {pickupLocationValue} Pickup-location <span className="separator"> - </span> {dropoffLocationValue} Dropoff-location
+        </div>
+        <div className="time-display">
+          {format(pickupDate, 'd. MMM')} <span className="separator"> | </span> {format(pickupTime, 'HH:mm')}
+          <span className="separator"> - </span>
+          {format(dropoffDate, 'd. MMM')} <span className="separator"> | </span> {format(dropoffTime, 'HH:mm')}
+        </div>
+      </div>
+      <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu}>
+        <PencilSimple size={24} weight="fill" className="edit-icon" />
+      </button>
+    </div>
+    )
+  }
+
   return (
     <header className="top-header">
-      <div className="header-wrapper">
+      <div className={mobileDisplaySize ? "mobile-header" : "desktop-header"}>
       <button onClick={navigateToHomePage} className="home-button">
         <img src={logo} id="logo-image" alt="Logo" />
       </button>
 
-      {showMenu && (
-        <div className="top-menu-container">
-          <div className="date-time-menu">
-            <p className="date-range-display">
-              {format(pickupDate, 'MMM d')} | {format(pickupTime, 'h:mm a')}
-              <span className="separator"> - </span>
-              {format(dropoffDate, 'MMM d')} | {format(dropoffTime, 'h:mm a')}
-            </p>
-          </div>
-          <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu}>
-            <PencilSimple size={24} weight="fill" className="edit-icon" />
-          </button>
-        </div>
+      {showMenu && !mobileDisplaySize && (
+        dateTimeMenu()
       )}
 
       <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
         <div className="menu-wrapper">
           {mobileDisplaySize && (
             <div className="mobile-display-top-menu">
-              <X className="x-icon" size={24} weight="bold"/>
+              <button className="x-button">
+                <X className="x-icon" size={24} weight="bold" onClick={handleXClick}/>
+              </button>
               <h2 className="booking-details-title">Your booking details</h2>
             </div>
           )}
@@ -427,9 +456,11 @@ const Header = ({ page }) => {
                   selectedDate={pickupDate}
                   onDateChange={handlePickupDateChange}
                   selectedTime={pickupTime}
-                  onTimeChange={setPickUpTime}
+                  onTimeChange={handlePickupTimeChange}
                   pickupDate={pickupDate}
                   dropoffDate={dropoffDate}
+                  pickupTime={pickupTime}
+                  dropoffTime={dropoffTime}
                 />
               </div>
               <div className="dropoff-date-section">
@@ -439,9 +470,11 @@ const Header = ({ page }) => {
                   selectedDate={dropoffDate}
                   onDateChange={handleDropoffDateChange}
                   selectedTime={dropoffTime}
-                  onTimeChange={setDropoffTime}
+                  onTimeChange={handleDropoffTimeChange}
                   pickupDate={pickupDate}
                   dropoffDate={dropoffDate}
+                  pickupTime={pickupTime}
+                  dropoffTime={dropoffTime}
                 />
               </div>
             </div>
@@ -463,10 +496,13 @@ const Header = ({ page }) => {
           defaultMode="login"
         />
         <button id="login-create" onClick={showModal}>
-          <User size={24} className="user-logo" />
-          Login | Register
+          <User size={24} className="user-icon" />
+          <span className="login-register-text">Login | Register</span>
         </button>
       </nav>
+        {showMenu && mobileDisplaySize && (
+          dateTimeMenu()
+        )}
       </div>
     </header>
   );

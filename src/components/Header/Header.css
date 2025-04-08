@@ -18,7 +18,7 @@ body {
   padding: 10px 5%;
 }
 
-.header-wrapper {
+.desktop-header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -26,6 +26,15 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.mobile-header {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping */
+  justify-content: space-between; /* Pushes first and second divs apart */
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
 }
 
 #logo-image {
@@ -36,7 +45,6 @@ body {
 .nav-bar {
   display: flex;
   flex-direction: row;
-  align-items: center;
   margin-left: auto;
 }
 
@@ -50,7 +58,7 @@ body {
   border: none;
   cursor: pointer;
   padding: 0;
-  width: 175px;
+  width: fit-content;
   border-bottom: #252422 1px solid;
 }
 
@@ -79,14 +87,6 @@ body {
   cursor: pointer;
 }
 
-.nav-bar {
-  display: flex;
-  flex-direction: row;
-  margin: 25px;
-  align-content: center;
-  justify-content: center;
-}
-
 .nav-bar svg {
   color: #ffffff;
 }
@@ -101,8 +101,9 @@ body {
   cursor: pointer;
 }
 
-.top-menu-container {
+.date-time-menu-desktop {
   display: flex;
+  box-sizing: border-box;
   margin-right: auto;
   margin-left: 24px;
   flex-direction: row;
@@ -110,10 +111,29 @@ body {
   align-self: center;
   background-color: #333335;
   height: 44px;
-  width: 576px;
-  border-radius: 24px;
+  width: 500px;
+  border-radius: 16px;
+  padding: 12px;
   justify-content: space-between;
   transition: transform 2s ease-in-out;
+}
+
+.date-time-menu-mobile {
+  display: flex;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+  height: 44px;
+  width: 100%;
+  border-radius: 160px;
+  padding: 12px;
+  margin-bottom: 6px;
+  justify-content: space-between;
+  transition: transform 2s ease-in-out;
+  background-color: #333335;
 }
 
 .edit-icon {
@@ -130,6 +150,10 @@ body {
   min-width: 24px; /* Prevent the icon from shrinking */
   min-height: 24px;
   box-sizing: content-box; /* This ensures padding doesn't affect dimensions */
+}
+
+.user-icon {
+  margin-right: 6px;
 }
 
 .xCircleButton, .xCircleButton:hover {
@@ -167,13 +191,13 @@ body {
   opacity: 0.75;
   font-weight: 600;
   margin: 0 0 0 12px;
-  caret-color: #C64D1F;
+  caret-color: #FF5F00;
   line-height: 150%;
 }
 
 .text-input:focus {
   outline: none;
-  caret-color: #C64D1F;
+  caret-color: #FF5F00;
 }
 
 #showMenuButton {
@@ -228,6 +252,21 @@ p {
           visibility 0s;
 }
 
+
+.date-range-display {
+  color: white;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+.location-display {
+  font-size: 14px;
+}
+
+.time-display {
+  font-size: 12px;
+  font-weight: 500;
+}
 
 .menu-wrapper {
   align-self: center;
@@ -293,12 +332,12 @@ p {
 }
 
 .date-picker.selected {
-  border: 3px solid #EB5E28;
+  border: 3px solid #FF5F00;
   padding: 0; /* Remove padding when border is thicker */
 }
 
 .time-picker.selected {
-  border: 3px solid #EB5E28;
+  border: 3px solid #FF5F00;
 }
 
 .date-picker:focus {
@@ -371,7 +410,7 @@ p {
 }
 
 .time-options-label input {
-  accent-color: #EB5E28;
+  accent-color: #FF5F00;
 }
 
 /* hides the checkbox visually but remains accessible to screen readers */
@@ -495,12 +534,12 @@ p {
 }
 
 .pickup-location.selected {
-  border: 3px solid #EB5E28;
+  border: 3px solid #FF5F00;
   padding: 0 12px 0 12px;
 }
 
 .dropoff-location.selected {
-  border: 3px solid #EB5E28;
+  border: 3px solid #FF5F00;
   padding: 0 12px 0 12px;
 }
 
@@ -513,13 +552,13 @@ margin-left: 10px;
 
 
 .save-button:hover {
-background: #C64D1F; /* Darker shade of #EB5E28 */
+background: #e94100; /* Darker shade of #FF5F00 */
   color: #F2F2F2;
   cursor: pointer; /* Optional: Makes it clear it's clickable */
 }
 
 .save-button:active {
-  background: #A33F19; /* Darker shade of #EB5E28 */
+  background: #d85000; /* Darker shade of #FF5F00 */
   color: #E6E6E6;
   cursor: pointer; /* Optional: Makes it clear it's clickable */
 }
@@ -647,7 +686,7 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
 }
 
 .react-datepicker__day--highlighted-custom-2 {
-  color: #C64D1F !important;
+  color: #FF5F00 !important;
 }
 
 .react-datepicker__day--highlighted-custom-3 {
@@ -743,7 +782,7 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
 
   }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
 
   .date-time-popup-menu {
     height: 100vh;
@@ -753,7 +792,8 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
   .menu-wrapper {
     margin-bottom: auto;
     margin-top: 12px;
-    width: calc(100vw - 50px);
+    margin-right: 12px;
+    width: calc(100vw - 75px);
     padding: 24px;
   }
 
@@ -807,5 +847,34 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
   .date-input {
     flex-direction: column;
   }
+
+  .x-icon {
+    position: absolute;
+    color: black;
+  }
+
+  .x-button {
+    border-radius: 0;
+    position: absolute;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 12px;
+    padding: 0;
+  }
+
+  .x-button:hover {
+    background-color: transparent;
+  }
+
+  .date-time-popup-menu {
+    transition: none;
+  }
+
 }
 
