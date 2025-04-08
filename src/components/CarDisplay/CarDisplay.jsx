@@ -25,8 +25,8 @@ const CarDisplay = (props) => {
       <section className="bottom-section">
         <h2 className="rental-place">{props.rentalPlace}</h2>
         <section className="price-section">
-          <h2 id="price-day">{props.priceDay}/dag</h2>
-          <h2 id="price-total">{props.priceTotal}/total</h2>
+          <h2 id="price-day">{props.priceDay},-kr/dag</h2>
+          <h2 id="price-total">{props.priceTotal},-kr/total</h2>
         </section>
       </section>
     </button> 

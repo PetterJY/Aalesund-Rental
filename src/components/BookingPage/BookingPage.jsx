@@ -5,7 +5,7 @@ import storageLogo from "../../resources/images/storage-logo.png";
 
 const BookingPage = (props) => {
   return (
-		<main>
+		<main className="booking-page">
 			<section class="driver-information-form">	
 				<form action="/submit-booking" method="post" class="grid-container">
 					<h2 class="driver-information">Driver Information</h2>   

@@ -63,13 +63,13 @@ return <Orders orders={orders} />;
 
 function RentalPageExample() {
   const cars = [
-    { id: "1", brand: "Volvo", model: "V33", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
-    { id: "2", brand: "Mercedes", model: "7039" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr" },
-    { id: "3", brand: "Audi", model: "R8" , tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "550 kr", totalPrice: "1650 kr" },
-    { id: "4", brand: "BMW", model: "WMB" , tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "700 kr", totalPrice: "2100 kr" },
-    { id: "5", brand: "Toyota", model: "Corolla" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "450 kr", totalPrice: "1350 kr" },
-    { id: "6", brand: "Ford", model: "Focus" , tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "500 kr", totalPrice: "1500 kr" },
-    { id: "7", brand: "Nissan", model: "Speed" , tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "600 kr", totalPrice: "1800 kr"},
+    { id: "1", brand: "Volvo", model: "V33", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "500", totalPrice: "1500" },
+    { id: "2", brand: "Mercedes", model: "7039" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "600", totalPrice: "1800" },
+    { id: "3", brand: "Audi", model: "R8" , tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "550", totalPrice: "1650" },
+    { id: "4", brand: "BMW", model: "WMB" , tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "700", totalPrice: "2100" },
+    { id: "5", brand: "Toyota", model: "Corolla" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "450", totalPrice: "1350" },
+    { id: "6", brand: "Ford", model: "Focus" , tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "500", totalPrice: "1500" },
+    { id: "7", brand: "Nissan", model: "Speed" , tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "600", totalPrice: "1800"},
   ];
 
   return (
