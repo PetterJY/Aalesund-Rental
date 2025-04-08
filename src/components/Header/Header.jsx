@@ -114,7 +114,6 @@ const Header = ({ page }) => {
       </div>
     )
 
-
     return (
       <div className="date-time">
         <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
@@ -147,8 +146,6 @@ const Header = ({ page }) => {
       </div>
     );
   };
-
-
 
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);

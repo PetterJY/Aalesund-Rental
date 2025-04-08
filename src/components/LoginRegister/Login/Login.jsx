@@ -20,10 +20,8 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   const handleLogin = (event) => {
     event.preventDefault(); 
     console.log("Login button clicked.");
-    const data = {
-      email: document.getElementById('email-field').value,
-      password: document.getElementById('password-field').value,
-    };
+    
+    const data = retrieveData();
 
     fetch('http://localhost:8080/auth/login', {
       method: 'POST',
@@ -48,6 +46,13 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
         console.log("User has been logged in. Token stored.");
         closeModal();
       });
+  }
+
+  function retrieveData() {
+    return {
+      email: document.getElementById('email-field').value,
+      password: document.getElementById('password-field').value,
+    };
   }
 
   return (
