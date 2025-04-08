@@ -9,9 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -25,15 +22,8 @@ public class SecurityConfig {
   private static final Logger logger = 
       LoggerFactory.getLogger(SecurityConfig.class.getSimpleName());
 
-  private final JwtFilter jwtFilter;
-
-  private final UserDetailsService userDetailsService; 
-  
   @Autowired
-  public SecurityConfig(JwtFilter jwtFilter, UserDetailsService userDetailsService) {
-    this.jwtFilter = jwtFilter;
-    this.userDetailsService = userDetailsService;
-  }
+  private JwtFilter jwtFilter;
 
   /**
    * Configures the security filter chain for the application.
@@ -53,11 +43,6 @@ public class SecurityConfig {
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     logger.info("Security filter chain configured successfully.");
     return http.build();
-  }
-
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return NoOpPasswordEncoder.getInstance(); 
   }
 
   @Bean

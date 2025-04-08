@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.UserNotFoundException;
@@ -24,10 +25,12 @@ public class UsersService implements UserDetailsService {
   
   private final UsersRepository usersRepository;
 
+  private final BCryptPasswordEncoder passwordEncoder;
+
   @Autowired
-  public UsersService(UsersRepository usersRepository) {
-    logger.info("UsersService initialized");
+  public UsersService(UsersRepository usersRepository, BCryptPasswordEncoder passwordEncoder) {
     this.usersRepository = usersRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   /**
@@ -88,6 +91,7 @@ public class UsersService implements UserDetailsService {
    */
   public Users save(Users user) {
     logger.info("Saving user with email: {}", user.getEmail());
+    user.getAccount().setPassword(passwordEncoder.encode(user.getAccount().getPassword()));
     return usersRepository.save(user);
   }
 
@@ -103,5 +107,9 @@ public class UsersService implements UserDetailsService {
       throw new UserNotFoundException("User not found with id: " + id);
     }
     usersRepository.deleteById(id);
+  }
+
+  public String encodePassword(String password) {
+    return passwordEncoder.encode(password);
   }
 }

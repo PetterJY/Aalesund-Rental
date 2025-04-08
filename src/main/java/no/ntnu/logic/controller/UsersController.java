@@ -103,7 +103,8 @@ public class UsersController {
    * @return The updated user.
    */
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates a user by its ID.", notes = "If the user is not found, a 404 error is returned.")
+  @ApiOperation(value = "Updates a user by its ID.", 
+      notes = "If the user is not found, a 404 error is returned.")
   public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody Users userDetails) {
     logger.info("Updating user with id: {}", id);
     Users user = usersService.findById(id);
