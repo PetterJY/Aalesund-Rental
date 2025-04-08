@@ -39,6 +39,16 @@
   padding: 16px;
 }
 
+.booking-form-container {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center; /* Center vertically */
+  border-radius: 10px;
+}
+
+
+
 /* Media queries for responsive design */
 @media screen and (max-width: 1500px) {
   .hero-section {
@@ -50,8 +60,11 @@
   .hero-section {
     min-width: 100vw;
     min-height: 500px;
-    padding: 12px;
     flex-direction: column;
+  }
+
+  .booking-form-container .menu-wrapper {
+    width: 100vw;
   }
 
   .home-container {

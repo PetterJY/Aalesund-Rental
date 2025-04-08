@@ -10,6 +10,11 @@
   line-height: 18px;
 }
 
+body, html {
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  width: 100%;
+}
+
 
 .top-header {
   display: flex;
@@ -252,6 +257,7 @@ p {
           transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
           box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
           visibility 0s;
+  box-sizing: border-box;
 }
 
 
@@ -274,7 +280,6 @@ p {
   align-self: center;
   height: auto;
   display: flex;
-  grid-column-gap: 12px; /* Reduce this */
   max-width: 1440px;
   margin: 0 auto; /* Add this to center the grid */
   justify-items: center; /* Center items horizontally in their cells */
@@ -793,10 +798,10 @@ background: #e94100; /* Darker shade of #FF5F00 */
   }
 
   .menu-wrapper {
+    box-sizing: border-box;
     margin-bottom: auto;
     margin-top: 12px;
-    margin-right: 12px;
-    width: calc(100vw - 75px);
+    width: 100%;
     padding: 24px;
   }
 
