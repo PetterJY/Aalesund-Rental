@@ -1,3 +1,4 @@
+import './App.css';
 import React from 'react';
 import { createBrowserRouter, createRoutesFromElements, Navigate, Outlet, Route, RouterProvider } from "react-router";
 import BookingPage from './BookingPage/BookingPage';
@@ -10,7 +11,6 @@ import Orders from './Account/Orders/Orders';
 import Home from './Home/Home';
 import RentalPage from './RentalPage/RentalPage';
 import carImage from '../resources/images/car.png';
-import './App.css';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path={"/"} element={<Root />}>
@@ -32,7 +32,7 @@ function App() {
 function Root() {
   return (
     <div className="App">
-      <Header page="rental"/>
+      <Header />
       <Outlet />
       <Footer />
     </div>
@@ -56,8 +56,6 @@ const orders = [
     { id:"1", brand: "Volkswagen", model: "Biggerstraum", rentingTime: 6, pickUpLocation: "Ålesund", dropOffLocation: "Ålesund",
       pickUpTime:"Th., 18. Mar., 2025 || 10:00", dropOffTime:"Th., 25. Mar., 2025 || 18:00", pricePerDay: 100, 
       priceTotal:600, image: carImage },
-
-
 ];
 
 return <Orders orders={orders} />;

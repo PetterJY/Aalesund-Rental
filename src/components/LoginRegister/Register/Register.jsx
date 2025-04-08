@@ -4,7 +4,7 @@ import '../LoginRegister.css';
 
 const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
   const handleRegister = (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault(); 
     console.log("Register button clicked.");
 
     const data = retrieveData();

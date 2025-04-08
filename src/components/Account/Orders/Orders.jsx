@@ -1,10 +1,8 @@
 import '../../App.css';
 import '../Account.css';
-import OrdersCarDisplay from './OrdersCarDisplay'; // Import the BookingsCarDisplay component
+import OrdersCarDisplay from './OrdersCarDisplay'; 
 
-
-
-const Orders = ({ orders = [] }) => { // Default to an empty array
+const Orders = ({ orders = [] }) => { 
   return (
     <div className="orders">
       <header className="account-menu">

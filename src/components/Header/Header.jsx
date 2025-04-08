@@ -10,7 +10,7 @@ import "react-clock/dist/Clock.css";
 import "react-datepicker/dist/react-datepicker.css";
 import {enGB} from "date-fns/locale/en-GB";
 import {format, addDays, subDays, differenceInDays} from 'date-fns';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDateChange, onTimeChange, pickupDate, dropoffDate }) {
@@ -180,9 +180,8 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
   );
 });
 
-
-const Header = ({ page }) => {
-  const showMenu = page === "rental";
+const Header = () => {
+  const showMenu = useLocation().pathname === "/rental";
   const navigate = useNavigate();
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);
@@ -197,23 +196,27 @@ const Header = ({ page }) => {
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
   const [mobileDisplaySize, setMobileDisplaySize] = useState(false);
+
   const [pickupDate, setPickupDate] = useState(() => {
     const time = new Date();
     time.setDate(time.getDate()+1)
     return time;
   });
+
   const [dropoffDate, setDropoffDate] = useState(() => {
     const time = new Date();
     time.setDate(time.getDate()+13);
     return time;
   });
+
   const [pickupTime, setPickUpTime] = useState(() => {
     const time = new Date();
     time.setHours(time.getHours()+1);
     time.setMinutes(0);
     return time;
   });
-  const [dropoffTime, setDropoffTime] = useState(() => {
+
+  const [dropoffTime] = useState(() => {
     const time = new Date();
     time.setHours(time.getHours()+1);
     time.setMinutes(0);
@@ -264,7 +267,6 @@ const Header = ({ page }) => {
     setPickupLocationValue("");
   }
 
-
   function handleDropoffXCircleClick() {
     const inputField = document.getElementById("dropoff-destination-input-field");
     inputField.value = "";
@@ -276,12 +278,9 @@ const Header = ({ page }) => {
     setIsMenuOpen(false);
   }
 
-
   const navigateToHomePage = () => {
     navigate('/home');
   }
-
-  // event listeners
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -299,7 +298,6 @@ const Header = ({ page }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMenuOpen]);
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -315,7 +313,6 @@ const Header = ({ page }) => {
     return() => document.removeEventListener('mousedown', handleClickOutside);
   }, [isPickupTextFieldSelected]);
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -329,7 +326,6 @@ const Header = ({ page }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return() => document.removeEventListener('mousedown', handleClickOutside);
   }, [isDropoffTextFieldSelected]);
-
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -348,10 +344,8 @@ const Header = ({ page }) => {
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
 
-
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const showModal = () => setIsModalVisible(true);
-
   const closeModal = () => setIsModalVisible(false);
 
   const handleSave = () => {
