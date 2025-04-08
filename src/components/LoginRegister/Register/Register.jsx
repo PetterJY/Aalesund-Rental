@@ -21,7 +21,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
     }
     console.log("Data object: ", data);
 
-    fetch('http://localhost:8080/users', {
+    fetch('http://localhost:8080/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
