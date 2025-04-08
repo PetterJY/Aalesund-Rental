@@ -5,7 +5,7 @@
   position: relative; /* For absolute positioning of filter-panel */
 }
 
-.main-section {
+.rental-page .main-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +15,7 @@
   margin-bottom: 20px;
 }
 
-.main-body {
+.rental-page .main-body {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -27,7 +27,7 @@
   padding: 10px;
 }
 
-.sort-bar {
+.rental-page .sort-bar {
   display: flex;
   flex-direction: row;
   justify-self: flex-start;
@@ -36,7 +36,7 @@
   width: 100%;
 }
 
-.sort-button {
+.rental-page .sort-button {
   background-color: #FFFCF2;
   color: #252422;
   position: relative;
@@ -47,11 +47,11 @@
   border-bottom: #252422 1px solid;
 }
 
-.sort-button:hover {
+.rental-page .sort-button:hover {
   border-bottom: #EB5E28 1px solid;
 }
 
-.filter-button {
+.rental-page .filter-button {
   background-color: #FFFCF2;
   color: #252422;
   position: relative;
@@ -68,27 +68,27 @@
   gap: 10px;
 }
 
-.filter-button:hover {
+.rental-page .filter-button:hover {
   border-bottom: #EB5E28 1px solid;
   background-color: #FFFCF2;
   color: #EB5E28;
 }
 
-.filter-button svg {
+.rental-page .filter-button svg {
   fill: #252422;
   margin-bottom: -2px;
 }
 
-.filter-button:hover svg {
+.rental-page .filter-button:hover svg {
   fill: #EB5E28;
 }
 
 /* Filter panel styles */
-.filter-panel {
+.rental-page .filter-panel {
   display: none; /* Hidden by default */
 }
 
-.panel-sort-button {
+.rental-page .panel-sort-button {
   background-color: white;
   color: #252422;
   width: 100%;
@@ -98,11 +98,11 @@
   border-bottom: #252422 1px solid;
 }
 
-.panel-sort-button:hover {
+.rental-page .panel-sort-button:hover {
   border-bottom: #EB5E28 1px solid;
 }
 
-.close-button {
+.rental-page .close-button {
   background-color: #EB5E28;
   color: white;
   border: none;
@@ -112,24 +112,24 @@
 }
 
 @media screen and (min-width: 861px) {
-  .filter-button {
+  .rental-page .filter-button {
     display: none;
   }
 }
 
 @media screen and (max-width: 1300px) {
-  .main-body {
+  .rental-page .main-body {
     max-width: 815px;
   }
 }
 
 @media screen and (max-width: 860px) {
-  .main-body {
+  .rental-page .main-body {
     max-width: 430px;
     justify-content: center;
   }
 
-  .sort-bar {
+  .rental-page .sort-bar {
     justify-content: center;
     justify-self: center;
     flex-wrap: wrap;
@@ -137,19 +137,19 @@
     width: 85%;
   }
 
-  .sort-button {
+  .rental-page .sort-button {
     display: none;
   }
 
-  .filter-button {
+  .rental-page .filter-button {
     width: 100%;
     justify-content: center;
   }
-  .sort-bar .dropdown-group {
+  .rental-page .sort-bar .dropdown-group {
     display: none; /* Hide dropdowns on mobile */
   }
 
-  .filter-panel {
+  .rental-page .filter-panel {
     display: block;
     position: fixed;
     top: 65px;
@@ -162,7 +162,7 @@
     box-sizing: border-box;
   }
 
-  .filter-content {
+  .rental-page .filter-content {
     flex-direction: column;
     gap: 10px;
     height: 80%;
@@ -170,14 +170,14 @@
   }
 
 
-  .checkbox-group {
+  .rental-page .checkbox-group {
     display: flex;
     flex-direction: row; /* Change to row to align checkboxes horizontally */
     flex-wrap: wrap; /* Allow wrapping to next line if needed */
     gap: 10px; /* Add spacing between checkboxes */
   }
   
-  .checkbox-label {
+  .rental-page .checkbox-label {
     display: flex;
     align-items: center;
     margin: 0; /* Remove default margin to rely on gap for spacing */
@@ -185,7 +185,7 @@
     cursor: pointer;
   }
   
-  .checkbox-label span {
+  .rental-page .checkbox-label span {
     background-color: #FFFCF2;
     color: #252422;
     padding: 8px 12px;
@@ -194,7 +194,7 @@
     white-space: nowrap; /* Prevent text from wrapping within each checkbox */
   }
   
-  .filter-panel .checkbox-group {
+  .rental-page .filter-panel .checkbox-group {
     flex-direction: row; 
     gap: 5px;
   }
@@ -202,13 +202,13 @@
 }
 
 
-.checkbox-group {
+.rental-page .checkbox-group {
   display: flex;
   flex-direction: column;
 }
 
 
-.checkbox-label {
+.rental-page .checkbox-label {
   display: flex;
   align-items: center;
   margin: 5px 0;
@@ -217,18 +217,18 @@
   accent-color: #FFFCF2;
 }
 
-.checkbox-label input {
+.rental-page .checkbox-label input {
   margin-right: 8px;
   accent-color: #EB5E28;
 }
 
 /* hides the checkbox visually but remains accessible to screen readers */
-.checkbox-label input {
+.rental-page .checkbox-label input {
   position: absolute;
   opacity: 0;
 }
 
-.checkbox-label span {
+.rental-page .checkbox-label span {
   background-color: #FFFCF2;
   color: #252422;
   padding: 8px 12px;
@@ -236,21 +236,21 @@
   border-bottom: #FFFCF2 1px solid;
 }
 
-.checkbox-label span:hover {
+.rental-page .checkbox-label span:hover {
 border-bottom: #EB5E28 1px solid;
 background-color: #FFFCF2;
 color: #EB5E28;
 border-radius: 0%;
 }
 
-.checkbox-label input:checked + span {
+.rental-page .checkbox-label input:checked + span {
   background-color: #252422;
   color:#FFFCF2;
   border-radius: 5px;
   border-bottom: #FFFCF2 1px solid;
 }
 
-.checkbox-label input:checked + span:hover {
+.rental-page .checkbox-label input:checked + span:hover {
   background-color: #403D39;
   color:#FFFCF2;
   border-bottom: #FFFCF2 1px solid;
@@ -259,17 +259,17 @@ border-radius: 0%;
 
 
 /* Adjustments for mobile filter panel */
-.filter-panel .filter-group {
+.rental-page .filter-panel .filter-group {
   margin: 10px 0;
 }
 
 /* Dropdown styles for desktop */
-.dropdown-group {
+.rental-page .dropdown-group {
   position: relative;
   margin-right: 15px;
 }
 
-.dropdown-button {
+.rental-page .dropdown-button {
   background-color: #FFFCF2;
   color: #252422;
   border: none;
@@ -283,12 +283,12 @@ border-radius: 0%;
   border-radius: 0%;
 }
 
-.dropdown-button:hover {
+.rental-page .dropdown-button:hover {
   border-bottom: 1px solid #EB5E28;
   background-color: #FFFCF2;
 }
 
-.dropdown-content {
+.rental-page .dropdown-content {
   position: absolute;
   top: 100%;
   left: 0;
@@ -301,7 +301,7 @@ border-radius: 0%;
   overflow-y: auto;
 }
 
-.car-selected-menu {
+.rental-page .car-selected-menu {
   width: 100%;
   display: flex;
   flex-direction: column;

@@ -16,23 +16,23 @@
   transition: 0.1s;
 }
 
-.top-section {
+.car-display .top-section {
   display: flex;
   flex-direction: row;
 }
 
-.top-left-section {
+.car-display .top-left-section {
   display: flex;
   flex-direction: column;
   margin-top: -17px;
 }
 
-.car-name {
+.car-display .car-name {
   font-size: 20px;
   color: #FFFCF2;
 }
 
-.passenger-tag {
+.car-display .passenger-tag {
   background-color: rgba(217, 217, 217, 0.2);
   flex-direction: row;
   display: flex;
@@ -43,19 +43,19 @@
   border-radius: 25px;
 }
 
-.passenger-count {
+.car-display .passenger-count {
   color: #fffcf2;
   font-size: 20px;
   margin-left: 8px;
 }
 
-.top-right-section {
+.car-display .top-right-section {
   display: flex;
   flex-direction: column;
   margin-left: auto;
 }
 
-.car-tag {
+.car-display .car-tag {
   background-color: #EB5E28; 
   display: flex;
   align-items: center; 
@@ -69,41 +69,41 @@
   color: #FFFCF2;
 }
 
-.bottom-section {
+.car-display .bottom-section {
   display: flex;
   flex-direction: column;
 }
 
-.rental-place {
+.car-display .rental-place {
   color: #fffcf2;
   font-size: 16px;
   text-align: left;
 }
 
-.price-section {
+.car-display .price-section {
   display: flex;
   flex-direction: row;
 }
 
-#price-day {
+.car-display #price-day {
   color: #fffcf2;
   font-size: 16px;
 }
 
-#price-total {
+.car-display #price-total {
   color: #CCC5B9;
   font-size: 16px;
   margin-left: 10px;
 }
 
-#car-image {
+.car-display #car-image {
   width: 300px;
   height: 300px;
   align-self: center; 
   margin: -50px;
 }
 
-#car-image img {
+.car-display #car-image img {
   width: fit-content;
   height: fit-content;
 }
