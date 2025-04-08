@@ -2,7 +2,6 @@
 
 /* General Styles */
 body {
-  font-family: "Poppins", Sans-Serif;
   margin: 0;
   padding: 0;
   background-color: #252422;
@@ -12,7 +11,6 @@ body {
 .booking-page {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: stretch;
   justify-content: space-evenly;
   max-height: fit-content;
@@ -138,7 +136,6 @@ body {
   display: flex;
   flex-direction: row;
   gap: 1em;
-  align-items: top;
   height:fit-content;
   width: 100%;
   text-align: left;
@@ -252,7 +249,7 @@ body {
 
 .booking-page .grid-container {
   display: grid;
-  grid-template-columns: 2r 2fr;
+  grid-template-columns: 2fr 2fr;
   grid-column-gap: 5%;
   grid-row-gap: 1em;
 }

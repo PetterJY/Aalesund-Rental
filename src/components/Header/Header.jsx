@@ -14,7 +14,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 
 const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDateChange, onTimeChange, pickupDate, dropoffDate }) {
-  console.log("DateTimePicker was rendered!")
   const datePickerRef = useRef(null);
   const timePickerRef = useRef(null);
   const selectedTimeRef = useRef(null);
