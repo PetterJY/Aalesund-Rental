@@ -1,5 +1,5 @@
 .rental-page {
-  background-color: #FFFCF2;
+  background-color: white;
   display: flex;
   flex-direction: column;
   position: relative; /* For absolute positioning of filter-panel */
@@ -37,7 +37,7 @@
 }
 
 .sort-button {
-  background-color: #FFFCF2;
+  background-color: white;
   color: #252422;
   position: relative;
   width: auto;
@@ -52,7 +52,7 @@
 }
 
 .filter-button {
-  background-color: #FFFCF2;
+  background-color: white;
   color: #252422;
   position: relative;
   width: auto;
@@ -70,7 +70,7 @@
 
 .filter-button:hover {
   border-bottom: #EB5E28 1px solid;
-  background-color: #FFFCF2;
+  background-color: white;
   color: #EB5E28;
 }
 
@@ -156,7 +156,7 @@
     left: 0;
     width: 100%;
     height: calc(100vh - 65px);
-    background: #FFFCF2;
+    background: white;
     z-index: 10;
     padding: 20px;
     box-sizing: border-box;
@@ -179,11 +179,11 @@
   }
   
   .checkbox-label span {
-    background-color: #FFFCF2;
+    background-color: white;
     color: #252422;
     padding: 8px 12px;
     cursor: pointer;
-    border-bottom: #FFFCF2 1px solid;
+    border-bottom: white 1px solid;
     white-space: nowrap; /* Prevent text from wrapping within each checkbox */
   }
   
@@ -207,7 +207,7 @@
   margin: 5px 0;
   color: #252422;
   cursor: pointer;
-  accent-color: #FFFCF2;
+  accent-color: white;
 }
 
 .checkbox-label input {
@@ -222,31 +222,31 @@
 }
 
 .checkbox-label span {
-  background-color: #FFFCF2;
+  background-color: white;
   color: #252422;
   padding: 8px 12px;
   cursor: pointer;
-  border-bottom: #FFFCF2 1px solid;
+  border-bottom: white 1px solid;
 }
 
 .checkbox-label span:hover {
 border-bottom: #EB5E28 1px solid;
-background-color: #FFFCF2;
+background-color: white;
 color: #EB5E28;
 border-radius: 0%;
 }
 
 .checkbox-label input:checked + span {
   background-color: #252422;
-  color:#FFFCF2;
+  color:white;
   border-radius: 5px;
-  border-bottom: #FFFCF2 1px solid;
+  border-bottom: white 1px solid;
 }
 
 .checkbox-label input:checked + span:hover {
   background-color: #403D39;
-  color:#FFFCF2;
-  border-bottom: #FFFCF2 1px solid;
+  color:white;
+  border-bottom: white 1px solid;
   border-radius: 5px;
 }
 
@@ -263,7 +263,7 @@ border-radius: 0%;
 }
 
 .dropdown-button {
-  background-color: #FFFCF2;
+  background-color: white;
   color: #252422;
   border: none;
   border-bottom: 1px solid #252422;
@@ -278,14 +278,14 @@ border-radius: 0%;
 
 .dropdown-button:hover {
   border-bottom: 1px solid #EB5E28;
-  background-color: #FFFCF2;
+  background-color: white;
 }
 
 .dropdown-content {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #FFFCF2;
+  background-color: white;
   border: 1px solid #252422;
   padding: 10px;
   z-index: 20;
