@@ -8,10 +8,10 @@
     "react": "^19.0.0",
     "react-datepicker": "^8.2.1",
     "react-dom": "^19.0.0",
+    "react-router": "^7.4.1",
     "react-router-dom": "^7.5.0",
     "react-scripts": "5.0.1",
     "react-time-picker": "^7.0.0",
-    "react-router": "^7.4.1",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
