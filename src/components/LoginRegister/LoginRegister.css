@@ -24,7 +24,7 @@
 
 #submit-button {
   padding: 20px;
-  background-color: #EB5E28;
+  background-color: #FF5F00;
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 15px;
@@ -51,7 +51,7 @@
 
 .toggle-login-register-button:hover, .forgot-password-button:hover {
   text-decoration: underline;
-  color: #EB5E28; /* Darker green on hover */
+  color: #FF5F00; /* Darker green on hover */
   background-color: transparent; /* Ensure no background color on hover */
 }
 
@@ -70,7 +70,7 @@
 
 #email-field:focus, #first-name-field:focus, #last-name-field:focus, #password-field:focus, #confirm-password-field:focus {
   background-color: white;
-  border-bottom: #EB5E28 solid 2px;
+  border-bottom: #FF5F00 solid 2px;
 }
 
 .title {
