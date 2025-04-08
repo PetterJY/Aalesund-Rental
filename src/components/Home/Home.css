@@ -55,8 +55,8 @@
   background-color: white;
   width: 100vw;
   top: 400px;
-  height: 500px;
-  box-shadow: 0 0 33px 10px rgba(0, 0, 0, 0.7);
+  height: 750px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.7);
 }
 
 .testimonials-section {
@@ -71,31 +71,51 @@
 }
 
 .testimonials-slideshow {
+  position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   justify-content: center;
   align-items: center; /* Center vertically */
   border: 5px solid lightblue;
-  width: 70%;
+  width: 67%;
   height: 100%;
+  overflow: visible;
 }
 
-.testimoinal-controls {
-  position: absolute;
-  top: 30px;
-  left: 67%;
-
-  border: 2px solid red;
-}
-
-.testimonials-section h2 {
+.testimonials-slideshow h2 {
   position: absolute;
   top: 30px; /* Distance from the top */
   left: 0;
   right: 0;
   text-align: center;
   margin: 0;
+}
+
+.caret-icon {
+  color: #FF5F00;
+}
+
+.prev-button, .next-button {
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  background-color: darkcyan;
+  z-index: 1000;
+}
+
+.prev-button:hover, .next-button:hover {
+  cursor: pointer;
+}
+
+.prev-button {
+  left: 3px;
+}
+
+.next-button {
+  right: 3px;
 }
 
 
@@ -108,13 +128,16 @@
   margin-bottom: auto;
   border: 2px solid purple;
   padding: 15px;
-  gap: 12px;
-  height: 300px;
+  gap: 3.5rem;
 }
 
 .testimonials div {
   border: 2px solid green;
-  width: 100%;
+  width: 360px;
+  height: 425px;
+  transition:
+          transform 0.15s cubic-bezier(0.25, 0.1, 0.25, 1),
+          box-shadow 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .testimonial p {
@@ -122,7 +145,23 @@
 }
 
 .testimonial {
-  box-shadow: 0 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 700px;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+}
+
+.testimonial:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-image {
+  width: 48px;
+  height: 48px;
 }
 
 
