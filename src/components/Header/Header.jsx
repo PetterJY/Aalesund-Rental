@@ -3,7 +3,7 @@ import LoginButton from '../LoginRegister/Login/Login';
 import logo from '../../resources/images/logo.png';
 import '../global.css';
 import './Header.css';
-import {PencilSimple, User, MagnifyingGlass, XCircle, CalendarBlank} from "@phosphor-icons/react";
+import {PencilSimple, User, MagnifyingGlass, XCircle, CalendarBlank, X} from "@phosphor-icons/react";
 import DatePicker from "react-datepicker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
@@ -364,6 +364,12 @@ const Header = ({ page }) => {
 
       <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
         <div className="menu-wrapper">
+          {mobileDisplaySize && (
+            <div className="mobile-display-top-menu">
+              <X className="x-icon" size={24} weight="bold"/>
+              <h2 className="booking-details-title">Your booking details</h2>
+            </div>
+          )}
           <div className="location-section">
           <div className="pickup-location-section">
             <label>Pickup</label>
@@ -438,13 +444,13 @@ const Header = ({ page }) => {
                   dropoffDate={dropoffDate}
                 />
               </div>
+            </div>
               {mobileDisplaySize && (
                 <hr className="mobile-display-divider"></hr>
               )}
               <button className="save-button" onClick={handleSave}>
                 Save Changes
               </button>
-            </div>
           </div>
         </div>
       </div>

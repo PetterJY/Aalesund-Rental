@@ -240,10 +240,16 @@ p {
   align-items: center;
 }
 
-.schedule-container {
+.schedule-and-save-container {
   display: flex;
   flex-direction: row;
   gap: 12px;
+}
+
+.schedule-container {
+  gap: 12px;
+  display: flex;
+  flex-direction: row;
 }
 
 .date-time {
@@ -705,12 +711,12 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
     min-width: 100%;
     max-width: 100%;
     width: 100%;
-    gap: 120px;
   }
 
 
   .schedule-container {
     flex: 1 1 0;
+    width: 100%;
   }
 
   .date-picker {
@@ -761,12 +767,14 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
 
   .schedule-and-save-container {
     padding: 24px;
+    display: flex;
+    flex-direction: column;
   }
 
   .schedule-container {
     margin: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     overflow: visible;
   }
 
@@ -776,10 +784,28 @@ background: #C64D1F; /* Darker shade of #EB5E28 */
   }
 
   .mobile-display-divider {
-    border: 4px solid lightgray;
+    height: 6px;
+    background-color: lightgray;
+    border: none;
     justify-self: center;
     width: 100vw;
     margin-left: calc(-50vw + 50%);
+  }
+
+  .mobile-display-top-menu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+  }
+
+  .booking-details-title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .date-input {
+    flex-direction: column;
   }
 }
 
