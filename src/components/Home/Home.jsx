@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import BookingForm from '../../components/BookingForm/BookingForm';
 import './Home.css';
 import Testimonials from "./Testimonials";
+import Reputation from "./Reputation";
+import FeaturedCars from "./FeaturedCars";
 
 
 const Home = () => {
@@ -38,11 +40,12 @@ const Home = () => {
           />
         </div>
       </div>
+      <FeaturedCars />
+      <div className="intermediary-1"/>
+      <Reputation />
+      <div className="intermediary-2"/>
       <Testimonials />
 
-      <div className="reputation-container">
-
-      </div>
     </div>
   );
 };

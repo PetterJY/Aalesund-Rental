@@ -11,13 +11,15 @@ html, body {
 
 .home-container {
   position: relative;
+  z-index: 1;
   min-height: 100vh;
   padding-top: 30px;
   background-image:
           linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #252422 95%),
           url("../../resources/images/HeroSection/scenic/scenic-ride-winter.jpg");
   background-size: cover;
-  background-position: center;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center top; /* Align to top */
   background-repeat: no-repeat;
 }
 
@@ -35,8 +37,7 @@ html, body {
   gap: 12px;
   margin: 0 auto;
   border-radius: 10px;
-  box-shadow: 1000px -24px 50px 24px rgba(0, 0, 0, 0.3),
-              -1000px -24px 50px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -2400px 100px 2400px rgba(0, 0, 0, 0.25);
   min-height: 217px;
 }
 
@@ -46,6 +47,28 @@ html, body {
   justify-content: center;
   align-items: center; /* Center vertically */
   border-radius: 10px;
+}
+
+.intermediary-1 {
+  height: 1000px;
+  background-image:
+          linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #252422 95%),
+          url("../../resources/images/HeroSection/jonathan-daniels-8-O31ObaVSk-unsplash.jpg");
+  background-size: cover;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center; /* Align to top */
+  background-repeat: no-repeat;
+}
+
+.intermediary-2 {
+  height: 750px;
+  background-image:
+          linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #252422 95%),
+          url("../../resources/images/HeroSection/sunlight-suv.jpg");
+  background-size: cover;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center; /* Align to top */
+  background-repeat: no-repeat;
 }
 
 

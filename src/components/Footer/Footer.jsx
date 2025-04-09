@@ -83,7 +83,6 @@ const Footer = () => {
 			<div className="menu">
 				<h2>Creators</h2>
 				<DropdownMenu isExpanded={isCreatorsExpanded} onClick={toggleCreators} isMobileDisplaySize={isMobileDisplaySize}/>
-				{console.log(isCreatorsExpanded)}
 			</div>
 			{(isCreatorsExpanded || !isMobileDisplaySize) && (
 				<ul className="footer-item">
