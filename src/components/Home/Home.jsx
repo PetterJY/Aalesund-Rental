@@ -13,9 +13,16 @@ const Home = () => {
   // const [activeCards, setActiveCards] = useState([1, 2, 3]);
   const [cardOrder, setCardOrder] = useState([0, 1, 2, 3, 4]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [autoPlayInterval, setAutoPlayInterval] = useState(null);
 
   const handlePrevClick = () => {
     if (isButtonDisabled) return;
+
+    if (autoPlayInterval) clearInterval(autoPlayInterval);
+    const interval = setInterval(() => {
+      handleNextClick();
+    }, 3000);
+    setAutoPlayInterval(interval);
 
     setCardOrder(prev => [...prev.slice(1), prev[0]]);
     setIsButtonDisabled(true);
@@ -24,7 +31,26 @@ const Home = () => {
     }, 500);
   };
 
+  const pauseAutoplay = () => {
+    console.log("pased autoplay!")
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      setAutoPlayInterval(null);
+    }
+  };
+
+  const resumeAutoplay = () => {
+    console.log("resumed autoplay!")
+    if (!autoPlayInterval) {
+      const interval = setInterval(() => {
+        handleNextClick();
+      }, 3000);
+      setAutoPlayInterval(interval);
+    }
+    }
+
   const handleNextClick = () => {
+    console.log("clicked next!")
     if (isButtonDisabled) return;
 
     setCardOrder(prev => [prev[prev.length - 1], ...prev.slice(0, -1)]);
@@ -47,6 +73,19 @@ const Home = () => {
     if (position === 3) return 'right-card';
     if (position === 4) return 'hidden-card-right';
   }
+
+  useEffect(() => {
+    console.log("event listener added!")
+    const interval = setInterval(() => {
+      handleNextClick();
+    }, 5000);
+
+    setAutoPlayInterval(interval);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, []);
 
 
   useEffect(() => {
@@ -91,27 +130,42 @@ const Home = () => {
             </button>
             <h1>What Our Customers Say</h1>
             <div className="testimonials">
-              <div className={`testimonial ${isCardActive(0) ? 'active' : ''} ${getCardPosition(0)}`} id="testimonial-1">
+              <div
+                onMouseEnter={pauseAutoplay}
+                onMouseLeave={resumeAutoplay}
+                className={`testimonial ${isCardActive(0) ? 'active' : ''} ${getCardPosition(0)}`} id="testimonial-1">
                 <p>"1 Great service and friendly staff!"</p>
                 <p>- John Doe</p>
                 <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
               </div>
-              <div className={`testimonial ${isCardActive(1) ? 'active' : ''} ${getCardPosition(1)}`} id="testimonial-2">
+              <div
+                onMouseEnter={pauseAutoplay}
+                onMouseLeave={resumeAutoplay}
+                className={`testimonial ${isCardActive(1) ? 'active' : ''} ${getCardPosition(1)}`} id="testimonial-2">
                 <p>"2 The best car rental experience I've ever had!"</p>
                 <p>- Jane Smith</p>
                 <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
               </div>
-              <div className={`testimonial ${isCardActive(2) ? 'active' : ''} ${getCardPosition(2)}`} id="testimonial-3">
+              <div
+                onMouseEnter={pauseAutoplay}
+                   onMouseLeave={resumeAutoplay}
+                className={`testimonial ${isCardActive(2) ? 'active' : ''} ${getCardPosition(2)}`} id="testimonial-3">
                 <p>"3 Great service and friendly staff!"</p>
                 <p>- John Doe</p>
                 <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
               </div>
-              <div className={`testimonial ${isCardActive(3) ? 'active' : ''} ${getCardPosition(3)}`} id="testimonial-4">
+              <div
+                onMouseEnter={pauseAutoplay}
+                onMouseLeave={resumeAutoplay}
+                className={`testimonial ${isCardActive(3) ? 'active' : ''} ${getCardPosition(3)}`} id="testimonial-4">
                 <p>"4 The best car rental experience I've ever had!"</p>
                 <p>- Jane Smith</p>
                 <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
               </div>
-              <div className={`testimonial ${isCardActive(4) ? 'active' : ''} ${getCardPosition(4)}`} id="testimonial-5">
+              <div
+                onMouseEnter={pauseAutoplay}
+                onMouseLeave={resumeAutoplay}
+                className={`testimonial ${isCardActive(4) ? 'active' : ''} ${getCardPosition(4)}`} id="testimonial-5">
                 <p>"5 Great service and friendly staff!"</p>
                 <p>- John Doe</p>
                 <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
