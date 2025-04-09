@@ -24,3 +24,8 @@ body {
   font-family: inherit;
   font-weight: inherit;
 }
+
+html, body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}

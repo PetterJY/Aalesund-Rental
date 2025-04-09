@@ -5,13 +5,14 @@
   --center-element-height: 50px;
 }
 
-* {
+html, body {
+  height: 100%;
 }
 
 .home-container {
-  position: relative; /* Keeps everything in normal flow */
-  min-height: 100vh; /* At least full screen height */
-  padding-top: 80px; /* Offset to prevent header overlap */
+  position: relative;
+  min-height: 100vh;
+  padding-top: 30px;
   background-image:
           linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #252422 95%),
           url("../../resources/images/HeroSection/scenic/scenic-ride-winter.jpg");
@@ -21,24 +22,23 @@
 }
 
 .hero-section {
-  position: relative;
+  position: sticky;
+  top: 12px;
+  z-index: 1000;
   display: flex;
   justify-content: center;
-  justify-items: center;
-  align-items: center; /* Center vertically */
+  align-items: center;
   max-width: 1440px;
-  max-height: 217px;
-  top: -50px;
-  left: 50%; /* Position at 50% from the left */
-  transform: translateX(-50%); /* Shift back by half its width */
   width: var(--center-container-width);
-  height: 50vh;
-  box-shadow: 0 0 33px 10px rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
-  background: white center;
+  background: white;
   padding: 16px;
   gap: 12px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 0 33px 10px rgba(0, 0, 0, 0.7);
+  min-height: 217px;
 }
+
 
 .booking-form-container {
   display: flex;
@@ -48,13 +48,12 @@
 }
 
 .testimonials-wrapper {
-  position: relative;
   display: flex;
   justify-content: center;
-  align-items: center; /* Center vertically */
+  align-items: center;
   width: 100vw;
-  top: 400px;
   height: 750px;
+  margin-top: 750px;
   box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.7);
   background-color: white;
 }
@@ -177,7 +176,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s ease-in-out;
 }
 
 .testimonial.active {
@@ -252,6 +251,10 @@
 @media screen and (max-width: 1500px) {
   .hero-section {
     padding: 16px;
+  }
+
+  .testimonials-slideshow h1 {
+    font-size: 2.25rem;
   }
 }
 

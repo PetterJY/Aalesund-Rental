@@ -32,7 +32,7 @@ const Home = () => {
   };
 
   const handleNextClick = () => {
-    console.log("clicked next!")
+    // console.log("clicked next!")
     if (isButtonDisabled) return;
 
     setCardOrder(prev => [prev[prev.length - 1], ...prev.slice(0, -1)]);

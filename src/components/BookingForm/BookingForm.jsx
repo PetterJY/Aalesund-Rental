@@ -1,9 +1,6 @@
 // src/components/BookingForm/BookingForm.jsx
 import React, { useRef, useState, useEffect } from 'react';
-import DatePicker from "react-datepicker";
 import { MagnifyingGlass, XCircle, X } from "@phosphor-icons/react";
-import { format, addDays, subDays, differenceInDays } from 'date-fns';
-import { enGB } from "date-fns/locale/en-GB";
 import DateTimePicker from './DateTimePicker';
 import './BookingForm.css'; // You'll need to copy relevant CSS from Header.css
 
