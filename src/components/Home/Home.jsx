@@ -6,6 +6,7 @@ import './Home.css';
 import Testimonials from "./Testimonials";
 import Reputation from "./Reputation";
 import FeaturedCars from "./FeaturedCars";
+import CallToAction from "./CallToAction";
 
 
 const Home = () => {
@@ -45,7 +46,8 @@ const Home = () => {
       <Reputation />
       <div className="intermediary-2"/>
       <Testimonials />
-
+      <div className="intermediary-3" />
+      <CallToAction />
     </div>
   );
 };

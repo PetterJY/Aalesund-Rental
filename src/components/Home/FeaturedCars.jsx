@@ -2,7 +2,6 @@ import React from "react";
 import stylesheet from './FeaturedCars.css'
 
 
-
 const FeaturedCars = () => {
 
 

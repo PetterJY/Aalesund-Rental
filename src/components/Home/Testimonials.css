@@ -243,9 +243,6 @@
   .home-container {
     padding-top: 60px;
   }
-  .testimonials-wrapper {
-    margin-top: 500px; /* Adjust spacing from hero section */
-  }
 
   .testimonials-slideshow {
     width: 95vw; /* Full width on mobile */
