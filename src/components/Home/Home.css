@@ -80,10 +80,10 @@
   border: 5px solid lightblue;
   width: 67%;
   height: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
-.testimonials-slideshow h2 {
+.testimonials-slideshow h1 {
   position: absolute;
   top: 30px; /* Distance from the top */
   left: 0;
@@ -118,26 +118,23 @@
   right: 3px;
 }
 
-
-
 .testimonials {
   position: relative;
-  display: flex;
-  flex-direction: row;
+  box-sizing: border-box;
   margin-top: auto;
   margin-bottom: auto;
   border: 2px solid purple;
   padding: 15px;
   gap: 3.5rem;
+  width: 150%;
+  height: 100%;
 }
 
 .testimonials div {
   border: 2px solid green;
-  width: 360px;
+  background-color: #FF5F00;
+  width: 350px;
   height: 425px;
-  transition:
-          transform 0.15s cubic-bezier(0.25, 0.1, 0.25, 1),
-          box-shadow 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .testimonial p {
@@ -145,6 +142,7 @@
 }
 
 .testimonial {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,10 +150,61 @@
   width: 700px;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
   justify-content: center;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+.testimonial.active {
+  opacity: 1;
+}
+
+.hidden-card-left {
+  transform: translate(-350%, -50%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0s 0.5s;
+  background-color: green;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.left-card {
+  transform: translate(-160%, -50%);
+}
+
+.center-card {
+  transform: translate(-50%, -50%);
+}
+
+.right-card {
+  transform: translate(60%, -50%);
+}
+
+.left-card:hover {
+  transform: translate(-160%, -50%) scale(1.05);
+}
+
+.center-card:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.right-card:hover {
+  transform: translate(60%, -50%) scale(1.05);
+}
+
+
+.hidden-card-right {
+  transform: translate(250%, -50%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0s 0.5s;
+  background-color: green;
+  opacity: 0;
+  pointer-events: none;
+}
+
+
 .testimonial:hover {
-  transform: scale(1.05);
+  /*transform: scale(1.05);*/
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
 }
 
