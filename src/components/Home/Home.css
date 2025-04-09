@@ -23,8 +23,8 @@ html, body {
 
 .hero-section {
   position: sticky;
-  top: 12px;
-  z-index: 1000;
+  z-index: 100;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +35,8 @@ html, body {
   gap: 12px;
   margin: 0 auto;
   border-radius: 10px;
-  box-shadow: 0 0 33px 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 1000px -24px 50px 24px rgba(0, 0, 0, 0.3),
+              -1000px -24px 50px 24px rgba(0, 0, 0, 0.3);
   min-height: 217px;
 }
 
@@ -47,232 +48,8 @@ html, body {
   border-radius: 10px;
 }
 
-.testimonials-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 750px;
-  margin-top: 750px;
-  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.7);
-  background-color: white;
-}
-
-.testimonials-section {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center; /* Center vertically */
-  /*border: 5px solid pink;*/
-  width: 70%;
-  height: 100%;
-}
-
-.testimonials-slideshow {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center; /* Center vertically */
-  /*border: 5px solid lightblue;*/
-  width: 67%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.testimonials-slideshow h1 {
-  position: absolute;
-  top: 30px; /* Distance from the top */
-  left: 0;
-  right: 0;
-  text-align: center;
-  margin: 0;
-  color: black;
-}
-
-.caret-icon {
-  color: black;
-  background-color: transparent;
-}
-
-.quote-icon {
-  color: white;
-  background-color: #FF5F00;
-  position: absolute;
-  transform: translateY(-300%);
-  border-radius: 24px 6px 24px 6px;
-  padding: 12px;
-  width: 48px;
-  height: 48px;
-}
-
-.prev-button, .next-button {
-  background-color: transparent;
-  display: flex;
-  height: fit-content;
-  width: fit-content;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1000;
-  transition: transform 0.25s ease-in-out;
-}
-
-.prev-button:hover, .next-button:hover {
-  cursor: pointer;
-  transform: translateY(-50%) scale(1.2);
-}
 
 
-.prev-button {
-  left: 3px;
-}
-
-.next-button {
-  right: 3px;
-}
-
-.testimonials {
-  position: relative;
-  box-sizing: border-box;
-  margin-top: auto;
-  margin-bottom: auto;
-  /*border: 2px solid purple;*/
-  padding: 15px;
-  width: 150%;
-  height: 100%;
-}
-
-.testimonials div {
-  border: 2px solid black;
-  overflow: visible;
-  width: 350px;
-  height: 425px;
-  background-image: url("../../resources/images/testimonial-wave.webp");
-  background-repeat: no-repeat;
-  background-color: #F4F4F9;
-  background-blend-mode: luminosity; /* Or 'multiply', 'screen', etc. */
-  background-position: center -100px; /* Moves image 50px down from top */
-  background-size: 300%; /* Zooms to 150% of original size */
-}
-
-.testimonial p {
-  color: black !important;
-}
-
-.testimonial {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 700px;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 36px 6px 36px 6px;
-  justify-content: center;
-  opacity: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s ease-in-out;
-}
-
-.testimonial.active {
-  opacity: 1;
-}
-
-.hidden-card-left {
-  transform: translate(-350%, -50%);
-  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0s 0.5s;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.left-card {
-  transform: translate(-165%, -50%);
-}
-
-.center-card {
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
-.right-card {
-  transform: translate(65%, -50%);
-}
-
-.left-card:hover {
-  transform: translate(-165%, -50%) scale(1.05);
-}
-
-.center-card:hover {
-  transform: translate(-50%, -50%) scale(1.15);
-}
-
-.right-card:hover {
-  transform: translate(65%, -50%) scale(1.05);
-}
-
-
-.hidden-card-right {
-  transform: translate(250%, -50%);
-  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0s 0.5s;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-
-.testimonial:hover {
-  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
-}
-
-.testimonial-image {
-  width: 48px;
-  height: 48px;
-}
-
-.testimonial-name {
-  font-weight: 900;
-  font-style: italic;
-  font-size: 2.2rem;
-}
-
-.testimonial-quote {
-  font-size: 1.7rem;
-
-}
-
-
-
-/* Media queries for responsive design */
-@media screen and (max-width: 1500px) {
-  .hero-section {
-    padding: 16px;
-  }
-
-  .testimonials-slideshow h1 {
-    font-size: 2.25rem;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .hero-section {
-    min-width: 100vw;
-    min-height: 500px;
-    flex-direction: column;
-  }
-
-  .booking-form-container .menu-wrapper {
-    width: 100vw;
-  }
-
-  .home-container {
-    padding-top: 60px;
-  }
-}
 
 
 

@@ -6,7 +6,6 @@ import './Home.css';
 import Testimonials from "./Testimonials";
 
 
-
 const Home = () => {
   const navigate = useNavigate();
   const [mobileDisplaySize, setMobileDisplaySize] = useState(false);
@@ -40,6 +39,10 @@ const Home = () => {
         </div>
       </div>
       <Testimonials />
+
+      <div className="reputation-container">
+
+      </div>
     </div>
   );
 };

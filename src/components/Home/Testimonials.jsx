@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import testimonialPersonImg from '../../resources/images/testimonialPerson.png';
 import { CaretLeft, CaretRight, Quotes, Star } from '@phosphor-icons/react';
+import TestimonialsStyleSheet from './Testimonials.css'
 
 
 const Testimonials = () => {
