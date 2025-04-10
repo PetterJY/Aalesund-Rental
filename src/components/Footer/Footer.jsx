@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import caretDown from "../../resources/images/caret-down.png";
 import './Footer.css';
+import { CaretDown } from '@phosphor-icons/react';
 
 const Footer = () => {
 
@@ -52,7 +52,7 @@ const Footer = () => {
 					</ul>
 				</address>
 			)}
-			<p className="footer-item">Main office: Peak of Mount Everest, Tibet</p>
+			<p className="footer-item">Main office:</p>
 			<div className="map-container">
 				<iframe
 					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d87445.97657997388!2d86.9340451045387!3d27.98023467131937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e854a215bd9ebd%3A0x576dcf806abbab2!2sMount%20Everest!5e0!3m2!1sno!2sno!4v1744215495004!5m2!1sno!2sno"
@@ -98,7 +98,7 @@ const Footer = () => {
 
 const DropdownMenu = ({isExpanded, onClick, isMobileDisplaySize}) => {
 	return (
-		<img src={caretDown}
+		<img src={CaretDown}
 				 className={`dropdown ${isExpanded ? 'expanded' : 'not-expanded'} ${isMobileDisplaySize ? 'visible' : 'not-visible'}`}
 				 onClick={onClick}
 				 alt="dropdown-menu-icon"/>

@@ -8,6 +8,7 @@ footer {
   padding: 20px;
   justify-content: center;
   gap: 240px;
+  z-index: 1000;
 }
 
 
