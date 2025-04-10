@@ -90,3 +90,10 @@
   flex-direction: row;
   gap: 1em;
 }
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 10px;
+}

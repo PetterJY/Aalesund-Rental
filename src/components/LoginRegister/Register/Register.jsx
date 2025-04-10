@@ -3,6 +3,9 @@ import '../../App.css';
 import '../LoginRegister.css';
 
 const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
+  const [showErrorMessage, setShowErrorMessage] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState(""); 
+  
   const handleRegister = (event) => {
     event.preventDefault(); 
     console.log("Register button clicked.");
@@ -13,15 +16,30 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
      * Check if the password and confirm password fields match.
      */
     if (data.password !== document.getElementById('confirm-password-field').value) {
-      alert("Passwords do not match!");
+      setErrorMessage("Passwords do not match.");
+      setShowErrorMessage(true);
+      return;
+    }
+
+    /**
+     * Check if the password format is valid.
+     * Must be:
+     * - At least 8 characters long
+     * - At least one letter and one number
+     * - No special characters or non-ASCII characters
+     */
+    if (!validatePassword(data.password)) {
+      setErrorMessage("Must be at least 8 characters with letter and number, no special or non-ASCII characters.");
+      setShowErrorMessage(true);
       return;
     }
 
     /**
      * Check if the email format is valid.
      */
-    if (!checkIfEmailIsValid(data.email)) {
-      alert("Invalid email format!");
+    if (!validateEmail(data.email)) {
+      setErrorMessage("Invalid email format.");
+      setShowErrorMessage(true);
       return;
     }
     
@@ -37,12 +55,17 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       .then((response) => {
         if (response.ok) {
           console.log("User has been registered.");
-          alert("Account created successfully!");
           closeModal();
         } else {
           console.log("Error creating account.");
-          alert("Error creating account. Please try again.");
+          setErrorMessage("Error creating account. Please try again later.");
+          setShowErrorMessage(true);
         }
+      })
+      .catch((error) => {
+        console.error(error);
+        setErrorMessage("Error creating account. Please try again later.");
+        setShowErrorMessage(true);
       });
   };
 
@@ -56,9 +79,14 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
     };
   }
 
-  function checkIfEmailIsValid(email) {
+  function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  }
+
+  function validatePassword(password) {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return passwordRegex.test(password);
   }
 
   return (
@@ -77,6 +105,11 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
                 <input id="password-field" type="password" placeholder="Password" required />
                 <input id="confirm-password-field" type="password" placeholder="Confirm Password" required />
               </div>
+              {showErrorMessage && (
+                <p className="error-message" id="register-error-message">
+                  {errorMessage}
+                </p>
+              )}
               <button id="submit-button" type="submit" onClick={handleRegister} className="submit-button">
                 Register
               </button>

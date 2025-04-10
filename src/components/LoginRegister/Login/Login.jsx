@@ -6,10 +6,14 @@ import '../LoginRegister.css';
 
 const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (!isModalVisible) {
       setMode(defaultMode);
+      setShowErrorMessage(false); 
+      setErrorMessage("");
     }
   }, [isModalVisible, defaultMode]);
 
@@ -34,9 +38,6 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
         if (response.ok) {
           console.log("User has been logged in.");
           return response.json(); 
-        } else {
-          console.log("Error logging in.");
-          alert("Error logging in. Please try again.");
         }
       })
       .then((data) => { 
@@ -45,6 +46,11 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
         console.log("Token: ", token);
         console.log("User has been logged in. Token stored.");
         closeModal();
+      })
+      .catch((error) => {
+        console.error(error);
+        setErrorMessage("The username and/or password you specified are not correct.");
+        setShowErrorMessage(true);
       });
   }
 
@@ -70,6 +76,11 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
                 <form onSubmit={handleLogin}>
                   <input id="email-field" type="text" placeholder="E-mail" required />
                   <input id="password-field" type="password" placeholder="Password" required />
+                  {showErrorMessage && (
+                    <p className="error-message" id="register-error-message">
+                      {errorMessage}
+                    </p>
+                  )}
                   <button id="submit-button" type="submit">Login</button>
                 </form>
                 <section id="register-forgot-wrapper">

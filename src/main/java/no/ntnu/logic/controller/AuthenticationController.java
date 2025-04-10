@@ -55,7 +55,8 @@ public class AuthenticationController {
           loginRequest.getPassword()));
     } catch (BadCredentialsException e) {
       logger.error("Bad credentials for: {}", loginRequest.getEmail(), e);
-      return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+          .body("Invalid email or password.");
     } 
     final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
     final String jwt = jwtUtility.generateToken(userDetails);

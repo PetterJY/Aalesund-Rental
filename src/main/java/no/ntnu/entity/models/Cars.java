@@ -1,6 +1,7 @@
 package no.ntnu.entity.models;
 
 import java.util.Set;
+
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -68,9 +69,9 @@ public class Cars {
 
   @ManyToMany
   @JoinTable(
-    name = "cars_extra_features",
-    joinColumns = @JoinColumn(name = "car_id"),
-    inverseJoinColumns = @JoinColumn(name = "extra_feature_id")
+      name = "cars_extra_features",
+      joinColumns = @JoinColumn(name = "car_id"),
+      inverseJoinColumns = @JoinColumn(name = "extra_feature_id")
   )
   @ApiModelProperty("The extra features of the car")
   private Set<ExtraFeatures> extraFeatures;
