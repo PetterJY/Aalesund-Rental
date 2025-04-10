@@ -14,7 +14,7 @@ const FeaturedCars = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [autoPlayInterval, setAutoPlayInterval] = useState(null);
 
-  const handlePrevClick = () => {
+  const handlePreviousClick = () => {
     if (isButtonDisabled) return;
 
     if (autoPlayInterval) clearInterval(autoPlayInterval);
@@ -67,10 +67,15 @@ const FeaturedCars = () => {
   const getCardPosition = (cardId) => {
     const position = cardOrder.indexOf(cardId);
     if (position === 0) return 'hidden-card-left';
-    if (position === 1) return 'left-card';
-    if (position === 2) return 'center-card';
-    if (position === 3) return 'right-card';
+    if (position === 1) return 'car-left-card';
+    if (position === 2) return 'car-right-card';
+    if (position === 3) return 'hidden-card-right';
     if (position === 4) return 'hidden-card-right';
+  }
+
+  const shouldIndicatorBeActive = (cardId) => {
+    const position = cardOrder.indexOf(cardId);
+    return position === 2;
   }
 
   useEffect(() => {
@@ -89,26 +94,16 @@ const FeaturedCars = () => {
 
   return (
     <div className="featured-cars-wrapper">
-      <div className="featured-cars-section">
-        <div className="featured-cars-slideshow">
-          <button className={`prev-button ${isButtonDisabled ? 'disabled' : ''}`}
-                  onClick={handlePrevClick}
-                  disabled={isButtonDisabled}>
-            <CaretLeft size={36} weight="bold" className="caret-icon"/>
-          </button>
-          <button className={`next-button ${isButtonDisabled ? 'disabled' : ''}`}
-                  onClick={handleNextClick}
-                  disabled={isButtonDisabled}>
-            <CaretRight size={36} weight="bold" className="caret-icon"/>
-          </button>
-          <h1>Our Featured Cars</h1>
-          <div className="featured-cars">
-            <div
-              onMouseEnter={pauseAutoplay}
-              onMouseLeave={resumeAutoplay}
-              className={`featured-car ${isCardActive(0) ? 'active' : ''} ${getCardPosition(0)}`}
-              id="featured-car-1">
-              <img src={TeslaModel3} alt="Tesla-Model-3-car" className="featured-car-image"/>
+      <div className="featured-cars-slideshow">
+        <h1>Our Featured Cars</h1>
+        <div className="featured-cars-with-controls">
+        <div className="featured-cars">
+          <div
+            onMouseEnter={pauseAutoplay}
+            onMouseLeave={resumeAutoplay}
+            className={`featured-car ${isCardActive(0) ? 'active' : ''} ${getCardPosition(0)}`}
+            id="featured-car-1">
+            <img src={TeslaModel3} alt="Tesla-Model-3-car" className="featured-car-image"/>
             </div>
             <div
               onMouseEnter={pauseAutoplay}
@@ -137,6 +132,27 @@ const FeaturedCars = () => {
               className={`featured-car ${isCardActive(4) ? 'active' : ''} ${getCardPosition(4)}`}
               id="featured-car-5">
               <img src={VWtransporter} alt="bmw-car" className="featured-car-image"/>
+            </div>
+          </div>
+          <div className="featured-cars-controls">
+            <div className="indicators">
+              <div className={`indicator ${shouldIndicatorBeActive(0) ? 'active' : ''}`}/>
+              <div className={`indicator ${shouldIndicatorBeActive(1) ? 'active' : ''}`}/>
+              <div className={`indicator ${shouldIndicatorBeActive(2) ? 'active' : ''}`}/>
+              <div className={`indicator ${shouldIndicatorBeActive(3) ? 'active' : ''}`}/>
+              <div className={`indicator ${shouldIndicatorBeActive(4) ? 'active' : ''}`}/>
+            </div>
+            <div className="buttons">
+              <button className={`prev-button ${isButtonDisabled ? 'disabled' : ''}`}
+                      onClick={handlePreviousClick}
+                      disabled={isButtonDisabled}>
+                <CaretLeft size={18} weight="bold" className="caret-icon" id="caret-previous"/>
+              </button>
+              <button className={`next-button ${isButtonDisabled ? 'disabled' : ''}`}
+                      onClick={handleNextClick}
+                      disabled={isButtonDisabled}>
+                <CaretRight size={18} weight="bold" className="caret-icon" id="caret-next"/>
+              </button>
             </div>
           </div>
         </div>

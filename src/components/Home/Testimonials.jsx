@@ -91,7 +91,7 @@ const Testimonials = () => {
   <div className="testimonials-wrapper">
       <div className="testimonials-slideshow">
         <h1>What Our Customers Say</h1>
-          <div className="testimonials-with-buttons">
+          <div className="testimonials-with-controls">
           <div className="testimonials">
           <div
             onMouseEnter={pauseAutoplay}
