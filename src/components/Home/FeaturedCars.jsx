@@ -14,12 +14,12 @@ const FeaturedCars = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [autoPlayInterval, setAutoPlayInterval] = useState(null);
 
-  const handlePreviousClick = () => {
+  const handleNextClick = () => {
     if (isButtonDisabled) return;
 
     if (autoPlayInterval) clearInterval(autoPlayInterval);
     const interval = setInterval(() => {
-      handleNextClick();
+      handlePreviousClick();
     }, 20000);
     setAutoPlayInterval(interval);
 
@@ -30,7 +30,7 @@ const FeaturedCars = () => {
     }, 500);
   };
 
-  const handleNextClick = () => {
+  const handlePreviousClick = () => {
     // console.log("clicked next!")
     if (isButtonDisabled) return;
 
@@ -53,7 +53,7 @@ const FeaturedCars = () => {
     console.log("resumed autoplay!")
     if (!autoPlayInterval) {
       const interval = setInterval(() => {
-        handleNextClick();
+        handlePreviousClick();
       }, 20000);
       setAutoPlayInterval(interval);
     }
@@ -75,13 +75,13 @@ const FeaturedCars = () => {
 
   const shouldIndicatorBeActive = (cardId) => {
     const position = cardOrder.indexOf(cardId);
-    return position === 2;
+    return position === 0;
   }
 
   useEffect(() => {
     console.log("event listener added!")
     const interval = setInterval(() => {
-      handleNextClick();
+      handlePreviousClick();
     }, 20000);
 
     setAutoPlayInterval(interval);
