@@ -1,9 +1,153 @@
 
 
 
-.featured-cars-container {
-  background: white;
-  height: 1000px;
+.featured-cars-wrapper {
+  display: flex;
+  z-index: 1000000;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  max-width: 2560px;
+  box-sizing: border-box;
+  height: 876px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.7);
+  background-color:  #262627;
+  margin-top: 921px;
+  border: 2px solid lightblue;
+}
+
+.featured-cars-section {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  /*border: 5px solid pink;*/
+  width: 70%;
+  height: 100%;
+  border: 2px solid red;
+}
+
+.featured-cars-slideshow {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  width: 100vw;
+  max-width: 1440px;
+  height: 100%;
+  overflow: visible;
+  border: 2px solid pink;
+}
+
+.featured-cars {
+  border: 5px solid green;
+  position: relative;
+  box-sizing: border-box;
+  margin-top: auto;
+  margin-bottom: auto;
+  /*border: 2px solid purple;*/
+  padding: 15px;
   width: 100%;
-  margin-top: 700px;
+  height: 100%;
+
+}
+
+.featured-cars div {
+  border: 2px solid black;
+  box-sizing: border-box;
+  height: auto;
+  width: 100%;
+  min-height: 474px;
+  max-width: 723px;
+  background-color: #F4F4F9;
+  background-blend-mode: luminosity; /* Or \`multiply\`, \`screen\`, etc. */
+}
+
+.featured-cars-slideshow h1 {
+  position: absolute;
+  border: 2px solid purple;
+  top: 30px; /* Distance from the top */
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0;
+  color: white;
+}
+
+
+.featured-car {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-size: 100% auto !important;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../../resources/images/car-background.webp");
+  width: 25vw;
+  padding: 30px 20px;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 36px 6px 36px 6px;
+  justify-content: center;
+  opacity: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s ease-in-out;
+}
+
+.hidden-card-left {
+  transform: translate(-350%, -50%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0s 0.5s;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.left-card {
+  transform: translate(-165%, -50%);
+}
+
+.center-card {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.right-card {
+  transform: translate(65%, -50%);
+}
+
+.left-card:hover {
+  transform: translate(-165%, -50%) scale(1.05);
+}
+
+.center-card:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.right-card:hover {
+  transform: translate(65%, -50%) scale(1.05);
+}
+
+
+.hidden-card-right {
+  transform: translate(250%, -50%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0s 0.5s;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.testimonial:hover {
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
+}
+
+.featured-car-image {
+  width: 708px;
+  height: auto;
 }

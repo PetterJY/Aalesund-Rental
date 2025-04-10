@@ -38,8 +38,12 @@ const Home = () => {
           <BookingForm
             onSave={handleBookingSubmit}
             mobileDisplaySize={mobileDisplaySize}
-          />
+            />
         </div>
+      </div>
+      <div className="hero-call-to-action">
+        <h1>Ready to Take a Trip?</h1>
+        <h2>Our cars can take you anywhere, anytime</h2>
       </div>
       <FeaturedCars />
       <div className="intermediary-1"/>

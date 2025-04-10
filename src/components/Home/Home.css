@@ -11,16 +11,18 @@ html, body {
 
 .home-container {
   position: relative;
+  display: block;
   z-index: 1;
   min-height: 100vh;
   padding-top: 30px;
-  background-image:
-          linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #252422 95%),
-          url("../../resources/images/HeroSection/scenic/scenic-ride-winter.jpg");
-  background-size: cover;
+  background-image: url(../../resources/images/HeroSection/van-nature.jpg);
+  background-size: 2560px auto;
   background-attachment: fixed; /* Prevents zooming when scrolling */
-  background-position: center top; /* Align to top */
+  background-position: center; /* Align to top */
   background-repeat: no-repeat;
+  max-width: 2560px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .hero-section {
@@ -33,12 +35,12 @@ html, body {
   max-width: 1440px;
   width: var(--center-container-width);
   background: white;
-  padding: 16px;
   gap: 12px;
   margin: 0 auto;
   border-radius: 10px;
   box-shadow: 0 -2400px 100px 2400px rgba(0, 0, 0, 0.25);
-  min-height: 217px;
+  min-height: 200px;
+  max-height: 200px;
 }
 
 
@@ -52,9 +54,8 @@ html, body {
 .intermediary-1 {
   height: 1000px;
   background-image:
-          linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #252422 95%),
-          url("../../resources/images/HeroSection/jonathan-daniels-8-O31ObaVSk-unsplash.jpg");
-  background-size: cover;
+          url("../../resources/images/HeroSection/scenic/scenic-ride-forest.jpg");
+  background-size: 2560px auto;
   background-attachment: fixed; /* Prevents zooming when scrolling */
   background-position: center; /* Align to top */
   background-repeat: no-repeat;
@@ -63,12 +64,38 @@ html, body {
 .intermediary-2 {
   height: 750px;
   background-image:
-          linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #252422 95%),
-          url("../../resources/images/HeroSection/sunlight-suv.jpg");
-  background-size: cover;
+          url("../../resources/images/HeroSection/scenic/scenic-ride-winter.jpg");
+  background-size: 2560px auto;
   background-attachment: fixed; /* Prevents zooming when scrolling */
   background-position: center; /* Align to top */
   background-repeat: no-repeat;
+}
+
+.hero-call-to-action {
+  position: fixed;
+  width: 90vw;
+  max-width: 1440px;
+  z-index: -1;
+  margin-right: auto;
+  /*border: 1px solid white;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  margin-top: 50vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hero-call-to-action h1 {
+  font-size: 4.7rem;
+  color: white;
+  margin: 0;
+}
+
+.hero-call-to-action h2 {
+  color: white;
+  font-size: 2.2rem;
 }
 
 

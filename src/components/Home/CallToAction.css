@@ -4,7 +4,7 @@
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   width: 100%;
+   max-width: 2560px;
    padding: 50px 20px;
    background: rgb(245,157,105);
    background: radial-gradient(circle, rgba(245,157,105,1) 0%, rgba(11,11,11,1) 100%);   color: white;
