@@ -1,55 +1,69 @@
-import React from "react";
-import calenderImage from "../../resources/images/calendar.png";
-import "../App.css";
+// src/pages/Home/Home.jsx
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import BookingForm from '../../components/BookingForm/BookingForm';
 import './Home.css';
+import Testimonials from "./Testimonials";
+import Reputation from "./Reputation";
+import FeaturedCars from "./FeaturedCars";
+import CallToAction from "./CallToAction";
 
-const Home = (props) => {
-  const pickupSection = (
-    <div className="pickup-dropoff">
-      <label id="pickup-label" className="pickup-dropoff-text">Pickup</label>
-      <DateTimePicker date={props.pickUpDate} time={props.pickUpTime} />
-    </div>
-  );
 
-  const dropoffSection = (
-    <div className="pickup-dropoff">
-      <label className="dropoff-label pickup-dropoff-text">Dropoff</label>
-      <DateTimePicker date={props.dropOffDate} time={props.dropOffTime} />
-    </div>
-  );
+const Home = () => {
+  const navigate = useNavigate();
+  const [mobileDisplaySize, setMobileDisplaySize] = useState(false);
 
-  const showCarsSection = (
-    <div className="show-cars">
-      <button className="show-cars-button">Show cars</button>
-    </div>  
-  );
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setMobileDisplaySize(window.innerWidth <= 1000);
+    };
+
+    handleWindowResize();
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, []);
+
+  const handleBookingSubmit = (bookingData) => {
+    // Handle the booking data here
+    console.log('Booking data:', bookingData);
+    // Navigate to search results or rental page
+    navigate('/rental', { state: { bookingData } });
+  };
+
+  const HeroCallToAction = () => {
+    const [isRendered, setIsRendered] = useState(false);
+
+    useEffect(() => {
+      setIsRendered(true);
+    }, []);
+
+    return (
+      <div className="hero-call-to-action">
+        <h1 className={`${isRendered ? 'fade-and-drop-in' : ''}`}>Ready to Take a Trip?</h1>
+        <h2 className={`${isRendered ? 'fade-in' : ''}`}>Our cars can take you anywhere, anytime.</h2>
+      </div>
+    );
+  };
 
   return (
-    <main id="content">
-      <div id="styledContainer">
-        {pickupSection}
-        {dropoffSection}
-        {showCarsSection}
-      </div>
-    </main>
-  );
-};
-
-const DateTimePicker = ({ date, time }) => {
-  return (
-    <div className="date-time-picker">
-      <div className="date-time-picker-content">
-        <div className="date-picker-content">
-          <button className="date-picker-button"></button>
-          <img className="calendar-image" src={calenderImage} alt="calendar image" />
-          <p>{date}</p>
-        </div>
-        <div className="divider"></div>
-        <div className="time-picker-content">
-          <button className="time-picker-button"></button>
-          <p>{time}</p>
+    <div className="home-container">
+      <div className="hero-section">
+        <div className="booking-form-container">
+          <BookingForm
+            onSave={handleBookingSubmit}
+            mobileDisplaySize={mobileDisplaySize}
+            />
         </div>
       </div>
+      <HeroCallToAction />
+      <FeaturedCars />
+      <div className="intermediary-1"/>
+      <Reputation />
+      <div className="intermediary-2"/>
+      <Testimonials />
+      <div className="intermediary-3" />
+      <CallToAction />
     </div>
   );
 };

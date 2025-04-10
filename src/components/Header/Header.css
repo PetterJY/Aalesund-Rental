@@ -1,24 +1,24 @@
 @font-face {
-  font-family: 'HelveticaNow';
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
-  --center-container-height: 50px;
+  --center-element-height: 50px;
   font-size: 12px;
   line-height: 18px;
-  font-family: HelveticaNow, Helvetica, "Roboto Condensed", Arial, sans-serif !important;
 }
 
-/* Or use more specific selectors */
 body, html {
-  font-family: HelveticaNow, Helvetica, "Roboto Condensed", Arial, sans-serif !important;
-  overflow-x: hidden; /* prevents horizontal scrolling */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  width: 100%;
 }
+
 
 .top-header {
+  position: relative;
+  z-index: 1000000;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -32,7 +32,7 @@ body, html {
   flex-direction: row;
   align-items: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -259,6 +259,7 @@ p {
           transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
           box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
           visibility 0s;
+  box-sizing: border-box;
 }
 
 
@@ -281,8 +282,8 @@ p {
   align-self: center;
   height: auto;
   display: flex;
-  grid-column-gap: 12px; /* Reduce this */
   max-width: 1440px;
+  gap: 12px;
   margin: 0 auto; /* Add this to center the grid */
   justify-items: center; /* Center items horizontally in their cells */
   align-items: center;
@@ -358,7 +359,7 @@ p {
 }
 
 .date-input {
-  height: var(--center-container-height);
+  height: var(--center-element-height);
   width: 100%;
   box-sizing: border-box;
   padding: 0;
@@ -371,7 +372,7 @@ p {
 }
 
 .time-input {
-  height: var(--center-container-height);
+  height: var(--center-element-height);
   width: 100%;
   box-sizing: border-box;
   padding: 0;
@@ -487,13 +488,15 @@ p {
 }
 
 .save-button {
+  background: #FF5F00;
+  color: white;
   margin-top: auto;
   font-size: 1em;
   justify-content: center;
   align-items: center;
-  height: 52px;
+  height: 50px;
   width: 200px;
-  line-height: 52px; /* Match line-height to button height */
+  line-height: 50px; /* Match line-height to button height */
   padding: 0;
   border-radius: 10px;
   text-align: center;
@@ -530,8 +533,7 @@ p {
 .pickup-location, .dropoff-location {
   box-sizing: border-box;
   position: relative;
-  height: var(--center-container-height);
-  width: 372px;
+  height: var(--center-element-height);
   border: 1px solid #C9C9CF;
   display: flex;
   flex-direction: row;
@@ -754,7 +756,7 @@ background: #e94100; /* Darker shade of #FF5F00 */
   .pickup-location, .dropoff-location {
     width: 100%;
   }
-  
+
   .schedule-and-save-container {
     min-width: 100%;
     max-width: 100%;
@@ -799,10 +801,10 @@ background: #e94100; /* Darker shade of #FF5F00 */
   }
 
   .menu-wrapper {
+    box-sizing: border-box;
     margin-bottom: auto;
     margin-top: 12px;
-    margin-right: 12px;
-    width: calc(100vw - 75px);
+    width: 100%;
     padding: 24px;
   }
 

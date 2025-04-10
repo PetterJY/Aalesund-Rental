@@ -1,342 +1,137 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
 
 :root {
-  --center-container-width: 75vw;
+  --center-container-width: 87vw;
   --center-element-width: calc(var(--center-container-width) / 3.3);
-  --date-time-picker-height: 75px;
+  --center-element-height: 50px;
 }
 
-.backgroundImage {
-  width: 1920px;
-  height: 1080px;
-  left: 0px;
-  top: 140px;
-  position: absolute;
+html, body {
+  height: 100%;
+}
 
-  flex-shrink: 0;
-  background-position: center;
+.home-container {
+  position: relative;
+  display: block;
+  z-index: 1;
+  min-height: 100vh;
+  padding-top: 30px;
+  background-image: url(../../resources/images/HeroSection/van-nature.jpg);
+  background-size: 2560px auto;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center; /* Align to top */
   background-repeat: no-repeat;
-  background-color: transparent;
-  mix-blend-mode: normal;
-  z-index: -1;
+  max-width: 2560px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-
-.logo {
-  width: 100px;
-  height: 100px;
-  left: 15px;
-  top: 15px;
-  position: relative;
-}
-
-#header {
-  position: relative;
+.hero-section {
+  position: sticky;
+  z-index: 100;
+  top: 0;
   display: flex;
-  flex-direction: row;
-  margin: 30px 30px;
-}
-
-body {
-  background-color: #252422; /* Match footer background color */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-}
-
-#content {
-  position: relative; /* Keeps everything in normal flow */
-  min-height: 100vh; /* At least full screen height */
-  padding-top: 80px; /* Offset to prevent header overlap */
-  background-image:
-          linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #252422 95%),
-          url("../../resources/images/trollstigen.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-#styledContainer {
-  position: absolute; /* Ensures it's above the background */
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto;
   justify-content: center;
-  justify-items: center;
-  align-items: center; /* Center vertically */
-  min-width: 100px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  align-items: center;
+  max-width: 1440px;
   width: var(--center-container-width);
-  height: 25vh;
-  min-height: 250px;
   background: white;
-  box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.5);
+  gap: 12px;
+  margin: 0 auto;
   border-radius: 10px;
-  background-position: center;
-  padding-bottom: 1.75rem;
-}
-
-#styledContainer > .pickup-dropoff:nth-child(1) {
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
-}
-
-#styledContainer > .pickup-dropoff:nth-child(2) {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
+  box-shadow: 0 -2400px 100px 2400px rgba(0, 0, 0, 0.25);
+  min-height: 200px;
+  max-height: 200px;
 }
 
 
-.pickup-dropoff {
+.booking-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  border-radius: 10px;
+}
+
+.intermediary-1 {
+  height: 1000px;
+  background-image:
+          url("../../resources/images/HeroSection/scenic/scenic-ride-forest.jpg");
+  background-size: 2560px auto;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center; /* Align to top */
+  background-repeat: no-repeat;
+}
+
+.intermediary-2 {
+  height: 750px;
+  background-image:
+          url("../../resources/images/HeroSection/scenic/scenic-ride-winter.jpg");
+  background-size: 2560px auto;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center; /* Align to top */
+  background-repeat: no-repeat;
+}
+
+.hero-call-to-action {
+  position: fixed;
+  width: 90vw;
+  max-width: 1440px;
+  z-index: -1;
+  margin-right: auto;
+  /*border: 1px solid white;*/
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center children */
-  justify-content: center;
-  width: auto; /* Remove fixed width to fit grid */
-  text-align: left; /* Ensure text aligns to the left */
-}
-
-.pickup-dropoff-text {
-  color: #252422;
-  font-size: 1.75em;
-  font-weight: 400;
-  line-height: normal;
+  justify-content: flex-start;
   text-align: left;
-  width: 100%; /* Fill the container */
-}
-
-.show-cars {
-  grid-column: 3 / 3;
-  grid-row: 2 / 3; /* Position in row 2 where the date-time-pickers are */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: start; /* Align to top of grid cell */
-}
-
-.show-cars-button {
-  background: #FF5F00;
-  width: var(--center-element-width);
-  height: var(--date-time-picker-height); /* Match exactly the picker height */
-  color: white;
-  border: 0px;
-  font-size: 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  box-sizing: border-box; /* Ensure borders are included in height */
-}
-
-.show-cars-button:hover {
-  background: #C64D1F; /* Darker shade of #FF5F00 */
-  color: #F2F2F2;
-  cursor: pointer; /* Optional: Makes it clear it's clickable */
-}
-
-.show-cars-button:active {
-  background: #d85000; /* Darker shade of #FF5F00 */
-  color: #E6E6E6;
-  cursor: pointer; /* Optional: Makes it clear it's clickable */
-}
-
-.date-time-picker {
-  position: static;
-  width: var(--center-element-width);
-  height: var(--date-time-picker-height);
-  flex-shrink: 0;
-  border-radius: 20px;
-  border: 2px solid #484848;
-  justify-content: space-around;
-  overflow: hidden;
-  align-self: center;
-}
-
-.date-time-picker-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative; /* Needed for the absolute divider */
-}
-
-.date-picker-content, .time-picker-content {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center content in each half */
-  flex: 1; /* Each takes half of the space */
-  gap: 8px; /* Space between image and text */
-  flex-direction: row; /* Stack image + text */
-  font-size: 20px;
-}
-
-.date-picker-button {
-  justify-content: space-evenly;
-  width: 50%;
-  height: 100%;
-  z-index: 100000000009;
-}
-
-.time-picker-button {
-  justify-content: space-evenly;
-  width: 50%;
-  height: 100%;
-  z-index: 1000000000;
-  border: 2px solid darkorange;
-}
-
-.date-picker-button:hover, .time-picker-button:hover{
-  cursor: pointer;
-}
-
-
-
-.divider {
-  width: 2px;
-  height: 200%;
-  background: #252422;
-  position: absolute;
+  margin-top: 50vh;
   left: 50%;
-  transform: translateX(-50%); /* Perfectly center the divider */
+  transform: translateX(-50%);
 }
 
-.calendar-image {
-  width: 40px; /* Adjust as needed */
-  height: auto;
+.hero-call-to-action h1 {
+  font-size: 4.7rem;
+  color: white;
+  margin: 0;
 }
 
-
-
-.text {
-  color: #252422;
-  font-size: 35px;
-  font-family: "Poppins", Sans-Serif;
-  font-weight: 400;
-  word-wrap: break-word;
+.hero-call-to-action h2 {
+  color: white;
+  font-size: 2.2rem;
 }
 
-
-.hamburger-menu {
-  width: 25px;
-  height: 25px;
-  align-self: center;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-}
-
-.home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 20px;
-}
-
-.home h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-
-.home p {
-  font-size: 1.2rem;
-}
-
-@media screen and (max-width: 1600px) {
-  #styledContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
-    justify-items: start; /* Align items to the left within their cells */
-    column-gap: 20px;
-    padding-left: 20px; /* Gap on the left side */
-    padding-right: 20px; /* Gap on the right side */
-    text-align: left; /* Ensure text aligns to the left */
+@keyframes fade-and-drop-in {
+  from {
+    transform: translateY(-500%);
+    opacity: 0;
   }
 
-  #styledContainer > * {
-    width: 100%; /* Ensures elements take full width */
-  }
-
-  .show-cars {
-    grid-column: span 2; /* Make button span 2 columns */
-    grid-row: span 1; /* Make button span 1 row */
-    width: 100%; /* Ensure button spans the entire grid space */
-  }
-
-  .show-cars-button {
-    width: 100%;
-  }
-
-  .date-time-picker {
-    width: 100%;
-    position: static; /* Reset absolute positioning */
-    justify-self: center; /* Center the date-time-picker horizontally */
-    grid-column: span 2; /* Make date-time-picker span 2 columns */
-  }
-
-  .pickup-dropoff-text {
-    position: static; /* Reset absolute positioning */
-    justify-self: start; /* Align text to the left within its cell */
-    transform: none !important; /* Reset transform */
-    text-align: left; /* Ensure text aligns to the left */
-    width: 100%; /* Ensure the text container takes full width */
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
+.fade-and-drop-in {
+  animation: fade-and-drop-in 1.5s ease forwards;
+}
 
-@media screen and (max-width: 1000px) {
-  #styledContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto auto auto;
-    justify-items: start;
-    column-gap: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: left;
+@keyframes fade-in {
+  from {
+    opacity: 0;
   }
-
-  .date-time-picker {
-    width: 100%;
-    position: static;
-    grid-column: span 2;
-    grid-row: span 3;
-    height: 75px; /* Adjusted height */
-    min-height: 100px; /* Ensure it doesn't collapse */
-    overflow: hidden;
-  }
-
-  .date-time-picker-content {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    gap: 0;
-  }
-
-  .divider {
-    height: 400%;
-    transform: rotate(90deg) translateY(0); /* Adjusted positioning */
-    background-color: black;
-  }
-
-  .date-picker-content, .time-picker-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    font-size: 20px;
-    height: 50%;
-  }
-
-  .pickup-dropoff-text {
-    position: static;
-    justify-self: start;
-    transform: none !important;
-    text-align: left;
-  }
-
-  .calendar-image {
-    width: 25px; /* Adjust as needed */
-    height: auto;
+  to {
+    opacity: 1;
   }
 }
+
+.fade-in {
+  animation: fade-in 2.7s ease forwards;
+}
+
+
+
+
+
+
+
+
+
