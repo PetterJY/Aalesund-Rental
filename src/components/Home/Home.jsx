@@ -31,6 +31,21 @@ const Home = () => {
     navigate('/rental', { state: { bookingData } });
   };
 
+  const HeroCallToAction = () => {
+    const [isRendered, setIsRendered] = useState(false);
+
+    useEffect(() => {
+      setIsRendered(true);
+    }, []);
+
+    return (
+      <div className="hero-call-to-action">
+        <h1 className={`${isRendered ? 'fade-and-drop-in' : ''}`}>Ready to Take a Trip?</h1>
+        <h2 className={`${isRendered ? 'fade-in' : ''}`}>Our cars can take you anywhere, anytime.</h2>
+      </div>
+    );
+  };
+
   return (
     <div className="home-container">
       <div className="hero-section">
@@ -41,10 +56,7 @@ const Home = () => {
             />
         </div>
       </div>
-      <div className="hero-call-to-action">
-        <h1>Ready to Take a Trip?</h1>
-        <h2>Our cars can take you anywhere, anytime</h2>
-      </div>
+      <HeroCallToAction />
       <FeaturedCars />
       <div className="intermediary-1"/>
       <Reputation />

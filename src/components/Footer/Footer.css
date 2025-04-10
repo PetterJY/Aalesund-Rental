@@ -2,7 +2,7 @@ footer {
   position: relative;
   display: flex;
   flex-direction: row;
-  background-color: #252422;
+  background-color: #1A1A1A;
   color: white; /* Text color for visibility */
   height: 750px; /* Adjust height as needed */
   padding: 20px;

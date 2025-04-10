@@ -98,6 +98,35 @@ html, body {
   font-size: 2.2rem;
 }
 
+@keyframes fade-and-drop-in {
+  from {
+    transform: translateY(-500%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fade-and-drop-in {
+  animation: fade-and-drop-in 1.5s ease forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 2.7s ease forwards;
+}
+
 
 
 
