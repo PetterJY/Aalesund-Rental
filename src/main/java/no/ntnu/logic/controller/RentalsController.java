@@ -20,6 +20,9 @@ import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.models.Rentals;
 import no.ntnu.logic.service.RentalsService;
 
+/**
+ * Controller for managing rental-related operations.
+ */
 @RestController
 @RequestMapping("/rentals")
 public class RentalsController {
@@ -34,6 +37,11 @@ public class RentalsController {
 
   }
 
+  /**
+   * Returns all rentals.
+   *
+   * @return List of all rentals.
+   */
   @GetMapping
   @ApiOperation(value = "Returns all rentals.")
   public ResponseEntity<List<Rentals>> getAllRentals() {
@@ -43,8 +51,15 @@ public class RentalsController {
     return ResponseEntity.status(HttpStatus.OK).body(rentals);
   }
 
+  /**
+   * Returns a rental by its ID.
+   *
+   * @param id The ID of the rental.
+   * @return The rental with the specified ID.
+   */
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns a rental by its ID.", notes = "If the rental is not found, a 404 error is returned.")
+  @ApiOperation(value = "Returns a rental by its ID.", 
+      notes = "If the rental is not found, a 404 error is returned.")
   public ResponseEntity<Rentals> getRentalById(@PathVariable Long id) {
     logger.info("Fetching rental with id: {}", id);
     Rentals rental = rentalsService.findById(id);
@@ -52,6 +67,12 @@ public class RentalsController {
     return ResponseEntity.status(HttpStatus.OK).body(rental);
   }
 
+  /**
+   * Creates a new rental.
+   *
+   * @param rental The rental to create.
+   * @return The created rental.
+   */
   @PostMapping
   @ApiOperation(value = "Creates a new rental.", notes = "The newly created rental is returned.")
   public ResponseEntity<Rentals> createRental(@RequestBody Rentals rental) {
@@ -61,9 +82,18 @@ public class RentalsController {
     return ResponseEntity.status(HttpStatus.CREATED).body(createdRental);
   }
 
+  /**
+   * Updates an existing rental.
+   *
+   * @param id The ID of the rental to update.
+   * @param rentalDetails The updated rental details.
+   * @return The updated rental.
+   */
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates a rental by its ID.", notes = "If the rental is not found, a 404 error is returned.")
-  public ResponseEntity<Rentals> updateRental(@PathVariable Long id, @RequestBody Rentals rentalDetails) {
+  @ApiOperation(value = "Updates a rental by its ID.", 
+      notes = "If the rental is not found, a 404 error is returned.")
+  public ResponseEntity<Rentals> updateRental(
+      @PathVariable Long id, @RequestBody Rentals rentalDetails) {
     logger.info("Updating rental with id: {}", id);
     Rentals rental = rentalsService.findById(id);
     rental.setStartDate(rentalDetails.getStartDate());
@@ -75,8 +105,15 @@ public class RentalsController {
     return ResponseEntity.status(HttpStatus.OK).body(updatedRental);
   }
 
+  /**
+   * Deletes a rental by its ID.
+   *
+   * @param id The ID of the rental to delete.
+   * @return Response entity with status NO_CONTENT.
+   */
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes a rental by its ID.", notes = "If the rental is not found, a 404 error is returned.")
+  @ApiOperation(value = "Deletes a rental by its ID.", 
+      notes = "If the rental is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteRental(@PathVariable Long id) {
     logger.info("Deleting rental with id: {}", id);
     rentalsService.deleteById(id);

@@ -33,6 +33,11 @@ public class CarsController {
     this.carsService = carsService;
   }
 
+  /**
+   * Returns all cars.
+   *
+   * @return List of all cars.
+   */
   @GetMapping
   @ApiOperation(value = "Returns all cars.")
   public ResponseEntity<List<Cars>> getAllCars() {
@@ -42,8 +47,15 @@ public class CarsController {
     return ResponseEntity.status(HttpStatus.OK).body(cars);
   }
 
+  /**
+   * Returns a car by its ID.
+   *
+   * @param id The ID of the car.
+   * @return The car with the specified ID.
+   */
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns a car by its ID.", notes = "If the car is not found, a 404 error is returned.")
+  @ApiOperation(value = "Returns a car by its ID.", 
+      notes = "If the car is not found, a 404 error is returned.")
   public ResponseEntity<Cars> getCarById(@PathVariable Long id) {
     logger.info("Fetching car with id: {}", id);
     Cars car = carsService.findById(id);
@@ -51,6 +63,12 @@ public class CarsController {
     return ResponseEntity.status(HttpStatus.OK).body(car);
   }
 
+  /**
+   * Creates a new car.
+   *
+   * @param car The car to create.
+   * @return The created car.
+   */
   @PostMapping
   @ApiOperation(value = "Creates a new car.", notes = "The newly created car is returned.")
   public ResponseEntity<Cars> createCar(@RequestBody Cars car) {
@@ -60,8 +78,16 @@ public class CarsController {
     return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
   }
 
+  /**
+   * Updates a car by its ID.
+   *
+   * @param id The ID of the car to update.
+   * @param carDetails The updated car details.
+   * @return The updated car.
+   */
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates a car by its ID.", notes = "If the car is not found, a 404 error is returned.")
+  @ApiOperation(value = "Updates a car by its ID.", 
+      notes = "If the car is not found, a 404 error is returned.")
   public ResponseEntity<Cars> updateCar(@PathVariable Long id, @RequestBody Cars carDetails) {
     logger.info("Updating car with id: {}", id);
     Cars car = carsService.findById(id);
@@ -82,8 +108,15 @@ public class CarsController {
     return ResponseEntity.status(HttpStatus.OK).body(updatedCar);
   }
 
+  /**
+   * Deletes a car by its ID.
+   *
+   * @param id The ID of the car to delete.
+   * @return ResponseEntity with status NO_CONTENT.
+   */
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes a car by its ID.", notes = "If the car is not found, a 404 error is returned.")
+  @ApiOperation(value = "Deletes a car by its ID.", 
+      notes = "If the car is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
     logger.info("Deleting car with id: {}", id);
     carsService.deleteById(id);

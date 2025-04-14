@@ -20,6 +20,9 @@ import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.models.ExtraFeatures;
 import no.ntnu.logic.service.ExtraFeaturesService;
 
+/**
+ * Controller for managing extra-feature-related operations.
+ */
 @RestController
 @RequestMapping("/extra-features")
 public class ExtraFeaturesController {
@@ -33,6 +36,11 @@ public class ExtraFeaturesController {
     this.extraFeaturesService = extraFeaturesService;
   }
 
+  /**
+   * Returns all extra-features.
+   *
+   * @return List of all extra features.
+   */
   @GetMapping
   @ApiOperation(value = "Returns all extra features.")
   public ResponseEntity<List<ExtraFeatures>> getAllExtraFeatures() {
@@ -42,8 +50,15 @@ public class ExtraFeaturesController {
     return ResponseEntity.status(HttpStatus.OK).body(extraFeatures);
   }
 
+  /**
+   * Returns an extra-feature by its ID.
+   *
+   * @param id The ID of the extra feature.
+   * @return The extra feature with the specified ID.
+   */
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
+  @ApiOperation(value = "Returns an extra feature by its ID.", 
+      notes = "If the extra feature is not found, a 404 error is returned.")
   public ResponseEntity<ExtraFeatures> getExtraFeatureById(@PathVariable Long id) {
     logger.info("Fetching extra feature with id: {}", id);
     ExtraFeatures extraFeature = extraFeaturesService.findById(id);
@@ -51,8 +66,15 @@ public class ExtraFeaturesController {
     return ResponseEntity.status(HttpStatus.OK).body(extraFeature);
   }
 
+  /**
+   * Creates a new extra-feature.
+   *
+   * @param extraFeature The extra feature to create.
+   * @return The created extra feature.
+   */
   @PostMapping
-  @ApiOperation(value = "Creates a new extra feature.", notes = "The newly created extra feature is returned.")
+  @ApiOperation(value = "Creates a new extra feature.", 
+      notes = "The newly created extra feature is returned.")
   public ResponseEntity<ExtraFeatures> createExtraFeature(@RequestBody ExtraFeatures extraFeature) {
     logger.info("Creating new extra feature");
     ExtraFeatures createdExtraFeature = extraFeaturesService.save(extraFeature);
@@ -60,9 +82,18 @@ public class ExtraFeaturesController {
     return ResponseEntity.status(HttpStatus.CREATED).body(createdExtraFeature);
   }
 
+  /**
+   * Updates an existing extra-feature.
+   *
+   * @param id The ID of the extra feature to update.
+   * @param extraFeatureDetails The updated details of the extra feature.
+   * @return The updated extra feature.
+   */
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
-  public ResponseEntity<ExtraFeatures> updateExtraFeature(@PathVariable Long id, @RequestBody ExtraFeatures extraFeatureDetails) {
+  @ApiOperation(value = "Updates an extra feature by its ID.", 
+      notes = "If the extra feature is not found, a 404 error is returned.")
+  public ResponseEntity<ExtraFeatures> updateExtraFeature(
+      @PathVariable Long id, @RequestBody ExtraFeatures extraFeatureDetails) {
     logger.info("Updating extra feature with id: {}", id);
     ExtraFeatures extraFeature = extraFeaturesService.findById(id);
     extraFeature.setName(extraFeatureDetails.getName());
@@ -73,8 +104,15 @@ public class ExtraFeaturesController {
     return ResponseEntity.status(HttpStatus.OK).body(updatedExtraFeature);
   }
 
+  /**
+   * Deletes an extra-feature by its ID.
+   *
+   * @param id The ID of the extra feature to delete.
+   * @return Response entity with status NO_CONTENT.
+   */
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes an extra feature by its ID.", notes = "If the extra feature is not found, a 404 error is returned.")
+  @ApiOperation(value = "Deletes an extra feature by its ID.", 
+      notes = "If the extra feature is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteExtraFeature(@PathVariable Long id) {
     logger.info("Deleting extra feature with id: {}", id);
     extraFeaturesService.deleteById(id);

@@ -20,11 +20,15 @@ import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.models.Admin;
 import no.ntnu.logic.service.AdminService;
 
+/**
+ * Controller for managing admin-related operations.
+ */
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
   private final AdminService adminService;
+
   private static final Logger logger = 
       LoggerFactory.getLogger(AdminController.class.getSimpleName());
 
@@ -33,6 +37,11 @@ public class AdminController {
     this.adminService = adminService;
   }
 
+  /**
+   * Returns all admins.
+   *
+   * @return List of all admins.
+   */
   @GetMapping
   @ApiOperation(value = "Returns all admins.")
   public ResponseEntity<List<Admin>> getAllAdmins() {
@@ -42,8 +51,15 @@ public class AdminController {
     return ResponseEntity.status(HttpStatus.OK).body(admins);
   }
 
+  /**
+   * Returns an admin by its ID.
+   *
+   * @param id The ID of the admin.
+   * @return The admin with the specified ID.
+   */
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns an admin by its ID.", notes = "If the admin is not found, a 404 error is returned.")
+  @ApiOperation(value = "Returns an admin by its ID.", 
+      notes = "If the admin is not found, a 404 error is returned.")
   public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
     logger.info("Fetching admin with id: {}", id);
     Admin admin = adminService.findById(id);
@@ -51,6 +67,12 @@ public class AdminController {
     return ResponseEntity.status(HttpStatus.OK).body(admin);
   }
 
+  /**
+   * Creates a new admin.
+   *
+   * @param admin The admin to create.
+   * @return The created admin.
+   */
   @PostMapping
   @ApiOperation(value = "Creates a new admin.", notes = "The newly created admin is returned.")
   public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
@@ -60,8 +82,16 @@ public class AdminController {
     return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
   }
 
+  /**
+   * Updates an existing admin by its ID.
+   *
+   * @param id The ID of the admin to update.
+   * @param adminDetails The details to update the admin with.
+   * @return The updated admin.
+   */
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates an admin by its ID.", notes = "If the admin is not found, a 404 error is returned.")
+  @ApiOperation(value = "Updates an admin by its ID.", 
+      notes = "If the admin is not found, a 404 error is returned.")
   public ResponseEntity<Admin> updateAdmin(@PathVariable Long id, @RequestBody Admin adminDetails) {
     logger.info("Updating admin with id: {}", id);
     Admin admin = adminService.findById(id);
@@ -73,8 +103,15 @@ public class AdminController {
     return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);
   }
 
+  /**
+   * Deletes an admin by its ID.
+   *
+   * @param id The ID of the admin to delete.
+   * @return A response entity with status NO_CONTENT.
+   */
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes an admin by its ID.", notes = "If the admin is not found, a 404 error is returned.")
+  @ApiOperation(value = "Deletes an admin by its ID.", 
+      notes = "If the admin is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
     logger.info("Deleting admin with id: {}", id);
     adminService.deleteById(id);

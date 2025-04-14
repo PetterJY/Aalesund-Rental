@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.AccountNotFoundException;
+import no.ntnu.entity.exceptions.RoleNotFoundException;
 import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.repository.AccountsRepository;
 
@@ -21,15 +22,25 @@ public class AccountsService {
 
   private final AccountsRepository accountsRepository;
 
+  private final AdminService adminsService;
+  private final UsersService usersService;
+  private final ProvidersService providersService;
+
   /**
    * Constructor for AccountsService.
    *
    * @param accountsRepository the repository for accounts
    */
   @Autowired
-  public AccountsService(AccountsRepository accountsRepository) {
+  public AccountsService(AccountsRepository accountsRepository, 
+                         AdminService adminsService,
+                         UsersService usersService,
+                         ProvidersService providersService) {
     logger.info("AccountsService initialized");
     this.accountsRepository = accountsRepository;
+    this.adminsService = adminsService;
+    this.usersService = usersService;
+    this.providersService = providersService;
   }
 
   /**
@@ -73,10 +84,25 @@ public class AccountsService {
    * @throws AccountNotFoundException if the account is not found
    */
   public void deleteById(Long id) throws AccountNotFoundException {
+    Accounts account = findById(id);
     logger.info("Deleting user with id: {}", id);
-    if (!accountsRepository.existsById(id)) {
-      throw new AccountNotFoundException("Account not found with id: " + id);
+    switch (account.getRole()) {
+      case "ADMIN":
+        logger.info("Deleting admin account with id: {}", id);
+        adminsService.deleteById(id);
+        break;
+      case "USER":
+        logger.info("Deleting user account with id: {}", id);
+        usersService.deleteById(id);
+        break;
+      case "Provider":
+        logger.info("Deleting provider account with id: {}", id);
+        providersService.deleteById(id);
+        break;
+      default:
+        logger.error("Account with id: {} has an unknown role: {}", id, account.getRole());
+        throw new RoleNotFoundException(
+          "Account with id: " + id + " has an unknown role: " + account.getRole());
     }
-    accountsRepository.deleteById(id);
   }
 }

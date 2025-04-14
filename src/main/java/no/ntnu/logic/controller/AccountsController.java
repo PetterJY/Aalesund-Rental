@@ -20,10 +20,15 @@ import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.service.AccountsService;
 
+/**
+ * Controller for managing accounts.
+ * This class provides endpoints for creating, updating, deleting, and retrieving accounts.
+ */
 @RestController
 @RequestMapping("/accounts")
 public class AccountsController {
   private final AccountsService accountsService;
+
   private static final Logger logger = 
       LoggerFactory.getLogger(AccountsController.class.getSimpleName());
 
@@ -32,6 +37,11 @@ public class AccountsController {
     this.accountsService = accountsService;
   }
 
+  /**
+   * Returns all accounts in the system.
+   *
+   * @return a list of all accounts
+   */
   @GetMapping
   @ApiOperation(value = "Returns all accounts.")
   public ResponseEntity<List<Accounts>> getAllAccounts() {
@@ -41,8 +51,16 @@ public class AccountsController {
     return ResponseEntity.status(HttpStatus.OK).body(accounts);
   }
 
+  /**
+   * Returns an account by its ID.
+   *
+   * @param id the ID of the account to find
+   * @return the found account
+   * @throws AccountNotFoundException if no account is found with the given ID
+   */
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns an account by its ID.", notes = "If the account is not found, a 404 error is returned.")
+  @ApiOperation(value = "Returns an account by its ID.", 
+      notes = "If the account is not found, a 404 error is returned.")
   public ResponseEntity<Accounts> getAccountById(@PathVariable Long id) {
     logger.info("Fetching account with id: {}", id);
     Accounts account = accountsService.findById(id);
@@ -50,6 +68,12 @@ public class AccountsController {
     return ResponseEntity.status(HttpStatus.OK).body(account);
   }
 
+  /**
+   * Creates a new account.
+   *
+   * @param account the account to create
+   * @return the created account
+   */
   @PostMapping
   @ApiOperation(value = "Creates a new account.", notes = "The newly created account is returned.")
   public ResponseEntity<Accounts> createAccount(@RequestBody Accounts account) {
@@ -59,9 +83,18 @@ public class AccountsController {
     return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
   }
 
+  /**
+   * Updates an account by its ID.
+   *
+   * @param id the ID of the account to update
+   * @param accountDetails the new details for the account
+   * @return the updated account
+   */
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates an account by its ID.", notes = "If the account is not found, a 404 error is returned.")
-  public ResponseEntity<Accounts> updateAccount(@PathVariable Long id, @RequestBody Accounts accountDetails) {
+  @ApiOperation(value = "Updates an account by its ID.", 
+      notes = "If the account is not found, a 404 error is returned.")
+  public ResponseEntity<Accounts> updateAccount(
+      @PathVariable Long id, @RequestBody Accounts accountDetails) {
     logger.info("Updating account with id: {}", id);
     Accounts account = accountsService.findById(id);
     account.setRole(accountDetails.getRole());
@@ -73,8 +106,16 @@ public class AccountsController {
     return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);
   }
 
+  /**
+   * Deletes an account by its ID.
+   * This method is not 'role-sensitive'.
+   *
+   * @param id the ID of the account to delete
+   * @return a response entity with status NO_CONTENT
+   */
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes an account by its ID.", notes = "If the account is not found, a 404 error is returned.")
+  @ApiOperation(value = "Deletes an account by its ID.", 
+      notes = "If the account is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteAccount(@PathVariable Long id) {
     logger.info("Deleting account with id: {}", id);
     accountsService.deleteById(id);

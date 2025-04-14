@@ -20,6 +20,9 @@ import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.service.ProvidersService;
 
+/**
+ * Controller for managing provider-related operations.
+ */
 @RestController
 @RequestMapping("/providers")
 public class ProvidersController {
@@ -33,6 +36,11 @@ public class ProvidersController {
     this.providersService = providersService;
   }
 
+  /**
+   * Returns all providers.
+   *
+   * @return List of all providers.
+   */
   @GetMapping
   @ApiOperation(value = "Returns all providers.")
   public ResponseEntity<List<Providers>> getAllProviders() {
@@ -42,8 +50,15 @@ public class ProvidersController {
     return ResponseEntity.status(HttpStatus.OK).body(providers);
   }
 
+  /**
+   * Returns a provider by its ID.
+   *
+   * @param id The ID of the provider.
+   * @return The provider with the specified ID.
+   */
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns a provider by its ID.", notes = "If the provider is not found, a 404 error is returned.")
+  @ApiOperation(value = "Returns a provider by its ID.", 
+      notes = "If the provider is not found, a 404 error is returned.")
   public ResponseEntity<Providers> getProviderById(@PathVariable Long id) {
     logger.info("Fetching provider with id: {}", id);
     Providers provider = providersService.findById(id);
@@ -51,8 +66,15 @@ public class ProvidersController {
     return ResponseEntity.status(HttpStatus.OK).body(provider);
   }
 
+  /**
+   * Creates a new provider.
+   *
+   * @param provider The provider to create.
+   * @return The created provider.
+   */
   @PostMapping
-  @ApiOperation(value = "Creates a new provider.", notes = "The newly created provider is returned.")
+  @ApiOperation(value = "Creates a new provider.", 
+      notes = "The newly created provider is returned.")
   public ResponseEntity<Providers> createProvider(@RequestBody Providers provider) {
     logger.info("Creating new provider");
     Providers createdProvider = providersService.save(provider);
@@ -60,9 +82,18 @@ public class ProvidersController {
     return ResponseEntity.status(HttpStatus.CREATED).body(createdProvider);
   }
 
+  /**
+   * Updates an existing provider.
+   *
+   * @param id The ID of the provider to update.
+   * @param providerDetails The updated provider details.
+   * @return The updated provider.
+   */
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates a provider by its ID.", notes = "If the provider is not found, a 404 error is returned.")
-  public ResponseEntity<Providers> updateProvider(@PathVariable Long id, @RequestBody Providers providerDetails) {
+  @ApiOperation(value = "Updates a provider by its ID.", 
+      notes = "If the provider is not found, a 404 error is returned.")
+  public ResponseEntity<Providers> updateProvider(
+      @PathVariable Long id, @RequestBody Providers providerDetails) {
     logger.info("Updating provider with id: {}", id);
     Providers provider = providersService.findById(id);
     provider.setCompanyName(providerDetails.getCompanyName());
@@ -74,8 +105,15 @@ public class ProvidersController {
     return ResponseEntity.status(HttpStatus.OK).body(updatedProvider);
   }
 
+  /**
+   * Deletes a provider by its ID.
+   *
+   * @param id The ID of the provider to delete.
+   * @return A response entity with no content.
+   */
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes a provider by its ID.", notes = "If the provider is not found, a 404 error is returned.")
+  @ApiOperation(value = "Deletes a provider by its ID.", 
+      notes = "If the provider is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteProvider(@PathVariable Long id) {
     logger.info("Deleting provider with id: {}", id);
     providersService.deleteById(id);

@@ -29,7 +29,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
      * - No special characters or non-ASCII characters
      */
     if (!validatePassword(data.password)) {
-      setErrorMessage("Must be at least 8 characters with letter and number, no special or non-ASCII characters.");
+      setErrorMessage("Password must be at least 8 characters with letter and number, no special or non-ASCII characters.");
       setShowErrorMessage(true);
       return;
     }

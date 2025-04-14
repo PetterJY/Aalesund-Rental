@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RegisterButton from '../Register/Register';
-import ForgotPassword from '../ForgotPassword/ForgotPassword'; // Import ForgotPassword component
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import '../../App.css';
 import '../LoginRegister.css';
 
@@ -12,7 +12,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   useEffect(() => {
     if (!isModalVisible) {
       setMode(defaultMode);
-      setShowErrorMessage(false); 
+      setShowErrorMessage(false);
       setErrorMessage("");
     }
   }, [isModalVisible, defaultMode]);

@@ -119,16 +119,19 @@ public class UsersController {
 
   /**
    * Deletes a user by its ID.
+   * If the user is not found, a 404 error is returned.
+   * This method is 'role-sensitive'.
+   * Only accounts with role 'USER' will be deleted.
    *
    * @param id The ID of the user.
    * @return A response indicating the deletion status.
    */
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes a user by its ID.", notes = "If the user is not found, a 404 error is returned.")
+  @ApiOperation(value = "Deletes a user by its ID.", 
+      notes = "If the user is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-    logger.info("Deleting user with id: {}", id);
     usersService.deleteById(id);
-    logger.debug("Deleted user with id: {}", id);
+    logger.info("Deleting user with id: {}", id);
     return ResponseEntity.noContent().build();
   }
 }
