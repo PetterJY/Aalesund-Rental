@@ -17,7 +17,7 @@ const OrdersCarDisplay = (car) => {
         <section class="rental-schedule-container">
 					<div class="rental-schedule-logos">
               <Warehouse size={32} class="pickup-logo" color="#000000" weight="fill" />
-							<div class="vertical-line"></div>
+							<div id="vertical-line"></div>
 							<Warehouse size={32} class="pickup-logo" color="#000000" weight="fill" />
 					</div>
 					<div class="rental-schedule-text">

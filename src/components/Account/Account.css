@@ -159,6 +159,8 @@
   * Styles for the orders car display section of "My Orders".
   */
 
+
+  
   .car-display-card {
     display: flex;
     flex-direction: row;
@@ -170,7 +172,7 @@
     border: #252422 2px solid;
   }
 
-  .car-background{
+  .car-display-card .car-background{
     width: 480px;
     border-radius: 15px;
     background: radial-gradient(50% 50% at 50% 50%, white, #252422);
@@ -182,19 +184,26 @@
     align-self: flex-start; 
   }
 
-  .car-image {
+  .car-display-card .car-image {
     width: 275px;
     height: auto;
     align-self: center;
   }
 
-  .car-image img {
+  .car-display-card .car-image img {
     width: fit-content;
     height: fit-content;
     border-radius: 5px;
   }
 
-  #provider-name {
+  .car-display-card #vertical-line {
+    width: 2px;
+    background-color: black;
+    height: 25%; /* Adjust the height as needed */
+    margin: 0em 1em; /* Optional: Add some margin to create space around the line */
+  }
+
+  .car-display-card #provider-name {
     font-size: 20px;
     color: #ffffff;
     margin-left: 10px;
@@ -202,30 +211,51 @@
     font-weight: 200;
   }
 
-  .car-details {
+  .car-display-card .car-details {
     display: flex;
     flex-direction: column;
     margin-left: 50px;
   }
 
-  .car-details h3 {
+  .car-display-card .car-details h3 {
     margin: 0;
     padding: 0;
     font-size: 20px;
     color: #252422;
   }
 
-  .car-details p {
+  .car-display-card .car-details p {
     margin: 3px 0;
     padding: 0;
     font-size: 16px;
     color: #252422;
   }
 
-  .rental-schedule-container {
+  .car-display-card .rental-schedule-container {
     border-bottom: transparent;
+    display: flex;
+    flex-direction: row;
   }
 
-  .rental-schedule-text {
+  .car-display-card .rental-schedule-logos {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+    margin-top: 0.5em;
+  }
+
+  .car-display-card .rental-schedule-text {
     margin: 5px 10px 5px 10px;
+  }
+
+  .car-display-card .pickup-info {
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+
+  .car-display-card .dropoff-info {
+    margin-bottom: 30px;
   }
