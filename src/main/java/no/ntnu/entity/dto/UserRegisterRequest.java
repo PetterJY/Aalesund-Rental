@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Email;
  * RegisterRequest is a data transfer object that represents the registration request from a user.
  * It contains the user's first name, last name, role, email, and password.
  */
-public class RegisterRequest {
+public class UserRegisterRequest {
 	@NotBlank(message = "First name is required")
 	@Size(min = 2, max = 30, message = "First name must be between 2 and 30 characters")
 	@ApiModelProperty("The first name of the user")
@@ -29,7 +29,7 @@ public class RegisterRequest {
   private String email;
 	
 	@NotBlank(message = "Password is required")
-	@Size(min = 6, max = 30, message = "Password must be between 6 and 30 characters")
+	@Size(min = 8, message = "Password must contain at least 8 characters")
 	@ApiModelProperty("The password of the user")
   private String password;
 

@@ -13,6 +13,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * Represents a rental entity in the system.
+ * This class is part of the entity layer and is used to map to the database.
+ * It contains fields for the rental's ID, renter, provider, car, start date,
+ * end date, pickup location, drop-off location, total cost, and status.
+ */
 @Entity
 public class Rentals {
   @Id

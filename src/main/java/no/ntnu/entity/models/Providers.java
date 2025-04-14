@@ -9,6 +9,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 
+/**
+ * Represents a provider entity in the system.
+ * This class is part of the entity layer and is used to map to the database.
+ * It contains fields for the provider's ID, email, company name, and associated account.
+ */
 @Entity
 public class Providers {
   @Id

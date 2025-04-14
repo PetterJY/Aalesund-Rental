@@ -15,6 +15,13 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * Represents a car entity in the system.
+ * This class is part of the entity layer and is used to map to the database.
+ * It contains fields for the car's ID, provider, plate number, brand, model name,
+ * type, price per day, production year, number of passengers, automatic transmission,
+ * energy source, availability status, and extra features.
+ */
 @Entity
 public class Cars {
   @Id

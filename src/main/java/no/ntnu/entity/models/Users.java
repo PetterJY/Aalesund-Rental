@@ -11,6 +11,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 
+/**
+ * Represents a user entity in the system.
+ * This class is part of the entity layer and is used to map to the database.
+ * It contains fields for the user's ID, first name, last name, email, and associated account.
+ */
 @Entity
 public class Users {
   @Id

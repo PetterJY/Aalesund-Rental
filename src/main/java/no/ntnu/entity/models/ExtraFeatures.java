@@ -10,6 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
+/**
+ * Represents an extra feature entity in the system.
+ * This class is part of the entity layer and is used to map to the database.
+ * It contains fields for the extra feature's ID, name, description, and associated cars.
+ */
 @Entity
 public class ExtraFeatures {
   @Id

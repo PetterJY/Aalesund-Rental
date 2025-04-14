@@ -38,7 +38,12 @@ public class SecurityConfig {
     logger.info("Configuring security filter chain.");
     http.csrf(csrfCustomizer -> csrfCustomizer.disable())
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/auth/login", "/users/**", "/accounts/**").permitAll()
+            .requestMatchers(
+              "/auth/login", 
+              "/users/**", "/accounts/**", 
+              "/admins/**", 
+              "/providers/**"
+              ).permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     logger.info("Security filter chain configured successfully.");

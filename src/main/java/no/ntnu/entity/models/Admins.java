@@ -9,8 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 
+/**
+ * Represents an admin entity in the system.
+ * This class is part of the entity layer and is used to map to the database.
+ * It contains fields for the admin's ID, name, and associated account.
+ */
 @Entity
-public class Admin {
+public class Admins {
   @Id
   @ApiModelProperty("The ID of the admin")
   private Long id;

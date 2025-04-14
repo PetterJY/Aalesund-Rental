@@ -1,6 +1,8 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.AdminNotFoundException;
-import no.ntnu.entity.models.Admin;
+import no.ntnu.entity.models.Admins;
+import no.ntnu.entity.models.Users;
 import no.ntnu.logic.repository.AdminRepository;
 
 /**
@@ -37,9 +40,12 @@ public class AdminService {
    *
    * @return a list of all admins
    */
-  public List<Admin> findAll() {
+  public List<Admins> findAll() {
     logger.info("Fetching all admins");
-    return (List<Admin>) adminRepository.findAll();
+    List<Admins> admins = StreamSupport.stream(adminRepository.findAll().spliterator(), false)
+        .filter(user -> user.getAccount().getRole().equals("ADMIN"))
+        .collect(Collectors.toList());
+    return admins;
   }
 
   /**
@@ -49,7 +55,7 @@ public class AdminService {
    * @return the admin with the given ID
    * @throws AdminNotFoundException if the admin is not found
    */
-  public Admin findById(Long id) throws AdminNotFoundException {
+  public Admins findById(Long id) throws AdminNotFoundException {
     logger.info("Fetching admin with id: {}", id);
     return adminRepository.findById(id)
       .orElseThrow(() -> new AdminNotFoundException("Admin not found with id: " + id));
@@ -61,7 +67,7 @@ public class AdminService {
    * @param admin the admin to save
    * @return the saved admin
    */
-  public Admin save(Admin admin) {
+  public Admins save(Admins admin) {
     logger.info("Saving admin with id: {}", admin.getId());
     return adminRepository.save(admin);
   }

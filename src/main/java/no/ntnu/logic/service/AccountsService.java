@@ -1,6 +1,8 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import no.ntnu.entity.exceptions.AccountNotFoundException;
 import no.ntnu.entity.exceptions.RoleNotFoundException;
 import no.ntnu.entity.models.Accounts;
+import no.ntnu.entity.models.Users;
 import no.ntnu.logic.repository.AccountsRepository;
 
 /**
@@ -50,7 +53,10 @@ public class AccountsService {
    */
   public List<Accounts> findAll() {
     logger.info("Fetching all accounts");
-    return (List<Accounts>) accountsRepository.findAll();
+    List<Accounts> accounts = StreamSupport.stream(
+        accountsRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
+    return accounts;
   }
 
   /**

@@ -2,7 +2,7 @@ package no.ntnu.logic.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import no.ntnu.entity.models.Admin;
+import no.ntnu.entity.models.Admins;
 
-public interface AdminRepository extends CrudRepository<Admin, Long> {
+public interface AdminRepository extends CrudRepository<Admins, Long> {
 }

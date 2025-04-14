@@ -1,5 +1,9 @@
 package no.ntnu.logic.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +40,14 @@ public class UsersService implements UserDetailsService {
   /**
    * Returns all users in the system.
    *
-   * @return an iterable collection of all users
+   * @return a list of all users
    */
-  public Iterable<Users> findAll() {
+  public List<Users> findAll() {
     logger.info("Fetching all users");
-    return usersRepository.findAll();
+    List<Users> users = StreamSupport.stream(usersRepository.findAll().spliterator(), false)
+        .filter(user -> user.getAccount().getRole().equals("USER"))
+        .collect(Collectors.toList());
+    return users;
   }
 
   /**

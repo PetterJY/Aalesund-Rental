@@ -17,23 +17,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.models.Admin;
+import no.ntnu.entity.dto.AdminRegisterRequest;
+import no.ntnu.entity.models.Accounts;
+import no.ntnu.entity.models.Admins;
 import no.ntnu.logic.service.AdminService;
 
 /**
  * Controller for managing admin-related operations.
  */
 @RestController
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/admins")
+public class AdminsController {
 
   private final AdminService adminService;
 
   private static final Logger logger = 
-      LoggerFactory.getLogger(AdminController.class.getSimpleName());
+      LoggerFactory.getLogger(AdminsController.class.getSimpleName());
 
   @Autowired
-  public AdminController(AdminService adminService) {
+  public AdminsController(AdminService adminService) {
     this.adminService = adminService;
   }
 
@@ -44,9 +46,9 @@ public class AdminController {
    */
   @GetMapping
   @ApiOperation(value = "Returns all admins.")
-  public ResponseEntity<List<Admin>> getAllAdmins() {
+  public ResponseEntity<List<Admins>> getAllAdmins() {
     logger.info("Fetching all admins");
-    List<Admin> admins = adminService.findAll();
+    List<Admins> admins = adminService.findAll();
     logger.debug("Fetched {} admins", admins.size());
     return ResponseEntity.status(HttpStatus.OK).body(admins);
   }
@@ -60,9 +62,9 @@ public class AdminController {
   @GetMapping("/{id}")
   @ApiOperation(value = "Returns an admin by its ID.", 
       notes = "If the admin is not found, a 404 error is returned.")
-  public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
+  public ResponseEntity<Admins> getAdminById(@PathVariable Long id) {
     logger.info("Fetching admin with id: {}", id);
-    Admin admin = adminService.findById(id);
+    Admins admin = adminService.findById(id);
     logger.debug("Fetched admin: {}", admin);
     return ResponseEntity.status(HttpStatus.OK).body(admin);
   }
@@ -70,14 +72,24 @@ public class AdminController {
   /**
    * Creates a new admin.
    *
-   * @param admin The admin to create.
+   * @param adminRegisterRequest The request body containing admin details.
    * @return The created admin.
    */
   @PostMapping
   @ApiOperation(value = "Creates a new admin.", notes = "The newly created admin is returned.")
-  public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+  public ResponseEntity<Admins> createAdmin(
+      @RequestBody AdminRegisterRequest adminRegisterRequest) {
+    Admins admin = new Admins();
+    admin.setName(adminRegisterRequest.getName());
+    
+    Accounts account = new Accounts();
+    account.setPassword(adminRegisterRequest.getPassword());
+    account.setRole(adminRegisterRequest.getRole());
+
+    admin.setAccount(account);
+
     logger.info("Creating new admin");
-    Admin createdAdmin = adminService.save(admin);
+    Admins createdAdmin = adminService.save(admin);
     logger.debug("Created admin: {}", createdAdmin);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
   }
@@ -92,13 +104,14 @@ public class AdminController {
   @PutMapping("/{id}")
   @ApiOperation(value = "Updates an admin by its ID.", 
       notes = "If the admin is not found, a 404 error is returned.")
-  public ResponseEntity<Admin> updateAdmin(@PathVariable Long id, @RequestBody Admin adminDetails) {
+  public ResponseEntity<Admins> updateAdmin(
+      @PathVariable Long id, @RequestBody Admins adminDetails) {
     logger.info("Updating admin with id: {}", id);
-    Admin admin = adminService.findById(id);
+    Admins admin = adminService.findById(id);
     admin.setName(adminDetails.getName());
     admin.setAccount(adminDetails.getAccount());
     // TODO: Add validation for details && handle exceptions
-    Admin updatedAdmin = adminService.save(admin);
+    Admins updatedAdmin = adminService.save(admin);
     logger.debug("Updated admin: {}", updatedAdmin);
     return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);
   }

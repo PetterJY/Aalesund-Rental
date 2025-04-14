@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.dto.RegisterRequest;
+import no.ntnu.entity.dto.UserRegisterRequest;
 import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.UsersService;
@@ -47,7 +47,7 @@ public class UsersController {
   @ApiOperation(value = "Returns all users.")
   public ResponseEntity<List<Users>> findAll() {
     logger.info("Fetching all users");
-    List<Users> users = (List<Users>) usersService.findAll();
+    List<Users> users =  usersService.findAll();
     logger.debug("Fetched {} users", users.size());
     return ResponseEntity.ok(users);
   }
@@ -72,12 +72,12 @@ public class UsersController {
   /**
    * Creates a new user.
    *
-   * @param registerRequest The registration details.
+   * @param registerRequest The user registration details.
    * @return The newly created user.
    */
   @PostMapping("/register")
   @ApiOperation(value = "Creates a new user.", notes = "The newly created user is returned.")
-  public ResponseEntity<Users> register(@RequestBody RegisterRequest registerRequest) {
+  public ResponseEntity<Users> register(@RequestBody UserRegisterRequest registerRequest) {
     Users user = new Users();
     user.setFirstName(registerRequest.getFirstName());
     user.setLastName(registerRequest.getLastName());

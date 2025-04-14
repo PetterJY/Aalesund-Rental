@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import no.ntnu.entity.dto.ProviderRegisterRequest;
+import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.service.ProvidersService;
 
@@ -69,13 +71,24 @@ public class ProvidersController {
   /**
    * Creates a new provider.
    *
-   * @param provider The provider to create.
+   * @param providerRegisterRequest The provider registration request.
    * @return The created provider.
    */
   @PostMapping
   @ApiOperation(value = "Creates a new provider.", 
       notes = "The newly created provider is returned.")
-  public ResponseEntity<Providers> createProvider(@RequestBody Providers provider) {
+  public ResponseEntity<Providers> createProvider(
+      @RequestBody ProviderRegisterRequest providerRegisterRequest) {
+    Providers provider = new Providers();
+    provider.setCompanyName(providerRegisterRequest.getCompanyName());
+    provider.setEmail(providerRegisterRequest.getEmail());
+
+    Accounts account = new Accounts();
+    account.setPassword(providerRegisterRequest.getPassword());
+    account.setRole(providerRegisterRequest.getRole());
+
+    provider.setAccount(account);
+
     logger.info("Creating new provider");
     Providers createdProvider = providersService.save(provider);
     logger.debug("Created provider: {}", createdProvider);

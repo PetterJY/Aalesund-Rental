@@ -5,6 +5,11 @@ import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.*;
 
+/**
+ * Represents an account entity in the system.
+ * This class is part of the entity layer and is used to map to the database.
+ * It contains fields for the account's ID, role, password, and creation time.
+ */
 @Entity
 public class Accounts {
   @Id

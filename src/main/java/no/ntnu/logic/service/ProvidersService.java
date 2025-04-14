@@ -1,6 +1,8 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.ProviderNotFoundException;
 import no.ntnu.entity.models.Providers;
+import no.ntnu.entity.models.Users;
 import no.ntnu.logic.repository.ProvidersRepository;
 
 /**
@@ -39,7 +42,11 @@ public class ProvidersService {
    */
   public List<Providers> findAll() {
     logger.info("Fetching all providers");
-    return (List<Providers>) providersRepository.findAll();
+    List<Providers> providers = StreamSupport.stream(
+        providersRepository.findAll().spliterator(), false)
+        .filter(user -> user.getAccount().getRole().equals("PROVIDER"))
+        .collect(Collectors.toList());
+    return providers;
   }
 
   /**
