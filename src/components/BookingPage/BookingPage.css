@@ -87,7 +87,7 @@ body {
 .booking-page form input, 
 .booking-page form select, 
 .booking-page form textarea {
-  background-color: #FFFCF2;
+  background-color: #ffffff;
   border: none;
   border-bottom: 2px solid #FF5F00;
   margin-bottom: 15px;
@@ -104,7 +104,7 @@ body {
 .booking-page input:-webkit-autofill:hover,
 .booking-page input:-webkit-autofill:focus,
 .booking-page input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #FFFCF2 inset !important; /* Forces the background to white */
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important; /* Forces the background to white */
     background-color: white !important; /* Explicitly sets the background */
     -webkit-text-fill-color: black !important; /* Ensures text color isn't overridden */
 }
@@ -125,6 +125,9 @@ body {
 }
 
 /* Car Information Styles */
+.booking-page p {
+  color: #252422;
+}
 
 .booking-page .car-information-form {
   display: flex;
@@ -145,6 +148,10 @@ body {
   grid-row: 1;
   color: #252422;
   padding-left: 10px;
+}
+
+.booking-page .car-rental-details h2 {
+  line-height: 25px;
 }
 
 .booking-page .rental-schedule-container {
