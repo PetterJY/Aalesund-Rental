@@ -54,6 +54,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
+    margin-left: 90px;
   }
 
   .account-section h1 {
@@ -90,12 +91,12 @@
 .account-section .save-button {
     background-color: #EB5E28;
     color: white;
-    padding: 5px 10px;
     border-radius: 25px;
     border: none;
     cursor: pointer;
-    max-width: 100px;
-    margin: 10px 0;
+    max-width: 1000px;
+    margin: 15px 0;
+    align-self: start;
   }
 
   .save-button:hover {
@@ -107,7 +108,7 @@
     flex-direction: row;
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin-left: -10px;
   }
   .bottom-button {
     background-color: transparent;
@@ -247,12 +248,12 @@
   }
 
   .car-display-card .rental-schedule-text {
-    margin: 5px 10px 5px 10px;
+    margin: 5px 5px 5px 5px;
   }
 
   .car-display-card .pickup-info {
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .car-display-card .dropoff-info {
