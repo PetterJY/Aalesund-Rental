@@ -96,13 +96,13 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
           <div className="modal-content" onMouseDown={(e) => e.stopPropagation()}>
             <h2 className="title">Create Account</h2>
             <form id="wrapper">
-              <input id="email-field" type="text" placeholder="E-mail" required />
+              <input className="email-field" type="text" placeholder="E-mail" required />
               <div id="name-wrapper">
                 <input id="first-name-field" type="text" placeholder="First Name" required />
                 <input id="last-name-field" type="text" placeholder="Last Name" required />
               </div>
               <div id="password-wrapper">
-                <input id="password-field" type="password" placeholder="Password" required />
+                <input className="password-field" type="password" placeholder="Password" required />
                 <input id="confirm-password-field" type="password" placeholder="Confirm Password" required />
               </div>
               {showErrorMessage && (

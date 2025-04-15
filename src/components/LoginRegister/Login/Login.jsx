@@ -74,8 +74,8 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
               <>
                 <h2 className="title">Login</h2>
                 <form onSubmit={handleLogin}>
-                  <input id="email-field" type="text" placeholder="E-mail" required />
-                  <input id="password-field" type="password" placeholder="Password" required />
+                  <input className="email-field" type="text" placeholder="E-mail" required />
+                  <input className="password-field" type="password" placeholder="Password" required />
                   {showErrorMessage && (
                     <p className="error-message" id="register-error-message">
                       {errorMessage}

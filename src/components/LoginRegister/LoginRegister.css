@@ -31,12 +31,14 @@
   cursor: pointer;
   font-size: 20px;
   width: 100%;
+  margin: 0.5em 0;
 }
 
 #register-forgot-wrapper {
   display: flex;
   flex-direction: column;
   float: left;
+  gap: 1em;
 }
 
 .toggle-login-register-button, .forgot-password-button {
@@ -59,19 +61,22 @@
   background-color: #eb5f28c9;
 }
 
-#email-field, #first-name-field, #last-name-field, #password-field, #confirm-password-field {
+.email-field, #first-name-field, #last-name-field, .password-field, #confirm-password-field {
   background-color: white;
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  border: none;
   border-bottom: gray solid 2px;
 }
 
-#email-field:focus, #first-name-field:focus, #last-name-field:focus, #password-field:focus, #confirm-password-field:focus {
+.email-field:focus, #first-name-field:focus, #last-name-field:focus, .password-field:focus, #confirm-password-field:focus {
+  outline: none;
   background-color: white;
   border-bottom: #FF5F00 solid 2px;
 }
+
 
 .title {
   font-size: 1.5em;

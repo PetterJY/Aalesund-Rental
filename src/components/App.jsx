@@ -18,6 +18,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path={"home"} element={<HomeExample />} />
     <Route path={"rental"} element={<RentalPageExample />} />
     <Route path={"booking"} element={<BookingPageExample />} />
+    <Route path={"account"} element={<Navigate to={"/account/account"} replace />} /> 
     <Route path={"account/account"} element={<AccountExample />} />
     <Route path={"account/orders"} element={<OrdersExample />} />
   </Route>
