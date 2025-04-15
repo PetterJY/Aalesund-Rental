@@ -1,4 +1,3 @@
-
 :root {
   --center-container-width: 87vw;
   --center-element-width: calc(var(--center-container-width) / 3.3);
@@ -15,7 +14,7 @@ html, body {
   z-index: 1;
   min-height: 100vh;
   padding-top: 30px;
-  background-image: url(../../resources/images/HeroSection/van-nature.jpg);
+  background-image: url(../../../resources/images/HeroSection/van-nature.jpg);
   background-size: 2560px auto;
   background-attachment: fixed; /* Prevents zooming when scrolling */
   background-position: center; /* Align to top */
@@ -54,7 +53,7 @@ html, body {
 .intermediary-1 {
   height: 1000px;
   background-image:
-          url("../../resources/images/HeroSection/scenic/scenic-ride-forest.jpg");
+          url("../../../resources/images/HeroSection/scenic/scenic-ride-forest.jpg");
   background-size: 2560px auto;
   background-attachment: fixed; /* Prevents zooming when scrolling */
   background-position: center; /* Align to top */
@@ -64,7 +63,7 @@ html, body {
 .intermediary-2 {
   height: 750px;
   background-image:
-          url("../../resources/images/HeroSection/scenic/scenic-ride-winter.jpg");
+          url("../../../resources/images/HeroSection/scenic/scenic-ride-winter.jpg");
   background-size: 2560px auto;
   background-attachment: fixed; /* Prevents zooming when scrolling */
   background-position: center; /* Align to top */

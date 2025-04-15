@@ -1,12 +1,12 @@
 // src/pages/Home/Home.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BookingForm from '../../components/BookingForm/BookingForm';
+import BookingForm from '../../BookingForm/BookingForm';
+import Testimonials from "../Testimonials/Testimonials";
+import Reputation from "../Reputation/Reputation";
+import FeaturedCars from "../FeaturedCars/FeaturedCars";
+import CallToAction from "../CallToAction/CallToAction";
 import './Home.css';
-import Testimonials from "./Testimonials";
-import Reputation from "./Reputation";
-import FeaturedCars from "./FeaturedCars";
-import CallToAction from "./CallToAction";
 
 
 const Home = () => {

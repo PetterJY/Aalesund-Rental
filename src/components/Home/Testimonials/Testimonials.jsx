@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import testimonialPersonImg from '../../resources/images/testimonialPerson.png';
+import testimonialPersonImg from '../../../resources/images/testimonialPerson.png';
 import { CaretLeft, CaretRight, Quotes } from '@phosphor-icons/react';
 import './Testimonials.css'
-
 
 const Testimonials = () => {
   const [cardOrder, setCardOrder] = useState([0, 1, 2, 3, 4]);

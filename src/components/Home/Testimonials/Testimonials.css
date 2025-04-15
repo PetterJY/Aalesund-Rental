@@ -142,7 +142,7 @@
   height: auto;
   min-height: 350px;
   width: 275px;
-  background-image: url("../../resources/images/testimonial-wave.webp");
+  background-image: url("../../../resources/images/testimonial-wave.webp");
   background-repeat: no-repeat;
   background-color: #F4F4F9;
   background-blend-mode: luminosity; /* Or 'multiply', 'screen', etc. */

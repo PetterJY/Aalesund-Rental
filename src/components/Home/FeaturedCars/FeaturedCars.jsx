@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import './FeaturedCars.css'
-import VWgolf from '../../resources/images/cars/VWgolf.png'
-import TeslaModel3 from '../../resources/images/cars/TeslaModel3.webp'
-import TeslaModelY from '../../resources/images/cars/TeslaModelY.png'
-import BMWm3 from '../../resources/images/cars/BMWm3.png'
-import Peugot3008 from '../../resources/images/cars/Peugot3008.png'
-import VWtransporter from '../../resources/images/cars/VWtransporter.png'
+import VWgolf from '../../../resources/images/cars/VWgolf.png'
+import TeslaModel3 from '../../../resources/images/cars/TeslaModel3.webp'
+import TeslaModelY from '../../../resources/images/cars/TeslaModelY.png'
+import BMWm3 from '../../../resources/images/cars/BMWm3.png'
+import Peugot3008 from '../../../resources/images/cars/Peugot3008.png'
+import VWtransporter from '../../../resources/images/cars/VWtransporter.png'
 
 
 const FeaturedCars = () => {

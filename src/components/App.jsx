@@ -8,7 +8,7 @@ import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Account from './Account/Account/Account';
 import Orders from './Account/Orders/Orders';
-import Home from './Home/Home';
+import Home from './Home/Home/Home';
 import RentalPage from './RentalPage/RentalPage';
 import carImage from '../resources/images/car.png';
 
