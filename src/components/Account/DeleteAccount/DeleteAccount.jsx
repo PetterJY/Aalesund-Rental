@@ -4,43 +4,66 @@ import './DeleteAccount.css';
 import '../../App.css';
 
 const DeleteAccount = ({ closeModal, isModalVisible }) => {
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   function deleteAccount(event) {
     event.preventDefault();
-
+  
     const data = retrieveData();
-
-    if (document.getElementById('verify-field').value === 'delete') {
-      fetch('http://localhost:8080/auth/verify-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data.password),
-      })
-        .then((response) => {
-          if (response.ok) { 
-            console.log("Password has been verified.");
-
-            fetch('http://localhost:8080/users/email', {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(data.email),
-            })
-      
-            alert('Account deleted successfully!');
-            return response.json(); 
-          } else {
-            alert("The password you specified is not correct.");
-            throw new Error('Password verification failed');
-          }
-        })
-   
-      closeModal();
-    } else {
-      alert('Please try again, something went wrong.');
+  
+    // Check if the verification-keyword matches
+    if (document.getElementById('verify-field').value !== 'delete') {
+      console.log("Verification keyword does not match.");
+      setErrorMessage("Verification keyword does not match.");
+      setShowErrorMessage(true);
+      return; // Exit early if the verification keyword is incorrect
     }
+  
+    // Verify the password
+    fetch('http://localhost:8080/auth/verify-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data.password),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.log("Error verifying password.");
+          setErrorMessage("Password doesn't match.");
+          setShowErrorMessage(true);
+          return; // Exit early if the password verification fails
+        }
+  
+        console.log("Password has been verified.");
+  
+        // Proceed to delete the account
+        return fetch('http://localhost:8080/users/email', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data.email),
+        });
+      })
+      .then((response) => {
+        if (!response || !response.ok) {
+          console.log("Email not found.");
+          setErrorMessage("Email not found.");
+          setShowErrorMessage(true);
+          return; // Exit early if the email deletion fails
+        }
+  
+        console.log("Account has been deleted.");
+        closeModal();
+        return response.json();
+      })
+      .catch((error) => {
+        console.error("An error occurred:", error);
+        setErrorMessage("An unexpected error occurred.");
+        setShowErrorMessage(true);
+      });
   }
 
   function retrieveData() {
@@ -70,6 +93,11 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
               <input id='password-field' className='password-field' type='text' required />
               <label htmlFor='verify-field'>Type <i id='verification-keyword'>delete</i> to confirm</label>
               <input id='verify-field' type='text' required />
+              {showErrorMessage && (
+                <p className="error-message">
+                  {errorMessage}
+                </p>
+              )}
               <button className='submit-button' type='submit'>Delete Account</button>
               <button className='cancel-button' type='button' onClick={closeModal}>Cancel</button>
             </form>
