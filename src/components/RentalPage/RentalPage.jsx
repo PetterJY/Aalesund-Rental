@@ -14,7 +14,6 @@ export default function RentalPage(props) {
   const toggleDropdown = (category) =>
     setOpenDropdown(openDropdown === category ? null : category);
 
-  // (Dummy filter render functions remain unchanged)
   const renderCheckboxes = (category, options) => (
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
@@ -158,7 +157,7 @@ export default function RentalPage(props) {
   return (
     <div className="rental-page">
       <section className="main-section">
-        <div>
+        <div className ="rental-page">
           <nav className="sort-bar">
             {renderDropdown("sort", "Sort", filterOptions.sort)}
             {renderDropdown("carType", "Car Type", filterOptions.carType)}

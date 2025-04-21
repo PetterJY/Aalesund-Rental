@@ -6,6 +6,7 @@ import logo from '../../resources/images/logo.png';
 import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../BookingForm/BookingForm';
 import './Header.css';
+import '../App.css';
 
 const Header = () => {
   const showMenu = useLocation().pathname === "/rental";
@@ -123,13 +124,12 @@ const Header = () => {
 
         <nav className="nav-bar">
           <LoginButton
-            showModal={showModal}
             closeModal={closeModal}
             isModalVisible={isModalVisible}
             defaultMode="login"
           />
           <button id="login-create" onClick={showModal}>
-            <User size={24} className="user-icon" />
+            <User size={24} className="user-icon"/>
             <span className="login-register-text">Login | Register</span>
           </button>
         </nav>

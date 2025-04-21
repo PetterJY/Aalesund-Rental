@@ -1,0 +1,118 @@
+/* DeleteAccount.css */
+
+/* Modal overlay (same as .modal in LoginRegister.css) */
+.modal {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000000; /* Increased from 1 to ensure it appears above other elements */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal content (same as .modal-content in LoginRegister.css) */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  text-align: center; /* Center text for consistency */
+}
+
+/* Title (same as .title in LoginRegister.css) */
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+/* Warning section */
+.warning-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1em;
+}
+
+.warning-section h3 {
+  font-size: 1.2em;
+  color: #252422;
+}
+
+/* Paragraph text */
+.modal-content p {
+  font-size: 16px;
+  color: #252422;
+  margin: 0.5em 0;
+}
+
+/* Form inputs (same as .email-field, .password-field in LoginRegister.css) */
+.email-field,
+.password-field,
+#verify-field {
+  background-color: white;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: gray solid 2px;
+}
+
+.email-field:focus,
+.password-field:focus,
+#verify-field:focus {
+  outline: none;
+  background-color: white;
+  border-bottom: #FF5F00 solid 2px;
+}
+
+#verification-keyword {
+  color: #FF5F00;
+  font-weight: bold;
+}
+
+/* Submit button (same as #submit-button in LoginRegister.css) */
+.submit-button {
+  padding: 20px;
+  background-color: #FF5F00;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+.submit-button:hover {
+  background-color: #eb5f28c9;
+}
+
+/* Cancel button (styled like .toggle-login-register-button in LoginRegister.css) */
+.cancel-button {
+  font-size: 20px;
+  border-radius: 15px;
+  background-color: transparent;
+  color: #252422;
+  border: none;
+  width: auto;
+  height: fit-content;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+.cancel-button:hover {
+  text-decoration: underline;
+  color: #FF5F00;
+  background-color: transparent;
+}

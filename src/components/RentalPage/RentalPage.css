@@ -173,7 +173,6 @@
     overflow-y: auto;
   }
 
-
   .rental-page .checkbox-group {
     display: flex;
     flex-direction: row; /* Change to row to align checkboxes horizontally */
@@ -205,12 +204,10 @@
   
 }
 
-
 .rental-page .checkbox-group {
   display: flex;
   flex-direction: column;
 }
-
 
 .rental-page .checkbox-label {
   display: flex;
@@ -260,7 +257,6 @@ border-radius: 0%;
   border-bottom: white 1px solid;
   border-radius: 5px;
 }
-
 
 /* Adjustments for mobile filter panel */
 .rental-page .filter-panel .filter-group {
