@@ -1,7 +1,7 @@
 // src/pages/Home/Home.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BookingForm from '../../BookingForm/BookingForm';
+import BookingForm from '../BookingForm/BookingForm';
 import Testimonials from "../Testimonials/Testimonials";
 import Reputation from "../Reputation/Reputation";
 import FeaturedCars from "../FeaturedCars/FeaturedCars";

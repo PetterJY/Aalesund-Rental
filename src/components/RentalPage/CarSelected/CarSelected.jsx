@@ -1,4 +1,4 @@
-import '../App.css';
+import '../../App.css';
 import './CarSelected.css';
 import { Car, Seatbelt, PlusCircle, Calendar, CaretDown } from "@phosphor-icons/react";
 

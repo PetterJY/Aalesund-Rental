@@ -1,8 +1,8 @@
-import "../App.css";
+import "../../App.css";
 import "./CarDisplay.css";
 import React, { useState } from "react";
-import carImage from "../../resources/images/car.png"; 
-import passengerImage from "../../resources/images/passenger.png";
+import carImage from "../../../resources/images/car.png"; 
+import passengerImage from "../../../resources/images/passenger.png";
 import { Car, Seatbelt, PlusCircle } from "@phosphor-icons/react";
 
 const CarDisplay = (props) => {

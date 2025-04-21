@@ -4,7 +4,7 @@ import { User, X, PencilSimple } from '@phosphor-icons/react';
 import { format } from 'date-fns';
 import logo from '../../resources/images/logo.png';
 import LoginButton from '../LoginRegister/Login/Login';
-import BookingForm from '../BookingForm/BookingForm';
+import BookingForm from '../Home/BookingForm/BookingForm';
 import './Header.css';
 import '../App.css';
 
