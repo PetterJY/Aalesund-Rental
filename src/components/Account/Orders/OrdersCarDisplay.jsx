@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css';
-import '../Account/Account.css';
+import '../Account.css';
 import { Warehouse} from "@phosphor-icons/react";
 
 

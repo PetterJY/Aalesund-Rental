@@ -1,5 +1,5 @@
 import '../../App.css';
-import '../Account/Account.css';
+import '../Account.css';
 import OrdersCarDisplay from './OrdersCarDisplay'; 
 
 const Orders = ({ orders = [] }) => { 

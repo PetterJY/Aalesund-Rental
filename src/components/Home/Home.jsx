@@ -1,18 +1,17 @@
 // src/pages/Home/Home.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BookingForm from '../BookingForm/BookingForm';
-import Testimonials from "../Testimonials/Testimonials";
-import Reputation from "../Reputation/Reputation";
-import FeaturedCars from "../FeaturedCars/FeaturedCars";
-import CallToAction from "../CallToAction/CallToAction";
+import BookingForm from './BookingForm/BookingForm';
+import Testimonials from "./Testimonials/Testimonials";
+import Reputation from "./Reputation/Reputation";
+import FeaturedCars from "./FeaturedCars/FeaturedCars";
+import CallToAction from "./CallToAction/CallToAction";
 import './Home.css';
 
 
 const Home = () => {
   const navigate = useNavigate();
   const [mobileDisplaySize, setMobileDisplaySize] = useState(false);
-
 
   useEffect(() => {
     const handleWindowResize = () => {

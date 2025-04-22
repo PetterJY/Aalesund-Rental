@@ -4,7 +4,7 @@ import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import '../../App.css';
 import '../LoginRegister.css';
 
-const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
+const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,13 +36,14 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("User has been logged in.");
           return response.json(); 
         }
       })
       .then((data) => { 
-        const token = data.jwt; 
+        const token = data.jwt;
         localStorage.setItem('jwt', token); 
+        setIsLoggedIn(true);
+        console.log("isLoggedIn: " + isLoggedIn)
         console.log("Token: ", token);
         console.log("User has been logged in. Token stored.");
         closeModal();
@@ -56,8 +57,8 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
 
   function retrieveData() {
     return {
-      email: document.getElementById('email-field').value,
-      password: document.getElementById('password-field').value,
+      email: document.querySelector('.email-field').value,
+      password: document.querySelector('.password-field').value,
     };
   }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import DeleteAccount from '../DeleteAccount/DeleteAccount';
-import ChangePassword from '../ChangePassword/ChangePassword';
-import '../../App.css';
+import DeleteAccount from './DeleteAccount/DeleteAccount';
+import ChangePassword from './ChangePassword/ChangePassword';
+import '../App.css';
 import './Account.css';
 
 const Account = () => {

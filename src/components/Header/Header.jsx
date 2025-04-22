@@ -17,7 +17,6 @@ const Header = () => {
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
-  // Booking state
   const [bookingData, setBookingData] = useState({
     pickupLocation: '',
     dropoffLocation: '',
@@ -93,6 +92,26 @@ const Header = () => {
     );
   };
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  });
+
+  const handleUserClick = () => {
+    console.log("HandleUserClick, isLoggedIn value: " + isLoggedIn);
+    if (isLoggedIn) {
+      navigate('/account');
+    } else {
+      setIsModalVisible(true);
+    }
+  };
+
   return (
     <header className="top-header">
       <div className={mobileDisplaySize ? "mobile-header" : "desktop-header"}>
@@ -126,11 +145,13 @@ const Header = () => {
           <LoginButton
             closeModal={closeModal}
             isModalVisible={isModalVisible}
+            setIsLoggedIn={setIsLoggedIn}
+            isLoggedIn={isLoggedIn}
             defaultMode="login"
           />
-          <button id="login-create" onClick={showModal}>
+          <button id="login-create" onClick={handleUserClick}>
             <User size={24} className="user-icon"/>
-            <span className="login-register-text">Login | Register</span>
+            {!isLoggedIn && <span className="login-register-text">Login | Register</span>}
           </button>
         </nav>
 
