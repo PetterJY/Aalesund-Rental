@@ -1,13 +1,11 @@
-/* DeleteAccount.css */
-
 /* Modal overlay (same as .modal in LoginRegister.css) */
-.modal {
+.modal #deleteAccountModal {
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 1000000; /* Increased from 1 to ensure it appears above other elements */
+  z-index: 10000; /* Increased from 1 to ensure it appears above other elements */
   left: 0;
   top: 0;
   width: 100%;
@@ -31,21 +29,6 @@
 .title {
   font-size: 1.5em;
   font-weight: bold;
-  margin-bottom: 0.5em;
-}
-
-/* Warning section */
-.warning-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 1em;
-}
-
-.warning-section h3 {
-  font-size: 1.2em;
-  color: #252422;
 }
 
 /* Paragraph text */
@@ -55,71 +38,80 @@
   margin: 0.5em 0;
 }
 
-/* Form inputs (same as .email-field, .password-field in LoginRegister.css) */
-.email-field,
-.password-field,
-#verify-field {
-  background-color: white;
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: gray solid 2px;
-}
-
-.email-field:focus,
-.password-field:focus,
-#verify-field:focus {
-  outline: none;
-  background-color: white;
-  border-bottom: #FF5F00 solid 2px;
-}
-
-#verification-keyword {
-  color: #FF5F00;
-  font-weight: bold;
-}
-
-/* Submit button (same as #submit-button in LoginRegister.css) */
-.submit-button {
+/* Styling for the bottom-section */
+#bottom-section {
+  display: flex;
+  flex-direction: column;
+  background-color: white; /* Modal content background */
   padding: 20px;
-  background-color: #FF5F00;
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  font-size: 20px;
-  width: 100%;
-  margin: 0.5em 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+  max-width: 400px;
+  width: 90%; /* Responsive width */
+  text-align: left; /* Align text to the left for better readability */
+  margin: 0 auto; /* Center the section horizontally */
 }
 
-.submit-button:hover {
-  background-color: #eb5f28c9;
-}
-
-/* Cancel button (styled like .toggle-login-register-button in LoginRegister.css) */
-.cancel-button {
-  font-size: 20px;
-  border-radius: 15px;
-  background-color: transparent;
+#bottom-section label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1rem;
   color: #252422;
+}
+
+#bottom-section input {
+  margin-bottom: 16px;
+  padding: 10px;
   border: none;
-  width: auto;
-  height: fit-content;
-  cursor: pointer;
-  margin-top: 1em;
+  border-bottom: 2px solid gray;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.cancel-button:hover {
-  text-decoration: underline;
-  color: #FF5F00;
-  background-color: transparent;
+#bottom-section input:focus {
+  outline: none;
+  border-bottom: 2px solid #FF5F00;
 }
 
- #deleteAccountModal .error-message {
+#bottom-section .error-message {
   color: red;
   font-size: 16px;
   font-weight: bold;
   margin-top: 10px;
+}
+
+#bottom-section .submit-button {
+  background-color: #FF5F00;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#bottom-section .submit-button:hover {
+  background-color: #eb5f28c9;
+}
+
+#bottom-section .cancel-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#bottom-section .cancel-button:hover {
+  background-color: #5a6268;
+}
+
+#bottom-section #verification-keyword {
+  color: #FF5F00;
+  font-weight: bold;
 }

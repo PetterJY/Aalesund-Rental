@@ -79,10 +79,8 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
         <main id='deleteAccountModal' className='modal' onMouseDown={closeModal}>
           <div className='modal-content' onMouseDown={(e) => e.stopPropagation()}>
             <h1 id='title'>Delete Account</h1>
-            <section id='warning-section'>
-              <Warning size={32} color="#FF0000" weight="fill" />
-              <h2>Are you sure you want to delete your account?</h2>
-            </section>
+            <Warning size={32} color="#FF0000" weight="fill" />
+            <p>Are you sure you want to delete your account?</p>
             <p>You will not be able to recover your account after deletion.</p>
             <p>All your data will be permanently removed.</p>
             <p>Do you want to proceed?</p>

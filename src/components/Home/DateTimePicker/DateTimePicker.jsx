@@ -1,4 +1,3 @@
-// src/components/DateTimePicker/DateTimePicker.jsx
 import React, {useEffect, useRef, useState, memo} from 'react';
 import DatePicker from "react-datepicker";
 import {CalendarBlank} from "@phosphor-icons/react";

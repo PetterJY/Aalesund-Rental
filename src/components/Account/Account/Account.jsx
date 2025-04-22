@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import DeleteAccount from '../DeleteAccount/DeleteAccount';
+import ChangePassword from '../ChangePassword/ChangePassword';
 import '../../App.css';
 import './Account.css';
 
 const Account = () => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
 
   const openDeleteModal = () => {
     setIsDeleteModalVisible(true);
@@ -12,6 +14,14 @@ const Account = () => {
 
   const closeDeleteModal = () => {
     setIsDeleteModalVisible(false);
+  };
+
+  const openChangePasswordModal = () => {
+    setIsChangePasswordModalVisible(true);
+  };
+
+  const closeChangePasswordModal = () => {
+    setIsChangePasswordModalVisible(false);
   };
 
   return (
@@ -41,13 +51,19 @@ const Account = () => {
             </button>
           </li>
           <li>
-            <button className="bottom-button">Change Password</button>
+            <button className="bottom-button" onClick={openChangePasswordModal}>
+              Change Password
+            </button>
           </li>
         </ul>
       </section>
       <DeleteAccount
         isModalVisible={isDeleteModalVisible}
         closeModal={closeDeleteModal}
+      />
+      <ChangePassword
+        isModalVisible={isChangePasswordModalVisible}
+        closeModal={closeChangePasswordModal}
       />
     </div>
   );

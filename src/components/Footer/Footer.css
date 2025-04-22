@@ -11,7 +11,6 @@ footer {
   z-index: 1000;
 }
 
-
 .menu {
   display: flex;
   flex-direction: row;
@@ -30,7 +29,6 @@ nav {
   gap: 0;
 }
 
-
 .dropdown {
   position: relative;
   transition: rotate 10s ease-in-out;
@@ -44,7 +42,6 @@ nav {
 #creators, #contact, #links {
   padding: 3vh;
 }
-
 
 .footer-item {
   display: flex;
