@@ -2,6 +2,7 @@ import "../App.css";
 import "./RentalPage.css";
 import React, { useState, useRef, useEffect } from "react";
 import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
+import CarDisplay from "./CarDisplay/CarDisplay";
 
 export default function RentalPage(props) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -110,6 +111,36 @@ export default function RentalPage(props) {
     window.addEventListener("resize", updateCarsPerRow);
     return () => window.removeEventListener("resize", updateCarsPerRow);
   }, []);
+
+  function fetchCarData() {
+    fetch("http://localhost:8080/cars", {
+      method: "GET"
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json(); 
+      }
+      throw new Error("Failed to fetch car data.");
+    })
+    .then((data) => {
+      const cars = data.cars;
+      cars.map((car) => {
+        return (
+          <CarDisplay
+            key={car.id}
+            id={car.id}
+            name={car.name}
+            image={car.image}
+            price={car.price}
+            onClick={() => handleCarClick(car.id)}
+          />
+        );
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
 
   // Reassemble children with inserted menu for the selected car.
   const renderWithInsertedMenu = () => {

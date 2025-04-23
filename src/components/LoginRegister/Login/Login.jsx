@@ -57,8 +57,8 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
 
   function retrieveData() {
     return {
-      email: document.querySelector('.email-field').value,
-      password: document.querySelector('.password-field').value,
+      email: document.getElementById('login-email-field').value,
+      password: document.getElementById('login-password-field').value,
     };
   }
 
@@ -75,8 +75,8 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
               <>
                 <h2 className="title">Login</h2>
                 <form onSubmit={handleLogin}>
-                  <input className='input-field' type="text" placeholder="E-mail" required />
-                  <input className='input-field' type="password" placeholder="Password" required />
+                  <input className='input-field' id='login-email-field' type="text" placeholder="E-mail" required />
+                  <input className='input-field' id='login-password-field' type="password" placeholder="Password" required />
                   {showErrorMessage && (
                     <p className="error-message" id="register-error-message">
                       {errorMessage}
