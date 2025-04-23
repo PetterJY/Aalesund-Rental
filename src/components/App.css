@@ -26,3 +26,19 @@ button {
   border: none;
   cursor: pointer;
 }
+
+.input-field {
+  background-color: white;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: gray solid 2px;
+}
+
+.input-field:focus {
+  outline: none;
+  background-color: white;
+  border-bottom: #FF5F00 solid 2px;
+}
