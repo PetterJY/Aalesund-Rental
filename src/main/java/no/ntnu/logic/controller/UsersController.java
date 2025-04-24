@@ -78,6 +78,7 @@ public class UsersController {
   @PostMapping("/register")
   @ApiOperation(value = "Creates a new user.", notes = "The newly created user is returned.")
   public ResponseEntity<Users> register(@RequestBody UserRegisterRequest registerRequest) {
+    logger.info("Creating new user");
     Users user = new Users();
     user.setFirstName(registerRequest.getFirstName());
     user.setLastName(registerRequest.getLastName());
@@ -86,10 +87,8 @@ public class UsersController {
     Accounts account = new Accounts();
     account.setPassword(registerRequest.getPassword());
     account.setRole(registerRequest.getRole());
-
     user.setAccount(account);
 
-    logger.info("Creating new user");
     Users createdUser = usersService.save(user);
     logger.debug("Created user: {}", createdUser);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);

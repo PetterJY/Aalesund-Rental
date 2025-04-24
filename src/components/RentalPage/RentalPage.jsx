@@ -5,6 +5,7 @@ import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
 import CarDisplay from "./CarDisplay/CarDisplay";
 
 export default function RentalPage(props) {
+  const [cars, setCars] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedCarId, setSelectedCarId] = useState(null);
@@ -112,34 +113,26 @@ export default function RentalPage(props) {
     return () => window.removeEventListener("resize", updateCarsPerRow);
   }, []);
 
+  useEffect(() => {
+    fetchCarData();
+  }, []);
+
   function fetchCarData() {
     fetch("http://localhost:8080/cars", {
-      method: "GET"
+      method: "GET",
     })
-    .then((response) => {
-      if (response.ok) {
-        return response.json(); 
-      }
-      throw new Error("Failed to fetch car data.");
-    })
-    .then((data) => {
-      const cars = data.cars;
-      cars.map((car) => {
-        return (
-          <CarDisplay
-            key={car.id}
-            id={car.id}
-            name={car.name}
-            image={car.image}
-            price={car.price}
-            onClick={() => handleCarClick(car.id)}
-          />
-        );
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Failed to fetch car data.");
+        })
+        .then((data) => {
+          setCars(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
   }
 
   // Reassemble children with inserted menu for the selected car.
