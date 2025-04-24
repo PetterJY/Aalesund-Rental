@@ -1,4 +1,4 @@
-footer {
+.footer footer {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -11,7 +11,7 @@ footer {
   z-index: 1000;
 }
 
-.menu {
+.footer .menu {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24,26 +24,26 @@ footer {
   overflow: hidden;
 }
 
-nav {
+.footer nav {
   margin-left: 20px;
   gap: 0;
 }
 
-.dropdown {
+.footer .dropdown {
   position: relative;
   transition: rotate 10s ease-in-out;
 }
 
-.dropdown.clicked {
+.footer .dropdown.clicked {
   rotate: 180deg;
   transition: rotate 0.15s ease-in-out;
 }
 
-#creators, #contact, #links {
+.footer #creators, #contact, #links {
   padding: 3vh;
 }
 
-.footer-item {
+.footer .footer-item {
   display: flex;
   color: white;
   flex-direction: column;
@@ -53,13 +53,13 @@ nav {
   margin: 0; /* Removes default margin */
 }
 
-footer a {
+.footer footer a {
   position: relative;
   text-decoration: none; /* Remove default underline */
   color: white; /* Keep original text color */
 }
 
-footer a::after {
+.footer footer a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -70,42 +70,42 @@ footer a::after {
   transition: width 0.2s ease-in-out;
 }
 
-footer a:hover::after {
+.footer footer a:hover::after {
   width: 100%;
 }
 
-.trademark {
+.footer .trademark {
   position: absolute;
   padding: 0 0 20px 20px;
   color: white;
 }
 
-.dropdown {
+.footer .dropdown {
   position: relative;
   right: 10vw;
   transition: transform 0.15s ease-in-out;
   opacity: 0;
 }
 
-.dropdown.expanded {
+.footer .dropdown.expanded {
   transform: rotate(180deg); /* Rotate the caret when expanded */
   opacity: 1;
 }
 
-.dropdown.not-expanded {
+.footer .dropdown.not-expanded {
   opacity: 1;
 }
 
-.dropdown.visible {
+.footer .dropdown.visible {
   opacity: 1;
 }
 
-.dropdown.not-visible {
+.footer .dropdown.not-visible {
   opacity: 0;
 }
 
 
-.map-container {
+.footer .map-container {
   display: flex;
   justify-content: center; /* Center the map horizontally */
   align-items: center; /* Center the map vertically */
@@ -116,7 +116,7 @@ footer a:hover::after {
   margin-top: 45px;
 }
 
-.map-container iframe {
+.footer .map-container iframe {
   width: 100%;
   height: 250px; /* Adjust height to fit the container */
   border: 2px solid #ccc; /* Optional: Add a border */
@@ -124,15 +124,15 @@ footer a:hover::after {
 }
 
 @media screen and (max-width: 1000px) {
-  footer {
+  .footer footer {
     flex-direction: column;
   }
 
-  .menu {
+  .footer .menu {
     width: 100vw;
   }
 
-  .map-container iframe {
+  .footer .map-container iframe {
     width: 50%;
     height: 250px; /* Adjust height to fit the container */
     border: none; /* Remove default iframe border */
@@ -140,11 +140,11 @@ footer a:hover::after {
     margin-bottom: 12px;
   }
 
-  #creators, #contact, #links {
+  .footer #creators, #contact, #links {
     padding: 0 0 0.7rem;
   }
 
-  footer nav {
+  .footer footer nav {
     position: relative;
     padding-bottom: 24px;
   }
@@ -159,8 +159,8 @@ footer a:hover::after {
   /*  background-color: white;*/
   /*}*/
 
-  footer nav#contact::after,
-  footer nav#links::after {
+  .footer footer nav#contact::after,
+  .footer footer nav#links::after {
     content: "";
     position: absolute;
     bottom: -10px;
@@ -180,7 +180,8 @@ footer a:hover::after {
   /*  background-color: white;*/
   /*}*/
 
-  .dropdown.visible {
+  .footer .dropdown.visible {
     opacity: 1;
+    background-color: #252422;
   }
 }

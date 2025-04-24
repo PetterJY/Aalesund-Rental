@@ -39,7 +39,7 @@ const Footer = () => {
 	}, []);
 
   return (
-    <footer>
+    <footer className="footer">
 			<nav id="contact">
 				<div className="menu">
 					<h2>Contact</h2>
@@ -98,10 +98,14 @@ const Footer = () => {
 
 const DropdownMenu = ({isExpanded, onClick, isMobileDisplaySize}) => {
 	return (
-		<img src={CaretDown}
+		<button
 				 className={`dropdown ${isExpanded ? 'expanded' : 'not-expanded'} ${isMobileDisplaySize ? 'visible' : 'not-visible'}`}
 				 onClick={onClick}
-				 alt="dropdown-menu-icon"/>
+				 alt="dropdown-menu-icon"
+				 color="white"
+				 style={isExpanded ? { transform: 'rotate(180deg)' } : {}}>
+				<CaretDown size={25} color='white'/>
+				 </button>
 	)
 }
 
