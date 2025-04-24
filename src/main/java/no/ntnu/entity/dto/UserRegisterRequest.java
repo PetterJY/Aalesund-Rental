@@ -16,7 +16,7 @@ public class UserRegisterRequest {
   private String firstName;
 
 	@NotBlank(message = "Last name is required")
-	@Size(min = 6, max = 30, message = "Last name must be between 6 and 30 characters")
+	@Size(min = 2, max = 30, message = "Last name must be between 2 and 30 characters")
 	@ApiModelProperty("The last name of the user")
   private String lastName;
 
