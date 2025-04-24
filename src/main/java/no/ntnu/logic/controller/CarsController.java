@@ -2,6 +2,9 @@ package no.ntnu.logic.controller;
 
 import java.util.List;
 
+import no.ntnu.entity.dto.CarCreateRequest;
+import no.ntnu.entity.models.Providers;
+import no.ntnu.logic.service.ProvidersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +30,12 @@ public class CarsController {
   private final CarsService carsService;
   private static final Logger logger = 
       LoggerFactory.getLogger(CarsController.class.getSimpleName());
+  private final ProvidersService providersService;
 
   @Autowired
-  public CarsController(CarsService carsService) {
+  public CarsController(CarsService carsService, ProvidersService providersService) {
     this.carsService = carsService;
+    this.providersService = providersService;
   }
 
   /**
@@ -66,13 +71,28 @@ public class CarsController {
   /**
    * Creates a new car.
    *
-   * @param car The car to create.
+   * @param carRequest The car to create.
    * @return The created car.
    */
   @PostMapping
   @ApiOperation(value = "Creates a new car.", notes = "The newly created car is returned.")
-  public ResponseEntity<Cars> createCar(@RequestBody Cars car) {
+  public ResponseEntity<Cars> createCar(@RequestBody CarCreateRequest carRequest) {
     logger.info("Creating new car");
+    Cars car = new Cars();
+
+    Providers provider = providersService.findById(carRequest.getProviderId());
+    car.setProvider(provider);
+    car.setPlateNumber(carRequest.getPlateNumber());
+    car.setCarBrand(carRequest.getCarBrand());
+    car.setModelName(carRequest.getModelName());
+    car.setCarType(carRequest.getCarType());
+    car.setProductionYear(carRequest.getProductionYear());
+    car.setPassengers(carRequest.getPassengers());
+    car.setAutomatic(carRequest.isAutomatic());
+    car.setEnergySource(carRequest.getEnergySource());
+    car.setAvailable(carRequest.isAvailable());
+    // car.setExtraFeatures(carRequest.getExtraFeatures());
+    car.setPricePerDay(carRequest.getPricePerDay());
     Cars createdCar = carsService.save(car);
     logger.debug("Created car: {}", createdCar);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);

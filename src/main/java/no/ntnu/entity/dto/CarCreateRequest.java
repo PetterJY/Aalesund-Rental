@@ -4,15 +4,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import no.ntnu.entity.models.Cars;
 
 /**
- * CarRegisterRequest is a data transfer object.
+ * CarCreateRequest is a data transfer object.
  * It represents the registration request for a car.
  */
-public class CarRegisterRequest {
+public class CarCreateRequest {
 
   @NotNull(message = "Provider ID is required")
-  private Integer providerId;
+  private Long providerId;
 
   @NotBlank(message = "Plate number is required")
   @Size(max = 20, message = "Plate number must not exceed 20 characters")
@@ -43,17 +44,17 @@ public class CarRegisterRequest {
   private Boolean automatic;
 
   @NotBlank(message = "Energy source is required")
-  private String energySource;
+  private Cars.EnergySource energySource;
 
   @NotNull(message = "Availability status is required")
   private Boolean available;
 
 
-  public Integer getProviderId() {
+  public Long getProviderId() {
     return providerId;
   }
 
-  public void setProviderId(Integer providerId) {
+  public void setProviderId(Long providerId) {
     this.providerId = providerId;
   }
 
@@ -113,7 +114,7 @@ public class CarRegisterRequest {
     this.passengers = passengers;
   }
 
-  public Boolean getAutomatic() {
+  public Boolean isAutomatic() {
     return automatic;
   }
 
@@ -121,15 +122,15 @@ public class CarRegisterRequest {
     this.automatic = automatic;
   }
 
-  public String getEnergySource() {
+  public Cars.EnergySource getEnergySource() {
     return energySource;
   }
 
-  public void setEnergySource(String energySource) {
+  public void setEnergySource(Cars.EnergySource energySource) {
     this.energySource = energySource;
   }
 
-  public Boolean getAvailable() {
+  public Boolean isAvailable() {
     return available;
   }
 
