@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import java.util.Set;
 import no.ntnu.entity.models.Cars;
 
 /**
@@ -48,6 +49,9 @@ public class CarCreateRequest {
 
   @NotNull(message = "Availability status is required")
   private Boolean available;
+
+  @NotNull(message = "Extra features are required")
+  private Set<Long> extraFeatureIds;
 
 
   public Long getProviderId() {
@@ -136,5 +140,13 @@ public class CarCreateRequest {
 
   public void setAvailable(Boolean available) {
     this.available = available;
+  }
+
+  public Set<Long> getExtraFeatureIds() {
+    return extraFeatureIds;
+  }
+
+  public void setExtraFeatureIds(Set<Long> extraFeatureIds) {
+    this.extraFeatureIds = extraFeatureIds;
   }
 }

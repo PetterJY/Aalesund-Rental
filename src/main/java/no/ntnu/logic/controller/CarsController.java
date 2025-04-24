@@ -2,8 +2,12 @@ package no.ntnu.logic.controller;
 
 import java.util.List;
 
+import java.util.Set;
+import java.util.stream.Collectors;
 import no.ntnu.entity.dto.CarCreateRequest;
+import no.ntnu.entity.models.ExtraFeatures;
 import no.ntnu.entity.models.Providers;
+import no.ntnu.logic.service.ExtraFeaturesService;
 import no.ntnu.logic.service.ProvidersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,11 +35,14 @@ public class CarsController {
   private static final Logger logger = 
       LoggerFactory.getLogger(CarsController.class.getSimpleName());
   private final ProvidersService providersService;
+  private final ExtraFeaturesService extraFeaturesService;
 
   @Autowired
-  public CarsController(CarsService carsService, ProvidersService providersService) {
+  public CarsController(CarsService carsService, ProvidersService providersService,
+                        ExtraFeaturesService extraFeaturesService) {
     this.carsService = carsService;
     this.providersService = providersService;
+    this.extraFeaturesService = extraFeaturesService;
   }
 
   /**
@@ -80,8 +87,14 @@ public class CarsController {
     logger.info("Creating new car");
     Cars car = new Cars();
 
+    Set<ExtraFeatures> extraFeatures = carRequest.getExtraFeatureIds().stream()
+      .map(extraFeaturesService::findById)
+      .collect(Collectors.toSet());
+    car.setExtraFeatures(extraFeatures);
+
     Providers provider = providersService.findById(carRequest.getProviderId());
     car.setProvider(provider);
+
     car.setPlateNumber(carRequest.getPlateNumber());
     car.setCarBrand(carRequest.getCarBrand());
     car.setModelName(carRequest.getModelName());
