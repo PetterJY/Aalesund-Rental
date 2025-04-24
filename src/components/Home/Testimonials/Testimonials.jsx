@@ -97,7 +97,7 @@ const Testimonials = () => {
             onMouseLeave={resumeAutoplay}
             className={`testimonial ${isCardActive(0) ? 'active' : ''} ${getCardPosition(0)}`} id="testimonial-1">
             <Quotes weight="fill" className="quote-icon"/>
-            <p className="testimonial-quote">"1 Great service and friendly staff!"</p>
+            <p className="testimonial-quote">"Great service and friendly staff!"</p>
             <p className="testimonial-name">- John Doe</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>
@@ -107,7 +107,7 @@ const Testimonials = () => {
             className={`testimonial ${isCardActive(1) ? 'active' : ''} ${getCardPosition(1)}`}
             id="testimonial-2">
             <Quotes weight="fill" className="quote-icon"/>
-            <p className="testimonial-quote">"2 The best car rental experience I've ever had!"</p>
+            <p className="testimonial-quote">"Rented a Chevrolet Pitana Monchen, I drove it from Vigra to Sula and it drove just like my old car at home! 10/10"</p>
             <p className="testimonial-name">- Jane Smith</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>
@@ -117,7 +117,7 @@ const Testimonials = () => {
             className={`testimonial ${isCardActive(2) ? 'active' : ''} ${getCardPosition(2)}`}
             id="testimonial-3">
             <Quotes weight="fill" className="quote-icon"/>
-            <p className="testimonial-quote">"3 Great service and friendly staff!"</p>
+            <p className="testimonial-quote">"Sometimes cars make me happy, other times Ålesund Rental makes me even happier!"</p>
             <p className="testimonial-name">- John Doe</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>
@@ -127,8 +127,8 @@ const Testimonials = () => {
             className={`testimonial ${isCardActive(3) ? 'active' : ''} ${getCardPosition(3)}`}
             id="testimonial-4">
             <Quotes weight="fill" className="quote-icon"/>
-            <p className="testimonial-quote">"4 The best car rental experience I've ever had!"</p>
-            <p className="testimonial-name">- Jane Smith</p>
+            <p className="testimonial-quote">"أنا أحب القيادة."</p>
+            <p className="testimonial-name">- Jonas Pettersen</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>
           <div
@@ -137,7 +137,7 @@ const Testimonials = () => {
             className={`testimonial ${isCardActive(4) ? 'active' : ''} ${getCardPosition(4)}`}
             id="testimonial-5">
             <Quotes weight="fill" className="quote-icon"/>
-            <p className="testimonial-quote">"5 Great service and friendly staff!"</p>
+            <p className="testimonial-quote">"Car goes "Wrooooooom""</p>
             <p className="testimonial-name">- John Doe</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>

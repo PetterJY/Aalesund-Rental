@@ -1,4 +1,4 @@
-.footer footer {
+.footer-section footer {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -11,7 +11,7 @@
   z-index: 1000;
 }
 
-.footer .menu {
+.footer-section .menu {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24,26 +24,26 @@
   overflow: hidden;
 }
 
-.footer nav {
+.footer-section nav {
   margin-left: 20px;
   gap: 0;
 }
 
-.footer .dropdown {
+.footer-section .dropdown {
   position: relative;
   transition: rotate 10s ease-in-out;
 }
 
-.footer .dropdown.clicked {
+.footer-section .dropdown.clicked {
   rotate: 180deg;
   transition: rotate 0.15s ease-in-out;
 }
 
-.footer #creators, #contact, #links {
+.footer-section #creators, #contact, #links {
   padding: 3vh;
 }
 
-.footer .footer-item {
+.footer-section .footer-item {
   display: flex;
   color: white;
   flex-direction: column;
@@ -53,13 +53,25 @@
   margin: 0; /* Removes default margin */
 }
 
-.footer footer a {
+.footer-section h2 {
+  color: white;
+}
+
+.footer-section li p {
+  color: white;
+  font-size: 20px;
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+  
+}
+
+.footer-section a {
   position: relative;
   text-decoration: none; /* Remove default underline */
   color: white; /* Keep original text color */
 }
 
-.footer footer a::after {
+.footer-section a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -68,44 +80,46 @@
   height: 2px; /* Thickness of underline */
   background-color: currentColor; /* Matches text color */
   transition: width 0.2s ease-in-out;
+  color: white;
 }
 
-.footer footer a:hover::after {
+.footer-section a:hover::after {
   width: 100%;
+  color: white;
 }
 
-.footer .trademark {
+.footer-section .trademark {
   position: absolute;
   padding: 0 0 20px 20px;
   color: white;
 }
 
-.footer .dropdown {
+.footer-section .dropdown {
   position: relative;
   right: 10vw;
   transition: transform 0.15s ease-in-out;
   opacity: 0;
 }
 
-.footer .dropdown.expanded {
+.footer-section .dropdown.expanded {
   transform: rotate(180deg); /* Rotate the caret when expanded */
   opacity: 1;
 }
 
-.footer .dropdown.not-expanded {
+.footer-section .dropdown.not-expanded {
   opacity: 1;
 }
 
-.footer .dropdown.visible {
+.footer-section .dropdown.visible {
   opacity: 1;
 }
 
-.footer .dropdown.not-visible {
+.footer-section .dropdown.not-visible {
   opacity: 0;
 }
 
 
-.footer .map-container {
+.footer-section .map-container {
   display: flex;
   justify-content: center; /* Center the map horizontally */
   align-items: center; /* Center the map vertically */
@@ -116,7 +130,7 @@
   margin-top: 45px;
 }
 
-.footer .map-container iframe {
+.footer-section .map-container iframe {
   width: 100%;
   height: 250px; /* Adjust height to fit the container */
   border: 2px solid #ccc; /* Optional: Add a border */
@@ -124,15 +138,15 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .footer footer {
+  .footer-section footer {
     flex-direction: column;
   }
 
-  .footer .menu {
+  .footer-section .menu {
     width: 100vw;
   }
 
-  .footer .map-container iframe {
+  .footer-section .map-container iframe {
     width: 50%;
     height: 250px; /* Adjust height to fit the container */
     border: none; /* Remove default iframe border */
@@ -140,11 +154,11 @@
     margin-bottom: 12px;
   }
 
-  .footer #creators, #contact, #links {
+  .footer-section #creators, #contact, #links {
     padding: 0 0 0.7rem;
   }
 
-  .footer footer nav {
+  .footer-section footer nav {
     position: relative;
     padding-bottom: 24px;
   }
@@ -159,8 +173,8 @@
   /*  background-color: white;*/
   /*}*/
 
-  .footer footer nav#contact::after,
-  .footer footer nav#links::after {
+  .footer-section footer nav#contact::after,
+  .footer-section footer nav#links::after {
     content: "";
     position: absolute;
     bottom: -10px;
@@ -180,7 +194,7 @@
   /*  background-color: white;*/
   /*}*/
 
-  .footer .dropdown.visible {
+  .footer-section .dropdown.visible {
     opacity: 1;
     background-color: #252422;
   }
