@@ -86,9 +86,9 @@ const Footer = () => {
 				</div>
 				{(isCreatorsExpanded || !isMobileDisplaySize) && (
 					<ul className="footer-item">
-						<li>Mathias Løvnes</li>
-						<li>Marcus Skaue</li>
-						<li>Petter Ytterdahl</li>
+						<li><p>Mathias Løvnes</p></li>
+						<li><p>Marcus Skaue</p></li>
+						<li><p>Petter Ytterdahl</p></li>
 					</ul>
 				)}
 			</nav>

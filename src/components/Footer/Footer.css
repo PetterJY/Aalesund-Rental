@@ -53,13 +53,25 @@
   margin: 0; /* Removes default margin */
 }
 
-.footer-section footer a {
+.footer-section h2 {
+  color: white;
+}
+
+.footer-section li p {
+  color: white;
+  font-size: 20px;
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+  
+}
+
+.footer-section a {
   position: relative;
   text-decoration: none; /* Remove default underline */
   color: white; /* Keep original text color */
 }
 
-.footer-section footer a::after {
+.footer-section a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -68,10 +80,12 @@
   height: 2px; /* Thickness of underline */
   background-color: currentColor; /* Matches text color */
   transition: width 0.2s ease-in-out;
+  color: white;
 }
 
-.footer-section footer a:hover::after {
+.footer-section a:hover::after {
   width: 100%;
+  color: white;
 }
 
 .footer-section .trademark {
