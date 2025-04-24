@@ -68,20 +68,6 @@ public class AccountsController {
     return ResponseEntity.status(HttpStatus.OK).body(account);
   }
 
-  /**
-   * Creates a new account.
-   *
-   * @param account the account to create
-   * @return the created account
-   */
-  @PostMapping
-  @ApiOperation(value = "Creates a new account.", notes = "The newly created account is returned.")
-  public ResponseEntity<Accounts> createAccount(@RequestBody Accounts account) {
-    logger.info("Creating new account");
-    Accounts createdAccount = accountsService.save(account);
-    logger.debug("Created account: {}", createdAccount);
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
-  }
 
   /**
    * Updates an account by its ID.

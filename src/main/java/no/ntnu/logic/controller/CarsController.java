@@ -104,7 +104,6 @@ public class CarsController {
     car.setAutomatic(carRequest.isAutomatic());
     car.setEnergySource(carRequest.getEnergySource());
     car.setAvailable(carRequest.isAvailable());
-    // car.setExtraFeatures(carRequest.getExtraFeatures());
     car.setPricePerDay(carRequest.getPricePerDay());
     Cars createdCar = carsService.save(car);
     logger.debug("Created car: {}", createdCar);
@@ -135,7 +134,7 @@ public class CarsController {
     car.setEnergySource(carDetails.getEnergySource());
     car.setAvailable(carDetails.isAvailable());
     car.setExtraFeatures(carDetails.getExtraFeatures());
-    // TODO: Add validation for details && handle exceptions
+    // TODO: Add validation for details?
     Cars updatedCar = carsService.save(car);
     logger.debug("Updated car: {}", updatedCar);
     return ResponseEntity.status(HttpStatus.OK).body(updatedCar);
