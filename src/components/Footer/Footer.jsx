@@ -39,7 +39,7 @@ const Footer = () => {
 	}, []);
 
   return (
-    <footer className="footer">
+    <footer className="footer-section">
 			<nav id="contact">
 				<div className="menu">
 					<h2>Contact</h2>
