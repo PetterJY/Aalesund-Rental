@@ -71,17 +71,12 @@ html, body {
 }
 
 .hero-call-to-action {
-  position: fixed;
+  position: absolute; /* changed from fixed */
   width: 90vw;
   max-width: 1440px;
-  z-index: -1;
-  margin-right: auto;
-  /*border: 1px solid white;*/
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: left;
-  margin-top: 50vh;
+  z-index: 1; /* changed from -1 */
+  margin: 50vh auto; /* removed margin-top */
+  top: 0; /* position at the top */
   left: 50%;
   transform: translateX(-50%);
 }
