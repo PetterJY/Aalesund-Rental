@@ -197,17 +197,10 @@
 @keyframes slide-in {
   from {
     transform: translateY(-10px);
-    opacity: 1;
   }
   to {
     transform: translateX();
-    opacity: 1;
   }
-}
-
-/* Optional: smooth fade-in for the inserted menu if used */
-.car-selected-menu {
-  animation: fade-in 0.2s ease;
 }
 
 

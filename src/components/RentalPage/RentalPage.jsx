@@ -164,6 +164,7 @@ export default function RentalPage(props) {
       combined.push(
         React.cloneElement(child, {
           onClick: () => handleCarClick(child.props.id),
+          isSelected: child.props.id === selectedCarId, // set selected state
           key: child.props.id,
         })
       );

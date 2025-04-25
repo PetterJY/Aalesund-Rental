@@ -3,11 +3,11 @@ import "./CarDisplay.css";
 import React, { useState } from "react";
 import carImage from "../../../resources/images/car.png"; 
 import passengerImage from "../../../resources/images/passenger.png";
-import { Car, Seatbelt, PlusCircle } from "@phosphor-icons/react";
+import { Car, Seatbelt, PlusCircle, CaretDown } from "@phosphor-icons/react";
 
 const CarDisplay = (props) => {
   return (
-    <button className="car-display" onClick={props.onClick}>
+    <button className={`car-display ${props.isSelected ? "selected" : ""}`} onClick={props.onClick}>
       <section className="top-section">
         <section className="top-left-section">
           <h2 className="car-name">{props.carBrand} {props.carModel}</h2>
@@ -22,6 +22,11 @@ const CarDisplay = (props) => {
       </section>
 
       <img id="car-image" src={carImage} alt="car-image"></img>
+      {props.isSelected && (
+        <div className="selected-arrow">
+          <CaretDown size={24} color="#EB5E28" weight="fill" />
+        </div>
+      )}
       <section className="bottom-section">
         <h2 className="rental-place">{props.rentalPlace}</h2>
         <section className="price-section">
