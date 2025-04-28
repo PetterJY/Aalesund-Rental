@@ -50,7 +50,6 @@ public class CarCreateRequest {
   @NotNull(message = "Availability status is required")
   private Boolean available;
 
-  @NotNull(message = "Extra features are required")
   private Set<Long> extraFeatureIds;
 
 

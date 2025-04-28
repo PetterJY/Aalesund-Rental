@@ -56,7 +56,7 @@ const Footer = () => {
 				<p className="footer-item">Main office:</p>
 				<div className="map-container">
 					<iframe
-						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d87445.97657997388!2d86.9340451045387!3d27.98023467131937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e854a215bd9ebd%3A0x576dcf806abbab2!2sMount%20Everest!5e0!3m2!1sno!2sno!4v1744215495004!5m2!1sno!2sno"
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1844.0139133010207!2d6.233333721756931!3d62.47213652544059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4616dac1b03a4a8b%3A0x5df22844dd93ce98!2sNTNU%20i%20%C3%85lesund!5e0!3m2!1sno!2sno!4v1745842717592!5m2!1sno!2sno"
 						style={{ border: 0 }}
 						allowFullScreen=""
 						loading="lazy"
