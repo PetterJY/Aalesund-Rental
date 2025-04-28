@@ -40,6 +40,7 @@ const Footer = () => {
 
   return (
     <footer className="footer-section">
+			<div className="footer-container">
 			<nav id="contact">
 				<div className="menu">
 					<h2>Contact</h2>
@@ -92,6 +93,7 @@ const Footer = () => {
 					</ul>
 				)}
 			</nav>
+		</div>
 		</footer>
   );
 };
