@@ -35,7 +35,7 @@ public class Users {
   @ApiModelProperty("The email of the user")
   private String email; 
 
-  @OneToOne(cascade = CascadeType.ALL) 
+  @OneToOne(cascade = {CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true) 
   @JoinColumn(name = "id")
   @MapsId
   @ApiModelProperty("The account associated with the user")

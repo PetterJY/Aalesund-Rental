@@ -28,7 +28,7 @@ public class Providers {
   @ApiModelProperty("The name of the company of the provider")
   private String companyName;
 
-  @OneToOne(cascade = CascadeType.ALL) 
+  @OneToOne(cascade = {CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true) 
   @JoinColumn(name = "id")
   @MapsId
   @ApiModelProperty("The account associated with the user")

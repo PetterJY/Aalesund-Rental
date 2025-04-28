@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.ProviderNotFoundException;
@@ -24,15 +25,18 @@ public class ProvidersService {
 
   private final ProvidersRepository providersRepository;
 
+  private final BCryptPasswordEncoder passwordEncoder;
+
   /**
    * Constructor for ProvidersService.
    *
    * @param providersRepository the repository for providers
    */
   @Autowired
-  public ProvidersService(ProvidersRepository providersRepository) {
+  public ProvidersService(ProvidersRepository providersRepository, BCryptPasswordEncoder passwordEncoder) {
     logger.info("ProvidersService initialized");
     this.providersRepository = providersRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   /**
@@ -70,6 +74,7 @@ public class ProvidersService {
    */
   public Providers save(Providers provider) {
     logger.info("Saving provider with id: {}", provider.getId());
+    provider.getAccount().setPassword(passwordEncoder.encode(provider.getAccount().getPassword()));
     return providersRepository.save(provider);
   }
 

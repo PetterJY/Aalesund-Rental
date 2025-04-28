@@ -42,7 +42,8 @@ public class SecurityConfig {
               "/auth/login", 
               "/users/**", "/accounts/**", 
               "/admins/**", 
-              "/providers/**"
+              "/providers/**",
+              "/cars/**"
               ).permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

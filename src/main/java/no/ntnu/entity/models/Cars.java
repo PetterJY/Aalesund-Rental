@@ -2,6 +2,8 @@ package no.ntnu.entity.models;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -81,6 +83,7 @@ public class Cars {
       inverseJoinColumns = @JoinColumn(name = "extra_feature_id")
   )
   @ApiModelProperty("The extra features of the car")
+  @JsonManagedReference
   private Set<ExtraFeatures> extraFeatures;
 
   /**
