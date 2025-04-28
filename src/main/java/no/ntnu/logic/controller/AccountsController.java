@@ -1,12 +1,17 @@
 package no.ntnu.logic.controller;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
+import no.ntnu.entity.dto.DeleteAccountRequest;
+import no.ntnu.logic.service.AuthenticationService;
+import org.springframework.security.core.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +33,15 @@ import no.ntnu.logic.service.AccountsService;
 @RequestMapping("/accounts")
 public class AccountsController {
   private final AccountsService accountsService;
+  private final AuthenticationService authenticationService;
 
   private static final Logger logger = 
       LoggerFactory.getLogger(AccountsController.class.getSimpleName());
 
   @Autowired
-  public AccountsController(AccountsService accountsService) {
+  public AccountsController(AccountsService accountsService, AuthenticationService authenticationService) {
     this.accountsService = accountsService;
+    this.authenticationService = authenticationService;
   }
 
   /**
@@ -86,26 +93,34 @@ public class AccountsController {
     account.setRole(accountDetails.getRole());
     account.setPassword(accountDetails.getPassword());
     account.setCreatedAt(accountDetails.getCreatedAt());
-    // TODO: Add validation for details && handle exceptions
+    // TODO: Add validation for details
     Accounts updatedAccount = accountsService.save(account);
     logger.debug("Updated account: {}", updatedAccount);
     return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);
   }
 
+
+
   /**
    * Deletes an account by its ID.
    * This method is not 'role-sensitive'.
    *
-   * @param id the ID of the account to delete
    * @return a response entity with status NO_CONTENT
    */
   @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes an account by its ID.", 
-      notes = "If the account is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteAccount(@PathVariable Long id) {
-    logger.info("Deleting account with id: {}", id);
-    accountsService.deleteById(id);
-    logger.debug("Deleted account with id: {}", id);
-    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  @ApiOperation(value = "Deletes an account by its ID.",
+    notes = "If the account is not found, a 404 error is returned.")
+  public ResponseEntity<Void> deleteAccount(@Valid @RequestBody DeleteAccountRequest request,
+                                            Authentication authentication) {
+    String userName = authentication.getName();
+    Accounts account = accountsService.findByUsername(userName);
+
+    if (authenticationService.verifyPassword(userName, request.getPassword())) {
+      accountsService.deleteById(account.getId());
+      SecurityContextHolder.clearContext();
+      return ResponseEntity.noContent().build();
+    } else {
+      return ResponseEntity.status(401).build();
+    }
   }
 }

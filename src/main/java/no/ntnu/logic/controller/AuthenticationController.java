@@ -64,9 +64,6 @@ public class AuthenticationController {
     return ResponseEntity.ok(new AuthenticationResponse(jwt));
   }
 
-  //TODO: Implement some password verification method. Something like: /auth/verify-password
-  
-
 
   @PostMapping("/refresh-token")
   public ResponseEntity<?> refreshToken() {
