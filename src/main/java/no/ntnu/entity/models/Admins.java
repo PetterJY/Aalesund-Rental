@@ -24,7 +24,7 @@ public class Admins {
   @ApiModelProperty("The name of the admin")
   private String name;
 
-  @OneToOne(cascade = CascadeType.ALL) 
+  @OneToOne(cascade = {CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true) 
   @JoinColumn(name = "id")
   @MapsId
   @ApiModelProperty("The account associated with the user")
