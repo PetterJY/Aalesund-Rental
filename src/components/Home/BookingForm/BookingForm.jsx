@@ -156,10 +156,11 @@ const BookingForm = ({
                onClick={() => setIsPickupTextFieldSelected(true)}>
             <MagnifyingGlass size={24} weight="bold" className="search-icon" />
             <input type="text"
-                   className="text-input"
-                   id="pickup-destination-input-field"
-                   placeholder="Pickup location"
-                   onChange={(e) => setPickupLocationValue(e.target.value)}>
+                  className="text-input"
+                  id="pickup-destination-input-field"
+                  placeholder="Pickup location"
+                  value={pickupLocationValue}
+                  onChange={(e) => setPickupLocationValue(e.target.value)}>
             </input>
             <button className="xCircleButton"
                     onClick={handlePickupXCircleClick}>
@@ -172,16 +173,17 @@ const BookingForm = ({
         <div className="dropoff-location-section">
           <label>Dropoff</label>
           <div className={`dropoff-location ${isDropoffTextFieldSelected ? 'selected' : ''}`}
-               ref={dropoffTextFieldRef}
-               onMouseEnter={() => setIsDropoffTextInputHovered(true)}
-               onMouseLeave={() => setIsDropoffTextInputHovered(false)}
-               onClick={() => setIsDropoffTextFieldSelected(true)}>
+              ref={dropoffTextFieldRef}
+              onMouseEnter={() => setIsDropoffTextInputHovered(true)}
+              onMouseLeave={() => setIsDropoffTextInputHovered(false)}
+              onClick={() => setIsDropoffTextFieldSelected(true)}>
             <MagnifyingGlass size={24} weight="bold" className="search-icon" />
             <input type="text"
-                   className="text-input"
-                   id="dropoff-destination-input-field"
-                   placeholder="Drop-off location"
-                   onChange={(e) => setDropoffLocationValue(e.target.value)}>
+                  className="text-input"
+                  id="dropoff-destination-input-field"
+                  placeholder="Drop-off location"
+                  value={dropoffLocationValue}
+                  onChange={(e) => setDropoffLocationValue(e.target.value)}>
             </input>
             <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
               <XCircle className={`cross-icon ${isDropoffTextInputHovered && dropoffLocationValue !== "" ? 'visible' : ''}`}

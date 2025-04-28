@@ -83,6 +83,13 @@ public class AccountsService {
     return accountsRepository.save(account);
   }
 
+  public Accounts findByUsername(String username) {
+    logger.info("Fetching account with username: {}", username);
+    return accountsRepository.findByUsername(username)
+      .orElseThrow(() -> new AccountNotFoundException("Account not found with username: " + username)
+    );
+  }
+
   /**
    * Deletes an account by its ID.
    *
