@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.AdminNotFoundException;
@@ -24,15 +25,18 @@ public class AdminService {
   private static final Logger logger = 
       LoggerFactory.getLogger(AdminService.class.getSimpleName());
 
+  private final BCryptPasswordEncoder passwordEncoder;
+
   /**
    * Constructor for AdminService.
    *
    * @param adminRepository the repository for admin entities
    */
   @Autowired
-  public AdminService(AdminRepository adminRepository) {
+  public AdminService(AdminRepository adminRepository, BCryptPasswordEncoder passwordEncoder) {
     logger.info("AdminService initialized");
     this.adminRepository = adminRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   /**
@@ -69,6 +73,7 @@ public class AdminService {
    */
   public Admins save(Admins admin) {
     logger.info("Saving admin with id: {}", admin.getId());
+    admin.getAccount().setPassword(passwordEncoder.encode(admin.getAccount().getPassword()));
     return adminRepository.save(admin);
   }
 
