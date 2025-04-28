@@ -1,16 +1,12 @@
-import '../../App.css';
-import '../Account.css';
 import OrdersCarDisplay from './OrdersCarDisplay'; 
+import AccountHeader from '../AccountHeader/AccountHeader';
+import '../Account.css';
+import '../../App.css';
 
 const Orders = ({ orders = [] }) => { 
   return (
     <div className="orders">
-      <header className="account-menu">
-        <ul className="account-menu-list">
-          <li><a href="/account/account">Account</a></li>
-          <li id="selected-site-link"><a href="/account/orders">Orders</a></li>
-        </ul>
-      </header>
+      <AccountHeader />
       <section className="orders-section">
         <div className="orders-list">
         <h2 className="title">My Bookings</h2>

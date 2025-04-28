@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
-import '../App.css';
+import AccountHeader from './AccountHeader/AccountHeader';
 import './Account.css';
+import '../App.css';
 
 const Account = () => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
@@ -26,16 +27,7 @@ const Account = () => {
 
   return (
     <div className="account">
-      <header className="account-menu">
-        <ul className="account-menu-list">
-          <li id="selected-site-link">
-            <a href="/account/account">Account</a>
-          </li>
-          <li>
-            <a href="/account/orders">Orders</a>
-          </li>
-        </ul>
-      </header>
+      <AccountHeader />
       <section className="account-section">
         <h1>Account</h1>
         <h2>Personal Information</h2>
