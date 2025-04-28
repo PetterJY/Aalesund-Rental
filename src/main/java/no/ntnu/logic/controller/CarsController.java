@@ -1,5 +1,6 @@
 package no.ntnu.logic.controller;
 
+import java.util.HashSet;
 import java.util.List;
 
 import java.util.Set;
@@ -87,8 +88,14 @@ public class CarsController {
     logger.info("Creating new car");
     Cars car = new Cars();
 
-    Set<ExtraFeatures> extraFeatures = carRequest.getExtraFeatureIds().stream()
-      .map(extraFeaturesService::findById)
+    if (carRequest.getProviderId() == null) {
+      logger.error("Provider ID is missing in the request");
+      return ResponseEntity.badRequest().build();
+    }
+
+    Set<ExtraFeatures> extraFeatures = (carRequest.getExtraFeatureIds() != null ? carRequest.getExtraFeatureIds() : new HashSet<>())
+      .stream()
+      .map(id -> extraFeaturesService.findById((Long) id))
       .collect(Collectors.toSet());
     car.setExtraFeatures(extraFeatures);
 

@@ -2,6 +2,8 @@ package no.ntnu.entity.models;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +34,7 @@ public class ExtraFeatures {
 
   @ManyToMany(mappedBy = "extraFeatures")
   @ApiModelProperty("The cars that have this extra feature")
+  @JsonBackReference
   private Set<Cars> cars;
   
   public void setId(int id) {
