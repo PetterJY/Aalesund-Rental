@@ -38,7 +38,7 @@ const CarSelected = (props) => {
           <h4>{props.priceDay},- kr / day - {props.priceTotal},- kr in total</h4>
         </div>
       </section>
-      <button className='next-button'>next</button>
+      <button className='next-button'>Rent</button>
     </div>
   );
 }

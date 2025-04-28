@@ -152,6 +152,7 @@ const Header = () => {
           <button id="login-create" onClick={handleUserClick}>
             <User size={24} className="user-icon"/>
             {!isLoggedIn && <span className="login-register-text">Login | Register</span>}
+            {isLoggedIn && <span className="login-register-text">My Account</span>}
           </button>
         </nav>
 
