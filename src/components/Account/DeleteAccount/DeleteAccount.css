@@ -1,5 +1,5 @@
 /* Modal overlay (same as .modal in LoginRegister.css) */
-.modal #deleteAccountModal {
+#deleteAccountModal.modal {
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -26,7 +26,7 @@
 }
 
 /* Title (same as .title in LoginRegister.css) */
-.title {
+.modal-content .title {
   font-size: 1.5em;
   font-weight: bold;
 }
@@ -39,7 +39,7 @@
 }
 
 /* Styling for the bottom-section */
-#bottom-section {
+.modal-content #bottom-section {
   display: flex;
   flex-direction: column;
   background-color: white; /* Modal content background */
@@ -52,14 +52,14 @@
   margin: 0 auto; /* Center the section horizontally */
 }
 
-#bottom-section label {
+.modal-content #bottom-section label {
   margin-bottom: 8px;
   font-weight: bold;
   font-size: 1rem;
   color: #252422;
 }
 
-#bottom-section input {
+.modal-content #bottom-section input {
   margin-bottom: 16px;
   padding: 10px;
   border: none;
@@ -70,19 +70,19 @@
   box-sizing: border-box;
 }
 
-#bottom-section input:focus {
+.modal-content #bottom-section input:focus {
   outline: none;
   border-bottom: 2px solid #FF5F00;
 }
 
-#bottom-section .error-message {
+.modal-content #bottom-section .error-message {
   color: red;
   font-size: 16px;
   font-weight: bold;
   margin-top: 10px;
 }
 
-#bottom-section .submit-button {
+.modal-content #bottom-section .submit-button {
   background-color: #FF5F00;
   color: white;
   padding: 10px;
@@ -93,11 +93,11 @@
   margin-bottom: 10px;
 }
 
-#bottom-section .submit-button:hover {
+.modal-content #bottom-section .submit-button:hover {
   background-color: #eb5f28c9;
 }
 
-#bottom-section .cancel-button {
+.modal-content #bottom-section .cancel-button {
   background-color: #6c757d;
   color: white;
   padding: 10px;
@@ -107,11 +107,11 @@
   cursor: pointer;
 }
 
-#bottom-section .cancel-button:hover {
+.modal-content #bottom-section .cancel-button:hover {
   background-color: #5a6268;
 }
 
-#bottom-section #verification-keyword {
+.modal-content #bottom-section #verification-keyword {
   color: #FF5F00;
   font-weight: bold;
 }

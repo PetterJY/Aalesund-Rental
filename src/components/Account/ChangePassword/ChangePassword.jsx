@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import './ChangePassword.css';
 import '../../App.css';
 
@@ -53,9 +54,11 @@ const ChangePassword = ({ closeModal, isModalVisible }) => {
     };
   }
 
-  return (
-    <>
-      {isModalVisible && (
+  if (!isModalVisible) {
+    return null; 
+  }
+
+  const modalContent = (
         <main id='changePasswordModal' className='modal' onMouseDown={closeModal}>
             <form id='bottom-section' onMouseDown={(e) => e.stopPropagation()} onSubmit={changePassword}>
               <label htmlFor='old-password-field'>Old Password</label>
@@ -73,8 +76,11 @@ const ChangePassword = ({ closeModal, isModalVisible }) => {
               <button className='cancel-button' type='button' onClick={closeModal}>Cancel</button>
             </form>
         </main>
-      )}
-    </>
+      );
+
+  return ReactDOM.createPortal(
+    modalContent,
+    document.body
   );
 };
 
