@@ -11,6 +11,7 @@ export default function RentalPage(props) {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const containerRef = useRef(null);
   const [carsPerRow, setCarsPerRow] = useState(1);
+  
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
   const toggleDropdown = (category) =>

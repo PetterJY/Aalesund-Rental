@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import no.ntnu.entity.dto.RentalRequest;
 import no.ntnu.entity.models.Rentals;
+import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.RentalsService;
+import no.ntnu.entity.models.Accounts;
+import no.ntnu.entity.models.Cars;
+import no.ntnu.entity.models.Providers;
+
 
 /**
  * Controller for managing rental-related operations.
@@ -70,16 +77,37 @@ public class RentalsController {
   /**
    * Creates a new rental.
    *
-   * @param rental The rental to create.
+   * @param rentalRequest The rental to create.
    * @return The created rental.
    */
   @PostMapping
   @ApiOperation(value = "Creates a new rental.", notes = "The newly created rental is returned.")
-  public ResponseEntity<Rentals> createRental(@RequestBody Rentals rental) {
+  public ResponseEntity<Rentals> createRental(@RequestBody RentalRequest rentalRequest) {
     logger.info("Creating new rental");
-    Rentals createdRental = rentalsService.save(rental);
-    logger.debug("Created rental: {}", createdRental);
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdRental);
+    Rentals createdRental = new Rentals();
+
+    Providers provider = new Providers();
+    provider.setId(rentalRequest.getProviderId());
+    createdRental.setProvider(provider);
+
+    Accounts renter = new Accounts();
+    renter.setId(rentalRequest.getRentalId());
+    createdRental.setRenter(renter);
+
+    Cars car = new Cars();
+    car.setId(rentalRequest.getCarId());
+    createdRental.setCar(car);
+
+    createdRental.setStartDate(rentalRequest.getStartDate());
+    createdRental.setEndDate(rentalRequest.getEndDate());
+    createdRental.setPickupLocation(rentalRequest.getPickupLocation());
+    createdRental.setDropoffLocation(rentalRequest.getDropoffLocation());
+    createdRental.setTotalCost(rentalRequest.getTotalCost());
+    createdRental.setStatus(Rentals.Status.PENDING);
+
+    Rentals savedRental = rentalsService.save(createdRental);
+    logger.debug("Created rental: {}", savedRental);
+    return ResponseEntity.status(HttpStatus.CREATED).body(savedRental);
   }
 
   /**

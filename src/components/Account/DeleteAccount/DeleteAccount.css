@@ -75,6 +75,13 @@
   border-bottom: 2px solid #FF5F00;
 }
 
+.modal-content #bottom-section input[type="text"],
+.modal-content #bottom-section input[type="password"] {
+  border-radius: 0;
+  font-size: 1rem;
+  color: #252422;
+}
+
 .modal-content #bottom-section .error-message {
   color: red;
   font-size: 16px;

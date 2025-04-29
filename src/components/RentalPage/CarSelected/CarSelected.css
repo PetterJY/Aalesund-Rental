@@ -6,7 +6,6 @@
   border-radius: 15px;
   box-shadow: inset 0 0 0 2px #252422;
   margin-bottom: 10px;
-  animation: slide-in 0.5s ease-out; /* added smooth slide-in */
 }
 
 .car-selected .next-button {
@@ -22,6 +21,17 @@
   border-radius: 15px;
   cursor: pointer;
   transition: background-color 1s ease;
+}
+
+.car-selected .next-button:hover{
+  background-color: #eb5f28c9;
+  transition: 0.3s;
+}
+
+.car-selected .next-button:active {
+  background-color: #EB5E28;
+  transition: 0.3s;
+  transform: scale(0.95);
 }
 
 .car-selected #car-background {
@@ -190,16 +200,6 @@
 
   .car-selected .car-details{
     margin-top: 20px;
-  }
-}
-
-/* Added new keyframes for the smooth dragging effect */
-@keyframes slide-in {
-  from {
-    transform: translateY(-10px);
-  }
-  to {
-    transform: translateX();
   }
 }
 

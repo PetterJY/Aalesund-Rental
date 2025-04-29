@@ -59,7 +59,7 @@ public class Rentals {
 
   @Column(nullable = false)
   @ApiModelProperty("The total cost of the rental")
-  private int totalCost;
+  private Double totalCost;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
@@ -143,11 +143,11 @@ public class Rentals {
     this.dropoffLocation = dropoffLocation;
   }
 
-  public int getTotalCost() {
+  public double getTotalCost() {
     return totalCost;
   }
 
-  public void setTotalCost(int totalCost) {
+  public void setTotalCost(Double totalCost) {
     this.totalCost = totalCost;
   }
 
