@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { Warning } from '@phosphor-icons/react';
 import './DeleteAccount.css';
 import '../../App.css';
@@ -73,9 +74,8 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
     };
   }
 
-  return (
-    <>
-      {isModalVisible && (
+  const modalContent = (
+ 
         <main id='deleteAccountModal' className='modal' onMouseDown={closeModal}>
           <div className='modal-content' onMouseDown={(e) => e.stopPropagation()}>
             <h1 id='title'>Delete Account</h1>
@@ -101,9 +101,14 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
             </form>
           </div>
         </main>
-      )}
-    </>
-  );
+      );
+
+      if (!isModalVisible) return null;
+
+      return ReactDOM.createPortal(
+        modalContent,
+        document.body
+      );
 };
 
 export default DeleteAccount;

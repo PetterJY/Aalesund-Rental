@@ -43,7 +43,7 @@
     font-weight: 400;
   }
 
-  input[type="text"]:focus {
+  .account-section input[type="text"]:focus {
     outline: none;
   }
 
@@ -58,18 +58,24 @@
     align-self: start;
   }
 
-  .save-button:hover {
+  .account-section .save-button:hover {
     transition: 0.3s;
+    background-color: #eb5f2899;
   }
 
-  .bottom-button-list {
+  .account-section .save-button:active {
+    background-color: #EB5E28;
+    transform: scale(0.95);
+  }
+
+  .account-section .bottom-button-list {
     display: flex;
     flex-direction: row;
     list-style-type: none;
     padding: 0;
     margin-left: -10px;
   }
-  .bottom-button {
+  .account-section .bottom-button {
     background-color: transparent;
     border-radius: 0%;
     color: #252422;
@@ -80,7 +86,7 @@
     min-width: fit-content;
   }
 
-  .bottom-button:hover {
+  .account-section .bottom-button:hover {
     background-color: transparent;
     color: #EB5E28;
     border-bottom: 1px solid #EB5E28;
