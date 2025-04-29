@@ -4,7 +4,12 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 import no.ntnu.entity.dto.DeleteAccountRequest;
+import no.ntnu.logic.repository.ProvidersRepository;
+import no.ntnu.logic.repository.UsersRepository;
+import no.ntnu.logic.service.AdminService;
 import no.ntnu.logic.service.AuthenticationService;
+import no.ntnu.logic.service.ProvidersService;
+import no.ntnu.logic.service.UsersService;
 import org.springframework.security.core.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,16 +37,27 @@ import no.ntnu.logic.service.AccountsService;
 @RestController
 @RequestMapping("/accounts")
 public class AccountsController {
-  private final AccountsService accountsService;
   private final AuthenticationService authenticationService;
 
-  private static final Logger logger = 
+  private final AccountsService accountsService;
+
+  private final AdminService adminService;
+  private final ProvidersService providersService;
+  private final UsersService usersService;
+  private static final Logger logger =
       LoggerFactory.getLogger(AccountsController.class.getSimpleName());
 
   @Autowired
-  public AccountsController(AccountsService accountsService, AuthenticationService authenticationService) {
+  public AccountsController(AccountsService accountsService,
+                            AuthenticationService authenticationService,
+                            AdminService adminService,
+                            ProvidersService providersService,
+                            UsersService usersService) {
     this.accountsService = accountsService;
     this.authenticationService = authenticationService;
+    this.adminService = adminService;
+    this.providersService = providersService;
+    this.usersService = usersService;
   }
 
   /**
@@ -63,7 +79,6 @@ public class AccountsController {
    *
    * @param id the ID of the account to find
    * @return the found account
-   * @throws AccountNotFoundException if no account is found with the given ID
    */
   @GetMapping("/{id}")
   @ApiOperation(value = "Returns an account by its ID.", 
@@ -107,15 +122,16 @@ public class AccountsController {
    *
    * @return a response entity with status NO_CONTENT
    */
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/account")
   @ApiOperation(value = "Deletes an account by its ID.",
     notes = "If the account is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteAccount(@Valid @RequestBody DeleteAccountRequest request,
                                             Authentication authentication) {
-    String userName = authentication.getName();
-    Accounts account = accountsService.findByUsername(userName);
+    String identifier = authentication.getName();
+    String role = authentication.getAuthorities().iterator().next().getAuthority();
 
-    if (authenticationService.verifyPassword(userName, request.getPassword())) {
+    if (authenticationService.verifyPassword(identifier, request.getPassword())) {
+      Accounts account = accountsService.findByUsername(identifier, role);
       accountsService.deleteById(account.getId());
       SecurityContextHolder.clearContext();
       return ResponseEntity.noContent().build();

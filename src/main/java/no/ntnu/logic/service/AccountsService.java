@@ -83,11 +83,16 @@ public class AccountsService {
     return accountsRepository.save(account);
   }
 
-  public Accounts findByUsername(String username) {
-    logger.info("Fetching account with username: {}", username);
-    return accountsRepository.findByUsername(username)
-      .orElseThrow(() -> new AccountNotFoundException("Account not found with username: " + username)
-    );
+  public Accounts findByUsername(String identifier, String role) {
+    logger.info("Fetching account with identifier: {}", identifier);
+
+    return
+      (switch (role) {
+        case "ROLE_ADMIN" -> adminsService.findByUsername(identifier).getAccount();
+        case "ROLE_USER" -> usersService.findByEmail(identifier).getAccount();
+        case "ROLE_PROVIDER" -> providersService.findByEmail(identifier).getAccount();
+        default -> throw new RoleNotFoundException("Account not found with username: " + identifier);
+      });
   }
 
   /**
@@ -108,7 +113,7 @@ public class AccountsService {
         logger.info("Deleting user account with id: {}", id);
         usersService.deleteById(id);
         break;
-      case "Provider":
+      case "PROVIDER":
         logger.info("Deleting provider account with id: {}", id);
         providersService.deleteById(id);
         break;
