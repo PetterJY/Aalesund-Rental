@@ -8,10 +8,10 @@ import java.util.Set;
 import no.ntnu.entity.models.Cars;
 
 /**
- * CarCreateRequest is a data transfer object.
+ * CarDetails is a data transfer object.
  * It represents the registration request for a car.
  */
-public class CarCreateRequest {
+public class CarDetails {
 
   @NotNull(message = "Provider ID is required")
   private Long providerId;

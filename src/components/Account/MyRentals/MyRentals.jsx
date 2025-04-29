@@ -10,7 +10,7 @@ const MyRentals = ({ importedRentals = [] }) => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('http://localhost:8080/cars', {
+        const response = await fetch('http://localhost:8080/rentals', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -21,8 +21,9 @@ const MyRentals = ({ importedRentals = [] }) => {
           console.error('Failed to fetch cars:', response.statusText);
           throw new Error('Failed to fetch cars');
         }
-        const data = await response.json();
-        setRentals(data);
+        const rentalDetails = await response.json();
+        setRentals(rentalDetails);
+        console.log('Fetched rentals:', rentalDetails);
       } catch (error) {
         console.error(error);
       }
@@ -36,7 +37,7 @@ const MyRentals = ({ importedRentals = [] }) => {
       <section className="orders-section">
         <div className="orders-list">
         <h2 className="title">My Rentals</h2>
-        {importedRentals.map((rental) => (
+        {rentals.map((rental) => (
             <OrdersCarDisplay
               key={rental.id}
               brand={rental.brand}
