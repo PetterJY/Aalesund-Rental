@@ -5,7 +5,7 @@ import java.util.List;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-import no.ntnu.entity.dto.CarCreateRequest;
+import no.ntnu.entity.dto.CarDetails;
 import no.ntnu.entity.models.ExtraFeatures;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.service.ExtraFeaturesService;
@@ -77,6 +77,22 @@ public class CarsController {
   }
 
   /**
+   * Returns all cars for a specific provider.
+   *
+   * @param id The ID of the provider.
+   * @return List of cars for the specified provider.
+   */
+  @GetMapping("/my-cars/{id}")
+  @ApiOperation(value = "Returns all cars for a specific provider.",
+      notes = "If the provider is not found, a 404 error is returned.")
+  public ResponseEntity<List<Cars>> findByProviderId(@PathVariable Long id) {
+    logger.info("Fetching cars with provider-id: {}", id);
+    List<Cars> cars = carsService.findByProviderId(id);
+    logger.debug("Fetched cars: {}", cars);
+    return ResponseEntity.status(HttpStatus.OK).body(cars);
+  }
+
+  /**
    * Creates a new car.
    *
    * @param carRequest The car to create.
@@ -84,7 +100,7 @@ public class CarsController {
    */
   @PostMapping
   @ApiOperation(value = "Creates a new car.", notes = "The newly created car is returned.")
-  public ResponseEntity<Cars> createCar(@RequestBody CarCreateRequest carRequest) {
+  public ResponseEntity<Cars> createCar(@RequestBody CarDetails carRequest) {
     logger.info("Creating new car");
     Cars car = new Cars();
 

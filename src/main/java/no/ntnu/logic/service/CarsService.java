@@ -55,6 +55,15 @@ public class CarsService {
       .orElseThrow(() -> new CarNotFoundException("Car not found with id: " + id));
   }
 
+  public List<Cars> findByProviderId(Long providerId) throws CarNotFoundException {
+    logger.info("Fetching cars for provider with id: {}", providerId);
+    List<Cars> cars = carsRepository.findByProviderId(providerId);
+    if (cars.isEmpty()) {
+      throw new CarNotFoundException("No cars found for provider with id: " + providerId);
+    }
+    return cars;
+  }
+
   /**
    * Saves a car.
    *
