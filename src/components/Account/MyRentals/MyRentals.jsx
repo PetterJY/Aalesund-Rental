@@ -10,7 +10,7 @@ const MyRentals = ({ importedRentals = [] }) => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('http://localhost:8080/rentals', {
+        const response = await fetch('http://localhost:8080/cars', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

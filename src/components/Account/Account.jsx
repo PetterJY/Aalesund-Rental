@@ -7,15 +7,16 @@ import '../App.css';
 
 const Account = () => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-  const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
-
+  
   const openDeleteModal = () => {
     setIsDeleteModalVisible(true);
   };
-
+  
   const closeDeleteModal = () => {
     setIsDeleteModalVisible(false);
   };
+  
+  const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
 
   const openChangePasswordModal = () => {
     setIsChangePasswordModalVisible(true);

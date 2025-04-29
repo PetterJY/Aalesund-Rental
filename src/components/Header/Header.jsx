@@ -101,16 +101,34 @@ const Header = () => {
     } else {
       setIsLoggedIn(false);
     }
-  });
+  }, []);
+
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const toggleDropdownMenu = () => {
+    setIsDropdownVisible((prev) => {
+      console.log("Toggling dropdown menu, new state:", !prev);
+      return !prev;
+    });
+  };
 
   const handleUserClick = () => {
     console.log("HandleUserClick, isLoggedIn value: " + isLoggedIn);
     if (isLoggedIn) {
-      navigate('/account');
+      toggleDropdownMenu();
     } else {
       setIsModalVisible(true);
     }
   };
+
+  const DropdownMenu = () => (
+    <div className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}>
+      <ul className="dropdown-menu-list">
+        <li onClick={() => navigate('/account')}>My Account</li>
+        <li onClick={() => navigate('/account/orders')}>My Orders</li>
+        <li onClick={() => navigate('/logout')}>Logout</li>
+      </ul>
+    </div>
+  );
 
   return (
     <header className="top-header">
@@ -149,11 +167,13 @@ const Header = () => {
             isLoggedIn={isLoggedIn}
             defaultMode="login"
           />
+
           <button id="login-create" onClick={handleUserClick}>
             <User size={24} className="user-icon"/>
             {!isLoggedIn && <span className="login-register-text">Login | Register</span>}
-            {isLoggedIn && <span className="login-register-text">My Account</span>}
+            {isLoggedIn && <span id="logged-in-text" className="login-register-text">My Account</span>}
           </button>
+          {isDropdownVisible && <DropdownMenu />}
         </nav>
 
         {showMenu && mobileDisplaySize && <DateTimeMenu />}
