@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import no.ntnu.entity.exceptions.AccountNotFoundException;
 import no.ntnu.entity.exceptions.RoleNotFoundException;
 import no.ntnu.entity.models.Accounts;
-import no.ntnu.entity.models.Users;
 import no.ntnu.logic.repository.AccountsRepository;
 
 /**
@@ -83,16 +82,22 @@ public class AccountsService {
     return accountsRepository.save(account);
   }
 
-  public Accounts findByUsername(String identifier, String role) {
+  /**
+   * Fetches an account by its identifier and role.
+   *
+   * @param identifier the identifier of the account (username or email).
+   * @param role the role of the account (e.g., "ROLE_ADMIN", "ROLE_USER", "ROLE_PROVIDER").
+   * @return the account with the given identifier and role.
+   * @throws RoleNotFoundException if the role is not recognized.
+   */
+  public Accounts findByIdentifier(String identifier, String role) throws RoleNotFoundException {
     logger.info("Fetching account with identifier: {}", identifier);
-
-    return
-      (switch (role) {
-        case "ROLE_ADMIN" -> adminsService.findByUsername(identifier).getAccount();
-        case "ROLE_USER" -> usersService.findByEmail(identifier).getAccount();
-        case "ROLE_PROVIDER" -> providersService.findByEmail(identifier).getAccount();
-        default -> throw new RoleNotFoundException("Account not found with username: " + identifier);
-      });
+    return switch (role) {
+      case "ROLE_ADMIN" -> adminsService.findByName(identifier).getAccount();
+      case "ROLE_USER" -> usersService.findByEmail(identifier).getAccount();
+      case "ROLE_PROVIDER" -> providersService.findByEmail(identifier).getAccount();
+      default -> throw new RoleNotFoundException("Account not found with username: " + identifier);
+    };
   }
 
   /**

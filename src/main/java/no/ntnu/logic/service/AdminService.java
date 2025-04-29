@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.AdminNotFoundException;
 import no.ntnu.entity.models.Admins;
-import no.ntnu.entity.models.Users;
 import no.ntnu.logic.repository.AdminRepository;
 
 /**
@@ -65,7 +64,7 @@ public class AdminService {
       .orElseThrow(() -> new AdminNotFoundException("Admin not found with id: " + id));
   }
 
-  public Admins findByUsername(String username) {
+  public Admins findByName(String username) {
     logger.info("Fetching admin with username: {}", username);
     return adminRepository.findByName(username)
       .orElseThrow(() -> new AdminNotFoundException("Admin not found with username: " + username));
