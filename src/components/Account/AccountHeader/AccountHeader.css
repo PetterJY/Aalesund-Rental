@@ -1,0 +1,36 @@
+.account-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 10vh 0 10vh;
+  
+  border-bottom: #252422 1px solid;
+}
+
+.account-menu-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.account-menu-list li {
+  list-style-type: none;
+  margin-right: 20px;
+}
+
+.account-menu-list li a {
+  text-decoration: none;
+  color: #252422;
+}
+
+/* Hover styling for non-active links */
+.account-menu-list li:not(.active) a:hover {
+  color: #EB5E28;
+  border-bottom: #EB5E28 1px solid;
+  transition: 1ms;
+}
+
+/* Styling for active links */
+.account-menu-list li.active a {
+  color: #EB5E28;
+  border-bottom: #EB5E28 1px solid;
+}

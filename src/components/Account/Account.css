@@ -1,44 +1,3 @@
-/**
-  * Common css
-  * This file contains the CSS styles for the Account component.
-  * It includes styles for the account menu, booking section, and other elements.
-  */
-  
-  .account-menu {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 0 10vh 0 10vh;
-    
-    border-bottom: #252422 1px solid;
-  }
-  
-  .account-menu-list {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .account-menu-list li {
-    list-style-type: none;
-    margin-right: 20px;
-  }
-  
-  .account-menu-list li a {
-    text-decoration: none;
-    color: #252422;
-  }
-  
-  .account-menu-list li a:hover {
-    color: #EB5E28;
-    border-bottom: #EB5E28 1px solid;
-    transition: 1ms;
-  }
-  
-  #selected-site-link {
-    color: #EB5E28;
-    border-bottom: #EB5E28 1px solid;
-  }
-  
   /**
   * Account css
   * This file contains the CSS styles for the Account section.
@@ -158,8 +117,6 @@
   * Orders CarDisplay css
   * Styles for the orders car display section of "My Orders".
   */
-
-
   
   .car-display-card {
     display: flex;
