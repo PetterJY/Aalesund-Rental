@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import no.ntnu.entity.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,19 @@ public class ProvidersService {
     logger.info("Fetching provider with id: {}", id);
     return providersRepository.findById(id)
       .orElseThrow(() -> new ProviderNotFoundException("Provider not found with id: " + id));
+  }
+
+  /**
+   * Returns a provider based on their email.
+   *
+   * @param email the email of the provider to find
+   * @return the found provider
+   * @throws ProviderNotFoundException if no provider is found with the given email
+   */
+  public Providers findByEmail(String email) throws ProviderNotFoundException {
+    logger.info("Fetching provider with email: {}", email);
+    return providersRepository.findByEmail(email)
+      .orElseThrow(() -> new UserNotFoundException("Provider not found with email: " + email));
   }
 
   /**

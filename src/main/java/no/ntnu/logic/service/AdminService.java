@@ -65,6 +65,12 @@ public class AdminService {
       .orElseThrow(() -> new AdminNotFoundException("Admin not found with id: " + id));
   }
 
+  public Admins findByUsername(String username) {
+    logger.info("Fetching admin with username: {}", username);
+    return adminRepository.findByName(username)
+      .orElseThrow(() -> new AdminNotFoundException("Admin not found with username: " + username));
+  }
+
   /**
    * Saves an admin.
    *
