@@ -14,9 +14,17 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
     setPasswordVisible((prevState) => !prevState);
   };
 
+  const retrieveData = () => {
+    return {
+      email: String(jwtDecode(localStorage.getItem('jwt')).email),
+      password: document.getElementById('delete-account-password-field').value,
+    };
+  };
 
   function deleteAccount(event) {
     event.preventDefault();
+
+    const data = retrieveData();
 
     const token = localStorage.getItem('jwt');
     if (!token) {
@@ -46,7 +54,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({email : String(jwtDecode(token).email)}),
+      body: JSON.stringify(data),
     })
       .then((response) => {
         if (response.status === 401) {
@@ -100,10 +108,10 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
             <p>Do you want to proceed?</p>
             <form id='bottom-section' onSubmit={deleteAccount}>
               <label htmlFor='password-field'>Password</label>
-              <div className='password-container'>
+              <div className='toggle-password-button-container'>
                 <input 
-                  id='password-field' 
-                  className='password-field' 
+                  id='delete-account-password-field'
+                  className='password-input-field' 
                   type={passwordVisible ? 'text' : 'password' }
                   required 
                 />

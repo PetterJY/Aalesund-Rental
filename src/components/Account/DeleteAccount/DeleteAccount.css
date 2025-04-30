@@ -122,25 +122,3 @@
   color: #FF5F00;
   font-weight: bold;
 }
-
-#deleteAccountModal .password-container {
-  position: relative;
-  width: 100%;
-}
-
-#deleteAccountModal .password-field {
-  width: 100%;
-  padding-right: 40px;
-}
-
-#deleteAccountModal .toggle-password-button {
-  position: absolute;
-  top: 40%;
-  right: 10px; 
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #FF5F00;
-  font-size: 1.2rem;
-}

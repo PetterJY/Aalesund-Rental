@@ -1,10 +1,21 @@
 import React from 'react';
-import '../../App.css';
+import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../LoginRegister.css';
+import '../../App.css';
 
 const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
   const [showErrorMessage, setShowErrorMessage] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState(""); 
+
+  const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevState) => !prevState);
+  };
+
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = React.useState(false);
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPasswordVisible((prevState) => !prevState);
+  };
   
   const handleRegister = (event) => {
     event.preventDefault(); 
@@ -102,9 +113,38 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
                 <input className='input-field' id="last-name-field" type="text" placeholder="Last Name" required />
               </div>
               <div id="password-wrapper">
-                <input className="input-field" id='register-password-field' type="password" placeholder="Password" required />
-                <input className='input-field' id="confirm-password-field" type="password" placeholder="Confirm Password" required />
-              </div>
+                <div className="toggle-password-button-container">
+                  <input
+                    id="register-password-field"
+                    className="password-input-field"
+                    type={passwordVisible ? 'text' : 'password'} 
+                    placeholder="Password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="toggle-password-button"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                  </button>
+                </div>
+                  <div className="toggle-password-button-container">
+                    <input
+                      id="confirm-password-field"
+                      className="password-input-field"
+                      type={confirmPasswordVisible ? 'text' : 'password'} 
+                      placeholder="Confirm Password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="toggle-password-button"
+                      onClick={toggleConfirmPasswordVisibility}
+                    >
+                      {confirmPasswordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                    </button>
+                  </div>              </div>
               {showErrorMessage && (
                 <p className="error-message" id="register-error-message">
                   {errorMessage}
