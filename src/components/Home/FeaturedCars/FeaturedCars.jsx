@@ -79,7 +79,6 @@ const FeaturedCars = () => {
   }
 
   useEffect(() => {
-    console.log("event listener added!")
     const interval = setInterval(() => {
       handlePreviousClick();
     }, 20000);

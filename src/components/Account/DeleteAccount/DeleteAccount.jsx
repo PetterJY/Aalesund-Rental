@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { jwtDecode } from 'jwt-decode';
 import { Warning } from '@phosphor-icons/react';
 import './DeleteAccount.css';
 import '../../App.css';
@@ -10,9 +11,22 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
 
   function deleteAccount(event) {
     event.preventDefault();
-  
-    const data = retrieveData();
-  
+
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+      console.error("Token not found in localStorage.");
+      setErrorMessage("You are not logged in.");
+      setShowErrorMessage(true);
+      return;
+    }
+
+    if (!token || token.split('.').length !== 3) {
+      console.error("Invalid token format.");
+      setErrorMessage("Invalid token. Please log in again.");
+      setShowErrorMessage(true);
+      return;
+    }
+
     // Check if the verification-keyword matches
     if (document.getElementById('verify-field').value !== 'delete') {
       console.log("Verification keyword does not match.");
@@ -21,39 +35,40 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
       return; // Exit early if the verification keyword is incorrect
     }
   
-    // Verify the password
-    fetch('http://localhost:8080/auth/verify-password', {
-      method: 'POST',
+    return fetch('http://localhost:8080/accounts', {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data.password),
+      body: JSON.stringify({email : String(jwtDecode(token).email)}),
     })
       .then((response) => {
-        if (!response.ok) {
-          console.log("Error verifying password.");
-          setErrorMessage("Password doesn't match.");
+        if (response.status === 401) {
+          console.log("Password does not match.");
+          setErrorMessage("Password does not match.");
           setShowErrorMessage(true);
-          return; // Exit early if the password verification fails
+          return;
         }
-  
-        console.log("Password has been verified.");
-  
-        // Proceed to delete the account
-        return fetch('http://localhost:8080/users/email', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data.email),
-        });
-      })
-      .then((response) => {
-        if (!response || !response.ok) {
-          console.log("Email not found.");
-          setErrorMessage("Email not found.");
+
+        if (response.status === 403) {
+          console.log("You are not authorized to delete this account.");
+          setErrorMessage("You are not authorized to delete this account.");
           setShowErrorMessage(true);
-          return; // Exit early if the email deletion fails
+          return;
+        }
+
+        if (response.status === 404) {
+          console.log("Account not found.");
+          setErrorMessage("Account not found.");
+          setShowErrorMessage(true);
+          return;
+        }
+
+        if (response.status !== 204) {
+          console.error(response.status + ": An unexpected error occurred:", response.statusText);
+          setErrorMessage("An unexpected error occurred.");
+          setShowErrorMessage(true);
+          return;
         }
   
         console.log("Account has been deleted.");
@@ -61,17 +76,10 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
         return response.json();
       })
       .catch((error) => {
-        console.error("An error occurred:", error);
-        setErrorMessage("An unexpected error occurred.");
+        console.error("An unexpected error occurred:", error);
+        setErrorMessage("An unexpected error occurred. Please try again later.");
         setShowErrorMessage(true);
       });
-  }
-
-  function retrieveData() {
-    return {
-      email: document.getElementById('email-field').value,
-      password: document.getElementById('password-field').value,
-    };
   }
 
   const modalContent = (
@@ -85,8 +93,6 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
             <p>All your data will be permanently removed.</p>
             <p>Do you want to proceed?</p>
             <form id='bottom-section' onSubmit={deleteAccount}>
-              <label htmlFor='email-field'>Email</label>
-              <input id='email-field' className='email-field' type='text' required />
               <label htmlFor='password-field'>Password</label>
               <input id='password-field' className='password-field' type='text' required />
               <label htmlFor='verify-field'>Type <i id='verification-keyword'>delete</i> to confirm</label>
