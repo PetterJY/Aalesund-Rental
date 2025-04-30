@@ -1,8 +1,8 @@
-import "../App.css";
-import "./RentalPage.css";
 import React, { useState, useRef, useEffect } from "react";
 import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
 import CarDisplay from "./CarDisplay/CarDisplay";
+import "./Rental.css";
+import "../App.css";
 
 export default function RentalPage(props) {
   const [cars, setCars] = useState([]);

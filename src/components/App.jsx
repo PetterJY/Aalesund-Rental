@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
+import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Home from './Home/Home';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
-import Rental from './RentalPage/RentalPage';
-import CarDisplay from './RentalPage/CarDisplay/CarDisplay';
-import CarSelected from './RentalPage/CarSelected/CarSelected';
-import BookingPage from './BookingPage/BookingPage';
+import Rental from './Rental/Rental';
+import CarDisplay from './Rental/CarDisplay/CarDisplay';
+import CarSelected from './Rental/CarSelected/CarSelected';
+import Booking from './Booking/Booking';
 import Account from './Account/Account';
 import Orders from './Account/Orders/Orders';
 import MyRentals from './Account/MyRentals/MyRentals';
@@ -123,7 +123,7 @@ function LoadRental() {
 
 function LoadBooking() {
   return (
-    <BookingPage carName="Volkswagen Biggerstraum" rentalPeriod="5 days" 
+    <Booking carName="Volkswagen Biggerstraum" rentalPeriod="5 days" 
     pickUpLocation="Ålesund" pickUpTime="12:00" 
     dropOffLocation="Oslo" dropOffTime="12:00" 
     costPerDay="$100" totalCost="$500"/>

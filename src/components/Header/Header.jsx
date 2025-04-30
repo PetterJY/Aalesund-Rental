@@ -110,7 +110,7 @@ const Header = () => {
       return !prev;
     });
   };
-
+  
   const handleUserClick = () => {
     console.log("HandleUserClick, isLoggedIn value: " + isLoggedIn);
     if (isLoggedIn) {
@@ -120,15 +120,24 @@ const Header = () => {
     }
   };
 
+  const handleLogout = () => {
+    console.log("Logging out...");
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    setIsDropdownVisible(false);
+    navigate('/home');
+  }; 
+
   const DropdownMenu = () => (
     <div className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}>
       <ul className="dropdown-menu-list">
         <li onClick={() => navigate('/account')}>My Account</li>
         <li onClick={() => navigate('/account/orders')}>My Orders</li>
-        <li onClick={() => navigate('/logout')}>Logout</li>
+        <li onClick={() => handleLogout()}>Logout</li>
       </ul>
     </div>
   );
+
 
   return (
     <header className="top-header">
