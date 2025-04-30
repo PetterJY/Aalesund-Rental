@@ -14,31 +14,41 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
     setPasswordVisible((prevState) => !prevState);
   };
 
-  const retrieveData = () => {
-    return {
-      email: String(jwtDecode(localStorage.getItem('jwt')).email),
-      password: document.getElementById('delete-account-password-field').value,
-    };
+  const retrieveData = ( token ) => {
+    try {
+      if (!token) {
+        throw new Error("Token not found in localStorage.");
+      }
+  
+      const decodedToken = jwtDecode(token);
+      const email = decodedToken.sub;
+      
+      console.log("Decoded Token:", decodedToken);
+  
+      if (!email) {
+        throw new Error("Email not found in token payload.");
+      }
+  
+      return {
+        email: String(email),
+        password: document.getElementById('delete-account-password-field').value,
+      };
+    } catch (error) {
+      console.error("Error retrieving data:", error.message);
+      return { email: "", password: "" }; // Return empty values if an error occurs
+    }
   };
-
   function deleteAccount(event) {
     event.preventDefault();
 
-    const data = retrieveData();
-
     const token = localStorage.getItem('jwt');
-    if (!token) {
-      console.error("Token not found in localStorage.");
-      setErrorMessage("You are not logged in.");
+    const data = retrieveData(token);
+    
+    if (data.email === "" || data.password === "") {
+      console.log("Unable to retrieve email or password.");
+      setErrorMessage("Unable to retrieve email or password.");
       setShowErrorMessage(true);
-      return;
-    }
-
-    if (!token || token.split('.').length !== 3) {
-      console.error("Invalid token format.");
-      setErrorMessage("Invalid token. Please log in again.");
-      setShowErrorMessage(true);
-      return;
+      return; 
     }
 
     // Check if the verification-keyword matches
@@ -53,6 +63,9 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+      },
+      headers: {
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })
