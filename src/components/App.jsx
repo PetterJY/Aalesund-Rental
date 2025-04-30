@@ -1,36 +1,34 @@
 import React from 'react';
-import { createBrowserRouter, createRoutesFromElements, Navigate, Outlet, Route, RouterProvider } from "react-router";
-import BookingPage from './BookingPage/BookingPage';
-import CarDisplay from './RentalPage/CarDisplay/CarDisplay';
-import CarSelected from './RentalPage/CarSelected/CarSelected';
+import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
+import Home from './Home/Home';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
+import Rental from './RentalPage/RentalPage';
+import CarDisplay from './RentalPage/CarDisplay/CarDisplay';
+import CarSelected from './RentalPage/CarSelected/CarSelected';
+import BookingPage from './BookingPage/BookingPage';
 import Account from './Account/Account';
 import Orders from './Account/Orders/Orders';
-import Home from './Home/Home';
-import RentalPage from './RentalPage/RentalPage';
-import carImage from '../resources/images/car.png';
 import MyRentals from './Account/MyRentals/MyRentals';
+import carImage from '../resources/images/car.png';
 import './App.css';
-
-const router = createBrowserRouter(createRoutesFromElements(
-  <Route path={"/"} element={<Root />}>
-    <Route index element={<Navigate to={"/home"} replace />} />
-    <Route path={"home"} element={<HomeExample />} />
-    <Route path={"rental"} element={<RentalPageExample />} />
-    <Route path={"booking"} element={<BookingPageExample />} />
-    <Route path={"account"} element={<Navigate to={"/account/account"} replace />} /> 
-    <Route path={"account/account"} element={<AccountExample />} />
-    <Route path={"account/orders"} element={<OrdersExample />} />
-    <Route path={"account/my-cars"} element={<MyRentalsExample />} />
-  </Route>
-))
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <Routes>
+      <Route path="/" element={<Root />}>
+        <Route index element={<Navigate to={"/home"} replace />} />
+        <Route path="home" element={<LoadHome />} />
+        <Route path="rental" element={<LoadRental />} />
+        <Route path="booking" element={<LoadBooking />} />
+        <Route path="account" element={<Navigate to="/account/account" replace />} /> 
+        <Route path="account/account" element={<LoadAccount />} />
+        <Route path="account/orders" element={<LoadOrders />} />
+        <Route path="account/my-cars" element={<LoadMyRentals />} />
+      </Route>
+    </Routes>
   );
-}
+} //TODO: Use 'useLoaderData' from react-router-dom to load data from the database to the front-end.
 
 function Root() {
   return (
@@ -42,19 +40,19 @@ function Root() {
   );
 }
 
-function HomeExample() {
+function LoadHome() {
   return (
     <Home pickUpDate="2021-10-10" pickUpTime="12:00" dropOffDate="2021-10-15" dropOffTime="12:00"/>
   );
 }
 
-function AccountExample() {
+function LoadAccount() {
   return (
     <Account />
   );
 }
 
-function OrdersExample() {
+function LoadOrders() {
   const orders = [
       { id:"1", brand: "Volkswagen", model: "Biggerstraum", rentingTime: 6, pickUpLocation: "Ålesund", dropOffLocation: "Ålesund",
         pickUpTime:"Th., 18. Mar., 2025 || 10:00", dropOffTime:"Th., 25. Mar., 2025 || 18:00", pricePerDay: 100, 
@@ -64,7 +62,7 @@ function OrdersExample() {
   return <Orders orders={orders} />;
 }
 
-function MyRentalsExample() {
+function LoadMyRentals() {
   const rentals = [
     { id:"1", brand: "Volkswagen", model: "Biggerstraum", rentingTime: 6, pickUpLocation: "Ålesund", dropOffLocation: "Ålesund",
       pickUpTime:"Th., 18. Mar., 2025 || 10:00", dropOffTime:"Th., 25. Mar., 2025 || 18:00", pricePerDay: 100, 
@@ -74,7 +72,7 @@ function MyRentalsExample() {
   return <MyRentals rentals={rentals} />;
 }
 
-function RentalPageExample() {
+function LoadRental() {
   const cars = [
     { id: "1", brand: "Volvo", model: "V33", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "500", totalPrice: "1500" },
     { id: "2", brand: "Mercedes", model: "7039" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "600", totalPrice: "1800" },
@@ -86,7 +84,7 @@ function RentalPageExample() {
   ];
 
   return (
-    <RentalPage>
+    <Rental>
       {cars.map(car => (
         <CarDisplay 
           key={`CD${car.id}`}
@@ -119,11 +117,11 @@ function RentalPageExample() {
           />
         );
       })}
-    </RentalPage>
+    </Rental>
   );
 }
 
-function BookingPageExample() {
+function LoadBooking() {
   return (
     <BookingPage carName="Volkswagen Biggerstraum" rentalPeriod="5 days" 
     pickUpLocation="Ålesund" pickUpTime="12:00" 
