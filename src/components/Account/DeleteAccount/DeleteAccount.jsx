@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { jwtDecode } from 'jwt-decode';
-import { Warning } from '@phosphor-icons/react';
+import { Warning, Eye, EyeSlash } from '@phosphor-icons/react';
 import './DeleteAccount.css';
 import '../../App.css';
 
 const DeleteAccount = ({ closeModal, isModalVisible }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [passwordVisible, setPasswordVisible] = useState(false); 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevState) => !prevState);
+  };
+
 
   function deleteAccount(event) {
     event.preventDefault();
@@ -94,7 +100,21 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
             <p>Do you want to proceed?</p>
             <form id='bottom-section' onSubmit={deleteAccount}>
               <label htmlFor='password-field'>Password</label>
-              <input id='password-field' className='password-field' type='text' required />
+              <div className='password-container'>
+                <input 
+                  id='password-field' 
+                  className='password-field' 
+                  type={passwordVisible ? 'text' : 'password' }
+                  required 
+                />
+                <button
+                  type="button"
+                  className="toggle-password-button"
+                  onClick={togglePasswordVisibility}
+                >
+                  {passwordVisible ? <EyeSlash/> : <Eye/> }
+                </button>
+              </div>
               <label htmlFor='verify-field'>Type <i id='verification-keyword'>delete</i> to confirm</label>
               <input id='verify-field' type='text' required />
               {showErrorMessage && (
