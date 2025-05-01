@@ -1,15 +1,14 @@
 import React from 'react';
-import '../../App.css';
-import '../Account.css';
 import { Warehouse} from "@phosphor-icons/react";
+import '../Account.css';
+import '../../App.css';
 
 
-const OrdersCarDisplay = (car) => {
+const MyRentalsCarDisplay = (car) => {
   return (
     <div className="car-display-card">
       <div className='car-background'>
-				<img src={car.image} alt={car.name} className="car-image" />
-				<h3 id='provider-name'>Ørsta Kommune</h3>
+        <img src={car.image} alt={car.name} className="car-image" />
       </div>
       <div className="car-details">
         <h3>{car.brand} {car.model}</h3>
@@ -40,4 +39,4 @@ const OrdersCarDisplay = (car) => {
   );
 };
 
-export default OrdersCarDisplay;
+export default MyRentalsCarDisplay;

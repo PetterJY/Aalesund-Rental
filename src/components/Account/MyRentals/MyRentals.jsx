@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AccountHeader from '../AccountHeader/AccountHeader';
-import OrdersCarDisplay from '../Orders/OrdersCarDisplay';
-import './MyRentals.css';
+import MyRentalsCarDisplay from './MyRentalsCarDisplay';
+import '../Account.css';
 import '../../App.css';
 
 const MyRentals = ({ importedRentals = [] }) => {
@@ -10,7 +10,7 @@ const MyRentals = ({ importedRentals = [] }) => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('http://localhost:8080/cars', {
+        const response = await fetch('http://localhost:8080/rentals', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -34,11 +34,11 @@ const MyRentals = ({ importedRentals = [] }) => {
   return (
     <div className="orders">
       <AccountHeader />
-      <section className="orders-section">
-        <div className="orders-list">
+      <section className="my-rentals-section">
+        <div className="my-rentals-list">
         <h2 className="title">My Rentals</h2>
-        {rentals.map((rental) => (
-            <OrdersCarDisplay
+        {importedRentals.map((rental) => (
+            <MyRentalsCarDisplay
               key={rental.id}
               brand={rental.brand}
               model={rental.model}
