@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.dto.AdminRegisterRequest;
-import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Admins;
 import no.ntnu.logic.service.AdminService;
 
@@ -83,6 +82,7 @@ public class AdminsController {
     admin.setName(adminRegisterRequest.getName());
     admin.setPassword(adminRegisterRequest.getPassword());
     admin.setRole(adminRegisterRequest.getRole());
+    admin.setEmail(adminRegisterRequest.getEmail());
 
     logger.info("Creating new admin");
     Admins createdAdmin = adminService.save(admin);
@@ -105,8 +105,8 @@ public class AdminsController {
     logger.info("Updating admin with id: {}", id);
     Admins admin = adminService.findById(id);
     admin.setName(adminDetails.getName());
-    // TODO: remove/keep this? : admin.setAccount(adminDetails.getAccount());
-    // TODO: Add validation for details
+    admin.setPassword(adminDetails.getPassword());
+    admin.setEmail(adminDetails.getEmail());
     Admins updatedAdmin = adminService.save(admin);
     logger.debug("Updated admin: {}", updatedAdmin);
     return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);
