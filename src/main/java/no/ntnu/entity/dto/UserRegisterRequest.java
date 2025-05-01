@@ -1,9 +1,9 @@
 package no.ntnu.entity.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * RegisterRequest is a data transfer object that represents the registration request from a user.
@@ -33,6 +33,11 @@ public class UserRegisterRequest {
 	@ApiModelProperty("The password of the user")
   private String password;
 
+	@NotBlank(message = "Phone number is required")
+	@Size(min = 8,message = "Phone number must contain at least 8 characters")
+	@ApiModelProperty("The phone number of the user")
+	private String phoneNumber;
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -47,5 +52,9 @@ public class UserRegisterRequest {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 }
