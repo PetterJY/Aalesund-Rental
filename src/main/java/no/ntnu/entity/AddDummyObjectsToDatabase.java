@@ -7,7 +7,7 @@ import java.net.http.HttpResponse;
 
 public class AddDummyObjectsToDatabase {
 
-	public static String jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQG1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzQ2MDg5ODA0LCJleHAiOjE3NDYwOTM0MDR9.XAWHPzXfVRyEEccjgffS0W_iez5Xj33bBy7kZqDRE5M";
+	public static String jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQG1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzQ2MDk2MTM0LCJleHAiOjE3NDYwOTk3MzR9.hcpxJKi0854JE1rgX_UNzZyu2CqobYbAXr2kzee_fyc";
 
 	public static void main(String[] args) {		
 		//addExtraFeature("GPS", "Global Positioning System for navigation.");

@@ -10,6 +10,7 @@ import Booking from './Booking/Booking';
 import Account from './Account/Account';
 import Orders from './Account/Orders/Orders';
 import MyRentals from './Account/MyRentals/MyRentals';
+import PageNotFound from './PageNotFound/PageNotFound';
 import carImage from '../resources/images/car.png';
 import './App.css';
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="account/account" element={<LoadAccount />} />
         <Route path="account/orders" element={<LoadOrders />} />
         <Route path="account/my-cars" element={<LoadMyRentals />} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
   );
