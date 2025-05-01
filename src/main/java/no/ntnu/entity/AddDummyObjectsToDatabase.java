@@ -7,29 +7,26 @@ import java.net.http.HttpResponse;
 
 public class AddDummyObjectsToDatabase {
 
-	public static String jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQG1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzQ1OTMwNjIwLCJleHAiOjE3NDU5MzQyMjB9.IPhqpKH02Zrfiudz9UJErpA39yAMME3Ym7-W6b_8mnk";
+	public static String jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQG1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzQ2MDg5ODA0LCJleHAiOjE3NDYwOTM0MDR9.XAWHPzXfVRyEEccjgffS0W_iez5Xj33bBy7kZqDRE5M";
 
 	public static void main(String[] args) {		
-		addExtraFeature("GPS", "Global Positioning System for navigation.");
-		addExtraFeature("Child Seat", "Safety seat for children under 12 years old.");
+		//addExtraFeature("GPS", "Global Positioning System for navigation.");
+		addExtraFeature("Child Seat", "Safety seat for children.");
 		addExtraFeature("Bluetooth", "Wireless technology for audio streaming.");
-		addExtraFeature("Sunroof", "Glass panel on the roof for sunlight and ventilation.");
+		addExtraFeature("Sunroof", "Glass panel on the roof for sunlight.");
 		addExtraFeature("Leather Seats", "Premium leather upholstery for comfort.");
-		addExtraFeature("Navigation System", "In-car navigation system with maps.");
 
-		addCar("19", "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, true, "GAS", true, "1");
-		addCar("19", "XYZ789", "Honda", "Civic", "Sedan", 120, 2021, 5, true, "GAS", true, "2");
-		addCar("19", "LMN456", "Ford", "Focus", "Hatchback", 110, 2019, 5, true, "GAS", true, "3");
-		addCar("19", "QRS321", "Chevrolet", "Malibu", "Sedan", 130, 2022, 5, true, "GAS", true, "4");
-		addCar("19", "TUV654", "Nissan", "Altima", "Sedan", 140, 2023, 5, true, "GAS", true, "5");
-		addCar("19", "WXY987", "Hyundai", "Elantra", "Sedan", 150, 2024, 5, true, "GAS", true, "6");
-		
-		addRental("1", "19", "1", "2023-10-01", "2023-10-10", "Oslo", "Bergen", 1000.0, "CONFIRMED");
-		addRental("2", "19", "2", "2023-10-05", "2023-10-15", "Stavanger", "Trondheim", 1200.0, "PENDING");	
-		addRental("3", "19", "3", "2023-10-10", "2023-10-20", "Kristiansand", "Drammen", 800.0, "CANCELLED");
-		addRental("4", "19", "4", "2023-10-15", "2023-10-25", "Bergen", "Oslo", 1500.0, "COMPLETED");
-		addRental("5", "19", "5", "2023-10-20", "2023-10-30", "Oslo", "Stavanger", 900.0, "CONFIRMED");
-		addRental("6", "19", "6", "2023-10-25", "2023-11-05", "Trondheim", "Bergen", 1100.0, "PENDING");
+		addCar("37", "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, true, "GAS", true, "1");
+		addCar("37", "XYZ789", "Honda", "Civic", "Sedan", 80, 2021, 5, true, "GAS", true, "2");
+		addCar("37", "ABC123", "Toyota", "Corolla", "Hatchback", 70, 2019, 5, true, "GAS", true, "3");
+		addCar("37", "DEF456", "Ford", "Focus", "Hatchback", 75, 2020, 5, true, "GAS", true, "4");
+		addCar("37", "GHI789", "Chevrolet", "Malibu", "Sedan", 85, 2021, 5, true, "GAS", true, "5");
+
+		addRental("36", "37", "1", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
+		addRental("36", "37", "2", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
+		addRental("36", "37", "3", "2023-10-05T00:00:00", "2023-10-15T00:00:00", "Oslo", "Stavanger", 1200.0, "COMPLETED");
+		addRental("36", "37", "4", "2023-10-10T00:00:00", "2023-10-20T00:00:00", "Oslo", "Trondheim", 1500.0, "COMPLETED");
+		addRental("36", "37", "5", "2023-10-15T00:00:00", "2023-10-25T00:00:00", "Oslo", "Kristiansand", 1300.0, "COMPLETED");
 	}
 
 	// Add more cars.
@@ -127,12 +124,12 @@ public class AddDummyObjectsToDatabase {
 
 		// Add more extra features.
 	public static void addExtraFeature(
-		String featureName, 
+		String name, 
 		String description) {
 		HttpClient client = HttpClient.newHttpClient();
 		
 		String json = "{"
-		+ "\"featureName\": \"" + featureName + "\","
+		+ "\"name\": \"" + name + "\","
 		+ "\"description\": \"" + description + "\""
 		+ "}";
 			HttpRequest request = HttpRequest.newBuilder()
@@ -145,9 +142,9 @@ public class AddDummyObjectsToDatabase {
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 						.thenAccept(response -> {
 				if (response.statusCode() == 200 || response.statusCode() == 201) {
-						System.out.println("Successfully added extra feature with name " + featureName);
+						System.out.println("Successfully added extra feature with name " + name);
 				} else {
-						System.out.println("Failed to add extra feature with name " + featureName + ". HTTP status: " + response.statusCode());
+						System.out.println("Failed to add extra feature with name " + name + ". HTTP status: " + response.statusCode());
 				}
 				System.out.println("Response: " + response.body());
 		})
