@@ -44,10 +44,9 @@ public class UsersService {
    */
   public List<Users> findAll() {
     logger.info("Fetching all users");
-    List<Users> users = StreamSupport.stream(usersRepository.findAll().spliterator(), false)
-        .filter(user -> user.getAccount().getRole().equals("USER"))
+    return StreamSupport.stream(usersRepository.findAll().spliterator(), false)
+        .filter(user -> user.getRole().equals("USER"))
         .collect(Collectors.toList());
-    return users;
   }
 
   /**
@@ -71,7 +70,7 @@ public class UsersService {
    */
   public Users save(Users user) {
     logger.info("Saving user with email: {}", user.getEmail());
-    user.getAccount().setPassword(passwordEncoder.encode(user.getAccount().getPassword()));
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
     return usersRepository.save(user);
   }
 

@@ -81,12 +81,8 @@ public class AdminsController {
       @RequestBody AdminRegisterRequest adminRegisterRequest) {
     Admins admin = new Admins();
     admin.setName(adminRegisterRequest.getName());
-    
-    Accounts account = new Accounts();
-    account.setPassword(adminRegisterRequest.getPassword());
-    account.setRole(adminRegisterRequest.getRole());
-
-    admin.setAccount(account);
+    admin.setPassword(adminRegisterRequest.getPassword());
+    admin.setRole(adminRegisterRequest.getRole());
 
     logger.info("Creating new admin");
     Admins createdAdmin = adminService.save(admin);
@@ -109,8 +105,8 @@ public class AdminsController {
     logger.info("Updating admin with id: {}", id);
     Admins admin = adminService.findById(id);
     admin.setName(adminDetails.getName());
-    admin.setAccount(adminDetails.getAccount());
-    // TODO: Add validation for details && handle exceptions
+    // TODO: remove/keep this? : admin.setAccount(adminDetails.getAccount());
+    // TODO: Add validation for details
     Admins updatedAdmin = adminService.save(admin);
     logger.debug("Updated admin: {}", updatedAdmin);
     return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);

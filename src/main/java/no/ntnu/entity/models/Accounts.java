@@ -11,6 +11,7 @@ import jakarta.persistence.*;
  * It contains fields for the account's ID, role, password, and creation time.
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Accounts {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

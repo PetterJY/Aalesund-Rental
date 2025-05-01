@@ -47,11 +47,10 @@ public class ProvidersService {
    */
   public List<Providers> findAll() {
     logger.info("Fetching all providers");
-    List<Providers> providers = StreamSupport.stream(
+    return StreamSupport.stream(
         providersRepository.findAll().spliterator(), false)
-        .filter(user -> user.getAccount().getRole().equals("PROVIDER"))
+        .filter(user -> user.getRole().equals("PROVIDER"))
         .collect(Collectors.toList());
-    return providers;
   }
 
   /**
@@ -75,7 +74,7 @@ public class ProvidersService {
    */
   public Providers save(Providers provider) {
     logger.info("Saving provider with id: {}", provider.getId());
-    provider.getAccount().setPassword(passwordEncoder.encode(provider.getAccount().getPassword()));
+    provider.setPassword(passwordEncoder.encode(provider.getPassword()));
     return providersRepository.save(provider);
   }
 

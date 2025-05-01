@@ -15,42 +15,17 @@ import jakarta.persistence.OneToOne;
  * It contains fields for the admin's ID, name, and associated account.
  */
 @Entity
-public class Admins {
-  @Id
-  @ApiModelProperty("The ID of the admin")
-  private Long id;
+public class Admins extends Accounts {
 
   @Column(nullable = false)
   @ApiModelProperty("The name of the admin")
   private String name;
-
-  @OneToOne(cascade = {CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true) 
-  @JoinColumn(name = "id")
-  @MapsId
-  @ApiModelProperty("The account associated with the user")
-  private Accounts account;
-  
-  public void setId(Long id) {
-    this.id = id;
-  }
   
   public void setName(String name) {
     this.name = name;
   }
-  
-  public void setAccount(Accounts account) {
-    this.account = account;
-  }
-  
-  public Long getId() {
-    return id;
-  }
 
   public String getName() {
     return name;
-  }
-  
-  public Accounts getAccount() {
-    return account;
   }
 }

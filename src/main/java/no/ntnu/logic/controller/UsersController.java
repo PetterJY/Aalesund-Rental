@@ -82,12 +82,10 @@ public class UsersController {
     Users user = new Users();
     user.setFirstName(registerRequest.getFirstName());
     user.setLastName(registerRequest.getLastName());
-    user.setEmail(registerRequest.getEmail());
 
-    Accounts account = new Accounts();
-    account.setPassword(registerRequest.getPassword());
-    account.setRole(registerRequest.getRole());
-    user.setAccount(account);
+    user.setEmail(registerRequest.getEmail());
+    user.setPassword(registerRequest.getPassword());
+    user.setRole(registerRequest.getRole());
 
     Users createdUser = usersService.save(user);
     logger.debug("Created user: {}", createdUser);
@@ -104,13 +102,12 @@ public class UsersController {
   @PutMapping("/{id}")
   @ApiOperation(value = "Updates a user by its ID.", 
       notes = "If the user is not found, a 404 error is returned.")
-  public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody Users userDetails) {
+  public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody UserRegisterRequest userDetails) {
     logger.info("Updating user with id: {}", id);
     Users user = usersService.findById(id);
     user.setFirstName(userDetails.getFirstName());
     user.setLastName(userDetails.getLastName());
     user.setEmail(userDetails.getEmail());
-    // TODO: Add validation for user details & handle exceptions
     Users updatedUser = usersService.save(user);
     logger.debug("Updated user: {}", updatedUser);
     return ResponseEntity.ok(updatedUser);
