@@ -81,7 +81,6 @@ public class AdminsController {
     Admins admin = new Admins();
     admin.setName(adminRegisterRequest.getName());
     admin.setPassword(adminRegisterRequest.getPassword());
-    admin.setRole(adminRegisterRequest.getRole());
     admin.setEmail(adminRegisterRequest.getEmail());
 
     logger.info("Creating new admin");

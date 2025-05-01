@@ -17,39 +17,16 @@ public class AdminRegisterRequest {
   @Email(message = "Email must be valid")
   private String email;
 
-  @NotBlank(message = "Role is required")
-  private String role = "admin";
-
   @NotBlank(message = "Password is required")
   @Size(min = 8, message = "Password must contain at least 8 characters")
   private String password;
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public String getName() {
     return name;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
   public String getEmail() {
     return email;
-  }
-
-  public String getRole() {
-    return role;
-  }
-
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public String getPassword() {

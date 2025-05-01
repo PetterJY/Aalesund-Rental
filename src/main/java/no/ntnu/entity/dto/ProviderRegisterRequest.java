@@ -21,37 +21,14 @@ public class ProviderRegisterRequest {
   @Size(min = 8, message = "Password must contain at least 8 characters")
   private String password;
 
-  @NotBlank(message = "Role is required")
-  private String role = "provider";
-  
-  public void setCompanyName(String companyName) {
-    this.companyName = companyName;
-  }
-  
   public String getCompanyName() {
     return companyName;
   }
-  
-  public void setEmail(String email) {
-    this.email = email;
-  }
-    
+
   public String getEmail() {
     return email;
   }
 
-  public String getRole() {
-    return role;
-  }
-
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-  
   public String getPassword() {
     return password;
   }

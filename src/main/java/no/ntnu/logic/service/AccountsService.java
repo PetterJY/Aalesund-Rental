@@ -1,7 +1,6 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
@@ -58,7 +57,7 @@ public class AccountsService implements UserDetailsService {
     logger.info("Fetching all accounts");
     return StreamSupport.stream(
         accountsRepository.findAll().spliterator(), false)
-        .collect(Collectors.toList());
+        .toList();
   }
 
   /**
@@ -92,7 +91,7 @@ public class AccountsService implements UserDetailsService {
       return User.builder()
         .username(account.getEmail())
         .password(account.getPassword())
-        .roles(account.getRole())
+        .roles(account.getRole().toString())
         .build();
     } catch (AccountNotFoundException e) {
       throw new UsernameNotFoundException("Account not found with email: " + email);
@@ -116,15 +115,15 @@ public class AccountsService implements UserDetailsService {
     Accounts account = findById(id);
     logger.info("Deleting user with id: {}", id);
     switch (account.getRole()) {
-      case "ADMIN":
+      case ADMIN:
         logger.info("Deleting admin account with id: {}", id);
         adminsService.deleteById(id);
         break;
-      case "USER":
+      case USER:
         logger.info("Deleting user account with id: {}", id);
         usersService.deleteById(id);
         break;
-      case "PROVIDER":
+      case PROVIDER:
         logger.info("Deleting provider account with id: {}", id);
         providersService.deleteById(id);
         break;
