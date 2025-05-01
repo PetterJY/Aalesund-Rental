@@ -25,7 +25,8 @@ function App() {
         <Route path="account" element={<Navigate to="/account/account" replace />} /> 
         <Route path="account/account" element={<LoadAccount />} />
         <Route path="account/orders" element={<LoadOrders />} />
-        <Route path="account/my-cars" element={<LoadMyRentals />} />
+        <Route path="account/my-rentals" element={<LoadMyRentals />} />
+        <Route path="account/my-cars" element={<LoadMyCars />} /> {/* TODO: Add My Cars component */}
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
@@ -72,6 +73,15 @@ function LoadMyRentals() {
   ];
 
   return <MyRentals importedRentals={rentals} />;
+}
+
+function LoadMyCars() {
+  const cars = [
+    { id:"1", brand: "Volkswagen", model: "Biggerstraum",  pricePerDay: 100, priceTotal:600, plateNumber: "XXX123", productionYear: 2003, 
+      passengers: 4, automatic: true, energyScource: "Electric",  image: carImage, },
+  ];
+
+  return <MyRentals rentals={cars} />;
 }
 
 function LoadRental() {
