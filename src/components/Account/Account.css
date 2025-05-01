@@ -120,36 +120,11 @@
   }
 
   /**
-  * MyRentals css
-  * Styles for the My Rentals section of the account page.
-  */
-
-  .my-rentals {
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .my-rentals-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-
-  .my-rentals-list {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: white;
-    width: 1200px;
-  }
-
-  /**
   * Orders CarDisplay css
   * Styles for the orders car display section of "My Orders".
   */
   
-  .car-display-card {
+  .orders-car-display-card {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -160,8 +135,13 @@
     border: #252422 2px solid;
   }
 
-  .car-display-card .car-background{
-    width: 480px;
+  .orders-car-display-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+  }
+
+  .orders-car-display-card .car-background{
+    min-width: 480px;
     border-radius: 15px;
     background: radial-gradient(50% 50% at 50% 50%, white, #252422);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -172,26 +152,26 @@
     align-self: flex-start; 
   }
 
-  .car-display-card .car-image {
+  .orders-car-display-card .car-image {
     width: 275px;
     height: auto;
     align-self: center;
   }
 
-  .car-display-card .car-image img {
+  .orders-car-display-card .car-image img {
     width: fit-content;
     height: fit-content;
     border-radius: 5px;
   }
 
-  .car-display-card .vertical-line {
+  .orders-car-display-card .vertical-line {
     width: 2px;
     background-color: black;
     height: 25%; /* Adjust the height as needed */
     margin: 0em 1em; /* Optional: Add some margin to create space around the line */
   }
 
-  .car-display-card #provider-name {
+  .orders-car-display-card #provider-name {
     font-size: 20px;
     color: #ffffff;
     margin-left: 10px;
@@ -199,33 +179,33 @@
     font-weight: 200;
   }
 
-  .car-display-card .car-details {
+  .orders-car-display-card .car-details {
     display: flex;
     flex-direction: column;
     margin-left: 50px;
   }
 
-  .car-display-card .car-details h3 {
+  .orders-car-display-card .car-details h3 {
     margin: 0;
     padding: 0;
     font-size: 20px;
     color: #252422;
   }
 
-  .car-display-card .car-details p {
+  .orders-car-display-card .car-details p {
     margin: 3px 0;
     padding: 0;
     font-size: 16px;
     color: #252422;
   }
 
-  .car-display-card .rental-schedule-container {
+  .orders-car-display-card .rental-schedule-container {
     border-bottom: transparent;
     display: flex;
     flex-direction: row;
   }
 
-  .car-display-card .rental-schedule-logos {
+  .orders-car-display-card .rental-schedule-logos {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -235,15 +215,15 @@
     margin-top: 0.5em;
   }
 
-  .car-display-card .rental-schedule-text {
+  .orders-car-display-card .rental-schedule-text {
     margin: 5px 5px 5px 5px;
   }
 
-  .car-display-card .pickup-info {
+  .orders-car-display-card .pickup-info {
     margin-bottom: 10px;
     margin-top: 10px;
   }
 
-  .car-display-card .dropoff-info {
+  .orders-car-display-card .dropoff-info {
     margin-bottom: 30px;
   }
