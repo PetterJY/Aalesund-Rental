@@ -6,7 +6,7 @@ import { Warehouse} from "@phosphor-icons/react";
 
 const OrdersCarDisplay = (car) => {
   return (
-    <div className="car-display-card">
+    <div className="orders-car-display-card">
       <div className='car-background'>
 				<img src={car.image} alt={car.name} className="car-image" />
 				<h3 id='provider-name'>Ørsta Kommune</h3>
