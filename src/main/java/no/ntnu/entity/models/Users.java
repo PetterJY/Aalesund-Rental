@@ -17,11 +17,7 @@ import jakarta.persistence.OneToOne;
  * It contains fields for the user's ID, first name, last name, email, and associated account.
  */
 @Entity
-public class Users {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @ApiModelProperty("The ID of the user")
-  private Long id;
+public class Users extends Accounts {
 
   @Column(nullable = false)
   @ApiModelProperty("The first name of the user")
@@ -30,24 +26,6 @@ public class Users {
   @Column(nullable = false)
   @ApiModelProperty("The last name of the user")
   private String lastName;
-
-  @Column(nullable = false, unique = true)
-  @ApiModelProperty("The email of the user")
-  private String email; 
-
-  @OneToOne(cascade = {CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true) 
-  @JoinColumn(name = "id")
-  @MapsId
-  @ApiModelProperty("The account associated with the user")
-  private Accounts account;
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   public String getFirstName() {
     return firstName;
@@ -63,21 +41,5 @@ public class Users {
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public Accounts getAccount() {
-    return account;
-  }
-
-  public void setAccount(Accounts account) {
-    this.account = account;
   }
 }

@@ -70,7 +70,7 @@ function LoadMyRentals() {
       priceTotal:600, image: carImage },
   ];
 
-  return <MyRentals rentals={rentals} />;
+  return <MyRentals importedRentals={rentals} />;
 }
 
 function LoadMyCars() {

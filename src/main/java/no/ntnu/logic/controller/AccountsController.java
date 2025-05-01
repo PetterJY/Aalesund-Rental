@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,30 +84,6 @@ public class AccountsController {
     Accounts account = accountsService.findById(id);
     logger.debug("Fetched account: {}", account);
     return ResponseEntity.status(HttpStatus.OK).body(account);
-  }
-
-
-  /**
-   * Updates an account by its ID.
-   *
-   * @param id the ID of the account to update
-   * @param accountDetails the new details for the account
-   * @return the updated account
-   */
-  @PutMapping("/{id}")
-  @ApiOperation(value = "Updates an account by its ID.", 
-      notes = "If the account is not found, a 404 error is returned.")
-  public ResponseEntity<Accounts> updateAccount(
-      @PathVariable Long id, @RequestBody Accounts accountDetails) {
-    logger.info("Updating account with id: {}", id);
-    Accounts account = accountsService.findById(id);
-    account.setRole(accountDetails.getRole());
-    account.setPassword(accountDetails.getPassword());
-    account.setCreatedAt(accountDetails.getCreatedAt());
-    // TODO: Add validation for details
-    Accounts updatedAccount = accountsService.save(account);
-    logger.debug("Updated account: {}", updatedAccount);
-    return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);
   }
 
   /**

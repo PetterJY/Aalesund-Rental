@@ -45,10 +45,9 @@ public class AdminService {
    */
   public List<Admins> findAll() {
     logger.info("Fetching all admins");
-    List<Admins> admins = StreamSupport.stream(adminRepository.findAll().spliterator(), false)
-        .filter(user -> user.getAccount().getRole().equals("ADMIN"))
+    return StreamSupport.stream(adminRepository.findAll().spliterator(), false)
+        .filter(user -> user.getRole().equals("ADMIN"))
         .collect(Collectors.toList());
-    return admins;
   }
 
   /**
@@ -78,7 +77,7 @@ public class AdminService {
    */
   public Admins save(Admins admin) {
     logger.info("Saving admin with id: {}", admin.getId());
-    admin.getAccount().setPassword(passwordEncoder.encode(admin.getAccount().getPassword()));
+    admin.setPassword(passwordEncoder.encode(admin.getPassword()));
     return adminRepository.save(admin);
   }
 

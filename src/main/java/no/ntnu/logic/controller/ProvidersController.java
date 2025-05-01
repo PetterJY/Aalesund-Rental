@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.dto.ProviderRegisterRequest;
-import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.service.ProvidersService;
 
@@ -83,11 +82,8 @@ public class ProvidersController {
     provider.setCompanyName(providerRegisterRequest.getCompanyName());
     provider.setEmail(providerRegisterRequest.getEmail());
 
-    Accounts account = new Accounts();
-    account.setPassword(providerRegisterRequest.getPassword());
-    account.setRole(providerRegisterRequest.getRole());
-
-    provider.setAccount(account);
+    provider.setPassword(providerRegisterRequest.getPassword());
+    provider.setRole(providerRegisterRequest.getRole());
 
     logger.info("Creating new provider");
     Providers createdProvider = providersService.save(provider);
@@ -111,8 +107,7 @@ public class ProvidersController {
     Providers provider = providersService.findById(id);
     provider.setCompanyName(providerDetails.getCompanyName());
     provider.setEmail(providerDetails.getEmail());
-    // TODO: Add phone number?
-    // TODO: Add validation for details && handle exceptions
+    provider.setPassword(providerDetails.getPassword());
     Providers updatedProvider = providersService.save(provider);
     logger.debug("Updated provider: {}", updatedProvider);
     return ResponseEntity.status(HttpStatus.OK).body(updatedProvider);
