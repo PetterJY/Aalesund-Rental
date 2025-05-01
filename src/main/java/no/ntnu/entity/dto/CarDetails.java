@@ -57,80 +57,40 @@ public class CarDetails {
     return providerId;
   }
 
-  public void setProviderId(Long providerId) {
-    this.providerId = providerId;
-  }
-
   public String getPlateNumber() {
     return plateNumber;
-  }
-
-  public void setPlateNumber(String plateNumber) {
-    this.plateNumber = plateNumber;
   }
 
   public String getCarBrand() {
     return carBrand;
   }
 
-  public void setCarBrand(String carBrand) {
-    this.carBrand = carBrand;
-  }
-
   public String getModelName() {
     return modelName;
-  }
-
-  public void setModelName(String modelName) {
-    this.modelName = modelName;
   }
 
   public String getCarType() {
     return carType;
   }
 
-  public void setCarType(String carType) {
-    this.carType = carType;
-  }
-
   public Integer getPricePerDay() {
     return pricePerDay;
-  }
-
-  public void setPricePerDay(Integer pricePerDay) {
-    this.pricePerDay = pricePerDay;
   }
 
   public Integer getProductionYear() {
     return productionYear;
   }
 
-  public void setProductionYear(Integer productionYear) {
-    this.productionYear = productionYear;
-  }
-
   public Byte getPassengers() {
     return passengers;
-  }
-
-  public void setPassengers(Byte passengers) {
-    this.passengers = passengers;
   }
 
   public Boolean isAutomatic() {
     return automatic;
   }
 
-  public void setAutomatic(Boolean automatic) {
-    this.automatic = automatic;
-  }
-
   public Cars.EnergySource getEnergySource() {
     return energySource;
-  }
-
-  public void setEnergySource(Cars.EnergySource energySource) {
-    this.energySource = energySource;
   }
 
   public Boolean isAvailable() {
@@ -143,9 +103,5 @@ public class CarDetails {
 
   public Set<Long> getExtraFeatureIds() {
     return extraFeatureIds;
-  }
-
-  public void setExtraFeatureIds(Set<Long> extraFeatureIds) {
-    this.extraFeatureIds = extraFeatureIds;
   }
 }

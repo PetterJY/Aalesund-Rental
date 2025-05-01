@@ -81,9 +81,7 @@ public class ProvidersController {
     Providers provider = new Providers();
     provider.setCompanyName(providerRegisterRequest.getCompanyName());
     provider.setEmail(providerRegisterRequest.getEmail());
-
     provider.setPassword(providerRegisterRequest.getPassword());
-    provider.setRole(providerRegisterRequest.getRole());
 
     logger.info("Creating new provider");
     Providers createdProvider = providersService.save(provider);

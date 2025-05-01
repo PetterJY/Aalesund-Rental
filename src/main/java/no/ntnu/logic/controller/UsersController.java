@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.dto.UserRegisterRequest;
-import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.UsersService;
 
@@ -85,7 +84,6 @@ public class UsersController {
 
     user.setEmail(registerRequest.getEmail());
     user.setPassword(registerRequest.getPassword());
-    user.setRole(registerRequest.getRole());
 
     Users createdUser = usersService.save(user);
     logger.debug("Created user: {}", createdUser);

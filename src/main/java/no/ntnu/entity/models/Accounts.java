@@ -23,8 +23,9 @@ public class Accounts {
   private String email;
 
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
   @ApiModelProperty("The role of the account")
-  private String role;
+  private Role role;
 
   @Column(nullable = false)
   @ApiModelProperty("The password of the account")
@@ -39,12 +40,24 @@ public class Accounts {
     this.createdAt = LocalDateTime.now();
   }
 
+  public Accounts(Role role) {
+    this.role = role;
+  }
+
   public Long getId() {
     return this.id;
   }
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public enum Role {
+    ADMIN, PROVIDER, USER
+  }
+
+  public Role getRole() {
+    return this.role;
   }
 
   public String getEmail() {
@@ -55,14 +68,6 @@ public class Accounts {
     this.email = email;
   }
 
-  public String getRole() {
-    return this.role;
-  }
-  
-  public void setRole(String role) {
-    this.role = role;
-  }
-  
   public String getPassword() {
     return this.password;
   }

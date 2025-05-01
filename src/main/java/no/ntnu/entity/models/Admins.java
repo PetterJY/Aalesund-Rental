@@ -1,13 +1,9 @@
 package no.ntnu.entity.models;
 
 import io.swagger.annotations.ApiModelProperty;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Represents an admin entity in the system.
@@ -20,6 +16,10 @@ public class Admins extends Accounts {
   @Column(nullable = false)
   @ApiModelProperty("The name of the admin")
   private String name;
+
+  public Admins() {
+    super(Role.ADMIN);
+  }
   
   public void setName(String name) {
     this.name = name;
