@@ -111,8 +111,6 @@ public class AccountsController {
     return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);
   }
 
-
-
   /**
    * Deletes an account by its ID.
    * This method is not 'role-sensitive'.
@@ -124,14 +122,14 @@ public class AccountsController {
       notes = "If the account is not found, a 404 error is returned.")
   public ResponseEntity<Void> deleteAccount(@Valid @RequestBody DeleteAccountRequest request,
                                             Authentication authentication) {
-    String identifier = authentication.getName();
+    String email = authentication.getName();
     String role = authentication.getAuthorities().iterator().next().getAuthority();
 
-    logger.info("Deleting account with identifier: {}", identifier);
+    logger.info("Deleting account with identifier: {}", email);
     logger.debug("Account role: {}", role);
 
-    if (authenticationService.verifyPassword(identifier, request.getPassword())) {
-      Accounts account = accountsService.findByIdentifier(identifier, role);
+    if (authenticationService.verifyPassword(email, request.getPassword())) {
+      Accounts account = accountsService.findByEmail(email);
       accountsService.deleteById(account.getId());
       SecurityContextHolder.clearContext();
       return ResponseEntity.noContent().build();

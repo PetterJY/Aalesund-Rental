@@ -7,5 +7,4 @@ import org.springframework.data.repository.CrudRepository;
 import no.ntnu.entity.models.Users;
 
 public interface UsersRepository extends CrudRepository<Users, Long> {
-    Optional<Users> findByEmail(String email);
 }

@@ -7,6 +7,10 @@ import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.AccountNotFoundException;
@@ -18,7 +22,7 @@ import no.ntnu.logic.repository.AccountsRepository;
  * Service class for managing accounts.
  */
 @Service
-public class AccountsService {
+public class AccountsService implements UserDetailsService {
   private static final Logger logger = 
       LoggerFactory.getLogger(AccountsService.class.getSimpleName());
 
@@ -52,10 +56,9 @@ public class AccountsService {
    */
   public List<Accounts> findAll() {
     logger.info("Fetching all accounts");
-    List<Accounts> accounts = StreamSupport.stream(
+    return StreamSupport.stream(
         accountsRepository.findAll().spliterator(), false)
         .collect(Collectors.toList());
-    return accounts;
   }
 
   /**
@@ -82,22 +85,25 @@ public class AccountsService {
     return accountsRepository.save(account);
   }
 
-  /**
-   * Fetches an account by its identifier and role.
-   *
-   * @param identifier the identifier of the account (username or email).
-   * @param role the role of the account (e.g., "ROLE_ADMIN", "ROLE_USER", "ROLE_PROVIDER").
-   * @return the account with the given identifier and role.
-   * @throws RoleNotFoundException if the role is not recognized.
-   */
-  public Accounts findByIdentifier(String identifier, String role) throws RoleNotFoundException {
-    logger.info("Fetching account with identifier: {}", identifier);
-    return switch (role) {
-      case "ROLE_ADMIN" -> adminsService.findByName(identifier).getAccount();
-      case "ROLE_USER" -> usersService.findByEmail(identifier).getAccount();
-      case "ROLE_PROVIDER" -> providersService.findByEmail(identifier).getAccount();
-      default -> throw new RoleNotFoundException("Account not found with username: " + identifier);
-    };
+  @Override
+  public UserDetails loadUserByUsername(String email) throws AccountNotFoundException {
+    try {
+      Accounts account = findByEmail(email);
+      return User.builder()
+        .username(account.getEmail())
+        .password(account.getPassword())
+        .roles(account.getRole())
+        .build();
+    } catch (AccountNotFoundException e) {
+      throw new UsernameNotFoundException("Account not found with email: " + email);
+    }
+  }
+
+
+  public Accounts findByEmail(String email) {
+    logger.info("Fetching account with email: {}", email);
+    return accountsRepository.findByEmail(email)
+      .orElseThrow(() -> new AccountNotFoundException("Account not found with email: " + email));
   }
 
   /**

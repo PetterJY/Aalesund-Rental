@@ -9,18 +9,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService {
   private final UserDetailsService userDetailsService;
+  private final AccountsService accountsService;
   private final PasswordEncoder passwordEncoder;
   private Logger logger;
 
-  public AuthenticationService(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+  public AuthenticationService(UserDetailsService userDetailsService,
+                               AccountsService accountsService,
+                               PasswordEncoder passwordEncoder) {
     this.userDetailsService = userDetailsService;
+    this.accountsService = accountsService;
     this.passwordEncoder = passwordEncoder;
     Logger.getLogger(AuthenticationService.class.getName());
   }
 
   public boolean verifyPassword(String email, String rawPassword) {
     try {
-      UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+      UserDetails userDetails = accountsService.loadUserByUsername(email);
       return passwordEncoder.matches(rawPassword, userDetails.getPassword());
     } catch (Exception e) {
       return false;

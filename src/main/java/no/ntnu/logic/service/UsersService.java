@@ -23,7 +23,7 @@ import no.ntnu.logic.repository.UsersRepository;
  * This class provides methods to find, save, delete, and authenticate users.
  */
 @Service
-public class UsersService implements UserDetailsService {
+public class UsersService {
   private static final Logger logger = 
       LoggerFactory.getLogger(UsersService.class.getSimpleName());
   
@@ -61,33 +61,6 @@ public class UsersService implements UserDetailsService {
     logger.info("Fetching user with id: {}", id);
     return usersRepository.findById(id)
       .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
-  }
-
-  /**
-   * Returns a user based on their email.
-   *
-   * @param email the email of the user to find
-   * @return the found user
-   * @throws UserNotFoundException if no user is found with the given email
-   */
-  public Users findByEmail(String email) throws UserNotFoundException {
-    logger.info("Fetching user with email: {}", email);
-    return usersRepository.findByEmail(email)
-      .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
-  }
-
-  @Override
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    try {
-      Users user = findByEmail(email);
-      return User.builder()
-              .username(user.getEmail())
-              .password(user.getAccount().getPassword())
-              .roles(user.getAccount().getRole())
-              .build();
-    } catch (UserNotFoundException e) {
-      throw new UsernameNotFoundException("User not found with email: " + email);
-    }
   }
 
   /**

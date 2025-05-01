@@ -17,6 +17,10 @@ public class Accounts {
   @ApiModelProperty("The ID of the account")
   private Long id;
 
+  @Column(nullable = false, unique = true)
+  @ApiModelProperty("The email of the account")
+  private String email;
+
   @Column(nullable = false)
   @ApiModelProperty("The role of the account")
   private String role;
@@ -40,6 +44,14 @@ public class Accounts {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public String getEmail() {
+    return this.email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getRole() {
