@@ -1,6 +1,5 @@
 package no.ntnu.entity.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotNull;
@@ -42,71 +41,35 @@ public class RentalRequest {
     return renterId;
   }
 
-  public void setRenterId(Long renterId) {
-    this.renterId = renterId;
-  }
-
   public Long getProviderId() {
     return providerId;
-  }
-
-  public void setProviderId(Long providerId) {
-    this.providerId = providerId;
   }
 
   public int getCarId() {
     return carId;
   }
 
-  public void setCarId(int carId) {
-    this.carId = carId;
-  }
-
   public LocalDateTime getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(LocalDateTime startDate) {
-    this.startDate = startDate;
-  }
-  
   public LocalDateTime getEndDate() {
     return endDate;
-  }
-  
-  public void setEndDate(LocalDateTime endDate) {
-    this.endDate = endDate;
   }
   
   public String getPickupLocation() {
     return pickupLocation;
   }
 
-  public void setPickupLocation(String pickupLocation) {
-    this.pickupLocation = pickupLocation;
-  }
-  
   public String getDropoffLocation() {
-    return dropoffLocation;
-  }
-
-  public void setDropoffLocation(String dropoffLocation) {
-    this.dropoffLocation = dropoffLocation;
-  }
+        return dropoffLocation;
+    }
 
   public Double getTotalCost() {
     return totalCost;
   }
 
-  public void setTotalCost(Double totalCost) {
-    this.totalCost = totalCost;
-  }
-
   public Rentals.Status getStatus() {
     return status;
-  }
-
-  public void setStatus(Rentals.Status status) {
-    this.status = status;
   }
  }

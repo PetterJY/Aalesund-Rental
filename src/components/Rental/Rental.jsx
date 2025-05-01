@@ -87,6 +87,14 @@ export default function RentalPage(props) {
     ],
   };
 
+  const selectedFilterOptions = {
+    sort: [],
+    carType: [],
+    transmission: [],
+    passengers: [],
+  };
+
+
   const handleCarClick = (carId) => {
     console.log("Selected car:", carId);
     setSelectedCarId((prev) => (prev === carId ? null : carId));
@@ -180,6 +188,18 @@ export default function RentalPage(props) {
     return combined;
   };
 
+  const handleFilterChange = () => {
+    selectedFilterOptions.sort = document.querySelectorAll('input[name="sort"]:checked');
+    selectedFilterOptions.carType = Array.from(document.querySelectorAll('input[name="carType"]:checked'))
+      .map(input => input.value);
+    selectedFilterOptions.transmission =
+      Array.from(document.querySelectorAll('input[name="transmission"]:checked'))
+      .map(input => input.value);
+    selectedFilterOptions.passengers = document.querySelectorAll('input[name="passengers"]:checked');
+
+    toggleFilter();
+  }
+
   return (
     <div className="rental-page">
       <section className="main-section">
@@ -189,7 +209,7 @@ export default function RentalPage(props) {
             {renderDropdown("carType", "Car Type", filterOptions.carType)}
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
             {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
-            <button className="filter-button" onClick={toggleFilter}>
+            <button className="filter-button" onClick={handleFilterChange}>
               <FunnelSimple size={20} color="#252322" /> Sort and filter
             </button>
           </nav>
@@ -215,8 +235,8 @@ export default function RentalPage(props) {
                   {renderRadioButtons("passengers", filterOptions.passengers)}
                 </div>
               </div>
-              <button className="close-button" onClick={toggleFilter}>
-                Close
+              <button className="close-button" onClick={handleFilterChange}>
+                Save Changes
               </button>
             </div>
           )}

@@ -1,13 +1,8 @@
 package no.ntnu.entity.models;
 
 import io.swagger.annotations.ApiModelProperty;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 
 /**
  * Represents a provider entity in the system.
@@ -21,11 +16,27 @@ public class Providers extends Accounts {
   @ApiModelProperty("The name of the company of the provider")
   private String companyName;
 
+  @Column(nullable = false)
+  @ApiModelProperty("The phone number of the provider's business")
+  private String phoneNumber;
+
+  public Providers() {
+    super(Role.PROVIDER);
+  }
+
   public String getCompanyName() {
     return companyName;
   }
 
   public void setCompanyName(String companyName) {
     this.companyName = companyName;
+  }
+
+  public String getPhoneNumber() {
+        return phoneNumber;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
   }
 }

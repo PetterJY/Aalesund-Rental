@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.dto.UserRegisterRequest;
-import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.UsersService;
 
@@ -78,15 +77,14 @@ public class UsersController {
   @PostMapping("/register")
   @ApiOperation(value = "Creates a new user.", notes = "The newly created user is returned.")
   public ResponseEntity<Users> register(@RequestBody UserRegisterRequest registerRequest) {
-    logger.info("Creating new user");
     Users user = new Users();
     user.setFirstName(registerRequest.getFirstName());
     user.setLastName(registerRequest.getLastName());
-
     user.setEmail(registerRequest.getEmail());
     user.setPassword(registerRequest.getPassword());
-    user.setRole(registerRequest.getRole());
-
+    user.setPhoneNumber(registerRequest.getPhoneNumber());
+    
+    logger.info("Creating new user");
     Users createdUser = usersService.save(user);
     logger.debug("Created user: {}", createdUser);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
@@ -102,12 +100,14 @@ public class UsersController {
   @PutMapping("/{id}")
   @ApiOperation(value = "Updates a user by its ID.", 
       notes = "If the user is not found, a 404 error is returned.")
-  public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody UserRegisterRequest userDetails) {
+  public ResponseEntity<Users> updateUser(
+        @PathVariable Long id, @RequestBody UserRegisterRequest userDetails) {
     logger.info("Updating user with id: {}", id);
     Users user = usersService.findById(id);
     user.setFirstName(userDetails.getFirstName());
     user.setLastName(userDetails.getLastName());
     user.setEmail(userDetails.getEmail());
+    user.setPassword(userDetails.getPassword());
     Users updatedUser = usersService.save(user);
     logger.debug("Updated user: {}", updatedUser);
     return ResponseEntity.ok(updatedUser);

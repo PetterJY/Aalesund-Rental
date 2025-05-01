@@ -1,15 +1,8 @@
 package no.ntnu.entity.models;
 
 import io.swagger.annotations.ApiModelProperty;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 
 /**
  * Represents a user entity in the system.
@@ -27,6 +20,14 @@ public class Users extends Accounts {
   @ApiModelProperty("The last name of the user")
   private String lastName;
 
+  @Column(nullable = false)
+  @ApiModelProperty("The phone number of the user")
+  private String phoneNumber;
+
+  public Users() {
+    super(Role.USER);
+  }
+
   public String getFirstName() {
     return firstName;
   }
@@ -41,5 +42,13 @@ public class Users extends Accounts {
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
   }
 }

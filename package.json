@@ -18,6 +18,7 @@
     "start": "concurrently \"npm run frontend\" \"npm run backend\"",
     "frontend": "cross-env PORT=3001 react-scripts start",
     "backend": "mvn spring-boot:run",
+    "wipedatabase": "cross-env SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop mvn spring-boot:run",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

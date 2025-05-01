@@ -81,9 +81,8 @@ public class ProvidersController {
     Providers provider = new Providers();
     provider.setCompanyName(providerRegisterRequest.getCompanyName());
     provider.setEmail(providerRegisterRequest.getEmail());
-
     provider.setPassword(providerRegisterRequest.getPassword());
-    provider.setRole(providerRegisterRequest.getRole());
+    provider.setPhoneNumber(providerRegisterRequest.getPhoneNumber());
 
     logger.info("Creating new provider");
     Providers createdProvider = providersService.save(provider);
@@ -108,6 +107,7 @@ public class ProvidersController {
     provider.setCompanyName(providerDetails.getCompanyName());
     provider.setEmail(providerDetails.getEmail());
     provider.setPassword(providerDetails.getPassword());
+    provider.setPhoneNumber(providerDetails.getPhoneNumber());
     Providers updatedProvider = providersService.save(provider);
     logger.debug("Updated provider: {}", updatedProvider);
     return ResponseEntity.status(HttpStatus.OK).body(updatedProvider);
