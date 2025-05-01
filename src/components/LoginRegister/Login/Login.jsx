@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RegisterButton from '../Register/Register';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
+import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../../App.css';
 import '../LoginRegister.css';
 
@@ -8,6 +9,11 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
   const [mode, setMode] = useState(defaultMode);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevState) => !prevState);
+  };
 
   useEffect(() => {
     if (!isModalVisible) {
@@ -77,7 +83,22 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
                 <h2 className="title">Login</h2>
                 <form onSubmit={handleLogin}>
                   <input className='input-field' id='login-email-field' type="text" placeholder="E-mail" required />
-                  <input className='input-field' id='login-password-field' type="password" placeholder="Password" required />
+                  <div className="toggle-password-button-container">
+                    <input
+                      id="login-password-field"
+                      className="password-input-field"
+                      type={passwordVisible ? 'text' : 'password'} 
+                      placeholder="Password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="toggle-password-button"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {passwordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                    </button>
+                  </div>
                   {showErrorMessage && (
                     <p className="error-message" id="register-error-message">
                       {errorMessage}

@@ -42,3 +42,37 @@ button {
   background-color: white;
   border-bottom: #FF5F00 solid 2px;
 }
+
+.toggle-password-button-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-field {
+  background-color: white;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: gray solid 2px;
+  padding-right: 40px; 
+}
+
+.password-input-field:focus {
+  outline: none;
+  background-color: white;
+  border-bottom: #FF5F00 solid 2px;
+}
+
+.toggle-password-button {
+  position: absolute;
+  top: 50%; 
+  right: 10px;
+  transform: translateY(-50%); 
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #FF5F00;
+  font-size: 1.5rem;
+}

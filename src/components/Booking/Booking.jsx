@@ -1,5 +1,5 @@
 import "../App.css";
-import "./BookingPage.css";
+import "./Booking.css";
 import carImage from "../../resources/images/car.png";
 import storageLogo from "../../resources/images/storage-logo.png";
 

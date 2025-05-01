@@ -73,7 +73,6 @@ const Testimonials = () => {
   }
 
   useEffect(() => {
-    console.log("event listener added!")
     const interval = setInterval(() => {
       handlePreviousClick();
     }, 5000);
