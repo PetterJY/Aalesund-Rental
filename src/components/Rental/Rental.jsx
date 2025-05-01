@@ -4,7 +4,7 @@ import CarDisplay from "./CarDisplay/CarDisplay";
 import "./Rental.css";
 import "../App.css";
 
-export default function RentalPage(props) {
+export default function Rental(props) {
   const [cars, setCars] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -118,9 +118,13 @@ export default function RentalPage(props) {
     fetchCarData();
   }, []);
 
-  function fetchCarData() {
+  const fetchCarData = () => {
     fetch("http://localhost:8080/cars", {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
     })
         .then((response) => {
           if (response.ok) {
