@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,12 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.dto.RentalRequest;
+import no.ntnu.entity.models.Cars;
+import no.ntnu.entity.models.Providers;
 import no.ntnu.entity.models.Rentals;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.RentalsService;
-import no.ntnu.entity.models.Accounts;
-import no.ntnu.entity.models.Cars;
-import no.ntnu.entity.models.Providers;
 
 
 /**
@@ -85,12 +83,12 @@ public class RentalsController {
   public ResponseEntity<Rentals> createRental(@RequestBody RentalRequest rentalRequest) {
     logger.info("Creating new rental");
     Rentals createdRental = new Rentals();
-
+    
     Providers provider = new Providers();
     provider.setId(rentalRequest.getProviderId());
     createdRental.setProvider(provider);
 
-    Accounts renter = new Accounts();
+    Users renter = new Users();
     renter.setId(rentalRequest.getRenterId());
     createdRental.setRenter(renter);
 

@@ -8,7 +8,7 @@ const ForgotPassword = ({ closeModal, isModalVisible, toggleMode }) => {
       {isModalVisible && (
         <div id="forgotPasswordModal" className="modal" onMouseDown={closeModal}>
           <div className="modal-content" onMouseDown={(e) => e.stopPropagation()}>
-            <h2 class="title">Forgot Password</h2>
+            <h2 className="title">Forgot Password</h2>
             <form>
               <input className='input-field' id='forgotpassword-email-field' type="text" placeholder="E-mail" required />
               <button id="submit-button" type="submit">Reset Password</button>

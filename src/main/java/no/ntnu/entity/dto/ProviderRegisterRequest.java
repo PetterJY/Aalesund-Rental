@@ -21,6 +21,10 @@ public class ProviderRegisterRequest {
   @Size(min = 8, message = "Password must contain at least 8 characters")
   private String password;
 
+  @NotBlank(message = "Phone number is required")
+  @Size(min = 8, message = "Phone number must contain at least 8 characters")
+  private String phoneNumber;
+
   public String getCompanyName() {
     return companyName;
   }
@@ -31,5 +35,9 @@ public class ProviderRegisterRequest {
 
   public String getPassword() {
     return password;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
   }
 }

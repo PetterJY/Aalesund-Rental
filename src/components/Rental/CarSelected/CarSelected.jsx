@@ -1,8 +1,19 @@
-import '../../App.css';
-import './CarSelected.css';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Car, Seatbelt, PlusCircle, Calendar, CaretDown } from "@phosphor-icons/react";
+import './CarSelected.css';
+import '../../App.css';
 
 const CarSelected = (props) => {
+  const navigate = useNavigate();
+
+  const handleRentCar = (id) => {
+    return () => {
+      console.log(`Renting car with ID: ${id}`);
+      navigate("/booking", { state: { carId: id } });
+    };
+  };
+
   return (
     <div className="car-selected" style={props.style}>
       <div id ="car-background">
@@ -38,7 +49,7 @@ const CarSelected = (props) => {
           <h4>{props.priceDay},- kr / day - {props.priceTotal},- kr in total</h4>
         </div>
       </section>
-      <button className='next-button'>Rent</button>
+      <button className='next-button' onClick={handleRentCar(props.id)}>Rent</button>
     </div>
   );
 }

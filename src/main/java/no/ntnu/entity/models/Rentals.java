@@ -29,7 +29,7 @@ public class Rentals {
   @ManyToOne
   @JoinColumn(name = "renter_id", referencedColumnName = "id", nullable = false)
   @ApiModelProperty("The account of the renter")
-  private Accounts renter;
+  private Users renter;
 
   @ManyToOne
   @JoinColumn(name = "provider_id", referencedColumnName = "id", nullable = false)
@@ -87,11 +87,11 @@ public class Rentals {
   }
   // TODO: Change method name to setId?
 
-  public Accounts getRenter() {
+  public Users getRenter() {
     return renter;
   }
 
-  public void setRenter(Accounts renter) {
+  public void setRenter(Users renter) {
     this.renter = renter;
   }
 
