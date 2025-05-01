@@ -20,7 +20,7 @@ public class AuthenticationService {
 
   public boolean verifyPassword(String email, String rawPassword) {
     try {
-      UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+      UserDetails userDetails = AccountsService.(email);
       return passwordEncoder.matches(rawPassword, userDetails.getPassword());
     } catch (Exception e) {
       return false;

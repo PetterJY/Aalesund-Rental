@@ -68,19 +68,6 @@ public class ProvidersService {
   }
 
   /**
-   * Returns a provider based on their email.
-   *
-   * @param email the email of the provider to find
-   * @return the found provider
-   * @throws ProviderNotFoundException if no provider is found with the given email
-   */
-  public Providers findByEmail(String email) throws ProviderNotFoundException {
-    logger.info("Fetching provider with email: {}", email);
-    return providersRepository.findByEmail(email)
-      .orElseThrow(() -> new UserNotFoundException("Provider not found with email: " + email));
-  }
-
-  /**
    * Saves a provider.
    *
    * @param provider the provider to save
