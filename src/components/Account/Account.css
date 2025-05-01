@@ -120,6 +120,31 @@
   }
 
   /**
+  * MyRentals css
+  * Styles for the My Rentals section of the account page.
+  */
+
+  .my-rentals {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .my-rentals-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .my-rentals-list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: white;
+    width: 1200px;
+  }
+
+  /**
   * Orders CarDisplay css
   * Styles for the orders car display section of "My Orders".
   */
@@ -159,7 +184,7 @@
     border-radius: 5px;
   }
 
-  .car-display-card #vertical-line {
+  .car-display-card .vertical-line {
     width: 2px;
     background-color: black;
     height: 25%; /* Adjust the height as needed */

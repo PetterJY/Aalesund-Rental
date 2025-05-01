@@ -91,7 +91,7 @@ public class RentalsController {
     createdRental.setProvider(provider);
 
     Accounts renter = new Accounts();
-    renter.setId(rentalRequest.getRentalId());
+    renter.setId(rentalRequest.getRenterId());
     createdRental.setRenter(renter);
 
     Cars car = new Cars();

@@ -29,7 +29,7 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
 
   const handleLogin = (event) => {
     event.preventDefault(); 
-    console.log("Login button clicked.");
+    console.log("Attempting to login.");
     
     const data = retrieveData();
 
@@ -41,6 +41,7 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
       body: JSON.stringify(data),
     })
       .then((response) => {
+        console.log("Response status: ", response.status);
         if (response.ok) {
           return response.json(); 
         }

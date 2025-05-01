@@ -5,15 +5,14 @@ import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotNull;
 import no.ntnu.entity.models.Rentals;
+
  /**
  * RentalRequest is a data transfer object.
  * It represents the registration request for a rental.
  */
-
- 
 public class RentalRequest {
   @NotNull(message = "Renter ID is required")
-  private Long rentalId;
+  private Long renterId;
 
   @NotNull(message = "Provider ID is required")
   private Long providerId;
@@ -39,12 +38,12 @@ public class RentalRequest {
   @NotNull(message = "Status is required")
   private Rentals.Status status;
 
-  public Long getRentalId() {
-    return rentalId;
+  public Long getRenterId() {
+    return renterId;
   }
 
-  public void setRentalId(Long rentalId) {
-    this.rentalId = rentalId;
+  public void setRenterId(Long renterId) {
+    this.renterId = renterId;
   }
 
   public Long getProviderId() {

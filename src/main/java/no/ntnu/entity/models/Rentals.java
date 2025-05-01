@@ -71,10 +71,10 @@ public class Rentals {
    * PENDING: The rental is pending.
    * ACTIVE: The rental is active.
    * COMPLETED: The rental is completed.
-   * CANCELED: The rental is canceled.
+   * CANCELLED: The rental is cancelled.
    */
   public enum Status {
-    PENDING, ACTIVE, COMPLETED, CANCELED
+    PENDING, ACTIVE, COMPLETED, CANCELLED
   }
 
   public Long getRentalId() {
