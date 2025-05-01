@@ -14,8 +14,11 @@ const AccountHeader = () => {
         <li id="orders-link" className={location.pathname === '/account/orders' ? 'active' : ''}>
           <a href="/account/orders">Orders</a>
         </li>
-        <li id="my-rentals-link" className={location.pathname === '/account/my-cars' ? 'active' : ''}>
-          <a href="/account/my-cars">My Rentals</a>
+        <li id="my-rentals-link" className={location.pathname === '/account/my-rentals' ? 'active' : ''}>
+          <a href="/account/my-rentals">My Rentals</a>
+        </li>
+        <li id="my-cars-link" className={location.pathname === '/account/my-cars' ? 'active' : ''}>
+          <a href="/account/my-cars">My Cars</a>
         </li>
       </ul>
     </header>
