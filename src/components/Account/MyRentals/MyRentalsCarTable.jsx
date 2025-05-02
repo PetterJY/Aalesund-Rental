@@ -1,5 +1,5 @@
 import React from 'react';
-import './MyRentals.css';
+import './MyRentalsCarTable.css';
 import '../../App.css';
 
 const MyRentalsCarTable = ({ rentals = [] }) => {

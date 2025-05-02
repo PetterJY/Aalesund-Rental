@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode'; // adjust the import if necessary
 import { NotePencil } from "@phosphor-icons/react";
 import MyRentalsCarTable from './MyRentalsCarTable';
-import './MyRentals.css';
+import './MyRentalsCarDisplay.css';
 import '../../App.css';
 
 const MyRentalsCarDisplay = ({ car }) => {

@@ -57,8 +57,9 @@
 }
 
 .dropdown-menu-list li:hover {
-  background-color: #f0f0f0;
   color: #FF5F00;
+  border-bottom: #FF5F00 2px solid;
+  border-radius: 0;
 }
 
 @media (max-width: 768px) {
