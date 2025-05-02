@@ -8,11 +8,14 @@ import java.util.stream.Collectors;
 import no.ntnu.entity.dto.CarDetails;
 import no.ntnu.entity.models.ExtraFeatures;
 import no.ntnu.entity.models.Providers;
+import no.ntnu.logic.repository.CarsRepository;
 import no.ntnu.logic.service.ExtraFeaturesService;
 import no.ntnu.logic.service.ProvidersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
@@ -37,13 +41,15 @@ public class CarsController {
       LoggerFactory.getLogger(CarsController.class.getSimpleName());
   private final ProvidersService providersService;
   private final ExtraFeaturesService extraFeaturesService;
+  private final CarsRepository carsRepository;
 
   @Autowired
   public CarsController(CarsService carsService, ProvidersService providersService,
-                        ExtraFeaturesService extraFeaturesService) {
+                        ExtraFeaturesService extraFeaturesService, CarsRepository carsRepository) {
     this.carsService = carsService;
     this.providersService = providersService;
     this.extraFeaturesService = extraFeaturesService;
+    this.carsRepository = carsRepository;
   }
 
   /**
@@ -74,6 +80,51 @@ public class CarsController {
     Cars car = carsService.findById(id);
     logger.debug("Fetched car: {}", car);
     return ResponseEntity.status(HttpStatus.OK).body(car);
+  }
+
+  @GetMapping("/cars")
+  public List<Cars> searchCars(
+      @RequestParam(required = false) List<String> carType,
+      @RequestParam(required = false) List<Cars.Transmission> transmission,
+      @RequestParam(required = false) Integer minPassengers,
+      @RequestParam(required = false) String sortOption
+  ) {
+
+    Sort sortOrder = Sort.unsorted();
+    if (sortOption != null) {
+      switch (sortOption) {
+        case "newest":
+          sortOrder = Sort.by(Sort.Direction.DESC, "productionYear");
+          break;
+        case "oldest":
+          sortOrder = Sort.by(Sort.Direction.ASC, "productionYear");
+          break;
+        case "price-low-to-high":
+          sortOrder = Sort.by(Sort.Direction.ASC, "price");
+          break;
+        case "price-high-to-low":
+          sortOrder = Sort.by(Sort.Direction.DESC, "price");
+          break;
+        case "alphabet":
+          sortOrder = Sort.by(Sort.Direction.ASC, "name");
+          break;
+      }
+    }
+
+    Pageable pageable = Pageable.unpaged(sortOrder);
+
+    // Handle null values by providing defaults if necessary
+    List<String> carTypeParam = (carType.isEmpty()) ? carType : List.of();
+    List<Cars.Transmission> transmissionParam = (transmission != null && !transmission.isEmpty()) ? transmission : List.of();
+    int passengersParam = (minPassengers != null) ? minPassengers : 2;
+
+    return
+        carsRepository.findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqual(
+            carTypeParam,
+            transmissionParam,
+            passengersParam,
+            pageable
+        );
   }
 
   /**
@@ -119,7 +170,7 @@ public class CarsController {
     car.setCarType(carRequest.getCarType());
     car.setProductionYear(carRequest.getProductionYear());
     car.setPassengers(carRequest.getPassengers());
-    car.setAutomatic(carRequest.isAutomatic());
+    car.setTransmission(carRequest.getTransmission());
     car.setEnergySource(carRequest.getEnergySource());
     car.setAvailable(carRequest.isAvailable());
     car.setPricePerDay(carRequest.getPricePerDay());
@@ -148,7 +199,7 @@ public class CarsController {
     car.setPricePerDay(carDetails.getPricePerDay());
     car.setProductionYear(carDetails.getProductionYear());
     car.setPassengers(carDetails.getPassengers());
-    car.setAutomatic(carDetails.isAutomatic());
+    car.setTransmission(carDetails.getTransmission());
     car.setEnergySource(carDetails.getEnergySource());
     
     Set<ExtraFeatures> extraFeatures = (carDetails.getExtraFeatureIds() != null ? carDetails.getExtraFeatureIds() : new HashSet<>())

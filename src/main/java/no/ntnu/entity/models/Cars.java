@@ -21,7 +21,7 @@ import jakarta.persistence.ManyToOne;
  * Represents a car entity in the system.
  * This class is part of the entity layer and is used to map to the database.
  * It contains fields for the car's ID, provider, plate number, brand, model name,
- * type, price per day, production year, number of passengers, automatic transmission,
+ * type, price per day, production year, number of passengers, automatic/manual transmission,
  * energy source, availability status, and extra features.
  */
 @Entity
@@ -64,8 +64,9 @@ public class Cars {
   private byte passengers;
 
   @Column(nullable = false)
-  @ApiModelProperty("Whether the car is automatic or not")
-  private boolean automatic;
+  @Enumerated(EnumType.STRING)
+  @ApiModelProperty("Whether the car's transmission type is automatic or manual")
+  private Transmission transmission;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
@@ -92,6 +93,10 @@ public class Cars {
    */
   public enum EnergySource {
     GAS, DIESEL, HYBRID, ELECTRIC
+  }
+
+  public enum Transmission {
+    AUTOMATIC, MANUAL
   }
 
   public int getId() {
@@ -166,12 +171,12 @@ public class Cars {
     this.passengers = passengers;
   }
 
-  public boolean isAutomatic() {
-    return automatic;
+  public Transmission getTransmission() {
+    return transmission;
   }
 
-  public void setAutomatic(boolean automatic) {
-    this.automatic = automatic;
+  public void setTransmission(Transmission transmission) {
+    this.transmission = transmission;
   }
 
   public EnergySource getEnergySource() {
