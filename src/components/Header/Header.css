@@ -106,7 +106,14 @@
   cursor: pointer;
   padding: 0;
   width: fit-content;
-  border-bottom: #252422 1px solid;
+}
+
+#login-create:hover {
+  color: white;
+  text-decoration: none;
+  border-bottom: white 1px solid;
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
 }
 
 #login-create::after {
