@@ -7,8 +7,9 @@ const DropDownMenu = ({ isDropdownVisible, navigate, handleLogout }) => {
   return (
     <div className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}>
       <ul className="dropdown-menu-list">
-        <li onClick={() => navigate('/account')}>My Account</li>
-        <li onClick={() => navigate('/account/orders')}>My Orders</li>
+        <li onClick={() => navigate('/account')}>Account</li>
+        <li onClick={() => navigate('/account/orders')}>Orders</li>
+        <li onClick={() => navigate('/account/my-rentals')}>Rentals</li>
         <li onClick={handleLogout}>Logout</li>
       </ul>
     </div>
