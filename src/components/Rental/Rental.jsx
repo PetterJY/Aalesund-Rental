@@ -60,7 +60,9 @@ export default function RentalPage(props) {
   const filterOptions = {
     sort: [
       { value: "newest", label: "Newest" },
-      { value: "price", label: "Price" },
+      { value: "oldest", label: "Oldest" },
+      { value: "price-low-to-high", label: "Price - Low To High" },
+      { value: "price-high-to-low", label: "Price - High To Low" },
       { value: "alphabet", label: "Alphabet" },
     ],
     carType: [
@@ -80,18 +82,11 @@ export default function RentalPage(props) {
       { value: "manual", label: "Manual" },
     ],
     passengers: [
-      { value: "2", label: "2+" },
-      { value: "4", label: "4+" },
-      { value: "5", label: "5+" },
-      { value: "7", label: "7+" },
+      { value: 2, label: "2+" },
+      { value: 4, label: "4+" },
+      { value: 5, label: "5+" },
+      { value: 7, label: "7+" },
     ],
-  };
-
-  const selectedFilterOptions = {
-    sort: [],
-    carType: [],
-    transmission: [],
-    passengers: [],
   };
 
 
@@ -126,22 +121,17 @@ export default function RentalPage(props) {
     fetchCarData();
   }, []);
 
-  function fetchCarData() {
-    fetch("http://localhost:8080/cars", {
-      method: "GET",
-    })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Failed to fetch car data.");
-        })
-        .then((data) => {
-          setCars(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  async function fetchCarData() {
+    try {
+      const response = await fetch("http://localhost:8080/cars");
+      if (!response.ok) {
+        throw new Error("Failed to fetch car data.");
+      }
+      const data = await response.json();
+      setCars(data);
+    } catch (error) {
+      console.error("Error fetching car data:", error);
+    }
   }
 
   // Reassemble children with inserted menu for the selected car.
@@ -188,15 +178,31 @@ export default function RentalPage(props) {
     return combined;
   };
 
-  const handleFilterChange = () => {
-    selectedFilterOptions.sort = document.querySelectorAll('input[name="sort"]:checked');
-    selectedFilterOptions.carType = Array.from(document.querySelectorAll('input[name="carType"]:checked'))
-      .map(input => input.value);
-    selectedFilterOptions.transmission =
-      Array.from(document.querySelectorAll('input[name="transmission"]:checked'))
-      .map(input => input.value);
-    selectedFilterOptions.passengers = document.querySelectorAll('input[name="passengers"]:checked');
+  async function handleFilterChange() {
+    const carType = Array.from(document.querySelectorAll('input[name="carType"]:checked'))
+    const transmission = Array.from(document.querySelectorAll('input[name="transmission"]:checked'))
+    const passengers = document.querySelector('input[name="passengers"]:checked');
+    const sortBy = document.querySelector('input[name="sort"]:checked');
 
+    const queryParams = new URLSearchParams();
+    if (carType) queryParams.append('carType', carType);
+    if (transmission) queryParams.append('transmission', transmission);
+    if (passengers) queryParams.append('passengers', passengers);
+    if (sortBy) queryParams.append('sort', sortBy.value);
+
+    const response = await fetch(`http://localhost:8080/cars?${queryParams.toString()}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    if (!response.ok) {
+      console.error("Failed to fetch filtered car data.");
+      return;
+    }
+    const data = await response.json();
+    setCars(data);
+    setSelectedCarId(null);
     toggleFilter();
   }
 
@@ -205,7 +211,7 @@ export default function RentalPage(props) {
       <section className="main-section">
         <div className ="rental-page">
           <nav className="sort-bar">
-            {renderDropdown("sort", "Sort", filterOptions.sort)}
+            {renderDropdown("sort", "Sort By", filterOptions.sort)}
             {renderDropdown("carType", "Car Type", filterOptions.carType)}
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
             {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
