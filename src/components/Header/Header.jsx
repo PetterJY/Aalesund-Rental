@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import logo from '../../resources/images/logo.png';
 import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../Home/BookingForm/BookingForm';
+import DropDownMenu from './DropDownMenu/DropDownMenu';
 import './Header.css';
 import '../App.css';
 
@@ -128,17 +129,6 @@ const Header = () => {
     navigate('/home');
   }; 
 
-  const DropdownMenu = () => (
-    <div className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}>
-      <ul className="dropdown-menu-list">
-        <li onClick={() => navigate('/account')}>My Account</li>
-        <li onClick={() => navigate('/account/orders')}>My Orders</li>
-        <li onClick={() => handleLogout()}>Logout</li>
-      </ul>
-    </div>
-  );
-
-
   return (
     <header className="top-header">
       <div className={mobileDisplaySize ? "mobile-header" : "desktop-header"}>
@@ -182,7 +172,13 @@ const Header = () => {
             {!isLoggedIn && <span className="login-register-text">Login | Register</span>}
             {isLoggedIn && <span id="logged-in-text" className="login-register-text">My Account</span>}
           </button>
-          {isDropdownVisible && <DropdownMenu />}
+          {isDropdownVisible && (
+            <DropDownMenu
+              isDropdownVisible={isDropdownVisible}
+              navigate={navigate}
+              handleLogout={handleLogout}
+            />
+          )}
         </nav>
 
         {showMenu && mobileDisplaySize && <DateTimeMenu />}

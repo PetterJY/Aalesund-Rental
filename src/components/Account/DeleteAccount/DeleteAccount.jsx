@@ -38,6 +38,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
       return { email: "", password: "" }; // Return empty values if an error occurs
     }
   };
+  
   function deleteAccount(event) {
     event.preventDefault();
 

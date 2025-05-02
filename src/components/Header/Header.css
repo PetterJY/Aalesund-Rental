@@ -67,7 +67,14 @@ body, html {
   cursor: pointer;
   padding: 0;
   width: fit-content;
-  border-bottom: #252422 1px solid;
+}
+
+#login-create:hover {
+  color: white;
+  text-decoration: none;
+  border-bottom: white 1px solid;
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
 }
 
 #login-create::after {
@@ -107,33 +114,6 @@ body, html {
 
 .logo-button {
   cursor: pointer;
-}
-
-
-.dropdown-menu {
-  display: flex; 
-  flex-direction: column;
-
-  position: absolute;
-  top: 100%;
-  background-color: white;
-  box-shadow: black 0px 0px 10px 0px;
-  border-radius: 6px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px); /* Start slightly above */
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.dropdown-menu.visible {
-  cursor: pointer;
-  list-style: none;
-  margin: 6px;
-  text-align: left;
-  padding: 10px;
-  transform: translateY(2); /* Target transform value */
-  opacity: 1;
-  visibility: visible;
 }
 
 .date-time-menu-desktop {
@@ -250,11 +230,6 @@ body, html {
 
 .edit-button:hover {
   background-color: #333333;
-}
-
-p {
-  color: white;
-  margin: 1rem;
 }
 
 .date-time-popup-menu {
@@ -915,15 +890,4 @@ background: #e94100; /* Darker shade of #FF5F00 */
     transition: none;
   }
 
-}
-
-
-
-
-.dropdown-menu-list {
-  cursor: pointer;
-  list-style: none;
-  margin: 6px;
-  text-align: left;
-  padding: 12px;
 }

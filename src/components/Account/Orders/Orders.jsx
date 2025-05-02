@@ -1,9 +1,34 @@
+import React, { useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import OrdersCarDisplay from './OrdersCarDisplay'; 
 import AccountHeader from '../AccountHeader/AccountHeader';
 import '../Account.css';
 import '../../App.css';
 
 const Orders = ({ orders = [] }) => { 
+  useEffect(() => {
+    fetch("http://localhost:8080/rentals/users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: JSON.stringify({ email: jwtDecode(localStorage.getItem("jwt")).sub }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+  }, []);
+
   return (
     <div className="orders">
       <AccountHeader />

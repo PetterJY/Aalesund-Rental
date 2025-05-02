@@ -1,0 +1,22 @@
+ .my-rentals {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .my-rentals-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .my-rentals-list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: white;
+    width: 1200px;
+  }
+
+  
+  

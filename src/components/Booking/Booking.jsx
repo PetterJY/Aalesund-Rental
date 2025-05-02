@@ -1,19 +1,34 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import carImage from "../../resources/images/car.png";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
 import "../App.css";
 
-const BookingPage = (props) => {
+const Booking = (props) => {
+	const location = useLocation();
+	const { carId } = location.state || { carId: null };
+
 	useEffect(() => {
-		fetch(`http://localhost:8080/cars/${props.id}`)
-			.then((response) => response.json())
+		fetch(`http://localhost:8080/cars/${carId}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+			},
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				return response.json();
+			})
 			.then((data) => {
 				console.log(data);
 			})
 			.catch((error) => {
-				console.error("Error fetching car details:", error);
+				console.error("There was a problem with the fetch operation:", error);
 			});
 	}, [props.id]);
 
@@ -78,4 +93,4 @@ const BookingPage = (props) => {
 }
 
 
-export default BookingPage;
+export default Booking;
