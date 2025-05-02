@@ -104,11 +104,6 @@ public class CarsController {
     logger.info("Creating new car");
     Cars car = new Cars();
 
-    if (carRequest.getProviderId() == null) {
-      logger.error("Provider ID is missing in the request");
-      return ResponseEntity.badRequest().build();
-    }
-
     Set<ExtraFeatures> extraFeatures = (carRequest.getExtraFeatureIds() != null ? carRequest.getExtraFeatureIds() : new HashSet<>())
       .stream()
       .map(id -> extraFeaturesService.findById((Long) id))
@@ -143,7 +138,7 @@ public class CarsController {
   @PutMapping("/{id}")
   @ApiOperation(value = "Updates a car by its ID.", 
       notes = "If the car is not found, a 404 error is returned.")
-  public ResponseEntity<Cars> updateCar(@PathVariable Long id, @RequestBody Cars carDetails) {
+  public ResponseEntity<Cars> updateCar(@PathVariable Long id, @RequestBody CarDetails carDetails) {
     logger.info("Updating car with id: {}", id);
     Cars car = carsService.findById(id);
     car.setPlateNumber(carDetails.getPlateNumber());
@@ -155,9 +150,13 @@ public class CarsController {
     car.setPassengers(carDetails.getPassengers());
     car.setAutomatic(carDetails.isAutomatic());
     car.setEnergySource(carDetails.getEnergySource());
-    car.setAvailable(carDetails.isAvailable());
-    car.setExtraFeatures(carDetails.getExtraFeatures());
-    // TODO: Add validation for details?
+    
+    Set<ExtraFeatures> extraFeatures = (carDetails.getExtraFeatureIds() != null ? carDetails.getExtraFeatureIds() : new HashSet<>())
+      .stream()
+      .map(extraFeatureId -> extraFeaturesService.findById((Long) extraFeatureId))
+      .collect(Collectors.toSet());
+    car.setExtraFeatures(extraFeatures);
+
     Cars updatedCar = carsService.save(car);
     logger.debug("Updated car: {}", updatedCar);
     return ResponseEntity.status(HttpStatus.OK).body(updatedCar);

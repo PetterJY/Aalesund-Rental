@@ -47,7 +47,6 @@ public class CarDetails {
   @NotBlank(message = "Energy source is required")
   private Cars.EnergySource energySource;
 
-  @NotNull(message = "Availability status is required")
   private Boolean available;
 
   private Set<Long> extraFeatureIds;

@@ -84,6 +84,38 @@
     margin-left: 50px;
   }
 
+  .rentals-car-display-card .car-details input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    font-size: 16px;
+    color: #252422;
+    width: fit-content;
+  }
+
+  .rentals-car-display-card .car-details input:focus {
+    border-bottom: 2px solid #EB5E28;
+    transform: scale(1.05);
+    transition: 0s;
+  }
+
+  .rentals-car-display-card .car-details select {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    font-size: 16px;
+    color: #252422;
+    width: fit-content;
+  }
+
+  .rentals-car-display-card .car-details select:focus {
+    border-bottom: 2px solid #EB5E28;
+    transform: scale(1.05);
+    transition: 0s;
+  }
+
   .rentals-car-display-card .car-details h3 {
     margin: 10px 0 15px 0;
     padding: 0;
@@ -98,7 +130,14 @@
     color: #252422;
   }
 
+  .rentals-car-display-card .my-rental-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+
   .rentals-car-display-card .edit-button {
+    justify-content: space-between;
     background-color: transparent;
     color: white;
     border: none;
@@ -106,13 +145,32 @@
     margin: 10px 5px auto auto;
   }
 
-  .my-rentals-car-display .details-table {
+  .rentals-car-display-card .edit-button .edit-icon:hover{
+    color-scheme: #EB5E28;
+    transition: 0.3s;
+  }
+  
+  .rentals-car-display-card .save-discard-buttons {
     display: flex;
-    flex-direction: column;
-    margin-left: 50px;
-    margin-top: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: auto;
   }
 
+  .rentals-car-display-card .save-discard-buttons button {
+    background-color: #252422;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 10px;
+    transition: 0.3s;
+    margin-left: 10px;
+  }
+
+  .rentals-car-display-card .save-discard-buttons button:hover {
+    background-color: #EB5E28;
+    color: white;
+    cursor: pointer;
+  }
   /**
   * Rentals CarTable css
   * Styles for the rentals car table section of "My Rentals".
@@ -123,6 +181,7 @@
     border: #252422 2px solid;
     border-radius: 10px 10px 0 0;
     background-color: #252422;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   }
 
   .rentals-details-table thead {
