@@ -78,7 +78,7 @@ function LoadMyRentals() {
 function LoadMyCars() {
   const cars = [
     { id:"1", brand: "Volkswagen", model: "Biggerstraum",  pricePerDay: 100, priceTotal:600, plateNumber: "XXX123", productionYear: 2003, 
-      passengers: 4, automatic: true, energyScource: "Electric",  image: carImage, },
+      passengers: 4, transmission: "Automatic", energyScource: "Electric",  image: carImage, },
   ];
 
   return <MyRentals rentals={cars} />;

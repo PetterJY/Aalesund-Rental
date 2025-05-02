@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import no.ntnu.entity.models.Cars;
 
 public class AddDummyObjectsToDatabase {
 
@@ -16,11 +17,11 @@ public class AddDummyObjectsToDatabase {
 		addExtraFeature("Sunroof", "Glass panel on the roof for sunlight.");
 		addExtraFeature("Leather Seats", "Premium leather upholstery for comfort.");
 
-		addCar("37", "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, true, "GAS", true, "1");
-		addCar("37", "XYZ789", "Honda", "Civic", "Sedan", 80, 2021, 5, true, "GAS", true, "2");
-		addCar("37", "ABC123", "Toyota", "Corolla", "Hatchback", 70, 2019, 5, true, "GAS", true, "3");
-		addCar("37", "DEF456", "Ford", "Focus", "Hatchback", 75, 2020, 5, true, "GAS", true, "4");
-		addCar("37", "GHI789", "Chevrolet", "Malibu", "Sedan", 85, 2021, 5, true, "GAS", true, "5");
+		addCar("37", "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "1");
+		addCar("37", "XYZ789", "Honda", "Civic", "Sedan", 80, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.HYBRID, true, "2");
+		addCar("37", "ABC123", "Toyota", "Corolla", "Hatchback", 70, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "3");
+		addCar("37", "DEF456", "Ford", "Focus", "Hatchback", 75, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "4");
+		addCar("37", "GHI789", "Chevrolet", "Malibu", "Sedan", 85, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "5");
 
 		addRental("36", "37", "1", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
 		addRental("36", "37", "2", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
@@ -39,8 +40,8 @@ public class AddDummyObjectsToDatabase {
 		int pricePerDay, 
 		int productionYear, 
 		int passengers, 
-		boolean automatic, 
-		String energySource, 
+		Cars.Transmission transmission,
+		Cars.EnergySource energySource,
 		boolean available, 
 		String extraFeatures) {
 		HttpClient client = HttpClient.newHttpClient();
@@ -54,8 +55,8 @@ public class AddDummyObjectsToDatabase {
     + "\"pricePerDay\": " + pricePerDay + ","
     + "\"productionYear\": " + productionYear + ","
     + "\"passengers\": " + passengers + ","
-    + "\"automatic\": " + automatic + ","
-    + "\"energySource\": \"" + energySource + "\","
+    + "\"transmission\": " + transmission.name() + ","
+    + "\"energySource\": \"" + energySource.name() + "\","
     + "\"available\": " + available + ","
     + "\"extraFeatureIds\": " + (extraFeatures == null ? "null" : "[" + extraFeatures + "]")
     + "}";

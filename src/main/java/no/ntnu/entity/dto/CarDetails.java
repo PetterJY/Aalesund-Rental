@@ -41,8 +41,8 @@ public class CarDetails {
   @Positive(message = "Number of passengers must be a positive value")
   private Byte passengers;
 
-  @NotNull(message = "Automatic field is required")
-  private Boolean automatic;
+  @NotNull(message = "Transmission-type field is required")
+  private Cars.Transmission transmission;
 
   @NotBlank(message = "Energy source is required")
   private Cars.EnergySource energySource;
@@ -85,8 +85,8 @@ public class CarDetails {
     return passengers;
   }
 
-  public Boolean isAutomatic() {
-    return automatic;
+  public Cars.Transmission getTransmission() {
+    return transmission;
   }
 
   public Cars.EnergySource getEnergySource() {
