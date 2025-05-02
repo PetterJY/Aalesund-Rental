@@ -87,6 +87,22 @@ public class AccountsController {
   }
 
   /**
+   * Returns an account by its email.
+   *
+   * @param email the email of the account to find
+   * @return the found account
+   */
+  @GetMapping("/email/{email}")
+  @ApiOperation(value = "Returns an account by its email.", 
+      notes = "If the account is not found, a 404 error is returned.")
+  public ResponseEntity<Accounts> getAccountByEmail(@PathVariable String email) {
+    logger.info("Fetching account with email: {}", email);
+    Accounts account = accountsService.findByEmail(email);
+    logger.debug("Fetched account: {}", account);
+    return ResponseEntity.status(HttpStatus.OK).body(account);
+  }
+
+  /**
    * Deletes an account by its ID.
    * This method is not 'role-sensitive'.
    *

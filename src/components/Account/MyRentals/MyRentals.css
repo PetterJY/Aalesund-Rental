@@ -23,6 +23,52 @@
     width: 1200px;
   }
 
+  #my-rentals-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1440px;
+    padding: 0 20px;
+  }
+
+  #add-car-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FF5F00; 
+  color: white;
+  border: none;
+  border-radius: 6px; 
+  padding: 6px 16px; 
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#add-car-button:hover {
+  background-color: #E65500; /* Slightly darker shade on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+#add-car-button:active {
+  background-color: #CC4A00; /* Even darker shade on click */
+  transform: scale(0.95); /* Slight shrink effect */
+}
+
+#add-car-button .add-car-text {
+  margin-left: 8px; /* Space between the icon and text */
+  font-size: 1rem;
+}
+
+#add-car-button svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0; /* Prevent the icon from shrinking */
+}
+
   /**
   * Rentals CarDisplay css
   * Styles for the rentals car display section of "My Rentals".
