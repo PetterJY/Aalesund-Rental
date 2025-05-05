@@ -9,11 +9,11 @@ import javax.crypto.spec.SecretKeySpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import no.ntnu.entity.CustomUserDetails;
 
 /**
  * Utility class for handling JWT (JSON Web Token) operations.
@@ -35,11 +35,12 @@ public class JwtUtility {
    * @param userDetails the user details to include in the token.
    * @return the generated JWT token.
    */
-  public String generateToken(UserDetails userDetails) {
+  public String generateToken(CustomUserDetails userDetails) {
     logger.info("Generating JWT token for username: {}", userDetails.getUsername());
     return Jwts.builder()
         .setSubject(userDetails.getUsername())
         .claim(ROLE_KEY, userDetails.getAuthorities())
+        .claim("id", userDetails.getId())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
         .signWith(getSigningKey())
@@ -53,7 +54,7 @@ public class JwtUtility {
    * @param userDetails Object containing user details
    * @return True if the token matches the current user and is still valid
    */
-  public boolean validateToken(String token, UserDetails userDetails) throws JwtException {
+  public boolean validateToken(String token, CustomUserDetails userDetails) throws JwtException {
     logger.info("Validating JWT token for username: {}", userDetails.getUsername());
     final String username = getUsernameFromToken(token);
     return userDetails != null

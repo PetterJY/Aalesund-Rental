@@ -175,7 +175,9 @@ public class CarsController {
     car.setPassengers(carRequest.getPassengers());
     car.setTransmission(carRequest.getTransmission());
     car.setEnergySource(carRequest.getEnergySource());
-    car.setAvailable(carRequest.isAvailable());
+    if (carRequest.isAvailable() != null) {
+      car.setAvailable(carRequest.isAvailable());
+    }
     car.setPricePerDay(carRequest.getPricePerDay());
     Cars createdCar = carsService.save(car);
     logger.debug("Created car: {}", createdCar);

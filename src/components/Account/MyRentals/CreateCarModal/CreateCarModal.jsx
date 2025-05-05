@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { Upload } from '@phosphor-icons/react';
 import './CreateCarModal.css';
 import '../../../App.css';
 
 const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   const [extraFeatures, setExtraFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (isCreateCarModalOpen) {
@@ -38,9 +43,10 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
         : [...prevSelected, featureId] // Add if not selected
     );
   };
-  
+
   const retrieveCarDetails = () => {
     return {
+      providerId: jwtDecode(localStorage.getItem('jwt')).id,
       plateNumber: document.getElementById('plate-number').value,
       carBrand: document.getElementById('car-brand').value,
       modelName: document.getElementById('model-name').value,
@@ -48,35 +54,41 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
       pricePerDay: document.getElementById('price-per-day').value,
       productionYear: document.getElementById('production-year').value,
       passengers: document.getElementById('passengers').value,
-      fuelType: document.querySelector('.create-car-button-wrapper .selectedFuel')?.id,
-      transmissionType: document.querySelector('.create-car-button-wrapper .selectedTransmission')?.id,
-      providerId: localStorage.getItem('userId'), 
-      extraFeatureIds: selectedFeatures, 
-      carImage: document.getElementById('car-image').value
-    }
+      transmission: document.querySelector('.create-car-button-wrapper .selectedTransmission')?.id.toUpperCase(),
+      energySource: document.querySelector('.create-car-button-wrapper .selectedFuel')?.id.toUpperCase(),
+    };
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const carDetails = retrieveCarDetails();
-
+  
     try {
       const response = await fetch('http://localhost:8080/cars', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
         },
-        body: JSON.stringify(carDetails)
+        body: JSON.stringify(carDetails),
       });
-      if (!response.ok) {
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Car created successfully:', responseData);
+        onClose(); 
+      } else if (response.status === 400) {
+        const errorData = await response.json();
+        console.error('Validation error:', errorData.message);
+      } else if (response.status === 401) {
+        console.error('Unauthorized: Invalid or expired token.');
+      } else {
         console.error('Failed to create car:', response.statusText);
-        return;
       }
-      onClose(); // Close the modal after successful submission
     } catch (error) {
       console.error('Error creating car:', error);
+      alert('An unexpected error occurred. Please try again later.');
     }
   };
 
@@ -90,7 +102,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
         button.classList.remove('selectedFuel');
       }
     });
-  }
+  };
 
   const handleSelectTransmission = (e) => {
     const selectedTransmission = e.target.id;
@@ -102,7 +114,18 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
         button.classList.remove('selectedTransmission');
       }
     });
-  }
+  };
+
+  const handleImageUploadClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file); 
+    }
+  };
 
   return (
     <div className={`create-car-modal ${isCreateCarModalOpen ? 'open' : ''}`}>
@@ -117,17 +140,36 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
           <input type="number" id="price-per-day" placeholder="Price Per Day" required />
           <input type="number" id="production-year" placeholder="Production Year" required />
           <input type="number" id="passengers" placeholder="Number of Passengers" required />
-          <section className='create-car-button-wrapper'>
-            <button id='gas' type='button' onClick={handleSelectFuel}>Gas</button>
-            <button id='diesel' type='button' onClick={handleSelectFuel}>Diesel</button>
-            <button id='hybrid' type='button' onClick={handleSelectFuel}>Hybrid</button>
-            <button id='electric' type='button' onClick={handleSelectFuel}>Electric</button>
+
+          <section className="create-car-button-wrapper">
+            <button id="gas" type="button" onClick={handleSelectFuel}>Gas</button>
+            <button id="diesel" type="button" onClick={handleSelectFuel}>Diesel</button>
+            <button id="hybrid" type="button" onClick={handleSelectFuel}>Hybrid</button>
+            <button id="electric" type="button" onClick={handleSelectFuel}>Electric</button>
           </section>
-          <section className='create-car-button-wrapper'>
-            <button id='automatic-transmission' type='button' onClick={handleSelectTransmission}>Automatic</button> 
-            <button id='manual-transmission' type='button' onClick={handleSelectTransmission}>Manual</button>
+          <section className="create-car-button-wrapper">
+            <button id="automatic" type="button" onClick={handleSelectTransmission}>Automatic</button>
+            <button id="manual" type="button" onClick={handleSelectTransmission}>Manual</button>
           </section>
-          
+
+          <button
+            id="car-image"
+            type="button"
+            className="upload-button"
+            onClick={handleImageUploadClick}
+          >
+            <Upload size={32} weight="bold" />
+            Upload Image
+          </button>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+          {selectedImage && <p>Selected Image: {selectedImage.name}</p>}
+
           <button type="submit">Create Car</button>
         </form>
       </div>

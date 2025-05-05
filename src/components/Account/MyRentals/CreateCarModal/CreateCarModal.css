@@ -127,3 +127,34 @@
   color: white;
   border: none;
 }
+
+/* Styling for the upload button */
+.create-car-modal .upload-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FF5F00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  gap: 10px; /* Space between icon and text */
+}
+
+.create-car-modal .upload-button:hover {
+  background-color: #E65500;
+  transform: scale(1.05);
+}
+
+.create-car-modal .upload-button:active {
+  background-color: #CC4A00;
+  transform: scale(0.95);
+}
+
+.create-car-modal .upload-button svg {
+  fill: white; /* Ensures the icon color matches the text */
+}

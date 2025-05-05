@@ -6,12 +6,11 @@ import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import no.ntnu.entity.CustomUserDetails;
 import no.ntnu.entity.exceptions.AccountNotFoundException;
 import no.ntnu.entity.exceptions.RoleNotFoundException;
 import no.ntnu.entity.models.Accounts;
@@ -85,14 +84,10 @@ public class AccountsService implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String email) throws AccountNotFoundException {
+  public CustomUserDetails loadUserByUsername(String email) throws AccountNotFoundException {
     try {
       Accounts account = findByEmail(email);
-      return User.builder()
-        .username(account.getEmail())
-        .password(account.getPassword())
-        .roles(account.getRole().toString())
-        .build();
+      return new CustomUserDetails(account);
     } catch (AccountNotFoundException e) {
       throw new UsernameNotFoundException("Account not found with email: " + email);
     }
