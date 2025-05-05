@@ -98,7 +98,13 @@ public class AccountsService implements UserDetailsService {
     }
   }
 
-
+  /**
+   * Fetches an account by its email.
+   *
+   * @param email the email of the account
+   * @return the account with the given email
+   * @throws AccountNotFoundException if the account is not found
+   */
   public Accounts findByEmail(String email) {
     logger.info("Fetching account with email: {}", email);
     return accountsRepository.findByEmail(email)

@@ -4,30 +4,29 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
 import no.ntnu.entity.models.Cars;
 
 public class AddDummyObjectsToDatabase {
 
-	public static String jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQG1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzQ2MDk2MTM0LCJleHAiOjE3NDYwOTk3MzR9.hcpxJKi0854JE1rgX_UNzZyu2CqobYbAXr2kzee_fyc";
+	public static String jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQG1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzQ2MTkwNTc4LCJleHAiOjE3NDYxOTQxNzh9.cfoLKyq378-zPT7OwDZ2TtZNrYasfnMK1pIHB_cU6pc";
 
 	public static void main(String[] args) {		
 		//addExtraFeature("GPS", "Global Positioning System for navigation.");
-		addExtraFeature("Child Seat", "Safety seat for children.");
-		addExtraFeature("Bluetooth", "Wireless technology for audio streaming.");
-		addExtraFeature("Sunroof", "Glass panel on the roof for sunlight.");
-		addExtraFeature("Leather Seats", "Premium leather upholstery for comfort.");
+		// addExtraFeature("Child Seat", "Safety seat for children.");
+		// addExtraFeature("Bluetooth", "Wireless technology for audio streaming.");
+		// addExtraFeature("Sunroof", "Glass panel on the roof for sunlight.");
+		// addExtraFeature("Leather Seats", "Premium leather upholstery for comfort.");
 
-		addCar("3", "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "1");
-		addCar("3", "XYZ789", "Honda", "Civic", "Sedan", 80, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.HYBRID, true, "2");
-		addCar("3", "ABC123", "Toyota", "Corolla", "Hatchback", 70, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "3");
-		addCar("3", "DEF456", "Ford", "Focus", "Hatchback", 75, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "4");
-		addCar("3", "GHI789", "Chevrolet", "Malibu", "Sedan", 85, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "5");
+		addCar("2", "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "9");
+		addCar("2", "XYZ789", "Honda", "Civic", "Sedan", 80, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.HYBRID, true, "10");
+		addCar("2", "ABC123", "Toyota", "Corolla", "Hatchback", 70, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "11");
+		addCar("2", "DEF456", "Ford", "Focus", "Hatchback", 75, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
 
-		addRental("1", "3", "1", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
-		addRental("1", "3", "2", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
-		addRental("1", "3", "3", "2023-10-05T00:00:00", "2023-10-15T00:00:00", "Oslo", "Stavanger", 1200.0, "COMPLETED");
-		addRental("1", "3", "4", "2023-10-10T00:00:00", "2023-10-20T00:00:00", "Oslo", "Trondheim", 1500.0, "COMPLETED");
-		addRental("1", "3", "5", "2023-10-15T00:00:00", "2023-10-25T00:00:00", "Oslo", "Kristiansand", 1300.0, "COMPLETED");
+		addRental("1", "2", "1", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
+		addRental("1", "2", "2", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
+		addRental("1", "2", "3", "2023-10-05T00:00:00", "2023-10-15T00:00:00", "Oslo", "Stavanger", 1200.0, "COMPLETED");
+		addRental("1", "2", "4", "2023-10-10T00:00:00", "2023-10-20T00:00:00", "Oslo", "Trondheim", 1500.0, "COMPLETED");
 	}
 
 	// Add more cars.
@@ -55,8 +54,8 @@ public class AddDummyObjectsToDatabase {
     + "\"pricePerDay\": " + pricePerDay + ","
     + "\"productionYear\": " + productionYear + ","
     + "\"passengers\": " + passengers + ","
-    + "\"transmission\": " + transmission.name() + ","
-    + "\"energySource\": \"" + energySource.name() + "\","
+		+ "\"transmission\": \"" + transmission.name() + "\"," 
+		+ "\"energySource\": \"" + energySource.name() + "\"," 
     + "\"available\": " + available + ","
     + "\"extraFeatureIds\": " + (extraFeatures == null ? "null" : "[" + extraFeatures + "]")
     + "}";
