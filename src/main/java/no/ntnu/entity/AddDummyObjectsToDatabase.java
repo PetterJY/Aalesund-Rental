@@ -9,24 +9,29 @@ import no.ntnu.entity.models.Cars;
 
 public class AddDummyObjectsToDatabase {
 
-	public static String jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQG1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNzQ2MTkwNTc4LCJleHAiOjE3NDYxOTQxNzh9.cfoLKyq378-zPT7OwDZ2TtZNrYasfnMK1pIHB_cU6pc";
+	public static String jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2xkZUBzdGF0ZS5jb20iLCJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUFJPVklERVIifV0sImlkIjoyLCJpYXQiOjE3NDY0NTA5MzQsImV4cCI6MTc0NjQ1NDUzNH0.-nbveC2LWYxvVEya0q6TvxUoHy4txC6w1-OW7viyTOg";
+
+	private static String providerId = "2"; // Example provider ID
+	private static String renterId = "1"; // Example renter ID
 
 	public static void main(String[] args) {		
-		//addExtraFeature("GPS", "Global Positioning System for navigation.");
+		// addExtraFeature("GPS", "Global Positioning System for navigation.");
 		// addExtraFeature("Child Seat", "Safety seat for children.");
 		// addExtraFeature("Bluetooth", "Wireless technology for audio streaming.");
 		// addExtraFeature("Sunroof", "Glass panel on the roof for sunlight.");
 		// addExtraFeature("Leather Seats", "Premium leather upholstery for comfort.");
 
-		addCar("2", "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "9");
-		addCar("2", "XYZ789", "Honda", "Civic", "Sedan", 80, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.HYBRID, true, "10");
-		addCar("2", "ABC123", "Toyota", "Corolla", "Hatchback", 70, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "11");
-		addCar("2", "DEF456", "Ford", "Focus", "Hatchback", 75, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
+		addCar(providerId, "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "1");
+		addCar(providerId, "XYZ789", "Honda", "Civic", "Sedan", 80, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.HYBRID, true, "2");
+		addCar(providerId, "ABC123", "Toyota", "Corolla", "Hatchback", 70, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "3");
+		addCar(providerId, "DEF456", "Ford", "Focus", "Hatchback", 75, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "4");
+		addCar(providerId, "GHI789", "Chevrolet", "Malibu", "Sedan", 85, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "5");
 
-		addRental("1", "2", "1", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
-		addRental("1", "2", "2", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
-		addRental("1", "2", "3", "2023-10-05T00:00:00", "2023-10-15T00:00:00", "Oslo", "Stavanger", 1200.0, "COMPLETED");
-		addRental("1", "2", "4", "2023-10-10T00:00:00", "2023-10-20T00:00:00", "Oslo", "Trondheim", 1500.0, "COMPLETED");
+		addRental(renterId, providerId, "1", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
+		addRental(renterId, providerId, "2", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
+		addRental(renterId, providerId, "3", "2023-10-05T00:00:00", "2023-10-15T00:00:00", "Oslo", "Stavanger", 1200.0, "COMPLETED");
+		addRental(renterId, providerId, "4", "2023-10-10T00:00:00", "2023-10-20T00:00:00", "Oslo", "Trondheim", 1500.0, "COMPLETED");
+		addRental(renterId, providerId, "5", "2023-10-15T00:00:00", "2023-10-25T00:00:00", "Oslo", "Kristiansand", 1300.0, "COMPLETED");
 	}
 
 	// Add more cars.
