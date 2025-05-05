@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import no.ntnu.entity.CustomUserDetails;
 import no.ntnu.entity.dto.AuthenticationResponse;
 import no.ntnu.entity.dto.LoginRequest;
 import no.ntnu.security.JwtUtility;
@@ -58,7 +58,8 @@ public class AuthenticationController {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
           .body("Invalid email or password.");
     } 
-    final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
+    final CustomUserDetails userDetails = (CustomUserDetails) 
+        userDetailsService.loadUserByUsername(loginRequest.getEmail());    
     final String jwt = jwtUtility.generateToken(userDetails);
     logger.info("JWT token generated for: {}", loginRequest.getEmail());
     return ResponseEntity.ok(new AuthenticationResponse(jwt));

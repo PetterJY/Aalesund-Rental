@@ -20,6 +20,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import no.ntnu.entity.CustomUserDetails;
 
 /**
  * JwtFilter is a Spring Security filter that checks for a JWT token in the request header,
@@ -54,7 +55,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     String username = getUsernameFrom(jwtToken);
     if (username != null && notAuthenticatedYet()) {
-      UserDetails userDetails = getUserDetailsFromDatabase(username);
+      CustomUserDetails userDetails = getUserDetailsFromDatabase(username);
       if (userDetails != null && jwtUtility.validateToken(jwtToken, userDetails)) {
         logger.info("JWT token is valid for user: {}", username);
         registerUserAsAuthenticated(request, userDetails);
@@ -64,9 +65,9 @@ public class JwtFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
-  private UserDetails getUserDetailsFromDatabase(String username) {
+  private CustomUserDetails getUserDetailsFromDatabase(String username) {
     try {
-      return userDetailsService.loadUserByUsername(username);
+      return (CustomUserDetails) userDetailsService.loadUserByUsername(username);
     } catch (UsernameNotFoundException e) {
       logger.warn("User {} not found in the database", username);
       return null;
