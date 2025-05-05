@@ -83,7 +83,7 @@ public class CarsController {
   }
 
   @GetMapping("/cars")
-  public List<Cars> searchCars(
+  public ResponseEntity<List<Cars>> searchCars(
       @RequestParam(required = false) List<String> carType,
       @RequestParam(required = false) List<Cars.Transmission> transmission,
       @RequestParam(required = false) Integer minPassengers,
@@ -115,16 +115,19 @@ public class CarsController {
 
     // Handle null values by providing defaults if necessary
     List<String> carTypeParam = (carType.isEmpty()) ? carType : List.of();
-    List<Cars.Transmission> transmissionParam = (transmission != null && !transmission.isEmpty()) ? transmission : List.of();
+    List<Cars.Transmission> transmissionParam = (transmission != null && !transmission.isEmpty()) ?
+        transmission : List.of(Cars.Transmission.AUTOMATIC, Cars.Transmission.MANUAL);
     int passengersParam = (minPassengers != null) ? minPassengers : 2;
 
-    return
-        carsRepository.findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqual(
+    List<Cars> cars = carsRepository
+        .findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqual(
             carTypeParam,
             transmissionParam,
             passengersParam,
             pageable
         );
+
+    return ResponseEntity.status(HttpStatus.OK).body(cars);
   }
 
   /**

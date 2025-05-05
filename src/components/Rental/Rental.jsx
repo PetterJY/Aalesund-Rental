@@ -123,30 +123,32 @@ export default function Rental(props) {
   }, []);
 
   useEffect(() => {
-    fetchCarData();
+    const fetchData = async () => {
+      await fetchCarData();
+    };
+    fetchData();
   }, []);
 
-  const fetchCarData = () => {
-    fetch("http://localhost:8080/cars", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Failed to fetch car data.");
-        })
-        .then((data) => {
-          setCars(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-  }
+  const fetchCarData = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/cars", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch car data.");
+      }
+
+      const data = await response.json();
+      setCars(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // Reassemble children with inserted menu for the selected car.
   const renderWithInsertedMenu = () => {
