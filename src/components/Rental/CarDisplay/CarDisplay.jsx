@@ -15,7 +15,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
     <button className={`car-display ${isSelected ? "selected" : ""}`} onClick={onClick}>
       <section className="top-section">
         <section className="top-left-section">
-          <h2 className="car-name">{car.carBrand} {car.carModel}</h2>
+          <h2 className="car-name">{car.carBrand} {car.modelName}</h2>
           <aside className="passenger-tag">
             <Seatbelt size={24} color="#ffffff" weight="fill"/>
             <h2 className="passenger-count">{car.passengers}</h2>

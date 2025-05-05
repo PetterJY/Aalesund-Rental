@@ -17,6 +17,7 @@
 
 .rentals-details-table thead th {
   border-radius: 20px;
+  width: 10%;
 }
 
 .rentals-details-table tbody {
@@ -40,4 +41,54 @@
   background-color: #e8e8e8;
   outline-offset: -2px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  /**
+    * Adjust the table layout for smaller screens, by making the items stack vertically
+    * And making the items fill the table width.
+    */
+
+  .rentals-details-table {
+    display: block;
+    border: none;
+    box-shadow: none;
+  }
+
+  .rentals-details-table table{
+    display: block;
+    width: 100%;
+    margin: 0;
+    
+  }
+  .rentals-details-table thead {
+    display: none;
+  }
+  .rentals-details-table tbody {
+    display: block;
+    border-radius: 10px;
+  }
+
+  .rentals-details-table tr:hover {
+    border-radius: 10px;
+  }
+
+  .rentals-details-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: #252422 2px solid;
+
+  }
+
+  .rentals-details-table tbody tr td {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid #252422;
+  }
+
 }
