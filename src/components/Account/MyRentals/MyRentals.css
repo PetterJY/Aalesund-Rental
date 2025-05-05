@@ -18,5 +18,138 @@
     width: 1200px;
   }
 
-  
-  
+  #my-rentals-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1440px;
+    padding: 0 20px;
+  }
+
+  #add-car-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FF5F00; 
+  color: white;
+  border: none;
+  border-radius: 6px; 
+  padding: 6px 16px; 
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#add-car-button:hover {
+  background-color: #E65500; /* Slightly darker shade on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+#add-car-button:active {
+  background-color: #CC4A00; /* Even darker shade on click */
+  transform: scale(0.95); /* Slight shrink effect */
+}
+
+#add-car-button .add-car-text {
+  margin-left: 8px; /* Space between the icon and text */
+  font-size: 1rem;
+}
+
+#add-car-button svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0; /* Prevent the icon from shrinking */
+}
+
+  /**
+  * Rentals CarDisplay css
+  * Styles for the rentals car display section of "My Rentals".
+  */
+  .rentals-car-display-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    margin: 0 0 10px 0;
+    padding: 0;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border: #252422 2px solid;
+    text-align: left;
+    width: 100%;
+
+  }
+
+  .rentals-car-display-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    transition: 0.3s;
+  }
+
+  .rentals-car-display-card .car-background{
+    min-width: 480px;
+    border-radius: 15px;
+    background: radial-gradient(50% 50% at 50% 50%, white, #252422);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    align-self: flex-start; 
+  }
+
+  .rentals-car-display-card .car-image {
+    margin-top:10px;
+    width: 275px;
+    height: auto;
+    align-self: center;
+  }
+
+  .rentals-car-display-card .car-image img {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .rentals-car-display-card .car-display-info {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-self: flex-start;
+    justify-content: space-between;
+  }
+  .rentals-car-display-card .car-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+  }
+
+  .rentals-car-display-card .car-details h3 {
+    margin: 10px 0 15px 0;
+    padding: 0;
+    font-size: 25px;
+    color: #252422;
+  }
+
+  .rentals-car-display-card .car-details p {
+    margin: 6px 0;
+    padding: 0;
+    font-size: 16px;
+    color: #252422;
+  }
+
+  .rentals-car-display-card .edit-button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 10px 5px auto auto;
+  }
+
+  .my-rentals-car-display .details-table {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    margin-top: 10px;
+  }

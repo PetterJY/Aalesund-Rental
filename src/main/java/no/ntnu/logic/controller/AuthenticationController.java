@@ -64,7 +64,6 @@ public class AuthenticationController {
     return ResponseEntity.ok(new AuthenticationResponse(jwt));
   }
 
-
   @PostMapping("/refresh-token")
   public ResponseEntity<?> refreshToken() {
     //TODO: Implement this

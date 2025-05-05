@@ -2,15 +2,9 @@ package no.ntnu.logic.controller;
 
 import java.util.HashSet;
 import java.util.List;
-
 import java.util.Set;
 import java.util.stream.Collectors;
-import no.ntnu.entity.dto.CarDetails;
-import no.ntnu.entity.models.ExtraFeatures;
-import no.ntnu.entity.models.Providers;
-import no.ntnu.logic.repository.CarsRepository;
-import no.ntnu.logic.service.ExtraFeaturesService;
-import no.ntnu.logic.service.ProvidersService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import no.ntnu.entity.dto.CarDetails;
 import no.ntnu.entity.models.Cars;
+import no.ntnu.entity.models.ExtraFeatures;
+import no.ntnu.entity.models.Providers;
+import no.ntnu.logic.repository.CarsRepository;
 import no.ntnu.logic.service.CarsService;
+import no.ntnu.logic.service.ExtraFeaturesService;
+import no.ntnu.logic.service.ProvidersService;
 
 @RestController
 @RequestMapping("/cars")
