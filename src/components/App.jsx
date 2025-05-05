@@ -4,8 +4,6 @@ import Home from './Home/Home';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Rental from './Rental/Rental';
-import CarDisplay from './Rental/CarDisplay/CarDisplay';
-import CarSelected from './Rental/CarSelected/CarSelected';
 import Booking from './Booking/Booking';
 import Account from './Account/Account';
 import Orders from './Account/Orders/Orders';
@@ -20,7 +18,7 @@ function App() {
       <Route path="/" element={<Root />}>
         <Route index element={<Navigate to={"/home"} replace />} />
         <Route path="home" element={<LoadHome />} />
-        <Route path="rental" element={<LoadRental />} />
+        <Route path="rental" element={<Rental />} />
         <Route path="booking" element={<LoadBooking />} />
         <Route path="account" element={<Navigate to="/account/account" replace />} /> 
         <Route path="account/account" element={<LoadAccount />} />
@@ -64,54 +62,6 @@ function LoadOrders() {
   return <Orders orders={orders} />;
 }
 
-function LoadRental() {
-  const cars = [
-    { id: "1", brand: "Volvo", model: "V33", tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "500", totalPrice: "1500" },
-    { id: "2", brand: "Mercedes", model: "7039" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "600", totalPrice: "1800" },
-    { id: "3", brand: "Audi", model: "R8" , tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "550", totalPrice: "1650" },
-    { id: "4", brand: "BMW", model: "WMB" , tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "700", totalPrice: "2100" },
-    { id: "5", brand: "Toyota", model: "Corolla" , tag: "Diesel", passengers: "4", place: "Ålesund", dayPrice: "450", totalPrice: "1350" },
-    { id: "6", brand: "Ford", model: "Focus" , tag: "Gasoline", passengers: "4", place: "Ålesund", dayPrice: "500", totalPrice: "1500" },
-    { id: "7", brand: "Nissan", model: "Speed" , tag: "Electric", passengers: "4", place: "Ålesund", dayPrice: "600", totalPrice: "1800"},
-  ];
-
-  return (
-    <Rental>
-      {cars.map(car => (
-        <CarDisplay 
-          key={`CD${car.id}`}
-          id={car.id}
-          carBrand={car.brand}
-          carModel={car.model}
-          carTag={car.tag}
-          passengerCount={car.passengers}
-          rentalPlace={car.place}
-          priceDay={car.dayPrice}
-          priceTotal={car.totalPrice}
-          image={carImage}
-        />
-      ))}
-
-      {cars.map(car => {
-        return (
-          <CarSelected 
-            key={`CS${car.id}`}
-            id={car.id}
-            className="menu"
-            carBrand={car.brand}
-            carModel={car.model}
-            carTag={car.tag}
-            passengerCount={car.passengers}
-            rentalPlace={car.place}
-            priceDay={car.dayPrice}
-            priceTotal={car.totalPrice}
-            image={carImage}
-          />
-        );
-      })}
-    </Rental>
-  );
-}
 
 function LoadBooking() {
   return (

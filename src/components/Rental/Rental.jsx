@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
 import CarDisplay from "./CarDisplay/CarDisplay";
+import CarSelected from './CarSelected/CarSelected';
 import "./Rental.css";
 import "../App.css";
 
-export default function Rental(props) {
+export default function Rental() {
   const [cars, setCars] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedCarId, setSelectedCarId] = useState(null);
   const containerRef = useRef(null);
-  const [carsPerRow, setCarsPerRow] = useState(1);
+  const [carsPerRow, setCarsPerRow] = useState(3);
   
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
@@ -118,9 +119,12 @@ export default function Rental(props) {
       setCarsPerRow(getCarsPerRow());
     };
     updateCarsPerRow();
+    console.log("Cars per row:", getCarsPerRow());
     window.addEventListener("resize", updateCarsPerRow);
     return () => window.removeEventListener("resize", updateCarsPerRow);
-  }, []);
+  }, [cars]);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -152,45 +156,45 @@ export default function Rental(props) {
 
   // Reassemble children with inserted menu for the selected car.
   const renderWithInsertedMenu = () => {
-    // Get an array of CarDisplay children.
-    const displays = React.Children.toArray(props.children).filter(
-      (child) => child.type.name === "CarDisplay"
-    );
-    // Get the CarSelected matching selectedCarId.
-    const selectedMenu = React.Children.toArray(props.children).find(
-      (child) =>
-        child.type.name === "CarSelected" && child.props.id === selectedCarId
-    );
-    if (displays.length === 0) return null;
-    // Find the index of the selected display.
-    const selectedIndex = displays.findIndex(
-      (child) => child.props.id === selectedCarId
-    );
+    if (cars.length === 0) return null;
+  
+    // Find the index of the selected car
+    const selectedIndex = cars.findIndex((car) => car.id === selectedCarId);
+  
     let insertionIndex = -1;
     if (selectedIndex >= 0) {
       // Determine the end index of the row.
       insertionIndex =
         Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
-      insertionIndex = Math.min(insertionIndex, displays.length - 1);
+      insertionIndex = Math.min(insertionIndex, cars.length - 1);
+      console.log("insertionIndex", insertionIndex);
+      console.log("selectedIndex", selectedIndex);
+      console.log("carsPerRow", carsPerRow);
+      console.log("cars.length", cars.length);
     }
-    // Build final array.
+  
+    // Build the final array of components
     const combined = [];
-    displays.forEach((child, index) => {
+    cars.forEach((car, index) => {
       combined.push(
-        React.cloneElement(child, {
-          onClick: () => handleCarClick(child.props.id),
-          isSelected: child.props.id === selectedCarId, // set selected state
-          key: child.props.id,
-        })
+        <CarDisplay
+          key={car.id}
+          displayCar={car}
+          onClick={() => handleCarClick(car.id)}
+          isSelected={car.id === selectedCarId}
+        />
       );
-      if (index === insertionIndex && selectedMenu) {
+      if (index === insertionIndex && selectedCarId) {
+        const selectedCar = cars.find((car) => car.id === selectedCarId); // Get the full car object
         combined.push(
           <div key={`menu-${selectedCarId}`} className="car-selected-menu">
-            {selectedMenu}
+            {/* Pass the full car object to CarSelected */}
+            <CarSelected car={selectedCar}/>
           </div>
         );
       }
     });
+  
     return combined;
   };
 
