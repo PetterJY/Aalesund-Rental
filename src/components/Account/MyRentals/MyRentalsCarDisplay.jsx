@@ -31,9 +31,9 @@ const MyRentalsCarDisplay = ({ car }) => {
           console.error('Failed to fetch rentals:', response.statusText);
           return;
         }
-        const data = await response.json();
-        setRental(data);
-        console.log('Fetched rental:', data);
+        const carData = await response.json();
+        setRental(carData);
+        console.log('Fetched rental:', carData);
       } catch (error) {
         console.error('Error fetching rental:', error);
       }

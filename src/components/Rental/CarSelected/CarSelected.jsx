@@ -1,10 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Car, Seatbelt, PlusCircle, Calendar, CaretDown } from "@phosphor-icons/react";
+import carImage from "../../../resources/images/car.png"; 
+
 import './CarSelected.css';
 import '../../App.css';
 
-const CarSelected = (props) => {
+const CarSelected = ({car}) => {
   const navigate = useNavigate();
 
   const handleRentCar = (id) => {
@@ -14,21 +16,24 @@ const CarSelected = (props) => {
     };
   };
 
+
+  
+
   return (
-    <div className="car-selected" style={props.style}>
+    <div className="car-selected">
       <div id ="car-background">
         <header>
-        <h2>{props.carBrand} {props.carModel}</h2>
-        <h3>{props.carTag}</h3>
+        <h2>{car.carBrand} {car.carModel}</h2>
+        <h3>{car.energySource}</h3>
         </header>
-        <img src={props.image} alt="Car" className="car-image" />
-        <footer><h2>Ørsta Kommune</h2></footer>
+        <img src={carImage} alt="Car" className="car-image" />
+        <footer><h2>{car.provider.companyName}</h2></footer>
       </div>
       <section className="car-details">
         <div className="car-info">
           <figure id='car-info-figure'>
             <Car id='logo' size={30} color="#252422" weight="fill" />
-            <h3>Car Brand  |  {props.carBrand}</h3>
+            <h3>Car Brand  |  {car.carBrand}</h3>
           </figure>
           <figure id='car-info-figure'>
             <Calendar id='logo' size={30} color="#252422" weight="fill" />
@@ -36,7 +41,7 @@ const CarSelected = (props) => {
           </figure>
           <figure id="car-info-figure">
             <Seatbelt id='logo' size={30} color="#252422" weight="fill" />
-            <h3>Passengers  |   {props.passengerCount}</h3>
+            <h3>Passengers  |   {car.passengers}</h3>
           </figure>
           <figure id='car-info-figure'>
             <PlusCircle id='logo' size={30} color="#252422" weight="fill" />
@@ -44,15 +49,15 @@ const CarSelected = (props) => {
           </figure>
         </div>
         <div className="car-rental-economics">
-          <h3>Transmission Type - Automatic</h3>
+          <h3>Transmission Type - {car.transmission}</h3>
           <h4>Price details</h4>
-          <h4>{props.priceDay},- kr / day - {props.priceTotal},- kr in total</h4>
+          <h4>{car.pricePerDay},- kr / day - {car.priceTotal},- kr in total</h4>
         </div>
       </section>
-      <button className='next-button' onClick={handleRentCar(props.id)}>Rent</button>
+      <button className='next-button' onClick={handleRentCar(car.id)}>Rent</button>
     </div>
   );
-}
+}  
 
 /* Shows CarSelected */
 
