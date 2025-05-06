@@ -82,7 +82,7 @@ public class CarsController {
     return ResponseEntity.status(HttpStatus.OK).body(car);
   }
 
-  @GetMapping("/cars")
+  @GetMapping("/search")
   public ResponseEntity<List<Cars>> searchCars(
       @RequestParam(required = false) List<String> carType,
       @RequestParam(required = false) List<Cars.Transmission> transmission,
@@ -90,43 +90,60 @@ public class CarsController {
       @RequestParam(required = false) String sortOption
   ) {
 
+    System.out.println("HELLLO!!!!!!!!!)(182731723");
+
+    System.out.println("Searching cars with parameters: " +
+        "carType=" + carType +
+        ", transmission=" + transmission +
+        ", minPassengers=" + minPassengers +
+        ", sortOption=" + sortOption);
+
     Sort sortOrder = Sort.unsorted();
     if (sortOption != null) {
-      switch (sortOption) {
-        case "newest":
-          sortOrder = Sort.by(Sort.Direction.DESC, "productionYear");
-          break;
-        case "oldest":
-          sortOrder = Sort.by(Sort.Direction.ASC, "productionYear");
-          break;
-        case "price-low-to-high":
-          sortOrder = Sort.by(Sort.Direction.ASC, "price");
-          break;
-        case "price-high-to-low":
-          sortOrder = Sort.by(Sort.Direction.DESC, "price");
-          break;
-        case "alphabet":
-          sortOrder = Sort.by(Sort.Direction.ASC, "name");
-          break;
-      }
+      sortOrder = switch (sortOption) {
+        case "newest" -> Sort.by(Sort.Direction.DESC, "productionYear");
+        case "oldest" -> Sort.by(Sort.Direction.ASC, "productionYear");
+        case "price-low-to-high" -> Sort.by(Sort.Direction.ASC, "pricePerDay");
+        case "price-high-to-low" -> Sort.by(Sort.Direction.DESC, "pricePerDay");
+        case "alphabet" -> Sort.by(Sort.Direction.ASC, "carBrand", "modelName");
+        default -> sortOrder;
+      };
     }
+
+
+    System.out.println("Sort order parameter: " + sortOrder.toString());
+    System.out.println("Sort order parameter: " + sortOrder);
+
 
     Pageable pageable = Pageable.unpaged(sortOrder);
 
     // Handle null values by providing defaults if necessary
-    List<String> carTypeParam = (carType.isEmpty()) ? carType : List.of();
+    List<String> carTypeParam = (carType != null) ? carType : List.of("");
     List<Cars.Transmission> transmissionParam = (transmission != null && !transmission.isEmpty()) ?
         transmission : List.of(Cars.Transmission.AUTOMATIC, Cars.Transmission.MANUAL);
     int passengersParam = (minPassengers != null) ? minPassengers : 2;
+    System.out.println("Executing query...");
 
-    List<Cars> cars = carsRepository
-        .findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqual(
-            carTypeParam,
-            transmissionParam,
-            passengersParam,
-            pageable
-        );
+    System.out.println("Searching cars with NEW NEW NEW NEW parameters: " +
+        "carType=" + carTypeParam +
+        ", transmission=" + transmissionParam +
+        ", minPassengers=" + passengersParam);
 
+    List<Cars> cars;
+    try {
+      cars = carsRepository
+          .findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqual(
+              carTypeParam,
+              transmissionParam,
+              passengersParam,
+              pageable
+          );
+      System.out.println("Query executed successfully. Result: " + cars);
+    } catch (Exception e) {
+      logger.error("Error fetching cars: {}", e.getMessage());
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
     return ResponseEntity.status(HttpStatus.OK).body(cars);
   }
 

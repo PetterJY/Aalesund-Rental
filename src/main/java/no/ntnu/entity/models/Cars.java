@@ -61,7 +61,7 @@ public class Cars {
 
   @Column(nullable = false)
   @ApiModelProperty("The number of passengers the car can carry")
-  private byte passengers;
+  private int passengers;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
@@ -169,7 +169,7 @@ public class Cars {
     this.productionYear = productionYear;
   }
 
-  public byte getPassengers() {
+  public int getPassengers() {
     return passengers;
   }
 
