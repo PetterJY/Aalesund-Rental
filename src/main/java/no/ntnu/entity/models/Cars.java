@@ -171,8 +171,8 @@ public class Cars {
     this.passengers = passengers;
   }
 
-  public String getTransmission() {
-    return transmission.name();
+  public Transmission getTransmission() {
+    return transmission;
   }
 
   public void setTransmission(Transmission transmission) {

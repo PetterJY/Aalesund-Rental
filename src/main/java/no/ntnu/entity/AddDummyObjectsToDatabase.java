@@ -161,17 +161,17 @@ public class AddDummyObjectsToDatabase {
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 						.thenAccept(response -> {
-				if (response.statusCode() == 200) {
-						System.out.println("Successfully logged in. Token: " + response.body());
-				} else {
-						System.out.println("Failed to log in. HTTP status: " + response.statusCode());
-				}
-			})
+			if (response.statusCode() == 200) {
+				System.out.println("Successfully logged in. Token: " + response.body());
+			} else {
+				System.out.println("Failed to log in. HTTP status: " + response.statusCode());
+			}
+		})
 		.join();
 
 		String jsonResponse = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-			.thenApply(HttpResponse::body)
-			.join();
+				.thenApply(HttpResponse::body)
+				.join();
 		
 		jwt_token = extractJwtToken(jsonResponse);
 
@@ -212,35 +212,36 @@ public class AddDummyObjectsToDatabase {
 		HttpClient client = HttpClient.newHttpClient();
 		
 		String json = "{"
-    + "\"providerId\": " + provider + ","
-    + "\"plateNumber\": \"" + plateNumber + "\","
-    + "\"carBrand\": \"" + carBrand + "\","
-    + "\"modelName\": \"" + modelName + "\","
-    + "\"carType\": \"" + carType + "\","
-    + "\"pricePerDay\": " + pricePerDay + ","
-    + "\"productionYear\": " + productionYear + ","
-    + "\"passengers\": " + passengers + ","
-		+ "\"transmission\": \"" + transmission.name() + "\"," 
-		+ "\"energySource\": \"" + energySource.name() + "\"," 
-    + "\"available\": " + available + ","
-    + "\"extraFeatureIds\": " + (extraFeatures == null ? "null" : "[" + extraFeatures + "]")
-    + "}";
-			HttpRequest request = HttpRequest.newBuilder()
-			.uri(URI.create("http://localhost:8080/cars"))
-			.header("Content-Type", "application/json")
-			.header("Authorization", "Bearer " + jwt_token) 
-			.POST(HttpRequest.BodyPublishers.ofString(json))
-			.build();
+				+ "\"providerId\": " + provider + ","
+				+ "\"plateNumber\": \"" + plateNumber + "\","
+				+ "\"carBrand\": \"" + carBrand + "\","
+				+ "\"modelName\": \"" + modelName + "\","
+				+ "\"carType\": \"" + carType + "\","
+				+ "\"pricePerDay\": " + pricePerDay + ","
+				+ "\"productionYear\": " + productionYear + ","
+				+ "\"passengers\": " + passengers + ","
+				+ "\"transmission\": \"" + transmission.name() + "\"," 
+				+ "\"energySource\": \"" + energySource.name() + "\"," 
+				+ "\"available\": " + available + ","
+				+ "\"extraFeatureIds\": " + (extraFeatures == null ? "null" : "[" + extraFeatures + "]")
+				+ "}";
+
+		HttpRequest request = HttpRequest.newBuilder()
+		.uri(URI.create("http://localhost:8080/cars"))
+		.header("Content-Type", "application/json")
+		.header("Authorization", "Bearer " + jwt_token) 
+		.POST(HttpRequest.BodyPublishers.ofString(json))
+		.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 						.thenAccept(response -> {
-        if (response.statusCode() == 200 || response.statusCode() == 201) {
-            System.out.println("Successfully added car with plate " + plateNumber);
-        } else {
-            System.out.println("Failed to add car with plate " + plateNumber + ". HTTP status: " + response.statusCode());
-        }
+			if (response.statusCode() == 200 || response.statusCode() == 201) {
+				System.out.println("Successfully added car with plate " + plateNumber);
+			} else {
+				System.out.println("Failed to add car with plate " + plateNumber + ". HTTP status: " + response.statusCode());
+			}
     })
-			.join();
+		.join();
 	}
 
 	// Add more rentals.
@@ -257,32 +258,33 @@ public class AddDummyObjectsToDatabase {
 		HttpClient client = HttpClient.newHttpClient();
 		
 		String json = "{"
-		+ "\"renterId\": " + renterId + ","
-		+ "\"providerId\": " + providerId + ","
-		+ "\"carId\": " + carId + ","
-		+ "\"startDate\": \"" + startDate + "\","
-		+ "\"endDate\": \"" + endDate + "\","
-		+ "\"pickupLocation\": \"" + pickupLocation + "\","
-		+ "\"dropoffLocation\": \"" + dropoffLocation + "\","
-		+ "\"totalCost\": " + totalCost + ","
-		+ "\"status\": \"" + status + "\""
-		+ "}";
-			HttpRequest request = HttpRequest.newBuilder()
-			.uri(URI.create("http://localhost:8080/rentals"))
-			.header("Content-Type", "application/json")
-			.header("Authorization", "Bearer " + jwt_token) 
-			.POST(HttpRequest.BodyPublishers.ofString(json))
-			.build();
+				+ "\"renterId\": " + renterId + ","
+				+ "\"providerId\": " + providerId + ","
+				+ "\"carId\": " + carId + ","
+				+ "\"startDate\": \"" + startDate + "\","
+				+ "\"endDate\": \"" + endDate + "\","
+				+ "\"pickupLocation\": \"" + pickupLocation + "\","
+				+ "\"dropoffLocation\": \"" + dropoffLocation + "\","
+				+ "\"totalCost\": " + totalCost + ","
+				+ "\"status\": \"" + status + "\""
+				+ "}";
+			
+		HttpRequest request = HttpRequest.newBuilder()
+		.uri(URI.create("http://localhost:8080/rentals"))
+		.header("Content-Type", "application/json")
+		.header("Authorization", "Bearer " + jwt_token) 
+		.POST(HttpRequest.BodyPublishers.ofString(json))
+		.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 						.thenAccept(response -> {
-				if (response.statusCode() == 200 || response.statusCode() == 201) {
-						System.out.println("Successfully added rental with ID " + renterId);
-				} else {
-						System.out.println("Failed to add rental with ID " + renterId + ". HTTP status: " + response.statusCode());
-				}
+			if (response.statusCode() == 200 || response.statusCode() == 201) {
+				System.out.println("Successfully added rental with ID " + renterId);
+			} else {
+				System.out.println("Failed to add rental with ID " + renterId + ". HTTP status: " + response.statusCode());
+			}
 		})
-			.join();
+		.join();
 	}
 
 		// Add more extra features.
@@ -292,25 +294,26 @@ public class AddDummyObjectsToDatabase {
 		HttpClient client = HttpClient.newHttpClient();
 		
 		String json = "{"
-		+ "\"name\": \"" + name + "\","
-		+ "\"description\": \"" + description + "\""
-		+ "}";
-			HttpRequest request = HttpRequest.newBuilder()
-			.uri(URI.create("http://localhost:8080/extra-features"))
-			.header("Content-Type", "application/json")
-			.header("Authorization", "Bearer " + jwt_token) 
-			.POST(HttpRequest.BodyPublishers.ofString(json))
-			.build();
+				+ "\"name\": \"" + name + "\","
+				+ "\"description\": \"" + description + "\""
+				+ "}";
+
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("http://localhost:8080/extra-features"))
+				.header("Content-Type", "application/json")
+				.header("Authorization", "Bearer " + jwt_token) 
+				.POST(HttpRequest.BodyPublishers.ofString(json))
+				.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 						.thenAccept(response -> {
-				if (response.statusCode() == 200 || response.statusCode() == 201) {
-						System.out.println("Successfully added extra feature with name " + name);
-				} else {
-						System.out.println("Failed to add extra feature with name " + name + ". HTTP status: " + response.statusCode());
-				}
+			if (response.statusCode() == 200 || response.statusCode() == 201) {
+				System.out.println("Successfully added extra feature with name " + name);
+			} else {
+				System.out.println("Failed to add extra feature with name " + name + ". HTTP status: " + response.statusCode());
+			}
 		})
-			.join();
+		.join();
 	}
 
 	// Add more providers.
@@ -322,27 +325,27 @@ public class AddDummyObjectsToDatabase {
 		HttpClient client = HttpClient.newHttpClient();
 		
 		String json = "{"
-		+ "\"companyName\": \"" + companyName + "\","
-		+ "\"phoneNumber\": \"" + phoneNumber + "\","
-		+ "\"email\": \"" + email + "\","
-		+ "\"password\": \"" + password + "\""
-		+ "}";
+				+ "\"companyName\": \"" + companyName + "\","
+				+ "\"phoneNumber\": \"" + phoneNumber + "\","
+				+ "\"email\": \"" + email + "\","
+				+ "\"password\": \"" + password + "\""
+				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-		.uri(URI.create("http://localhost:8080/providers"))
-		.header("Content-Type", "application/json")
-		.header("Authorization", "Bearer " + jwt_token) 
-		.POST(HttpRequest.BodyPublishers.ofString(json))
-		.build();
+				.uri(URI.create("http://localhost:8080/providers"))
+				.header("Content-Type", "application/json")
+				.header("Authorization", "Bearer " + jwt_token) 
+				.POST(HttpRequest.BodyPublishers.ofString(json))
+				.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 						.thenAccept(response -> {
-				if (response.statusCode() == 200 || response.statusCode() == 201) {
-						System.out.println("Successfully added provider with name " + companyName);
-				} else {
-						System.out.println("Failed to add provider with name " + companyName + ". HTTP status: " + response.statusCode());
-				}
-			})
+			if (response.statusCode() == 200 || response.statusCode() == 201) {
+				System.out.println("Successfully added provider with name " + companyName);
+			} else {
+				System.out.println("Failed to add provider with name " + companyName + ". HTTP status: " + response.statusCode());
+			}
+		})
 		.join();
 	}
 
@@ -356,12 +359,12 @@ public class AddDummyObjectsToDatabase {
 		HttpClient client = HttpClient.newHttpClient();
 
 		String json = "{"
-		+ "\"firstName\": \"" + firstName + "\","
-		+ "\"lastName\": \"" + lastName + "\","
-		+ "\"email\": \"" + email + "\","
-		+ "\"password\": \"" + password + "\","
-		+ "\"phoneNumber\": \"" + phoneNumber + "\""
-		+ "}";
+				+ "\"firstName\": \"" + firstName + "\","
+				+ "\"lastName\": \"" + lastName + "\","
+				+ "\"email\": \"" + email + "\","
+				+ "\"password\": \"" + password + "\","
+				+ "\"phoneNumber\": \"" + phoneNumber + "\""
+				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("http://localhost:8080/users/register"))
@@ -372,12 +375,12 @@ public class AddDummyObjectsToDatabase {
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 				.thenAccept(response -> {
-						if (response.statusCode() == 200 || response.statusCode() == 201) {
-								System.out.println("Successfully added user with email " + email);
-						} else {
-								System.out.println("Failed to add user with email " + email + ". HTTP status: " + response.statusCode());
-						}
-				})
+			if (response.statusCode() == 200 || response.statusCode() == 201) {
+				System.out.println("Successfully added user with email " + email);
+			} else {
+				System.out.println("Failed to add user with email " + email + ". HTTP status: " + response.statusCode());
+			}
+		})	
 		.join();
 	}
 }
