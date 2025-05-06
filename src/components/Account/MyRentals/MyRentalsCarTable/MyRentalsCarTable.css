@@ -43,7 +43,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 930px) {
   /**
     * Adjust the table layout for smaller screens, by making the items stack vertically
     * And making the items fill the table width.

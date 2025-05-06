@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import OrdersCarDisplay from './OrdersCarDisplay'; 
 import AccountHeader from '../AccountHeader/AccountHeader';
-import '../Account.css';
+import '../Orders/Orders.css';
 import '../../App.css';
 
 const Orders = ({ orders = [] }) => { 

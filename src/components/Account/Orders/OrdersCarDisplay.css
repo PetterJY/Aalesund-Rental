@@ -1,0 +1,131 @@
+.orders-car-display-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border: #252422 2px solid;
+}
+
+.orders-car-display-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.orders-car-display-card .car-background{
+  min-width: 480px;
+  border-radius: 15px;
+  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  align-self: flex-start; 
+}
+
+.orders-car-display-card .car-image {
+  width: 275px;
+  height: auto;
+  align-self: center;
+}
+
+.orders-car-display-card .car-image img {
+  width: fit-content;
+  height: fit-content;
+  border-radius: 5px;
+}
+
+.orders-car-display-card .vertical-line {
+  width: 2px;
+  background-color: black;
+  height: 25%; /* Adjust the height as needed */
+  margin: 0em 1em; /* Optional: Add some margin to create space around the line */
+}
+
+.orders-car-display-card #provider-name {
+  font-size: 20px;
+  color: #ffffff;
+  margin-left: 10px;
+  margin-top: -20px;
+  font-weight: 200;
+}
+
+.orders-car-display-card .car-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+}
+
+.orders-car-display-card .car-details h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  color: #252422;
+}
+
+.orders-car-display-card .car-details p {
+  margin: 3px 0;
+  padding: 0;
+  font-size: 16px;
+  color: #252422;
+}
+
+.orders-car-display-card .rental-schedule-container {
+  border-bottom: transparent;
+  display: flex;
+  flex-direction: row;
+}
+
+.orders-car-display-card .rental-schedule-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
+  margin-top: 0.5em;
+}
+
+.orders-car-display-card .rental-schedule-text {
+  margin: 5px 5px 5px 5px;
+}
+
+.orders-car-display-card .pickup-info {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.orders-car-display-card .dropoff-info {
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 850px) {
+  .orders-car-display-card {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .orders-car-display-card .car-background {
+    width: 100%;
+    height: auto;
+    min-width: 100px;
+    min-height: none;
+  }
+
+  .orders-car-display-card .car-image {
+    width: 50% ;
+    height: auto;
+    min-height: none;
+  }
+
+  .orders-car-display-card .car-details {
+    margin-left: 0;
+    align-items: left;
+    text-align: left;
+  }
+  
+}

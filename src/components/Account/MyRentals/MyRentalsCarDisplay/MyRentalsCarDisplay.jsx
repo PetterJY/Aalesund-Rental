@@ -85,6 +85,36 @@ const MyRentalsCarDisplay = ({ car }) => {
     setIsEditing(false);
   };
 
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this car?");
+    if (!confirmDelete) return;
+  
+    try {
+      const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
+      });
+  
+      if (!response.ok) {
+        console.error('Failed to delete car:', response.statusText);
+        return;
+      }
+      if (response.status === 204) {
+        console.log('Car deleted successfully');
+        //Gives a message to the user that the car was deleted successfully
+        alert('Car deleted successfully!');
+      }
+  
+      console.log('Car deleted successfully');
+      window.location.reload(); 
+    } catch (error) {
+      console.error('Error deleting car:', error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedCar(prev => ({
@@ -235,6 +265,7 @@ const MyRentalsCarDisplay = ({ car }) => {
               <div className="save-discard-buttons">
                 <button onClick={handleSave}>Save</button>
                 <button onClick={handleDiscard}>Discard</button>
+                <button onClick={handleDelete}>Delete</button>
               </div>
             ) : (
               <button className="edit-button" onClick={handleEditClick}>

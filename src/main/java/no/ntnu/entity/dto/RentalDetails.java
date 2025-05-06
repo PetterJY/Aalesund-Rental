@@ -72,4 +72,4 @@ public class RentalDetails {
   public Rentals.Status getStatus() {
     return status;
   }
- }
+}
