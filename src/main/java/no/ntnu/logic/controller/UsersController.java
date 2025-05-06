@@ -109,7 +109,7 @@ public class UsersController {
     user.setLastName(userDetails.getLastName());
     user.setEmail(userDetails.getEmail());
     user.setPassword(userDetails.getPassword());
-    Users updatedUser = usersService.save(user);
+    Users updatedUser = usersService.saveWithoutEncoding(user);
     logger.debug("Updated user: {}", updatedUser);
     return ResponseEntity.ok(updatedUser);
   }

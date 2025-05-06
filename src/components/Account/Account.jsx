@@ -97,9 +97,11 @@ const Account = () => {
 
       const userDetails = {
         ...userData, // Include all existing fields
-        firstName: updatedUserDetails.firstName,
-        lastName: updatedUserDetails.lastName,
+        firstName: updatedUserDetails.updatedFirstName,
+        lastName: updatedUserDetails.updatedLastName,
       };
+
+      console.log('Updated user details:', userDetails);
 
       const response = await fetch('http://localhost:8080/users/' + userId, {
         method: 'PUT',
