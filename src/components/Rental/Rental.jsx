@@ -12,7 +12,7 @@ export default function Rental() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const containerRef = useRef(null);
   const [carsPerRow, setCarsPerRow] = useState(3);
-  
+
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
   const toggleDropdown = (category) =>
@@ -70,10 +70,6 @@ export default function Rental() {
       { value: "truck", label: "Truck" },
       { value: "coupe", label: "Coupe" },
       { value: "convertible", label: "Convertible" },
-      { value: "electric", label: "Electric" },
-      { value: "hybrid", label: "Hybrid" },
-      { value: "diesel", label: "Diesel" },
-      { value: "gas", label: "Gas" },
       { value: "luxury", label: "Luxury" },
     ],
     transmission: [
@@ -86,6 +82,12 @@ export default function Rental() {
       { value: 5, label: "5+" },
       { value: 7, label: "7+" },
     ],
+    energySource: [
+      { value: "electric", label: "Electric" },
+      { value: "hybrid", label: "Hybrid" },
+      { value: "diesel", label: "Diesel" },
+      { value: "gas", label: "Gas" },
+    ],
   };
 
   const [selectedFilterOptions, setSelectedFilterOptions] = useState({
@@ -93,6 +95,7 @@ export default function Rental() {
     carType: [],
     transmission: [],
     passengers: [],
+    energySource: [],
   });
 
 
@@ -175,10 +178,10 @@ export default function Rental() {
   // Reassemble children with inserted menu for the selected car.
   const renderWithInsertedMenu = () => {
     if (cars.length === 0) return null;
-  
+
     // Find the index of the selected car
     const selectedIndex = cars.findIndex((car) => car.id === selectedCarId);
-  
+
     let insertionIndex = -1;
     if (selectedIndex >= 0) {
       // Determine the end index of the row.
@@ -186,7 +189,7 @@ export default function Rental() {
         Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
       insertionIndex = Math.min(insertionIndex, cars.length - 1);
     }
-  
+
     // Build the final array of components
     const combined = [];
     cars.forEach((car, index) => {
@@ -208,7 +211,7 @@ export default function Rental() {
         );
       }
     });
-  
+
     return combined;
   };
 
@@ -218,6 +221,7 @@ export default function Rental() {
       carType: Array.from(document.querySelectorAll('input[name="carType"]:checked')).map(input => input.value),
       transmission: Array.from(document.querySelectorAll('input[name="transmission"]:checked')).map(input => input.value),
       passengers: Array.from(document.querySelectorAll('input[name="passengers"]:checked')).map(input => input.value),
+      energySource: Array.from(document.querySelectorAll('input[name="energySource"]:checked')).map(input => input.value),
     });
 
     console.log("Selected filter options:", selectedFilterOptions);
@@ -234,6 +238,7 @@ export default function Rental() {
             {renderDropdown("carType", "Car Type", filterOptions.carType)}
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
             {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
+            {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
             <button className="filter-button" onClick={handleFilterChange}>
               <FunnelSimple size={20} color="#252322" /> Sort and filter
             </button>
@@ -259,7 +264,12 @@ export default function Rental() {
                   <h3>Passengers</h3>
                   {renderRadioButtons("passengers", filterOptions.passengers)}
                 </div>
+                <div className="filter-group">
+                  <h3>Energy Source</h3>
+                  {renderCheckboxes("energySource", filterOptions.energySource)}
+                </div>
               </div>
+              <hr></hr>
               <button className="close-button" onClick={handleFilterChange}>
                 Save Changes
               </button>

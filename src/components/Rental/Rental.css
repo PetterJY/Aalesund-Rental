@@ -5,11 +5,14 @@
   position: relative; /* For absolute positioning of filter-panel */
 }
 
+.rental-page h3 {
+  font-weight: bold;
+}
+
 .rental-page .main-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap;
   align-items: center;
   gap: 15px;
   margin-bottom: 20px;
@@ -107,11 +110,15 @@
 }
 
 .rental-page .close-button {
+  margin-top: 12px;
+  width: 90vw;
+  height: 50px;
+  border-radius: 12px;
+  font-weight: 800;
   background-color: #EB5E28;
   color: white;
   border: none;
-  padding: 10px 20px;
-  margin-top: 20px;
+  padding: 12px 24px;
   cursor: pointer;
 }
 
@@ -167,9 +174,10 @@
   }
 
   .rental-page .filter-content {
+    margin-bottom: auto;
     flex-direction: column;
     gap: 10px;
-    height: 80%;
+    height: auto;
     overflow-y: auto;
   }
 
@@ -186,10 +194,10 @@
     margin: 0; /* Remove default margin to rely on gap for spacing */
     color: #252422;
     cursor: pointer;
+    border-radius: 6px;
   }
   
   .rental-page .checkbox-label span {
-    background-color: white;
     color: #252422;
     padding: 8px 12px;
     cursor: pointer;
@@ -230,18 +238,16 @@
 }
 
 .rental-page .checkbox-label span {
-  background-color: white;
+  background-color: #F4F4F9;
+  border-radius: 12px;
   color: #252422;
-  padding: 8px 12px;
+  padding: 12px 24px;
   cursor: pointer;
   border-bottom: white 1px solid;
 }
 
 .rental-page .checkbox-label span:hover {
-border-bottom: #EB5E28 1px solid;
-color: #EB5E28;
-background-color: white;
-border-radius: 0%;
+ background-color: #c9c9cf;
 }
 
 .rental-page .checkbox-label input:checked + span {
@@ -280,7 +286,7 @@ border-radius: 0%;
   align-items: center;
   gap: 5px;
   width: auto;
-  border-radius: 0%;
+  border-radius: 6px;
 }
 
 .rental-page .dropdown-button:hover {
