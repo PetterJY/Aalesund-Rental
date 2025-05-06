@@ -97,12 +97,6 @@ public class Cars {
 
   public enum Transmission {
     AUTOMATIC, MANUAL;
-
-    public String toFormattedString() {
-        // Convert the enum name to lowercase and capitalize the first letter
-        String lowerCaseName = name().toLowerCase();
-        return lowerCaseName.substring(0, 1).toUpperCase() + lowerCaseName.substring(1);
-    }
   }
 
   public int getId() {
@@ -178,7 +172,7 @@ public class Cars {
   }
 
   public String getTransmission() {
-    return transmission.toFormattedString();
+    return transmission.name();
   }
 
   public void setTransmission(Transmission transmission) {
