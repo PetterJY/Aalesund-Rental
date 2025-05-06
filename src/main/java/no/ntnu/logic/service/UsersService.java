@@ -3,7 +3,6 @@ package no.ntnu.logic.service;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-import no.ntnu.entity.models.Accounts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.UserNotFoundException;
+import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.repository.UsersRepository;
 
@@ -67,6 +67,17 @@ public class UsersService {
   public Users save(Users user) {
     logger.info("Saving user with email: {}", user.getEmail());
     user.setPassword(passwordEncoder.encode(user.getPassword()));
+    return usersRepository.save(user);
+  }
+
+  /**
+   * Saves a user to the database without encoding the password.
+   *
+   * @param user the user to save.
+   * @return the saved user.
+   */
+  public Users saveWithoutEncoding(Users user) {
+    logger.info("Saving user without encoding password with email: {}", user.getEmail());
     return usersRepository.save(user);
   }
 

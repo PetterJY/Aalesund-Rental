@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircle } from "@phosphor-icons/react";
 import AccountHeader from '../AccountHeader/AccountHeader';
-import MyRentalsCarDisplay from './MyRentalsCarDisplay';
+import MyRentalsCarDisplay from './MyRentalsCarDisplay/MyRentalsCarDisplay';
 import CreateCarModal from './CreateCarModal/CreateCarModal';
 import './MyRentals.css';
 import '../../App.css';

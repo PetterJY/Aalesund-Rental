@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.CustomUserDetails;
 import no.ntnu.entity.dto.AuthenticationResponse;
-import no.ntnu.entity.dto.LoginRequest;
+import no.ntnu.entity.dto.LoginDetails;
 import no.ntnu.security.JwtUtility;
 
 /**
@@ -47,7 +47,7 @@ public class AuthenticationController {
   @ApiOperation(
       value = "Handles login requests.", 
       notes = "Authenticates the user and generates a JWT token.")
-  public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+  public ResponseEntity<?> login(@RequestBody LoginDetails loginRequest) {
     logger.info("Login request received for: {}", loginRequest.getEmail());
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(

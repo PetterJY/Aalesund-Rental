@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
  * the request of deleting a user's own account.
  * It contains the user's email and password.
  */
-public class DeleteAccountRequest {
+public class AccountDetails {
   @NotBlank(message = "Email is required")
   @ApiModelProperty("The email of the user")
   private String email;

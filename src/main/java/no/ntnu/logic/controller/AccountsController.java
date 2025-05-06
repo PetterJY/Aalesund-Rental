@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import jakarta.validation.Valid;
-import no.ntnu.entity.dto.DeleteAccountRequest;
+import no.ntnu.entity.dto.AccountDetails;
 import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.service.AccountsService;
 import no.ntnu.logic.service.AdminService;
@@ -111,7 +111,7 @@ public class AccountsController {
   @DeleteMapping
   @ApiOperation(value = "Deletes an account by its ID.",
       notes = "If the account is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteAccount(@Valid @RequestBody DeleteAccountRequest request,
+  public ResponseEntity<Void> deleteAccount(@Valid @RequestBody AccountDetails request,
                                             Authentication authentication) {
     String email = authentication.getName();
     String role = authentication.getAuthorities().iterator().next().getAuthority();
