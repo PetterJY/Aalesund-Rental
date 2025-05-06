@@ -1,3 +1,9 @@
+
+:root {
+  --text-box-color: #F4F4F9;
+  --text-box-hover-color: #efeff4;
+}
+
 .rental-page {
   background-color: white;
   display: flex;
@@ -238,7 +244,7 @@
 }
 
 .rental-page .checkbox-label span {
-  background-color: #F4F4F9;
+  background-color: var(--text-box-color);
   border-radius: 12px;
   color: #252422;
   padding: 12px 24px;
@@ -258,7 +264,7 @@
 }
 
 .rental-page .checkbox-label input:checked + span:hover {
-  background-color: #403D39;
+  background-color: var(--text-box-hover-color);
   color:white;
   border-bottom: white 1px solid;
   border-radius: 5px;
@@ -279,7 +285,6 @@
   background-color: white;
   color: #252422;
   border: none;
-  border-bottom: 1px solid #252422;
   padding: 8px 12px;
   cursor: pointer;
   display: flex;
@@ -290,8 +295,7 @@
 }
 
 .rental-page .dropdown-button:hover {
-  border-bottom: 1px solid #EB5E28;
-  background-color: white;
+  background-color: var(--text-box-hover-color);
 }
 
 .rental-page .dropdown-content {
@@ -299,12 +303,13 @@
   top: 100%;
   left: 0;
   background-color: white;
-  border: 1px solid #252422;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   padding: 10px;
   z-index: 20;
   min-width: 150px;
-  max-height: 200px;
   overflow-y: auto;
+  max-height: 200px;
 }
 
 .rental-page .car-selected-menu {
