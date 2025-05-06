@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.dto.UserRegisterRequest;
+import jakarta.validation.Valid;
+import no.ntnu.entity.dto.UserDetails;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.UsersService;
 
@@ -76,7 +77,7 @@ public class UsersController {
    */
   @PostMapping("/register")
   @ApiOperation(value = "Creates a new user.", notes = "The newly created user is returned.")
-  public ResponseEntity<Users> register(@RequestBody UserRegisterRequest registerRequest) {
+  public ResponseEntity<Users> register(@Valid @RequestBody UserDetails registerRequest) {
     Users user = new Users();
     user.setFirstName(registerRequest.getFirstName());
     user.setLastName(registerRequest.getLastName());
@@ -101,7 +102,7 @@ public class UsersController {
   @ApiOperation(value = "Updates a user by its ID.", 
       notes = "If the user is not found, a 404 error is returned.")
   public ResponseEntity<Users> updateUser(
-        @PathVariable Long id, @RequestBody UserRegisterRequest userDetails) {
+        @PathVariable Long id, @Valid @RequestBody UserDetails userDetails) {
     logger.info("Updating user with id: {}", id);
     Users user = usersService.findById(id);
     user.setFirstName(userDetails.getFirstName());

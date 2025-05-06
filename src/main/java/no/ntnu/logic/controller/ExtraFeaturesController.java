@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.dto.ExtraFeaturesRequest;
+import no.ntnu.entity.dto.ExtraFeatureDetails;
 import no.ntnu.entity.models.ExtraFeatures;
 import no.ntnu.logic.service.ExtraFeaturesService;
 
@@ -76,7 +76,7 @@ public class ExtraFeaturesController {
   @PostMapping
   @ApiOperation(value = "Creates a new extra feature.", 
       notes = "The newly created extra feature is returned.")
-  public ResponseEntity<ExtraFeatures> createExtraFeature(@RequestBody ExtraFeaturesRequest extraFeature) {
+  public ResponseEntity<ExtraFeatures> createExtraFeature(@RequestBody ExtraFeatureDetails extraFeature) {
     logger.info("Creating new extra feature");
     ExtraFeatures createdExtraFeature = new ExtraFeatures();
     createdExtraFeature.setName(extraFeature.getName());
@@ -97,7 +97,7 @@ public class ExtraFeaturesController {
   @ApiOperation(value = "Updates an extra feature by its ID.", 
       notes = "If the extra feature is not found, a 404 error is returned.")
   public ResponseEntity<ExtraFeatures> updateExtraFeature(
-      @PathVariable Long id, @RequestBody ExtraFeaturesRequest extraFeatureDetails) {
+      @PathVariable Long id, @RequestBody ExtraFeatureDetails extraFeatureDetails) {
     logger.info("Updating extra feature with id: {}", id);
     ExtraFeatures extraFeature = extraFeaturesService.findById(id);
     extraFeature.setName(extraFeatureDetails.getName());

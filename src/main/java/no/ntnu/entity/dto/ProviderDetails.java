@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
  * It represents the registration request from a provider.
  * It contains the provider's company name, email, role, and password.
  */
-public class ProviderRegisterRequest {
+public class ProviderDetails {
   @NotBlank(message = "Company name is required")
   private String companyName;
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode'; // adjust the import if necessary
 import { NotePencil } from "@phosphor-icons/react";
-import MyRentalsCarTable from './MyRentalsCarTable';
+import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
 import './MyRentalsCarDisplay.css';
-import '../../App.css';
+import '../../../App.css';
 
 const MyRentalsCarDisplay = ({ car }) => {
   const [tableVisibility, setTableVisibility] = useState(false);

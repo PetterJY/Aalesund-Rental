@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.dto.AdminRegisterRequest;
+import no.ntnu.entity.dto.AdminDetails;
 import no.ntnu.entity.models.Admins;
 import no.ntnu.logic.service.AdminService;
 
@@ -77,7 +77,7 @@ public class AdminsController {
   @PostMapping
   @ApiOperation(value = "Creates a new admin.", notes = "The newly created admin is returned.")
   public ResponseEntity<Admins> createAdmin(
-      @RequestBody AdminRegisterRequest adminRegisterRequest) {
+      @RequestBody AdminDetails adminRegisterRequest) {
     Admins admin = new Admins();
     admin.setName(adminRegisterRequest.getName());
     admin.setPassword(adminRegisterRequest.getPassword());
