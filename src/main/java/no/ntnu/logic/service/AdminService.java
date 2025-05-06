@@ -20,9 +20,10 @@ import no.ntnu.logic.repository.AdminRepository;
 @Service
 public class AdminService {
 
-  private final AdminRepository adminRepository;
   private static final Logger logger = 
-      LoggerFactory.getLogger(AdminService.class.getSimpleName());
+  LoggerFactory.getLogger(AdminService.class.getSimpleName());
+  
+  private final AdminRepository adminRepository;
 
   private final BCryptPasswordEncoder passwordEncoder;
 
@@ -76,7 +77,7 @@ public class AdminService {
    * @return the saved admin
    */
   public Admins save(Admins admin) {
-    logger.info("Saving admin with id: {}", admin.getId());
+    logger.info("Saving admin with email: {}", admin.getEmail());
     admin.setPassword(passwordEncoder.encode(admin.getPassword()));
     return adminRepository.save(admin);
   }

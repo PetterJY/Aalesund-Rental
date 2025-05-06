@@ -71,7 +71,7 @@ public class CarsService {
    * @return the saved car
    */
   public Cars save(Cars car) {
-    logger.info("Saving car with id: {}", car.getId());
+    logger.info("Saving car with model-name: {}", car.getModelName());
     return carsRepository.save(car);
   }
 

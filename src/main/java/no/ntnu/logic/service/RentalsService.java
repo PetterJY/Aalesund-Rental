@@ -58,7 +58,7 @@ public class RentalsService {
    * @return the saved rental
    */
   public Rentals save(Rentals rental) {
-    logger.info("Saving rental with id: {}", rental.getRentalId());
+    logger.info("Saving rental for user with email: {}", rental.getRenter().getEmail());
     return rentalsRepository.save(rental);
   }
 
