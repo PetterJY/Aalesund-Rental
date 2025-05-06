@@ -18,10 +18,10 @@ public class AddDummyObjectsToDatabase {
 		// addExtraFeature("Sunroof", "Glass panel on the roof for sunlight.");
 		// addExtraFeature("Leather Seats", "Premium leather upholstery for comfort.");
 
-		addCar("2", "ABD124", "Toyota", "Cucurella", "Sedan", 100, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "9");
-		addCar("2", "XYZ789", "Honda", "Civic", "Sedan", 80, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.HYBRID, true, "10");
-		addCar("2", "ABC123", "Toyota", "Corolla", "Hatchback", 70, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "11");
-		addCar("2", "DEF456", "Ford", "Focus", "Hatchback", 75, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
+		addCar("2", "ABD124", "Toyota", "Cucurella", Cars.CarType.SEDAN , 100, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "9");
+		addCar("2", "XYZ789", "Honda", "Civic", Cars.CarType.SEDAN , 80, 2021, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.HYBRID, true, "10");
+		addCar("2", "ABC123", "Toyota", "Corolla", Cars.CarType.HATCHBACK, 70, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "11");
+		addCar("2", "DEF456", "Ford", "Focus", Cars.CarType.HATCHBACK, 75, 2020, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
 
 		addRental("1", "2", "1", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
 		addRental("1", "2", "2", "2023-10-01T00:00:00", "2023-10-10T00:00:00", "Oslo", "Bergen", 1000.0, "COMPLETED");
@@ -35,7 +35,7 @@ public class AddDummyObjectsToDatabase {
 		String plateNumber, 
 		String carBrand, 
 		String modelName, 
-		String carType, 
+		Cars.CarType carType,
 		int pricePerDay, 
 		int productionYear, 
 		int passengers, 
@@ -50,12 +50,12 @@ public class AddDummyObjectsToDatabase {
     + "\"plateNumber\": \"" + plateNumber + "\","
     + "\"carBrand\": \"" + carBrand + "\","
     + "\"modelName\": \"" + modelName + "\","
-    + "\"carType\": \"" + carType + "\","
+    + "\"carType\": \"" + carType.toFormattedString() + "\","
     + "\"pricePerDay\": " + pricePerDay + ","
     + "\"productionYear\": " + productionYear + ","
     + "\"passengers\": " + passengers + ","
-		+ "\"transmission\": \"" + transmission.name() + "\"," 
-		+ "\"energySource\": \"" + energySource.name() + "\"," 
+		+ "\"transmission\": \"" + transmission.toFormattedString() + "\","
+		+ "\"energySource\": \"" + energySource.toFormattedString() + "\","
     + "\"available\": " + available + ","
     + "\"extraFeatureIds\": " + (extraFeatures == null ? "null" : "[" + extraFeatures + "]")
     + "}";

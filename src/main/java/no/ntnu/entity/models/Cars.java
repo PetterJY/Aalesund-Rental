@@ -49,7 +49,7 @@ public class Cars {
 
   @Column(nullable = false)
   @ApiModelProperty("The type of the car")
-  private String carType;
+  private CarType carType;
 
   @Column(nullable = false)
   @ApiModelProperty("The price per day of the car")
@@ -92,18 +92,32 @@ public class Cars {
    * Allowed values are GAS, DIESEL, HYBRID, ELECTRIC.
    */
   public enum EnergySource {
-    GAS, DIESEL, HYBRID, ELECTRIC
+    GAS, DIESEL, HYBRID, ELECTRIC;
+
+    public String toFormattedString() {
+      String lowerCaseName = name().toLowerCase();
+      return lowerCaseName.substring(0, 1).toUpperCase() + lowerCaseName.substring(1);
+    }
   }
 
   public enum Transmission {
     AUTOMATIC, MANUAL;
 
     public String toFormattedString() {
-        // Convert the enum name to lowercase and capitalize the first letter
         String lowerCaseName = name().toLowerCase();
         return lowerCaseName.substring(0, 1).toUpperCase() + lowerCaseName.substring(1);
     }
+
   }
+
+  public enum CarType {
+    SEDAN, HATCHBACK, SUV, TRUCK, COUPE, CONVERTIBLE, LUXURY;
+
+    public String toFormattedString() {
+      String lowerCaseName = name().toLowerCase();
+      return lowerCaseName.substring(0, 1).toUpperCase() + lowerCaseName.substring(1);
+    }
+}
 
   public int getId() {
     return id;
@@ -146,10 +160,10 @@ public class Cars {
   }
 
   public String getCarType() {
-    return carType;
+    return carType.toFormattedString();
   }
 
-  public void setCarType(String carType) {
+  public void setCarType(CarType carType) {
     this.carType = carType;
   }
 

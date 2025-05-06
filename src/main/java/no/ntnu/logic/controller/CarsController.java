@@ -84,13 +84,11 @@ public class CarsController {
 
   @GetMapping("/search")
   public ResponseEntity<List<Cars>> searchCars(
-      @RequestParam(required = false) List<String> carType,
+      @RequestParam(required = false) List<Cars.CarType> carType,
       @RequestParam(required = false) List<Cars.Transmission> transmission,
       @RequestParam(required = false) Integer minPassengers,
       @RequestParam(required = false) String sortOption
   ) {
-
-    System.out.println("HELLLO!!!!!!!!!)(182731723");
 
     System.out.println("Searching cars with parameters: " +
         "carType=" + carType +
@@ -110,21 +108,18 @@ public class CarsController {
       };
     }
 
-
-    System.out.println("Sort order parameter: " + sortOrder.toString());
     System.out.println("Sort order parameter: " + sortOrder);
-
 
     Pageable pageable = Pageable.unpaged(sortOrder);
 
     // Handle null values by providing defaults if necessary
-    List<String> carTypeParam = (carType != null) ? carType : List.of("");
+    List<Cars.CarType> carTypeParam = (carType != null) ? carType : List.of(Cars.CarType.values());
     List<Cars.Transmission> transmissionParam = (transmission != null && !transmission.isEmpty()) ?
-        transmission : List.of(Cars.Transmission.AUTOMATIC, Cars.Transmission.MANUAL);
+        transmission : List.of(Cars.Transmission.values());
     int passengersParam = (minPassengers != null) ? minPassengers : 2;
     System.out.println("Executing query...");
 
-    System.out.println("Searching cars with NEW NEW NEW NEW parameters: " +
+    System.out.println("Searching cars with NEW parameters: " +
         "carType=" + carTypeParam +
         ", transmission=" + transmissionParam +
         ", minPassengers=" + passengersParam);
@@ -141,7 +136,6 @@ public class CarsController {
       System.out.println("Query executed successfully. Result: " + cars);
     } catch (Exception e) {
       logger.error("Error fetching cars: {}", e.getMessage());
-      e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
     return ResponseEntity.status(HttpStatus.OK).body(cars);

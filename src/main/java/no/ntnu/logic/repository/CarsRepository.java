@@ -11,7 +11,7 @@ public interface CarsRepository extends JpaRepository<Cars, Long> {
   List<Cars> findByProviderId(Long providerId);
 
   List<Cars> findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqual(
-      List<String> carTypeParam,
+      List<Cars.CarType> carTypeParam,
       List<Cars.Transmission> transmissionParam,
       int passengersParam,
       Pageable pageable);
