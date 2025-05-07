@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import './FeaturedCars.css'
-import VWgolf from '../../../resources/images/cars/VWgolf.png'
+import VolkswagenGolf from '../../../resources/images/cars/VolkswagenGolf.png'
 import TeslaModel3 from '../../../resources/images/cars/TeslaModel3.webp'
 import TeslaModelY from '../../../resources/images/cars/TeslaModelY.png'
-import BMWm3 from '../../../resources/images/cars/BMWm3.png'
+import BMWM3 from '../../../resources/images/cars/BMWM3.png'
 import Peugot3008 from '../../../resources/images/cars/Peugot3008.png'
-import VWtransporter from '../../../resources/images/cars/VWtransporter.png'
+import VolkswagenTransporter from '../../../resources/images/cars/VolkswagenTransporter.webp'
 
 
 const FeaturedCars = () => {
@@ -116,21 +116,21 @@ const FeaturedCars = () => {
               onMouseLeave={resumeAutoplay}
               className={`featured-car ${isCardActive(2) ? 'active' : ''} ${getCardPosition(2)}`}
               id="featured-car-3">
-              <img src={BMWm3} alt="BMW-M3-car" className="featured-car-image"/>
+              <img src={BMWM3} alt="BMW-M3-car" className="featured-car-image"/>
             </div>
             <div
               onMouseEnter={pauseAutoplay}
               onMouseLeave={resumeAutoplay}
               className={`featured-car ${isCardActive(3) ? 'active' : ''} ${getCardPosition(3)}`}
               id="featured-car-4">
-              <img src={Peugot3008} alt="bmw-car" className="featured-car-image"/>
+              <img src={Peugot3008} alt="Peugeot-3008-car" className="featured-car-image"/>
             </div>
             <div
               onMouseEnter={pauseAutoplay}
               onMouseLeave={resumeAutoplay}
               className={`featured-car ${isCardActive(4) ? 'active' : ''} ${getCardPosition(4)}`}
               id="featured-car-5">
-              <img src={VWtransporter} alt="bmw-car" className="featured-car-image"/>
+              <img src={VolkswagenTransporter} alt="Volkswagen-Transporter-car" className="featured-car-image"/>
             </div>
           </div>
           <div className="featured-cars-controls">
