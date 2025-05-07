@@ -3,16 +3,26 @@ import { Warehouse} from "@phosphor-icons/react";
 import './OrdersCarDisplay.css';
 import '../../../App.css';
 
-const OrdersCarDisplay = (car) => {
+const OrdersCarDisplay = (rental) => {
+	const startDate = new Date(rental.pickUpTime);
+	const endDate = new Date(rental.dropOffTime);
+	const rentingTime = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+	// Format dates in a user-friendly way
+	const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+	const formattedStartDate = startDate.toLocaleDateString(undefined, options);
+	const formattedEndDate = endDate.toLocaleDateString(undefined, options);
+	const dailyPrice = rental.priceTotal / rentingTime;
+
   return (
     <div className="orders-car-display-card">
       <div className='car-background'>
-				<img src={car.image} alt={car.name} className="car-image" />
-				<h3 id='provider-name'>Ørsta Kommune</h3>
+				<img src={rental.image} alt={rental.name} className="car-image" />
+				<h3 id='provider-name'>{rental.provider}</h3>
       </div>
       <div className="car-details">
-        <h3>{car.brand} {car.model}</h3>
-        <p>{car.rentingTime} days renting</p>
+        <h3>{rental.brand} {rental.model}</h3>
+        <p>{rentingTime} days renting</p>
         <section className="rental-schedule-container">
 					<div className="rental-schedule-logos">
               <Warehouse size={32} className="pickup-logo" color="#000000" weight="fill" />
@@ -22,18 +32,18 @@ const OrdersCarDisplay = (car) => {
 					<div className="rental-schedule-text">
 						<div className="pickup-info">
 							<p className="pickup">Pickup</p>
-							<p>{car.pickUpLocation}</p>
-							<p className="pickup-time">{car.pickUpTime}</p>
+							<p>{rental.pickUpLocation}</p>
+							<p className="pickup-time">{formattedStartDate}</p>
 						</div>
 						<div className="dropoff-info">
 							<p className="dropoff">Dropoff</p>
-							<p>{car.dropOffLocation}</p>
-							<p className="dropoff-time">{car.dropOffTime}</p>
+							<p>{rental.dropOffLocation}</p>
+							<p className="dropoff-time">{formattedEndDate}</p>
 						</div>
 					</div>
 				</section>
-        <p>Renting costs: {car.pricePerDay}kr/day</p>
-        <p>Total: {car.priceTotal}kr</p>
+        <p><b>Renting costs: {dailyPrice}kr/day</b></p>
+        <p><b>Total: {rental.priceTotal}kr</b></p>
       </div>
     </div>
   );

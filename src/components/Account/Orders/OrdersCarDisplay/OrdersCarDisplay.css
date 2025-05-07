@@ -73,6 +73,10 @@
   color: #252422;
 }
 
+.orders-car-display-card .car-details b {
+  font-weight: 500;
+}
+
 .orders-car-display-card .rental-schedule-container {
   border-bottom: transparent;
   display: flex;
