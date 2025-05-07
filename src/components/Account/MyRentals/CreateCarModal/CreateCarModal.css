@@ -158,3 +158,10 @@
 .create-car-modal .upload-button svg {
   fill: white; /* Ensures the icon color matches the text */
 }
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 10px;
+}

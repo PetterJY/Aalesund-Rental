@@ -3,7 +3,6 @@ package no.ntnu.logic.service;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-import no.ntnu.entity.models.Accounts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.ProviderNotFoundException;
+import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.repository.ProvidersRepository;
 
@@ -71,7 +71,7 @@ public class ProvidersService {
    * @return the saved provider
    */
   public Providers save(Providers provider) {
-    logger.info("Saving provider with id: {}", provider.getId());
+    logger.info("Saving provider with email: {}", provider.getEmail());
     provider.setPassword(passwordEncoder.encode(provider.getPassword()));
     return providersRepository.save(provider);
   }

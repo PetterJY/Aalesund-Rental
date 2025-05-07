@@ -101,7 +101,7 @@ public class Cars {
   }
 
   public enum CarType {
-    SEDAN, HATCHBACK, SUV, TRUCK, COUPE, CONVERTIBLE, LUXURY;
+    SEDAN, HATCHBACK, SUV, TRUCK, COUPE, CONVERTIBLE, LUXURY, MINIVAN, SPORTS_CAR, CROSSOVER, STATION_WAGON;
 }
 
   public int getId() {

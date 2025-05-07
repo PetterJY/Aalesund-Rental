@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
 import no.ntnu.entity.dto.CarDetails;
 import no.ntnu.entity.models.Cars;
 import no.ntnu.entity.models.ExtraFeatures;
@@ -166,7 +167,7 @@ public class CarsController {
    */
   @PostMapping
   @ApiOperation(value = "Creates a new car.", notes = "The newly created car is returned.")
-  public ResponseEntity<Cars> createCar(@RequestBody CarDetails carRequest) {
+  public ResponseEntity<Cars> createCar(@Valid @RequestBody CarDetails carRequest) {
     logger.info("Creating new car");
     Cars car = new Cars();
 
@@ -206,7 +207,7 @@ public class CarsController {
   @PutMapping("/{id}")
   @ApiOperation(value = "Updates a car by its ID.", 
       notes = "If the car is not found, a 404 error is returned.")
-  public ResponseEntity<Cars> updateCar(@PathVariable Long id, @RequestBody CarDetails carDetails) {
+  public ResponseEntity<Cars> updateCar(@PathVariable Long id, @Valid @RequestBody CarDetails carDetails) {
     logger.info("Updating car with id: {}", id);
     Cars car = carsService.findById(id);
     car.setPlateNumber(carDetails.getPlateNumber());

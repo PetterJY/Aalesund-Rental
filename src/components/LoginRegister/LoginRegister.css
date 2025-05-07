@@ -77,10 +77,3 @@
   display: flex;
   flex-direction: row;
 }
-
-.error-message {
-  color: red;
-  font-size: 12px;
-  font-weight: bold;
-  margin-top: 10px;
-}

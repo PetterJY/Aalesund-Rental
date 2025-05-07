@@ -63,7 +63,7 @@ public class ExtraFeaturesService {
    * @return the saved extra feature
    */
   public ExtraFeatures save(ExtraFeatures extraFeature) {
-    logger.info("Saving extra feature with id: {}", extraFeature.getId());
+    logger.info("Saving extra feature with name: {}", extraFeature.getName());
     return extraFeaturesRepository.save(extraFeature);
   }
 

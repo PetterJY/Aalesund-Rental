@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
  * LoginRequest is a data transfer object that represents the login request from a user.
  * It contains the user's email and password.
  */
-public class LoginRequest {
+public class LoginDetails {
 	@NotBlank(message = "Email is required")
 	@ApiModelProperty("The email of the user")
   private String email;

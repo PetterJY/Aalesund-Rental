@@ -5,6 +5,14 @@ import './CreateCarModal.css';
 import '../../../App.css';
 
 const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    setShowErrorMessage(false);
+    setErrorMessage("");
+  }, [isCreateCarModalOpen]);
+
   const [extraFeatures, setExtraFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
 
@@ -63,6 +71,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     e.preventDefault();
   
     const carDetails = retrieveCarDetails();
+    console.log('Car Details:', carDetails);
   
     try {
       const response = await fetch('http://localhost:8080/cars', {
@@ -80,15 +89,26 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
         onClose(); 
       } else if (response.status === 400) {
         const errorData = await response.json();
-        console.error('Validation error:', errorData.message);
+        console.error('Bad Request:', errorData.message);
+        setErrorMessage("Bad Request: " + errorData.message);
+        setShowErrorMessage(true);
       } else if (response.status === 401) {
         console.error('Unauthorized: Invalid or expired token.');
+        setErrorMessage("Unauthorized: Invalid or expired token.");
+        setShowErrorMessage(true);
+      } else if (response.status === 403) {
+        console.error('Duplicate entry: The car already exists.');
+        setErrorMessage("Duplicate entry: The car already exists.");
+        setShowErrorMessage(true);
       } else {
         console.error('Failed to create car:', response.statusText);
+        setErrorMessage("Failed to create car. Please try again.");
+        setShowErrorMessage(true);
       }
     } catch (error) {
       console.error('Error creating car:', error);
-      alert('An unexpected error occurred. Please try again later.');
+      setErrorMessage("An error occurred while creating the car. Please try again.");
+      setShowErrorMessage(true);
     }
   };
 
@@ -147,6 +167,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
             <button id="hybrid" type="button" onClick={handleSelectFuel}>Hybrid</button>
             <button id="electric" type="button" onClick={handleSelectFuel}>Electric</button>
           </section>
+
           <section className="create-car-button-wrapper">
             <button id="automatic" type="button" onClick={handleSelectTransmission}>Automatic</button>
             <button id="manual" type="button" onClick={handleSelectTransmission}>Manual</button>
@@ -169,6 +190,12 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
             onChange={handleFileChange}
           />
           {selectedImage && <p>Selected Image: {selectedImage.name}</p>}
+
+          {showErrorMessage && (
+            <p className="error-message" id="register-error-message">
+              {errorMessage}
+            </p>
+          )}
 
           <button type="submit">Create Car</button>
         </form>

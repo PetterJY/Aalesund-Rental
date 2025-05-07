@@ -2,6 +2,8 @@ package no.ntnu.entity.dto;
 
 import java.util.Set;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -18,7 +20,7 @@ public class CarDetails {
   private Long providerId;
 
   @NotBlank(message = "Plate number is required")
-  @Size(max = 20, message = "Plate number must not exceed 20 characters")
+  @Size(min = 4, max = 10, message = "Plate number must be between 1 and 10 characters")
   private String plateNumber;
 
   @NotBlank(message = "Car brand is required")
@@ -32,14 +34,16 @@ public class CarDetails {
 
   @NotNull(message = "Price per day is required")
   @Positive(message = "Price per day must be a positive value")
-  private Integer pricePerDay;
+  private int pricePerDay;
 
   @NotNull(message = "Production year is required")
-  @Positive(message = "Production year must be a positive value")
-  private Integer productionYear;
+  @Min(value = 1900, message = "Production year must be at least 1900")
+  @Max(value = 2100, message = "Production year must not exceed 2100")
+  private int productionYear;
 
   @NotNull(message = "Number of passengers is required")
-  @Positive(message = "Number of passengers must be a positive value")
+  @Min(value = 1, message = "Number of passengers must be at least 1")
+  @Max(value = 24, message = "Number of passengers must not exceed 24")
   private Byte passengers;
 
   @NotNull(message = "Transmission-type field is required")
@@ -51,7 +55,6 @@ public class CarDetails {
   private Boolean available;
 
   private Set<Long> extraFeatureIds;
-
 
   public Long getProviderId() {
     return providerId;
@@ -73,11 +76,11 @@ public class CarDetails {
     return carType;
   }
 
-  public Integer getPricePerDay() {
+  public int getPricePerDay() {
     return pricePerDay;
   }
 
-  public Integer getProductionYear() {
+  public int getProductionYear() {
     return productionYear;
   }
 

@@ -9,7 +9,7 @@ import no.ntnu.entity.models.Rentals;
  * RentalRequest is a data transfer object.
  * It represents the registration request for a rental.
  */
-public class RentalRequest {
+public class RentalDetails {
   @NotNull(message = "Renter ID is required")
   private Long renterId;
 
@@ -72,4 +72,4 @@ public class RentalRequest {
   public Rentals.Status getStatus() {
     return status;
   }
- }
+}

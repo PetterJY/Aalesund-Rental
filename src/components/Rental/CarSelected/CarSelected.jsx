@@ -9,15 +9,12 @@ import '../../App.css';
 const CarSelected = ({car}) => {
   const navigate = useNavigate();
 
-  const handleRentCar = (id) => {
+  const handleRentCar = () => {
     return () => {
-      console.log(`Renting car with ID: ${id}`);
-      navigate("/booking", { state: id });
+      console.log(`Renting car with ID: ${car.id}`);
+      navigate("/booking", { state: car.id });
     };
   };
-
-
-  
 
   return (
     <div className="car-selected">
@@ -54,7 +51,7 @@ const CarSelected = ({car}) => {
           <h4>{car.pricePerDay},- kr / day - {car.priceTotal},- kr in total</h4>
         </div>
       </section>
-      <button className='next-button' onClick={handleRentCar(car.id)}>Rent</button>
+      <button className='next-button' onClick={handleRentCar()}>Rent</button>
     </div>
   );
 }  

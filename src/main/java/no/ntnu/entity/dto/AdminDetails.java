@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
  * It represents the registration request from an admin.
  * It contains the admin's name and password.
  */
-public class AdminRegisterRequest {
+public class AdminDetails {
   @NotBlank(message = "Name is required")
   private String name;
 

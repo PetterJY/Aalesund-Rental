@@ -7,6 +7,7 @@ import '../LoginRegister.css';
 
 const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
+  
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 

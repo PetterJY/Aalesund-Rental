@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.dto.RentalRequest;
+import no.ntnu.entity.dto.RentalDetails;
 import no.ntnu.entity.models.Cars;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.entity.models.Rentals;
@@ -80,7 +80,7 @@ public class RentalsController {
    */
   @PostMapping
   @ApiOperation(value = "Creates a new rental.", notes = "The newly created rental is returned.")
-  public ResponseEntity<Rentals> createRental(@RequestBody RentalRequest rentalRequest) {
+  public ResponseEntity<Rentals> createRental(@RequestBody RentalDetails rentalRequest) {
     logger.info("Creating new rental");
     Rentals createdRental = new Rentals();
     

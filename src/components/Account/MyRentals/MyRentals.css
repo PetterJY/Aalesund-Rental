@@ -15,7 +15,8 @@
     flex-direction: column;
     padding: 20px;
     background-color: white;
-    width: 1200px;
+    width: 100%;
+    max-width: 1440px;
   }
 
   #my-rentals-header {
@@ -153,3 +154,22 @@
     margin-left: 50px;
     margin-top: 10px;
   }
+
+   @media screen and (max-width: 850px) {
+    .my-rentals {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .my-rentals-list {
+      width: 100%;
+    }
+
+    #my-rentals-header {
+      align-items: flex-start;
+    }
+
+    #add-car-button {
+      margin-top: 10px;
+    }
+   }

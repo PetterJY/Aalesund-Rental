@@ -58,7 +58,7 @@ public class RentalsService {
    * @return the saved rental
    */
   public Rentals save(Rentals rental) {
-    logger.info("Saving rental with id: {}", rental.getRentalId());
+    logger.info("Saving rental for rental-period: {} to {}", rental.getStartDate(), rental.getEndDate());
     return rentalsRepository.save(rental);
   }
 

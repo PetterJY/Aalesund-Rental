@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-import no.ntnu.entity.dto.ProviderRegisterRequest;
+import no.ntnu.entity.dto.ProviderDetails;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.service.ProvidersService;
 
@@ -77,7 +77,7 @@ public class ProvidersController {
   @ApiOperation(value = "Creates a new provider.", 
       notes = "The newly created provider is returned.")
   public ResponseEntity<Providers> createProvider(
-      @RequestBody ProviderRegisterRequest providerRegisterRequest) {
+      @RequestBody ProviderDetails providerRegisterRequest) {
     Providers provider = new Providers();
     provider.setCompanyName(providerRegisterRequest.getCompanyName());
     provider.setEmail(providerRegisterRequest.getEmail());

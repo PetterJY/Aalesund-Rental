@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
  * ExtraFeaturesRequest is a data transfer object.
  * It represents a request for extra features in the system.
  */
-public class ExtraFeaturesRequest {
+public class ExtraFeatureDetails {
   @NotNull(message = "ID is required")
   private int id;
 
