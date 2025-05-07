@@ -51,6 +51,14 @@ const Account = () => {
     } 
   });
 
+  async function updateAccountInformation() {
+    if (role === 'ROLE_USER') {
+      await updateUserInformation();
+    } else if (role === 'ROLE_PROVIDER') {
+      await updateProviderInformation();
+    }
+  }
+
   //USER SECTION:
 
   async function fetchUserData() {
@@ -272,7 +280,7 @@ const Account = () => {
 
         {showErrorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <button className="save-button" onClick={updateUserInformation}>Save</button>
+        <button className="save-button" onClick={updateAccountInformation}>Save</button>
         <ul className="bottom-button-list">
           <li>
             <button className="bottom-button" onClick={openDeleteModal}>
