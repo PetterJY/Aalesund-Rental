@@ -153,6 +153,9 @@ export default function Rental() {
       if (selectedFilterOptions.sort.length > 0) {
         filterParams.append("sortOption", selectedFilterOptions.sort[0]); // Assuming single selection
       }
+      if (selectedFilterOptions.energySource.length > 0) {
+        filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
+      }
 
       console.log("Filter params:", filterParams.toString());
 
