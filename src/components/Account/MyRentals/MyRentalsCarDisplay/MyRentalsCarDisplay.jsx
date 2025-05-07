@@ -5,8 +5,9 @@ import './MyRentalsCarDisplay.css';
 
 const MyRentalsCarDisplay = ({ car }) => {
   const [tableVisibility, setTableVisibility] = useState(false);
-  const [rentals, setRentals] = useState(null);
+  const [rentals, setRentals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  
   const toggleDetails = () => {
     setTableVisibility((prev) => !prev);
   };
