@@ -113,7 +113,8 @@ public class CarsController {
     Pageable pageable = Pageable.unpaged(sortOrder);
 
     // Handle null values by providing defaults if necessary
-    List<Cars.CarType> carTypeParam = (carType != null) ? carType : List.of(Cars.CarType.values());
+    List<Cars.CarType> carTypeParam = (carType != null && !carType.isEmpty()) ?
+        carType : List.of(Cars.CarType.values());
     List<Cars.Transmission> transmissionParam = (transmission != null && !transmission.isEmpty()) ?
         transmission : List.of(Cars.Transmission.values());
     int passengersParam = (minPassengers != null) ? minPassengers : 2;

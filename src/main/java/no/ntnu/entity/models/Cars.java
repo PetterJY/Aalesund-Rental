@@ -48,6 +48,7 @@ public class Cars {
   private String modelName;
 
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
   @ApiModelProperty("The type of the car")
   private CarType carType;
 
@@ -93,30 +94,14 @@ public class Cars {
    */
   public enum EnergySource {
     GAS, DIESEL, HYBRID, ELECTRIC;
-
-    public String toFormattedString() {
-      String lowerCaseName = name().toLowerCase();
-      return lowerCaseName.substring(0, 1).toUpperCase() + lowerCaseName.substring(1);
-    }
   }
 
   public enum Transmission {
     AUTOMATIC, MANUAL;
-
-    public String toFormattedString() {
-        String lowerCaseName = name().toLowerCase();
-        return lowerCaseName.substring(0, 1).toUpperCase() + lowerCaseName.substring(1);
-    }
-
   }
 
   public enum CarType {
     SEDAN, HATCHBACK, SUV, TRUCK, COUPE, CONVERTIBLE, LUXURY;
-
-    public String toFormattedString() {
-      String lowerCaseName = name().toLowerCase();
-      return lowerCaseName.substring(0, 1).toUpperCase() + lowerCaseName.substring(1);
-    }
 }
 
   public int getId() {
@@ -159,8 +144,8 @@ public class Cars {
     this.modelName = modelName;
   }
 
-  public String getCarType() {
-    return carType.toFormattedString();
+  public CarType getCarType() {
+    return carType;
   }
 
   public void setCarType(CarType carType) {
@@ -191,8 +176,8 @@ public class Cars {
     this.passengers = passengers;
   }
 
-  public String getTransmission() {
-    return transmission.toFormattedString();
+  public Transmission getTransmission() {
+    return transmission;
   }
 
   public void setTransmission(Transmission transmission) {
