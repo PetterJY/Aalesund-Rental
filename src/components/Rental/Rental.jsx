@@ -137,12 +137,11 @@ export default function Rental() {
   const fetchCarData = async () => {
     try {
       const filterParams = new URLSearchParams();
-      // Add filters dynamically based on selected options
       if (selectedFilterOptions.carType.length > 0) {
-        filterParams.append("carType", selectedFilterOptions.carType.join(","));
+        filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase());
       }
       if (selectedFilterOptions.transmission.length > 0) {
-        filterParams.append("transmission", selectedFilterOptions.transmission.join(","));
+        filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase());
       }
       if (selectedFilterOptions.passengers.length > 0) {
         filterParams.append("minPassengers", selectedFilterOptions.passengers[0]); // Assuming single selection
@@ -225,7 +224,6 @@ export default function Rental() {
     });
 
     console.log("Selected filter options:", selectedFilterOptions);
-    fetchCarData();
     toggleFilter();
   };
 
