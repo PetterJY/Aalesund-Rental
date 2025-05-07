@@ -61,7 +61,8 @@ export default function Rental() {
   const filterOptions = {
     sort: [
       { value: "newest", label: "Newest" },
-      { value: "price", label: "Price" },
+      { value: "price-low-to-high", label: "Price - Low to High" },
+      { value: "price-high-to-low", label: "Price - High to Low" },
       { value: "alphabet", label: "Alphabet" },
     ],
     carType: [
@@ -71,6 +72,9 @@ export default function Rental() {
       { value: "coupe", label: "Coupe" },
       { value: "convertible", label: "Convertible" },
       { value: "luxury", label: "Luxury" },
+      { value: "hatchback", label: "Hatchback" },
+      { value: "minivan", label: "Minivan" },
+      { value: "sports", label: "Sports" },
     ],
     transmission: [
       { value: "automatic", label: "Automatic" },
