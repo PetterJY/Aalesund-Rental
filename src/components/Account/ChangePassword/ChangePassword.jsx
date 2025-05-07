@@ -45,25 +45,24 @@ const ChangePassword = ({ closeModal, isModalVisible }) => {
     }
 
     try {
-    // Proceed to change the password
-    const response = await fetch('http://localhost:8080/users/change-password', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      console.log("Error changing password." + response.statusText);
-      setErrorMessage("Failed to change password. Please try again.");
-      setShowErrorMessage(true);
-      return; 
-    }
-    const data = await response.json();
-      
-    console.log("Password has been changed successfully.");
-    closeModal();
-    return data;
+      const response = await fetch('http://localhost:8080/users/change-password', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        console.log("Error changing password." + response.statusText);
+        setErrorMessage("Failed to change password. Please try again.");
+        setShowErrorMessage(true);
+        return; 
+      }
+      const data = await response.json();
+        
+      console.log("Password has been changed successfully.");
+      closeModal();
+      return data;
 
     } catch(error) {
       console.error("An error occurred:", error);

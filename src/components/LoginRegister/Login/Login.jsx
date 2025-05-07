@@ -5,7 +5,7 @@ import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../../App.css';
 import '../LoginRegister.css';
 
-const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, defaultMode }) => {
+const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
   
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -28,45 +28,59 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
     setMode(newMode);
   };
 
-  const handleLogin = (event) => {
-    event.preventDefault(); 
-    console.log("Attempting to login.");
-    
-    const data = retrieveData();
-
-    fetch('http://localhost:8080/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        console.log("Response status: ", response.status);
-        if (response.ok) {
-          return response.json(); 
-        }
-      })
-      .then((data) => { 
-        const token = data.jwt;
-        localStorage.setItem('jwt', token); 
-        setIsLoggedIn(true);
-        console.log("isLoggedIn: " + isLoggedIn)
-        console.log("Token: ", token);
-        console.log("User has been logged in. Token stored.");
-        closeModal();
-      })
-      .catch((error) => {
-        console.error(error);
-        setErrorMessage("The username and/or password you specified are not correct.");
-        setShowErrorMessage(true);
-      });
-  }
-
   function retrieveData() {
     return {
       email: document.getElementById('login-email-field').value,
       password: document.getElementById('login-password-field').value,
+    };
+  }
+
+  async function handleLogin(event) {
+    event.preventDefault(); 
+
+    console.log("Attempting to login.");
+    
+    const loginDetails = retrieveData();
+
+    try {
+      const response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginDetails),
+      });
+
+      console.log("Response status: ", response.status);
+      if (!response.ok) {
+        console.error("Login failed: ", response.statusText);
+        if (response.status === 401) {
+          setErrorMessage("The username and/or password you specified are not correct.");
+          setShowErrorMessage(true);
+          throw new Error("Login Failed: The username and/or password you specified are not correct.");
+        } else if (response.status === 403) {
+          setErrorMessage("You do not have permission to access this resource.");
+          setShowErrorMessage(true);
+          throw new Error("Login Failed: You do not have permission to access this resource.");
+        } else {
+          setErrorMessage("An unknown error occurred. Please try again later.");
+          setShowErrorMessage(true);
+          throw new Error("Login Failed: An unknown error occurred. Please try again later.");
+        }
+      }
+
+      const data = await response.json();
+      const token = data.jwt;
+
+      console.log("User has been logged in. Token: ", token);
+      localStorage.setItem('jwt', token); 
+      setIsLoggedIn(true);
+      closeModal();
+
+    } catch(error) {
+      console.error(error);
+      setErrorMessage("The username and/or password you specified are not correct.");
+      setShowErrorMessage(true);
     };
   }
 
@@ -76,9 +90,18 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
         <div id="loginModal" className="modal" onMouseDown={closeModal}>
           <div className="modal-content" onMouseDown={(e) => e.stopPropagation()}>
             {mode === 'register' ? (
-              <RegisterButton closeModal={closeModal} isModalVisible={isModalVisible} toggleMode={() => toggleMode('login')} />
+              <RegisterButton 
+                closeModal={closeModal} 
+                isModalVisible={isModalVisible}
+                setIsLoggedIn={setIsLoggedIn} 
+                toggleMode={() => toggleMode('login')} 
+              />
             ) : mode === 'forgotPassword' ? (
-              <ForgotPassword closeModal={closeModal} isModalVisible={isModalVisible} toggleMode={() => toggleMode('login')} />
+              <ForgotPassword 
+                closeModal={closeModal} 
+                isModalVisible={isModalVisible} 
+                toggleMode={() => toggleMode('login')} 
+              />
             ) : (
               <>
                 <h2 className="title">Login</h2>
@@ -92,6 +115,7 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
                       placeholder="Password"
                       required
                     />
+                    
                     <button
                       type="button"
                       className="toggle-password-button"
@@ -100,11 +124,13 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, isLoggedIn, de
                       {passwordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
                     </button>
                   </div>
+
                   {showErrorMessage && (
                     <p className="error-message" id="register-error-message">
                       {errorMessage}
                     </p>
                   )}
+
                   <button id="submit-button" type="submit">Login</button>
                 </form>
                 <section id="register-forgot-wrapper">

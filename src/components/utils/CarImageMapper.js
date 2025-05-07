@@ -13,7 +13,7 @@ const CarImageMapping = {
   "Skoda Fabia": require("../../resources/images/cars/SkodaFabia.png"),
 };
 
-export const getCarImage = (carBrand, modelName) => {
+export const mapCarImage = (carBrand, modelName) => {
   const key = `${carBrand} ${modelName}`;
   return CarImageMapping[key] || require("../../resources/images/car.png"); 
 };

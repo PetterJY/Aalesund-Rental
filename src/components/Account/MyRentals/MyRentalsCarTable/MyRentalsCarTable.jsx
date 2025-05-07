@@ -25,7 +25,6 @@ const MyRentalsCarTable = ({ rentals = [] }) => {
             const endDate = new Date(rental.endDate);
             const rentingTime = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
 
-            // Format dates in a user-friendly way
             const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
             const formattedStartDate = startDate.toLocaleDateString(undefined, options);
             const formattedEndDate = endDate.toLocaleDateString(undefined, options);

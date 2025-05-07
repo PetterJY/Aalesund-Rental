@@ -6,31 +6,41 @@ import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
 import "../App.css";
 
-const Booking = (props) => {
+const Booking = () => {
 	const location = useLocation();
-	const { carId } = location.state || { carId: null };
+	const carId = location.state || null;
+
+	const [carDetails, setCarDetails] = useState(null);
+
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		fetch(`http://localhost:8080/cars/${carId}`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-			},
-		})
-			.then((response) => {
+		async function fetchCarDetails() {
+			setIsLoading(true);
+			try {
+				const response = await fetch(`http://localhost:8080/cars/${carId}`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+					},
+				})
+				
 				if (!response.ok) {
-					throw new Error("Network response was not ok");
+					throw new Error(`HTTP error! status: ${response.status}`);
 				}
-				return response.json();
-			})
-			.then((data) => {
-				console.log(data);
-			})
-			.catch((error) => {
-				console.error("There was a problem with the fetch operation:", error);
-			});
-	}, [props.id]);
+
+				const carDetails = await response.json();
+				setCarDetails(carDetails);
+				setIsLoading(false);
+				console.log("Car details fetched:", carDetails);
+			} 
+			catch(error) {
+				console.error(error);
+			};
+		}
+		fetchCarDetails();
+	}, [carId]);
 
   return (
 		<main className="booking-page">
@@ -38,15 +48,15 @@ const Booking = (props) => {
 				<form action="/submit-booking" method="post" className="grid-container">
 					<h2 className="driver-information">Driver Information</h2>   
 					<div className="e-mail">
-						<label for="email">Email:</label>
+						<label htmlFor="email">Email:</label>
 						<input type="email" id="email" name="email" required></input>
 					</div>  
 					<div className="first-name">
-						<label for="name">First Name:</label>
+						<label htmlFor="name">First Name:</label>
 						<input type="text" id="name" name="name" required></input>
 					</div>
 					<div className="last-name">
-						<label for="last-name">Last Name:</label>
+						<label htmlFor="last-name">Last Name:</label>
 						<input type="text" id="last-name" name="last-name" required></input>
 					</div>
 				</form>
@@ -59,8 +69,14 @@ const Booking = (props) => {
 						<img id="car-image" src={carImage}></img>
 					</div>      
 					<div className="car-rental-details">
-						<h2>{props.carName}</h2>
-						<p className="rent-period">{props.rentalPeriod}</p>
+						{ isLoading ? (
+							<p>Loading...</p>
+						) : (
+							<>
+								<h2>{carDetails.modelName}</h2>
+								<p className="rent-period">{carDetails.rentalPeriod}</p>
+							</>
+						)}
 					</div>
 				</header>
 				<section className="rental-schedule-container">
@@ -72,20 +88,38 @@ const Booking = (props) => {
 					<div className="rental-schedule-text">
 						<div className="pickup-info">
 							<p className="pickup">Pickup</p>
-							<h4>{props.pickUpLocation}</h4>
-							<p className="pickup-time">{props.pickUpTime}</p>
+							{isLoading ? (
+								<p>Loading...</p>
+							) : (
+								<>
+									<h4>{carDetails.provider.companyName}</h4>
+									<p className="pickup-time">{carDetails.pickUpTime}</p>
+								</>
+							)}
 						</div>
 						<div className="dropoff-info">
 							<p className="dropoff">Dropoff</p>
-							<h4>{props.dropOffLocation}</h4>
-							<p className="dropoff-time">{props.dropOffTime}</p>
+							{isLoading ? (
+								<p>Loading...</p>
+							) : (
+								<>
+									<h4>{carDetails.provider.companyName}</h4>
+									<p className="dropoff-time">{carDetails.dropOffTime}</p>
+								</>
+							)}
 						</div>
 					</div>
 				</section>
 				<footer className="payment-details">
 					<p>Renting costs:</p>
-					<p>{props.costPerDay}kr/day</p>
-					<h3>Total:{props.totalCost}kr</h3>
+					{isLoading ? (
+						<p>Loading...</p>
+					) : (
+						<>
+							<p>{carDetails.rentalPeriod} days</p>
+							<p>{carDetails.pricePerDay}kr/day</p>
+						</>
+					)}
 				</footer>
 			</div>
 		</main>

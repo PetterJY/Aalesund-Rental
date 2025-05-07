@@ -179,11 +179,11 @@ const BookingForm = ({
               onClick={() => setIsDropoffTextFieldSelected(true)}>
             <MagnifyingGlass size={24} weight="bold" className="search-icon" />
             <input type="text"
-                  className="text-input"
-                  id="dropoff-destination-input-field"
-                  placeholder="Drop-off location"
-                  value={dropoffLocationValue}
-                  onChange={(e) => setDropoffLocationValue(e.target.value)}>
+              className="text-input"
+              id="dropoff-destination-input-field"
+              placeholder="Drop-off location"
+              value={dropoffLocationValue}
+              onChange={(e) => setDropoffLocationValue(e.target.value)}>
             </input>
             <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
               <XCircle className={`cross-icon ${isDropoffTextInputHovered && dropoffLocationValue !== "" ? 'visible' : ''}`}

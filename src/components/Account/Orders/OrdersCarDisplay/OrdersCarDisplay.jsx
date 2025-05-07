@@ -1,6 +1,6 @@
 import React from 'react';
 import { Warehouse} from "@phosphor-icons/react";
-import { getCarImage } from '../../../utils/CarImageMapper';
+import { mapCarImage } from '../../../utils/CarImageMapper';
 import './OrdersCarDisplay.css';
 import '../../../App.css';
 
@@ -9,22 +9,21 @@ const OrdersCarDisplay = (rental) => {
 	const endDate = new Date(rental.dropOffTime);
 	const rentingTime = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
 
-	// Format dates in a user-friendly way
 	const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 	const formattedStartDate = startDate.toLocaleDateString(undefined, options);
 	const formattedEndDate = endDate.toLocaleDateString(undefined, options);
 	const dailyPrice = rental.priceTotal / rentingTime;
 
-	const carImage = getCarImage(rental.brand, rental.model);
+	const carImage = mapCarImage(rental.brand, rental.model);
 
   return (
     <div className="orders-car-display-card">
       <div className='car-background'>
-			<img 
-          src={carImage}
-          alt={`${rental.brand} ${rental.model}`}
-          className="car-image" 
-          />
+				<img 
+					src={carImage}
+					alt={`${rental.brand} ${rental.model}`}
+					className="car-image" 
+				/>
 				<h3 id='provider-name'>{rental.provider}</h3>
       </div>
       <div className="car-details">

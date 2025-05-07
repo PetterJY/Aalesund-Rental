@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCarImage } from '../../utils/CarImageMapper';
+import { mapCarImage } from '../../utils/CarImageMapper';
 import { Car, Seatbelt, PlusCircle, Calendar, CaretDown } from "@phosphor-icons/react";
 
 import './CarSelected.css';
@@ -11,12 +11,12 @@ const CarSelected = ({car}) => {
 
   const handleRentCar = () => {
     return () => {
-      console.log(`Renting car with ID: ${car.id}`);
+      console.log(`Booking car with ID: ${car.id}`);
       navigate("/booking", { state: car.id });
     };
   };
 
-  const carImage = getCarImage(car.carBrand, car.modelName);
+  const carImage = mapCarImage(car.carBrand, car.modelName);
 
   return (
     <div className="car-selected">

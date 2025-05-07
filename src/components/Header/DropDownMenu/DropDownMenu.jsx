@@ -11,7 +11,6 @@ const DropDownMenu = ({ isDropdownVisible, navigate, handleLogout }) => {
     setRole(getRole());
   });
 
-
   return (
     <div className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}>
       <ul className="dropdown-menu-list">
