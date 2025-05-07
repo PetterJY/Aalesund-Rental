@@ -29,8 +29,8 @@ public class CarDetails {
   @NotBlank(message = "Model name is required")
   private String modelName;
 
-  @NotBlank(message = "Car type is required")
-  private String carType;
+  @NotNull(message = "Car type is required")
+  private Cars.CarType carType;
 
   @NotNull(message = "Price per day is required")
   @Positive(message = "Price per day must be a positive value")
@@ -72,7 +72,7 @@ public class CarDetails {
     return modelName;
   }
 
-  public String getCarType() {
+  public Cars.CarType getCarType() {
     return carType;
   }
 

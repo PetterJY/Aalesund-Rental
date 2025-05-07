@@ -693,12 +693,13 @@ background: #e94100; /* Darker shade of #FF5F00 */
   }
 
   .mobile-display-divider {
-    height: 6px;
-    background-color: lightgray;
+    height: 1px;
+    background-color: black;
     border: none;
-    justify-self: center;
-    width: 100vw;
+    align-self: center;
+    width: 90vw;
     margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
   }
 
   .date-input {

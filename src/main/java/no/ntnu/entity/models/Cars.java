@@ -48,8 +48,9 @@ public class Cars {
   private String modelName;
 
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
   @ApiModelProperty("The type of the car")
-  private String carType;
+  private CarType carType;
 
   @Column(nullable = false)
   @ApiModelProperty("The price per day of the car")
@@ -61,7 +62,7 @@ public class Cars {
 
   @Column(nullable = false)
   @ApiModelProperty("The number of passengers the car can carry")
-  private byte passengers;
+  private int passengers;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
@@ -92,12 +93,16 @@ public class Cars {
    * Allowed values are GAS, DIESEL, HYBRID, ELECTRIC.
    */
   public enum EnergySource {
-    GAS, DIESEL, HYBRID, ELECTRIC
+    GAS, DIESEL, HYBRID, ELECTRIC;
   }
 
   public enum Transmission {
     AUTOMATIC, MANUAL;
   }
+
+  public enum CarType {
+    SEDAN, HATCHBACK, SUV, TRUCK, COUPE, CONVERTIBLE, LUXURY, MINIVAN, SPORTS_CAR, CROSSOVER, STATION_WAGON;
+}
 
   public int getId() {
     return id;
@@ -139,11 +144,11 @@ public class Cars {
     this.modelName = modelName;
   }
 
-  public String getCarType() {
+  public CarType getCarType() {
     return carType;
   }
 
-  public void setCarType(String carType) {
+  public void setCarType(CarType carType) {
     this.carType = carType;
   }
 
@@ -163,7 +168,7 @@ public class Cars {
     this.productionYear = productionYear;
   }
 
-  public byte getPassengers() {
+  public int getPassengers() {
     return passengers;
   }
 
