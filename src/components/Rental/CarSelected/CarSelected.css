@@ -81,6 +81,11 @@
   align-self: center;
 }
 
+
+b {
+  font-weight: 200;
+  color: #252422;
+}
 .car-selected #car-background footer {
   background-color: transparent;
   display: flex;
