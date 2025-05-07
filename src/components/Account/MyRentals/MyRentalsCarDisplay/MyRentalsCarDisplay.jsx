@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode'; // adjust the import if necessary
 import { NotePencil } from "@phosphor-icons/react";
+import { getCarImage } from '../../../utils/CarImageMapper';
 import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
 import './MyRentalsCarDisplay.css';
 import '../../../App.css';
@@ -128,11 +129,17 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
     }));
   };
 
+  const carImage = getCarImage(editedCar.carBrand, editedCar.modelName);
+
   return (
     <div className="my-rentals-car-display">
       <button className="rentals-car-display-card" onClick={toggleDetails}>
         <div className="car-background">
-          <img src={displayCar.image} alt={displayCar.name} className="car-image" />
+          <img 
+          src={carImage}
+          alt={`${displayCar.carBrand} ${displayCar.modelName}`}
+          className="car-image" 
+          />
         </div>
         <section className="car-display-info">
           <div className="car-details">

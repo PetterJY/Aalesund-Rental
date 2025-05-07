@@ -109,9 +109,9 @@ public class AddDummyObjectsToDatabase {
 		addCar("5", "AA 77777", "Nissan", "Leaf", "SUV", 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
 		addCar("6", "AA 88888", "Nissan", "Leaf", "SUV", 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
 		addCar("7", "AA 99999", "Mazda", "2", "Hatchback", 400, 2017, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "2");
-		addCar("8", "AB 11111", "VolksWagen", "Transporter", "Minivan", 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("9", "AB 22222", "VolksWagen", "Transporter", "Minivan", 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("10", "AC 88888", "VolksWagen", "Transporter", "Minivan", 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
+		addCar("8", "AB 11111", "Volkswagen", "Transporter", "Minivan", 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
+		addCar("9", "AB 22222", "Volkswagen", "Transporter", "Minivan", 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
+		addCar("10", "AC 88888", "Volkswagen", "Transporter", "Minivan", 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
 		addCar("11", "AB 33333", "BMW", "M3", "Sports Car", 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
 		addCar("12", "AB 44444", "BMW", "M3", "Sports Car", 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
 		addCar("13", "AC 77777", "BMW", "M3", "Sports Car", 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
