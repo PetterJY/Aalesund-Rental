@@ -3,95 +3,93 @@
   * This file contains the CSS styles for the Account section.
   */
   
-  .account {
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+.account {
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .account-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-    margin-left: 90px;
-  }
+.account-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  margin-left: 90px;
+}
 
-  .account-section h1 {
-    margin-bottom: 20px;
-    color: #252422;
-  }
-  
-  .account-section h2 {
-    margin-bottom: 20px;
-    color: #252422;
-    border-bottom: #EB5E28 1px solid;
-  }
+.account-section h1 {
+  margin-bottom: 20px;
+  color: #252422;
+}
 
-  .account-section h3 {
-    font-weight: 400;
-    margin-bottom: 0px;
-  }
+.account-section h2 {
+  margin-bottom: 20px;
+  color: #252422;
+  border-bottom: #EB5E28 1px solid;
+}
 
-  .account-section input[type="text"] {
-    background-color: white;
-    border: none;
-    border-bottom: 1px solid #252422;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    padding-left: 0px;
-    font-size: 20px;
-    font-weight: 400;
-  }
+.account-section h3 {
+  font-weight: 400;
+  margin-bottom: 0px;
+}
 
-  .account-section input[type="text"]:focus {
-    outline: none;
-  }
+.account-section input[type="text"] {
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid #252422;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  padding-left: 0px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.account-section input[type="text"]:focus {
+  outline: none;
+}
 
 .account-section .save-button {
-    background-color: #EB5E28;
-    color: white;
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
-    max-width: 1000px;
-    margin: 15px 0;
-    align-self: start;
-  }
+  background-color: #EB5E28;
+  color: white;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  max-width: 1000px;
+  margin: 15px 0;
+  align-self: start;
+}
 
-  .account-section .save-button:hover {
-    transition: 0.3s;
-    background-color: #eb5f2899;
-  }
+.account-section .save-button:hover {
+  transition: 0.3s;
+  background-color: #eb5f2899;
+}
 
-  .account-section .save-button:active {
-    background-color: #EB5E28;
-    transform: scale(0.95);
-  }
+.account-section .save-button:active {
+  background-color: #EB5E28;
+  transform: scale(0.95);
+}
 
-  .account-section .bottom-button-list {
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
-    padding: 0;
-    margin-left: -10px;
-  }
-  .account-section .bottom-button {
-    background-color: transparent;
-    border-radius: 0%;
-    color: #252422;
-    padding: 10px 10px;
-    border: none;
-    cursor: pointer;
-    max-width: fit-content;
-    min-width: fit-content;
-  }
+.account-section .bottom-button-list {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+  margin-left: -10px;
+}
+.account-section .bottom-button {
+  background-color: transparent;
+  border-radius: 0%;
+  color: #252422;
+  padding: 10px 10px;
+  border: none;
+  cursor: pointer;
+  max-width: fit-content;
+  min-width: fit-content;
+}
 
-  .account-section .bottom-button:hover {
-    background-color: transparent;
-    color: #EB5E28;
-    border-bottom: 1px solid #EB5E28;
-    border-radius: 0%;
-    transition: 0.3s;
-  }
-
- 
+.account-section .bottom-button:hover {
+  background-color: transparent;
+  color: #EB5E28;
+  border-bottom: 1px solid #EB5E28;
+  border-radius: 0%;
+  transition: 0.3s;
+}

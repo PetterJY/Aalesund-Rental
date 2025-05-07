@@ -35,9 +35,6 @@ const Account = () => {
     setIsChangePasswordModalVisible(false);
   };
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-
   const [accountId, setAccountId] = useState(getAccountId());
   const [role, setRole] = useState('');
 
@@ -46,6 +43,15 @@ const Account = () => {
     setRole(getRole());
   }, []);
 
+  useEffect(() => {
+    if (role === 'ROLE_USER') {
+      fetchUserData();
+    } else if (role === 'ROLE_PROVIDER') {
+      fetchProviderData();
+    } 
+  });
+
+  //USER SECTION:
 
   async function fetchUserData() {
     if (role !== 'ROLE_USER') {
@@ -67,7 +73,7 @@ const Account = () => {
       }
       const data = await response.json();
       setFirstName(data.firstName);
-      document.getElementById('name').value = firstName;
+      document.getElementById('first_name').value = firstName;
       setLastName(data.lastName);
       document.getElementById('last-name').value = lastName;
       return data;
@@ -76,9 +82,8 @@ const Account = () => {
     }
   }
 
-  useEffect(() => {
-    fetchUserData();
-  });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   async function updateUserInformation() {    
     if (role !== 'ROLE_USER') {
@@ -148,6 +153,100 @@ const Account = () => {
       setShowErrorMessage(true);
     }
   }
+
+  //PROVIDER SECTION:
+
+  async function fetchProviderData() {
+    if (role !== 'ROLE_PROVIDER') {
+      console.error('Unauthorized access: Provider role is not ROLE_PROVIDER');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/providers/' + accountId, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        },
+      });
+      if (!response.ok) {
+        console.error('Failed to fetch provider data:', response.statusText);
+        return;
+      }
+      const data = await response.json();
+      setCompanyName(data.companyName);
+      document.getElementById('company-name').value = companyName;
+      return data;
+    } catch (error) {
+      console.error('Error fetching provider data:', error);
+    }
+  }
+      
+  const [companyName, setCompanyName] = useState('');
+
+  async function updateProviderInformation() {
+    if (role !== 'ROLE_PROVIDER') {
+      console.error('Unauthorized access: Account role is not ROLE_PROVIDER');
+      setErrorMessage('Unauthorized access: Account role is not ROLE_PROVIDER');
+      setShowErrorMessage(true);
+      return;
+    }
+
+    const updatedCompanyName = document.getElementById('company-name').value;
+
+    if (updatedCompanyName === '') {
+      setErrorMessage('Please fill in all fields.');
+      setShowErrorMessage(true);
+      return;
+    }
+
+    if (updatedCompanyName === companyName) {
+      setErrorMessage('You can not update your account with the same data.');
+      setShowErrorMessage(true);
+      return;
+    }
+
+    try {
+      const providerData = await fetchUserData();
+      if (!providerData) {
+        setErrorMessage('Failed to fetch provider data. Please try again.');
+        setShowErrorMessage(true);
+        return;
+      }
+
+      const providerDetails = {
+        ...providerData, // Include all existing fields
+        companyName: updatedCompanyName,
+      };
+
+      console.log('Updated provider details:', providerDetails);
+
+      const response = await fetch('http://localhost:8080/providers/' + accountId, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        },
+        body: JSON.stringify(providerDetails),
+      });
+      if (!response.ok) {
+        console.error('Failed to update provider data:', response.statusText);
+        setErrorMessage('Failed to update provider data. Please try again.');
+        setShowErrorMessage(true);
+        return;
+      }
+      if (response.ok) {
+        const data = await response.json();
+        setCompanyName(data.companyName);
+        document.getElementById('company-name').value = companyName;
+      }
+    } catch (error) {
+      console.error('Error updating provider data:', error);
+      setErrorMessage('An error occurred while updating provider data. Please try again.');
+      setShowErrorMessage(true);
+    }
+  }
     
   return (
     <div className="account">
@@ -158,7 +257,7 @@ const Account = () => {
         {role === 'ROLE_USER' && (
           <>
             <h3>First name</h3>
-            <input type="text" id="name" name="name" required />
+            <input type="text" id="first-name" name="first-name" required />
             <h3>Last name</h3>
             <input type="text" id="last-name" name="last-name" required />
           </>
