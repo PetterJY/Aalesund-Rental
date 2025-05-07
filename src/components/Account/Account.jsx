@@ -81,7 +81,7 @@ const Account = () => {
       }
       const data = await response.json();
       setFirstName(data.firstName);
-      document.getElementById('first_name').value = firstName;
+      document.getElementById('first-name').value = firstName;
       setLastName(data.lastName);
       document.getElementById('last-name').value = lastName;
       return data;
@@ -102,7 +102,7 @@ const Account = () => {
     }
 
     const updatedUserDetails = {
-      updatedFirstName: document.getElementById('name').value,
+      updatedFirstName: document.getElementById('first-name').value,
       updatedLastName: document.getElementById('last-name').value,
     };
     
@@ -151,7 +151,7 @@ const Account = () => {
       if (response.ok) {
         const data = await response.json();
         setFirstName(data.firstName);
-        document.getElementById('name').value = firstName;
+        document.getElementById('first-name').value = firstName;
         setLastName(data.lastName);
         document.getElementById('last-name').value = lastName;
       }
@@ -216,7 +216,7 @@ const Account = () => {
     }
 
     try {
-      const providerData = await fetchUserData();
+      const providerData = await fetchProviderData();
       if (!providerData) {
         setErrorMessage('Failed to fetch provider data. Please try again.');
         setShowErrorMessage(true);
