@@ -138,7 +138,7 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
           <img 
           src={carImage}
           alt={`${displayCar.carBrand} ${displayCar.modelName}`}
-          className="car-image" 
+          classname="car-image" 
           />
         </div>
         <section className="car-display-info">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Warehouse} from "@phosphor-icons/react";
+import { getCarImage } from '../../../utils/CarImageMapper';
 import './OrdersCarDisplay.css';
 import '../../../App.css';
 
@@ -14,10 +15,16 @@ const OrdersCarDisplay = (rental) => {
 	const formattedEndDate = endDate.toLocaleDateString(undefined, options);
 	const dailyPrice = rental.priceTotal / rentingTime;
 
+	const carImage = getCarImage(rental.brand, rental.model);
+
   return (
     <div className="orders-car-display-card">
       <div className='car-background'>
-				<img src={rental.image} alt={rental.name} className="car-image" />
+			<img 
+          src={carImage}
+          alt={`${rental.brand} ${rental.model}`}
+          className="car-image" 
+          />
 				<h3 id='provider-name'>{rental.provider}</h3>
       </div>
       <div className="car-details">

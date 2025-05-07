@@ -83,7 +83,7 @@
 }
 
 .car-display .bottom-section {
-  margin-top: -30px;
+  margin-top: -65px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
@@ -96,6 +96,7 @@
 }
 
 .car-display .price-section {
+  margin-top: -25px;
   display: flex;
   flex-direction: row;
 }
@@ -111,11 +112,11 @@
   margin-left: 10px;
 }
 
-.car-display #car-image {
-  width: 300px;
-  height: 300px;
-  align-self: center; 
-  margin: -20px;
+.car-display .car-image {
+  width: 380px;
+  height: auto;
+  align-self: center;
+  margin-top: -50px;
 }
 
 .car-display #car-image img {
