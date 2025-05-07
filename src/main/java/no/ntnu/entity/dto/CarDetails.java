@@ -29,7 +29,7 @@ public class CarDetails {
   @NotBlank(message = "Model name is required")
   private String modelName;
 
-  @NotBlank(message = "Car type is required")
+  @NotNull(message = "Car type is required")
   private Cars.CarType carType;
 
   @NotNull(message = "Price per day is required")
