@@ -12,7 +12,7 @@ export default function Rental() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const containerRef = useRef(null);
   const [carsPerRow, setCarsPerRow] = useState(3);
-  
+
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
   const toggleDropdown = (category) =>
@@ -22,7 +22,7 @@ export default function Rental() {
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
-          <input type="checkbox" />
+          <input type="checkbox" name={category} value={value}/>
           <span>{label}</span>
         </label>
       ))}
@@ -33,7 +33,7 @@ export default function Rental() {
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
-          <input type="radio" name={category} />
+          <input type="radio" name={category} value={value}/>
           <span>{label}</span>
         </label>
       ))}
@@ -70,10 +70,6 @@ export default function Rental() {
       { value: "truck", label: "Truck" },
       { value: "coupe", label: "Coupe" },
       { value: "convertible", label: "Convertible" },
-      { value: "electric", label: "Electric" },
-      { value: "hybrid", label: "Hybrid" },
-      { value: "diesel", label: "Diesel" },
-      { value: "gas", label: "Gas" },
       { value: "luxury", label: "Luxury" },
     ],
     transmission: [
@@ -81,19 +77,26 @@ export default function Rental() {
       { value: "manual", label: "Manual" },
     ],
     passengers: [
-      { value: "2", label: "2+" },
-      { value: "4", label: "4+" },
-      { value: "5", label: "5+" },
-      { value: "7", label: "7+" },
+      { value: 2, label: "2+" },
+      { value: 4, label: "4+" },
+      { value: 5, label: "5+" },
+      { value: 7, label: "7+" },
+    ],
+    energySource: [
+      { value: "electric", label: "Electric" },
+      { value: "hybrid", label: "Hybrid" },
+      { value: "diesel", label: "Diesel" },
+      { value: "gas", label: "Gas" },
     ],
   };
 
-  const selectedFilterOptions = {
+  const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     sort: [],
     carType: [],
     transmission: [],
     passengers: [],
-  };
+    energySource: [],
+  });
 
 
   const handleCarClick = (carId) => {
@@ -119,11 +122,9 @@ export default function Rental() {
       setCarsPerRow(getCarsPerRow());
     };
     updateCarsPerRow();
-    console.log("Cars per row:", getCarsPerRow());
     window.addEventListener("resize", updateCarsPerRow);
     return () => window.removeEventListener("resize", updateCarsPerRow);
   }, [cars]);
-
 
 
   useEffect(() => {
@@ -131,11 +132,30 @@ export default function Rental() {
       await fetchCarData();
     };
     fetchData();
-  }, []);
+  }, [selectedFilterOptions]);
 
   const fetchCarData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/cars", {
+      const filterParams = new URLSearchParams();
+      // Add filters dynamically based on selected options
+      if (selectedFilterOptions.carType.length > 0) {
+        filterParams.append("carType", selectedFilterOptions.carType.join(","));
+      }
+      if (selectedFilterOptions.transmission.length > 0) {
+        filterParams.append("transmission", selectedFilterOptions.transmission.join(","));
+      }
+      if (selectedFilterOptions.passengers.length > 0) {
+        filterParams.append("minPassengers", selectedFilterOptions.passengers[0]); // Assuming single selection
+      }
+      if (selectedFilterOptions.sort.length > 0) {
+        filterParams.append("sortOption", selectedFilterOptions.sort[0]); // Assuming single selection
+      }
+
+      console.log("Filter params:", filterParams.toString());
+
+      console.log("Request URL: ", `http://localhost:8080/cars/search?${filterParams.toString()}`)
+      const response = await fetch(`http://localhost:8080/cars/search?${filterParams.toString()}`, {
+
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -148,6 +168,7 @@ export default function Rental() {
       }
 
       const data = await response.json();
+      console.log("Filtered cars:", data);
       setCars(data);
     } catch (error) {
       console.error(error);
@@ -157,22 +178,18 @@ export default function Rental() {
   // Reassemble children with inserted menu for the selected car.
   const renderWithInsertedMenu = () => {
     if (cars.length === 0) return null;
-  
+
     // Find the index of the selected car
     const selectedIndex = cars.findIndex((car) => car.id === selectedCarId);
-  
+
     let insertionIndex = -1;
     if (selectedIndex >= 0) {
       // Determine the end index of the row.
       insertionIndex =
         Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
       insertionIndex = Math.min(insertionIndex, cars.length - 1);
-      console.log("insertionIndex", insertionIndex);
-      console.log("selectedIndex", selectedIndex);
-      console.log("carsPerRow", carsPerRow);
-      console.log("cars.length", cars.length);
     }
-  
+
     // Build the final array of components
     const combined = [];
     cars.forEach((car, index) => {
@@ -194,21 +211,23 @@ export default function Rental() {
         );
       }
     });
-  
+
     return combined;
   };
 
   const handleFilterChange = () => {
-    selectedFilterOptions.sort = document.querySelectorAll('input[name="sort"]:checked');
-    selectedFilterOptions.carType = Array.from(document.querySelectorAll('input[name="carType"]:checked'))
-      .map(input => input.value);
-    selectedFilterOptions.transmission =
-      Array.from(document.querySelectorAll('input[name="transmission"]:checked'))
-      .map(input => input.value);
-    selectedFilterOptions.passengers = document.querySelectorAll('input[name="passengers"]:checked');
+    setSelectedFilterOptions({
+      sort: Array.from(document.querySelectorAll('input[name="sort"]:checked')).map(input => input.value),
+      carType: Array.from(document.querySelectorAll('input[name="carType"]:checked')).map(input => input.value),
+      transmission: Array.from(document.querySelectorAll('input[name="transmission"]:checked')).map(input => input.value),
+      passengers: Array.from(document.querySelectorAll('input[name="passengers"]:checked')).map(input => input.value),
+      energySource: Array.from(document.querySelectorAll('input[name="energySource"]:checked')).map(input => input.value),
+    });
 
+    console.log("Selected filter options:", selectedFilterOptions);
+    fetchCarData();
     toggleFilter();
-  }
+  };
 
   return (
     <div className="rental-page">
@@ -219,6 +238,7 @@ export default function Rental() {
             {renderDropdown("carType", "Car Type", filterOptions.carType)}
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
             {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
+            {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
             <button className="filter-button" onClick={handleFilterChange}>
               <FunnelSimple size={20} color="#252322" /> Sort and filter
             </button>
@@ -244,7 +264,12 @@ export default function Rental() {
                   <h3>Passengers</h3>
                   {renderRadioButtons("passengers", filterOptions.passengers)}
                 </div>
+                <div className="filter-group">
+                  <h3>Energy Source</h3>
+                  {renderCheckboxes("energySource", filterOptions.energySource)}
+                </div>
               </div>
+              <hr></hr>
               <button className="close-button" onClick={handleFilterChange}>
                 Save Changes
               </button>

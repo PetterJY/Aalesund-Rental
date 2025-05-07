@@ -17,12 +17,12 @@ import no.ntnu.entity.models.ExtraFeatures;
 import no.ntnu.logic.service.AdminService;
 
 public class AddDummyObjectsToDatabase {
-	private static final Logger logger = 
-		LoggerFactory.getLogger(AddDummyObjectsToDatabase.class.getSimpleName());
+	private static final Logger logger =
+			LoggerFactory.getLogger(AddDummyObjectsToDatabase.class.getSimpleName());
 
 	public static String jwt_token = "";
 
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
 		logger.info("Adding providers to the database.");
 
 		addProvider("Miller Bil", "11111111", "miller@bil.com" , "millerbil");
@@ -68,9 +68,9 @@ public class AddDummyObjectsToDatabase {
 			logger.error("Failed to obtain JWT token. Exiting.");
 			return;
 		}
-	
+
 		logger.info("Adding extra features to the database.");
-		
+
 		addExtraFeature("Bluetooth", "Wireless technology for audio streaming.");
 		addExtraFeature("DAB Radio", "Digital audio broadcasting for better sound quality.");
 		addExtraFeature("Heated Seats", "Heated seats for comfort.");
@@ -100,33 +100,32 @@ public class AddDummyObjectsToDatabase {
 
 		logger.info("Adding cars to the database.");
 
-		addCar("1", "AA 11111", "Volkswagen", "Golf", "Hatchback", 600, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true,"1, 2, 3" );
-		addCar("2", "AA 22222", "Volkswagen", "Golf", "Hatchback", 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true,"1, 2, 3" );
-		addCar("3", "AA 33333", "Tesla", "Model 3", "Sedan", 700, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3");
-		addCar("4", "AA 44444", "Tesla", "Model 3", "Sedan", 500, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3");
-		addCar("3", "AA 55555", "Tesla", "Model Y", "SUV", 900, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4");
-		addCar("4", "AA 66666", "Tesla", "Model Y", "SUV", 700, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4");
-		addCar("5", "AA 77777", "Nissan", "Leaf", "SUV", 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
-		addCar("6", "AA 88888", "Nissan", "Leaf", "SUV", 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
-		addCar("7", "AA 99999", "Mazda", "2", "Hatchback", 400, 2017, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "2");
-		addCar("8", "AB 11111", "VolksWagen", "Transporter", "Minivan", 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("9", "AB 22222", "VolksWagen", "Transporter", "Minivan", 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("10", "AC 88888", "VolksWagen", "Transporter", "Minivan", 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("11", "AB 33333", "BMW", "M3", "Sports Car", 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("12", "AB 44444", "BMW", "M3", "Sports Car", 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("13", "AC 77777", "BMW", "M3", "Sports Car", 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("14", "AB 55555", "Skoda", "Fabia", "Hatchback", 300, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("15", "AB 66666", "Skoda", "Fabia", "Hatchback", 299, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("16", "AC 66666", "Skoda", "Fabia", "Hatchback", 700, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("17", "AB 77777", "Peugeot", "307 SW", "Station Wagon", 600, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13");
-		addCar("6", "AB 88888", "Peugeot", "307 SW", "Station Wagon", 550, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13");
-		addCar("17", "AB 99999", "Peugeot", "207", "Hatchback", 500, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19");
-		addCar("6", "AC 11111", "Peugeot", "207", "Hatchback", 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19");
-		addCar("17", "AC 22222", "Peugeot", "3008", "Crossover", 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
-		addCar("6", "AC 33333", "Peugeot", "3008", "Crossover", 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
-		addCar("17", "AC 44444", "Peugeot", "iOn", "Hatchback", 200, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
-		addCar("6", "AC 55555", "Peugeot", "iOn", "Hatchback", 201, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
-
+		addCar("1", "AA 11111", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 600, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3");
+		addCar("2", "AA 22222", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3");
+		addCar("3", "AA 33333", "Tesla", "Model 3", Cars.CarType.SEDAN, 700, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3");
+		addCar("4", "AA 44444", "Tesla", "Model 3", Cars.CarType.SEDAN, 500, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3");
+		addCar("3", "AA 55555", "Tesla", "Model Y", Cars.CarType.SUV, 900, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4");
+		addCar("4", "AA 66666", "Tesla", "Model Y", Cars.CarType.SUV, 700, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4");
+		addCar("5", "AA 77777", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
+		addCar("6", "AA 88888", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
+		addCar("7", "AA 99999", "Mazda", "2", Cars.CarType.HATCHBACK, 400, 2017, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "2");
+		addCar("8", "AB 11111", "VolksWagen", "Transporter", Cars.CarType.MINIVAN, 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
+		addCar("9", "AB 22222", "VolksWagen", "Transporter", Cars.CarType.MINIVAN, 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
+		addCar("10", "AC 88888", "VolksWagen", "Transporter", Cars.CarType.MINIVAN, 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
+		addCar("11", "AB 33333", "BMW", "M3", Cars.CarType.SPORTS_CAR, 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
+		addCar("12", "AB 44444", "BMW", "M3", Cars.CarType.SPORTS_CAR, 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
+		addCar("13", "AC 77777", "BMW", "M3", Cars.CarType.SPORTS_CAR, 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
+		addCar("14", "AB 55555", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 300, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
+		addCar("15", "AB 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 299, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
+		addCar("16", "AC 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 700, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
+		addCar("17", "AB 77777", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 600, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13");
+		addCar("6", "AB 88888", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 550, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13");
+		addCar("17", "AB 99999", "Peugeot", "207", Cars.CarType.HATCHBACK, 500, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19");
+		addCar("6", "AC 11111", "Peugeot", "207", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19");
+		addCar("17", "AC 22222", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
+		addCar("6", "AC 33333", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
+		addCar("17", "AC 44444", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 200, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
+		addCar("6", "AC 55555", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 201, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
 		logger.info("Finished adding cars to the database.");
 
 		logger.info("Adding rentals to the database.");
@@ -148,31 +147,31 @@ public class AddDummyObjectsToDatabase {
 	// Login to get JWT token.
 	public static String login(String email, String password) {
 		HttpClient client = HttpClient.newHttpClient();
-		
+
 		String json = "{"
-		+ "\"email\": \"" + email + "\","
-		+ "\"password\": \"" + password + "\""
-		+ "}";
-			HttpRequest request = HttpRequest.newBuilder()
-			.uri(URI.create("http://localhost:8080/auth/login"))
-			.header("Content-Type", "application/json")
-			.POST(HttpRequest.BodyPublishers.ofString(json))
-			.build();
+				+ "\"email\": \"" + email + "\","
+				+ "\"password\": \"" + password + "\""
+				+ "}";
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("http://localhost:8080/auth/login"))
+				.header("Content-Type", "application/json")
+				.POST(HttpRequest.BodyPublishers.ofString(json))
+				.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-						.thenAccept(response -> {
-			if (response.statusCode() == 200) {
-				System.out.println("Successfully logged in. Token: " + response.body());
-			} else {
-				System.out.println("Failed to log in. HTTP status: " + response.statusCode());
-			}
-		})
-		.join();
+				.thenAccept(response -> {
+					if (response.statusCode() == 200) {
+						System.out.println("Successfully logged in. Token: " + response.body());
+					} else {
+						System.out.println("Failed to log in. HTTP status: " + response.statusCode());
+					}
+				})
+				.join();
 
 		String jsonResponse = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 				.thenApply(HttpResponse::body)
 				.join();
-		
+
 		jwt_token = extractJwtToken(jsonResponse);
 
 		return jwt_token;
@@ -180,7 +179,7 @@ public class AddDummyObjectsToDatabase {
 
 	// Extract JWT token from the response.
 	public static String extractJwtToken(String jsonResponse) {
-    try {
+		try {
 			// Create an ObjectMapper instance
 			ObjectMapper objectMapper = new ObjectMapper();
 
@@ -189,74 +188,74 @@ public class AddDummyObjectsToDatabase {
 
 			// Extract the "jwt" field
 			return rootNode.get("jwt").asText();
-    } catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("Failed to parse JWT token: " + e.getMessage());
 			return null; // Return null if parsing fails
-    }
+		}
 	}
 
 	// Add more cars.
 	public static void addCar(
-		String provider, 
-		String plateNumber, 
-		String carBrand, 
-		String modelName, 
-		String carType, 
-		int pricePerDay, 
-		int productionYear, 
-		int passengers, 
-		Cars.Transmission transmission,
-		Cars.EnergySource energySource,
-		boolean available, 
-		String extraFeatures) {
+			String provider,
+			String plateNumber,
+			String carBrand,
+			String modelName,
+			Cars.CarType carType,
+			int pricePerDay,
+			int productionYear,
+			int passengers,
+			Cars.Transmission transmission,
+			Cars.EnergySource energySource,
+			boolean available,
+			String extraFeatures) {
 		HttpClient client = HttpClient.newHttpClient();
-		
+
 		String json = "{"
 				+ "\"providerId\": " + provider + ","
 				+ "\"plateNumber\": \"" + plateNumber + "\","
 				+ "\"carBrand\": \"" + carBrand + "\","
 				+ "\"modelName\": \"" + modelName + "\","
-				+ "\"carType\": \"" + carType + "\","
+				+ "\"carType\": \"" + carType.name() + "\","
 				+ "\"pricePerDay\": " + pricePerDay + ","
 				+ "\"productionYear\": " + productionYear + ","
 				+ "\"passengers\": " + passengers + ","
-				+ "\"transmission\": \"" + transmission.name() + "\"," 
-				+ "\"energySource\": \"" + energySource.name() + "\"," 
+				+ "\"transmission\": \"" + transmission.name() + "\","
+				+ "\"energySource\": \"" + energySource.name() + "\","
 				+ "\"available\": " + available + ","
 				+ "\"extraFeatureIds\": " + (extraFeatures == null ? "null" : "[" + extraFeatures + "]")
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-		.uri(URI.create("http://localhost:8080/cars"))
-		.header("Content-Type", "application/json")
-		.header("Authorization", "Bearer " + jwt_token) 
-		.POST(HttpRequest.BodyPublishers.ofString(json))
-		.build();
+				.uri(URI.create("http://localhost:8080/cars"))
+				.header("Content-Type", "application/json")
+				.header("Authorization", "Bearer " + jwt_token)
+				.POST(HttpRequest.BodyPublishers.ofString(json))
+				.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-						.thenAccept(response -> {
-			if (response.statusCode() == 200 || response.statusCode() == 201) {
-				System.out.println("Successfully added car with plate " + plateNumber);
-			} else {
-				System.out.println("Failed to add car with plate " + plateNumber + ". HTTP status: " + response.statusCode());
-			}
-    })
-		.join();
+				.thenAccept(response -> {
+					if (response.statusCode() == 200 || response.statusCode() == 201) {
+						System.out.println("Successfully added car with plate " + plateNumber);
+					} else {
+						System.out.println("Failed to add car with plate " + plateNumber + ". HTTP status: " + response.statusCode());
+					}
+				})
+				.join();
 	}
 
 	// Add more rentals.
 	public static void addRental(
-		String renterId, 
-		String providerId, 
-		String carId, 
-		String startDate, 
-		String endDate, 
-		String pickupLocation, 
-		String dropoffLocation, 
-		Double totalCost, 
-		String status) {
+			String renterId,
+			String providerId,
+			String carId,
+			String startDate,
+			String endDate,
+			String pickupLocation,
+			String dropoffLocation,
+			Double totalCost,
+			String status) {
 		HttpClient client = HttpClient.newHttpClient();
-		
+
 		String json = "{"
 				+ "\"renterId\": " + renterId + ","
 				+ "\"providerId\": " + providerId + ","
@@ -268,31 +267,31 @@ public class AddDummyObjectsToDatabase {
 				+ "\"totalCost\": " + totalCost + ","
 				+ "\"status\": \"" + status + "\""
 				+ "}";
-			
+
 		HttpRequest request = HttpRequest.newBuilder()
-		.uri(URI.create("http://localhost:8080/rentals"))
-		.header("Content-Type", "application/json")
-		.header("Authorization", "Bearer " + jwt_token) 
-		.POST(HttpRequest.BodyPublishers.ofString(json))
-		.build();
+				.uri(URI.create("http://localhost:8080/rentals"))
+				.header("Content-Type", "application/json")
+				.header("Authorization", "Bearer " + jwt_token)
+				.POST(HttpRequest.BodyPublishers.ofString(json))
+				.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-						.thenAccept(response -> {
-			if (response.statusCode() == 200 || response.statusCode() == 201) {
-				System.out.println("Successfully added rental with ID " + renterId);
-			} else {
-				System.out.println("Failed to add rental with ID " + renterId + ". HTTP status: " + response.statusCode());
-			}
-		})
-		.join();
+				.thenAccept(response -> {
+					if (response.statusCode() == 200 || response.statusCode() == 201) {
+						System.out.println("Successfully added rental with ID " + renterId);
+					} else {
+						System.out.println("Failed to add rental with ID " + renterId + ". HTTP status: " + response.statusCode());
+					}
+				})
+				.join();
 	}
 
-		// Add more extra features.
+	// Add more extra features.
 	public static void addExtraFeature(
-		String name, 
-		String description) {
+			String name,
+			String description) {
 		HttpClient client = HttpClient.newHttpClient();
-		
+
 		String json = "{"
 				+ "\"name\": \"" + name + "\","
 				+ "\"description\": \"" + description + "\""
@@ -301,29 +300,29 @@ public class AddDummyObjectsToDatabase {
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("http://localhost:8080/extra-features"))
 				.header("Content-Type", "application/json")
-				.header("Authorization", "Bearer " + jwt_token) 
+				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
 				.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-						.thenAccept(response -> {
-			if (response.statusCode() == 200 || response.statusCode() == 201) {
-				System.out.println("Successfully added extra feature with name " + name);
-			} else {
-				System.out.println("Failed to add extra feature with name " + name + ". HTTP status: " + response.statusCode());
-			}
-		})
-		.join();
+				.thenAccept(response -> {
+					if (response.statusCode() == 200 || response.statusCode() == 201) {
+						System.out.println("Successfully added extra feature with name " + name);
+					} else {
+						System.out.println("Failed to add extra feature with name " + name + ". HTTP status: " + response.statusCode());
+					}
+				})
+				.join();
 	}
 
 	// Add more providers.
 	public static void addProvider(
-		String companyName, 
-		String phoneNumber, 
-		String email,
-		String password) { 
+			String companyName,
+			String phoneNumber,
+			String email,
+			String password) {
 		HttpClient client = HttpClient.newHttpClient();
-		
+
 		String json = "{"
 				+ "\"companyName\": \"" + companyName + "\","
 				+ "\"phoneNumber\": \"" + phoneNumber + "\","
@@ -334,28 +333,28 @@ public class AddDummyObjectsToDatabase {
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("http://localhost:8080/providers"))
 				.header("Content-Type", "application/json")
-				.header("Authorization", "Bearer " + jwt_token) 
+				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
 				.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-						.thenAccept(response -> {
-			if (response.statusCode() == 200 || response.statusCode() == 201) {
-				System.out.println("Successfully added provider with name " + companyName);
-			} else {
-				System.out.println("Failed to add provider with name " + companyName + ". HTTP status: " + response.statusCode());
-			}
-		})
-		.join();
+				.thenAccept(response -> {
+					if (response.statusCode() == 200 || response.statusCode() == 201) {
+						System.out.println("Successfully added provider with name " + companyName);
+					} else {
+						System.out.println("Failed to add provider with name " + companyName + ". HTTP status: " + response.statusCode());
+					}
+				})
+				.join();
 	}
 
 	// Add more renters.
 	public static void addUser(
-		String firstName, 
-		String lastName,
-		String email,
-		String password,
-		String phoneNumber) { 
+			String firstName,
+			String lastName,
+			String email,
+			String password,
+			String phoneNumber) {
 		HttpClient client = HttpClient.newHttpClient();
 
 		String json = "{"
@@ -369,18 +368,18 @@ public class AddDummyObjectsToDatabase {
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("http://localhost:8080/users/register"))
 				.header("Content-Type", "application/json")
-				.header("Authorization", "Bearer " + jwt_token) 
+				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
 				.build();
 
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 				.thenAccept(response -> {
-			if (response.statusCode() == 200 || response.statusCode() == 201) {
-				System.out.println("Successfully added user with email " + email);
-			} else {
-				System.out.println("Failed to add user with email " + email + ". HTTP status: " + response.statusCode());
-			}
-		})	
-		.join();
+					if (response.statusCode() == 200 || response.statusCode() == 201) {
+						System.out.println("Successfully added user with email " + email);
+					} else {
+						System.out.println("Failed to add user with email " + email + ". HTTP status: " + response.statusCode());
+					}
+				})
+				.join();
 	}
 }
