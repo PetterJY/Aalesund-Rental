@@ -190,8 +190,10 @@
   .rental-page .checkbox-group {
     display: flex;
     flex-direction: row; /* Change to row to align checkboxes horizontally */
-    flex-wrap: wrap; /* Allow wrapping to next line if needed */
     gap: 10px; /* Add spacing between checkboxes */
+    overflow-x: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
   }
   
   .rental-page .checkbox-label {
