@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 /**
- * RegisterRequest is a data transfer object that represents the registration request from a user.
- * It contains the user's first name, last name, role, email, and password.
+ * UserDetails is a data transfer object that represents the registration request from a user.
+ * It contains the user's first name, last name, email, and password.
  */
 public class UserDetails {
 	@NotBlank(message = "First name is required")

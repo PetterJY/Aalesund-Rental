@@ -116,15 +116,15 @@ public class AccountsService implements UserDetailsService {
     Accounts account = findById(id);
     logger.info("Deleting user with id: {}", id);
     switch (account.getRole()) {
-      case ADMIN:
+      case ROLE_ADMIN:
         logger.info("Deleting admin account with id: {}", id);
         adminsService.deleteById(id);
         break;
-      case USER:
+      case ROLE_USER:
         logger.info("Deleting user account with id: {}", id);
         usersService.deleteById(id);
         break;
-      case PROVIDER:
+      case ROLE_PROVIDER:
         logger.info("Deleting provider account with id: {}", id);
         providersService.deleteById(id);
         break;

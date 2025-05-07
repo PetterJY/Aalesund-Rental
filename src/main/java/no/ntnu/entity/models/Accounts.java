@@ -38,12 +38,12 @@ public class Accounts {
 
   /**
    * Enum representing the different roles an account can have.
-   * ADMIN: Represents an administrator account.
-   * PROVIDER: Represents a provider account.
-   * USER: Represents a regular user account.
+   * ROLE_ADMIN: Represents an administrator account.
+   * ROLE_PROVIDER: Represents a provider account.
+   * ROLE_USER: Represents a regular user account.
    */
   public enum Role {
-    ADMIN, PROVIDER, USER
+    ROLE_ADMIN, ROLE_PROVIDER, ROLE_USER
   }
 
   @Column(nullable = false)

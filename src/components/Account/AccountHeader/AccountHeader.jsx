@@ -11,7 +11,6 @@ const AccountHeader = () => {
 
   useEffect(() => {
     setRole(getRole());
-    console.log('Role:', role);
   }, []);
 
   return (
@@ -20,12 +19,12 @@ const AccountHeader = () => {
         <li id="account-link" className={location.pathname === '/account/account' ? 'active' : ''}>
           <a href="/account/account">Account</a>
         </li>
-        {role === 'USER' && (
+        {role === 'ROLE_USER' && (
           <li id="orders-link" className={location.pathname === '/account/orders' ? 'active' : ''}>
             <a href="/account/orders">Orders</a>
           </li>
         )}
-        {role === 'PROVIDER' && (
+        {role === 'ROLE_PROVIDER' && (
           <li id="my-rentals-link" className={location.pathname === '/account/my-rentals' ? 'active' : ''}>
             <a href="/account/my-rentals">My Rentals</a>
           </li>
