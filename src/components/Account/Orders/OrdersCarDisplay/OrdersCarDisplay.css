@@ -14,7 +14,7 @@
   transition: 0.3s;
 }
 
-.orders-car-display-card .car-background{
+.orders-car-display-card .car-background {
   min-width: 480px;
   border-radius: 15px;
   background: radial-gradient(50% 50% at 50% 50%, white, #252422);

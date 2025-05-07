@@ -31,15 +31,10 @@
   justify-content: center;
 }
 
-.rentals-car-display-card .car-image {
+.rentals-car-display-card img {
   width: 400px;
   height: auto;
   align-self: center;
-}
-
-.rentals-car-display-card .car-image img {
-  width: fit-content;
-  height: fit-content;
 }
 
 .rentals-car-display-card .car-display-info {
