@@ -21,7 +21,7 @@ public class Providers extends Accounts {
   private String phoneNumber;
 
   public Providers() {
-    super(Role.PROVIDER);
+    super(Role.ROLE_PROVIDER);
   }
 
   public String getCompanyName() {

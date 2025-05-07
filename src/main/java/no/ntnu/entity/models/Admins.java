@@ -3,7 +3,6 @@ package no.ntnu.entity.models;
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Represents an admin entity in the system.
@@ -18,7 +17,7 @@ public class Admins extends Accounts {
   private String name;
 
   public Admins() {
-    super(Role.ADMIN);
+    super(Role.ROLE_ADMIN);
   }
   
   public void setName(String name) {

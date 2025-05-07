@@ -62,6 +62,7 @@ const Orders = ({ orders = [] }) => {
         {rentals.map((rental) => (
             <OrdersCarDisplay
               key={rental.id}
+              provider={rental.provider.companyName}
               brand={rental.car.carBrand}
               model={rental.car.modelName}
               pickUpLocation={rental.pickupLocation}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getCarImage } from '../../utils/CarImageMapper';
 import { Car, Seatbelt, PlusCircle, Calendar, CaretDown } from "@phosphor-icons/react";
-import carImage from "../../../resources/images/car.png"; 
 
 import './CarSelected.css';
 import '../../App.css';
@@ -16,6 +16,8 @@ const CarSelected = ({car}) => {
     };
   };
 
+  const carImage = getCarImage(car.carBrand, car.modelName);
+
   return (
     <div className="car-selected">
       <div id ="car-background">
@@ -23,7 +25,11 @@ const CarSelected = ({car}) => {
         <h2>{car.carBrand} {car.carModel}</h2>
         <h3>{car.energySource}</h3>
         </header>
-        <img src={carImage} alt="Car" className="car-image" />
+        <img 
+          src={carImage}
+          alt={`${car.carBrand} ${car.modelName}`}
+          className="car-image" 
+          />
         <footer><h2>{car.provider.companyName}</h2></footer>
       </div>
       <section className="car-details">

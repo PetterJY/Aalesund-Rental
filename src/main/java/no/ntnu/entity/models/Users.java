@@ -25,7 +25,7 @@ public class Users extends Accounts {
   private String phoneNumber;
 
   public Users() {
-    super(Role.USER);
+    super(Role.ROLE_USER);
   }
 
   public String getFirstName() {

@@ -47,7 +47,7 @@ public class ProvidersService {
     logger.info("Fetching all providers");
     return StreamSupport.stream(
         providersRepository.findAll().spliterator(), false)
-        .filter(user -> user.getRole() == Accounts.Role.PROVIDER)
+        .filter(user -> user.getRole() == Accounts.Role.ROLE_PROVIDER)
         .toList();
   }
 

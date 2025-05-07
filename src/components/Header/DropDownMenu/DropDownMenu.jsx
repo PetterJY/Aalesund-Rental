@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getRole } from '../../utils/JwtUtility'; 
 import PropTypes from 'prop-types';
 import './DropDownMenu.css';
 import '../../App.css';
 
 const DropDownMenu = ({ isDropdownVisible, navigate, handleLogout }) => {
+  const [role, setRole] = useState('');
+
+  useEffect(() => { 
+    setRole(getRole());
+  });
+
+
   return (
     <div className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}>
       <ul className="dropdown-menu-list">
         <li onClick={() => navigate('/account')}>Account</li>
-        <li onClick={() => navigate('/account/orders')}>Orders</li>
-        <li onClick={() => navigate('/account/my-rentals')}>Rentals</li>
+        {role === 'ROLE_USER' && (
+          <li onClick={() => navigate('/account/orders')}>Orders</li>
+        )}
+        {role === 'ROLE_PROVIDER' && (
+          <li onClick={() => navigate('/account/my-rentals')}>My Rentals</li>
+        )}
         <li onClick={handleLogout}>Logout</li>
       </ul>
     </div>

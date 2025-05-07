@@ -41,7 +41,7 @@ public class UsersService {
   public List<Users> findAll() {
     logger.info("Fetching all users");
     return StreamSupport.stream(usersRepository.findAll().spliterator(), false)
-        .filter(user -> user.getRole() == Accounts.Role.USER)
+        .filter(user -> user.getRole() == Accounts.Role.ROLE_USER)
         .toList();
   }
 

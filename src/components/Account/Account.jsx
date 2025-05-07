@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
 import AccountHeader from './AccountHeader/AccountHeader';
+import { getAccountId, getRole } from '../utils/JwtUtility';
 import './Account.css';
 import '../App.css';
 
@@ -38,10 +38,23 @@ const Account = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
+  const [accountId, setAccountId] = useState(getAccountId());
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    setAccountId(getAccountId());
+    setRole(getRole());
+  }, []);
+
+
   async function fetchUserData() {
-    const userId = jwtDecode(localStorage.getItem('jwt')).id;
+    if (role !== 'ROLE_USER') {
+      console.error('Unauthorized access: User role is not ROLE_USER');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:8080/users/' + userId, {
+      const response = await fetch('http://localhost:8080/users/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -67,9 +80,14 @@ const Account = () => {
     fetchUserData();
   });
 
-  async function handleSave() {
-    const userId = jwtDecode(localStorage.getItem('jwt')).id;
-    
+  async function updateUserInformation() {    
+    if (role !== 'ROLE_USER') {
+      console.error('Unauthorized access: Account role is not ROLE_USER');
+      setErrorMessage('Unauthorized access: Account role is not ROLE_USER');
+      setShowErrorMessage(true);
+      return;
+    }
+
     const updatedUserDetails = {
       updatedFirstName: document.getElementById('name').value,
       updatedLastName: document.getElementById('last-name').value,
@@ -103,7 +121,7 @@ const Account = () => {
 
       console.log('Updated user details:', userDetails);
 
-      const response = await fetch('http://localhost:8080/users/' + userId, {
+      const response = await fetch('http://localhost:8080/users/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -137,14 +155,25 @@ const Account = () => {
       <section className="account-section">
         <h1>Account</h1>
         <h2>Personal Information</h2>
-        <h3>First name</h3>
-        <input type="text" id="name" name="name" required />
-        <h3>Last name</h3>
-        <input type="text" id="last-name" name="last-name" required />
+        {role === 'ROLE_USER' && (
+          <>
+            <h3>First name</h3>
+            <input type="text" id="name" name="name" required />
+            <h3>Last name</h3>
+            <input type="text" id="last-name" name="last-name" required />
+          </>
+        )}
+
+        {role === 'ROLE_PROVIDER' && (
+          <>
+            <h3>Company name</h3>
+            <input type="text" id="company-name" name="company-name" required />    
+          </>  
+        )}
 
         {showErrorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <button className="save-button" onClick={handleSave}>Save</button>
+        <button className="save-button" onClick={updateUserInformation}>Save</button>
         <ul className="bottom-button-list">
           <li>
             <button className="bottom-button" onClick={openDeleteModal}>

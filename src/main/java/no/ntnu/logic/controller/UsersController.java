@@ -118,7 +118,7 @@ public class UsersController {
    * Deletes a user by its ID.
    * If the user is not found, a 404 error is returned.
    * This method is 'role-sensitive'.
-   * Only accounts with role 'USER' will be deleted.
+   * Only accounts with role 'ROLE_USER' will be deleted.
    *
    * @param id The ID of the user.
    * @return A response indicating the deletion status.

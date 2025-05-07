@@ -1,7 +1,7 @@
 import "../../App.css";
 import "./CarDisplay.css";
 import React, { useState, useEffect } from "react";
-import carImage from "../../../resources/images/car.png"; 
+import { getCarImage } from '../../utils/CarImageMapper';
 import passengerImage from "../../../resources/images/passenger.png";
 import { Car, Seatbelt, PlusCircle, CaretDown } from "@phosphor-icons/react";
 
@@ -10,6 +10,8 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
     if (!car) {
       return <div>Loading...</div>;
     }
+
+  const carImage = getCarImage(car.carBrand, car.modelName);
 
   return (
     <button className={`car-display ${isSelected ? "selected" : ""}`} onClick={onClick}>
@@ -26,7 +28,11 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
         </section>
       </section>
 
-      <img id="car-image" src={carImage} alt="car-image"></img>
+      <img 
+          src={carImage}
+          alt={`${car.carBrand} ${car.modelName}`}
+          className="car-image" 
+          />
       {isSelected && (
         <div className="selected-arrow">
           <CaretDown size={24} color="#EB5E28" weight="fill" />

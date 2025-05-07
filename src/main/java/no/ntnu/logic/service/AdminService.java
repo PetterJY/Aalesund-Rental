@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.AdminNotFoundException;
+import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Admins;
 import no.ntnu.logic.repository.AdminRepository;
 
@@ -47,7 +48,7 @@ public class AdminService {
   public List<Admins> findAll() {
     logger.info("Fetching all admins");
     return StreamSupport.stream(adminRepository.findAll().spliterator(), false)
-        .filter(user -> user.getRole().equals("ADMIN"))
+        .filter(admin -> admin.getRole() == Accounts.Role.ROLE_ADMIN)
         .collect(Collectors.toList());
   }
 

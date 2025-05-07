@@ -85,8 +85,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       firstName: document.getElementById('first-name-field').value,
       lastName: document.getElementById('last-name-field').value,
       email: document.getElementById('register-email-field').value,
-      password: document.getElementById('register-password-field').value,
-      role: "USER"
+      password: document.getElementById('register-password-field').value
     };
   }
 

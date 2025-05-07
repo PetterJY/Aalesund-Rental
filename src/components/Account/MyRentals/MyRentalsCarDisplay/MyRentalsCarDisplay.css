@@ -28,11 +28,11 @@
   flex-direction: column;
   height: 350px;
   align-self: flex-start; 
+  justify-content: center;
 }
 
 .rentals-car-display-card .car-image {
-  margin-top:10px;
-  width: 275px;
+  width: 400px;
   height: auto;
   align-self: center;
 }

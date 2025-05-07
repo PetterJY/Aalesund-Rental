@@ -12,6 +12,8 @@ export default function Rental() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const containerRef = useRef(null);
   const [carsPerRow, setCarsPerRow] = useState(3);
+  const maxPrice = useState(10000)
+  const [range, setRange] = useState({min: 0, max: maxPrice});
 
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
@@ -272,6 +274,12 @@ export default function Rental() {
                 <div className="filter-group">
                   <h3>Energy Source</h3>
                   {renderCheckboxes("energySource", filterOptions.energySource)}
+                </div>
+                <div className="price-range">
+                  <h3>Price Range</h3>
+                  <input type="number" className="price-range-input" max={maxPrice-1} min="0"/>
+                  <input type="range" min="0" max="100000" step="50" />
+                  <input type="number" className="price-range-input" max={maxPrice} min="1"/>
                 </div>
               </div>
               <hr></hr>
