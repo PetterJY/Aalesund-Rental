@@ -1,8 +1,7 @@
 import React from 'react';
-import '../../App.css';
-import '../Orders/OrdersCarDisplay.css';
 import { Warehouse} from "@phosphor-icons/react";
-
+import './OrdersCarDisplay.css';
+import '../../../App.css';
 
 const OrdersCarDisplay = (car) => {
   return (
