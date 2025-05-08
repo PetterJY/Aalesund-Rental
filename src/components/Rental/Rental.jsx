@@ -4,6 +4,7 @@ import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
 import "./Rental.css";
 import "../App.css";
+import IntervalSlider from "./IntervalSlider";
 
 export default function Rental() {
   const [cars, setCars] = useState([]);
@@ -13,10 +14,14 @@ export default function Rental() {
   const containerRef = useRef(null);
   const [carsPerRow, setCarsPerRow] = useState(3);
 
+  const [minVal, setMinVal] = useState(0);
+  const [maxVal, setMaxVal] = useState(1000);
+  const maxCarRentalPrice = 1000; // the max price of renting a car (per day)
+  // TODO: retrieve this value by querying the rentals
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
   const toggleDropdown = (category) =>
-    setOpenDropdown(openDropdown === category ? null : category);
+  setOpenDropdown(openDropdown === category ? null : category);
 
   const renderCheckboxes = (category, options) => (
     <div className="checkbox-group">
@@ -29,7 +34,7 @@ export default function Rental() {
     </div>
   );
 
-  const renderRadioButtons = (category, options) => (
+const renderRadioButtons = (category, options) => (
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
@@ -52,7 +57,7 @@ export default function Rental() {
         <div className="dropdown-content">
           {(category === "sort" || category === "passengers")
             ? renderRadioButtons(category, options)
-            : renderCheckboxes(category, options)}
+            : renderCheckboxes(options, options)}
         </div>
       )}
     </div>
@@ -61,7 +66,8 @@ export default function Rental() {
   const filterOptions = {
     sort: [
       { value: "newest", label: "Newest" },
-      { value: "price", label: "Price" },
+      { value: "price-low-to-high", label: "Price - Low to High" },
+      { value: "price-high-to-low", label: "Price - High to Low" },
       { value: "alphabet", label: "Alphabet" },
     ],
     carType: [
@@ -71,6 +77,9 @@ export default function Rental() {
       { value: "coupe", label: "Coupe" },
       { value: "convertible", label: "Convertible" },
       { value: "luxury", label: "Luxury" },
+      { value: "hatchback", label: "Hatchback" },
+      { value: "minivan", label: "Minivan" },
+      { value: "sports", label: "Sports" },
     ],
     transmission: [
       { value: "automatic", label: "Automatic" },
@@ -137,18 +146,20 @@ export default function Rental() {
   const fetchCarData = async () => {
     try {
       const filterParams = new URLSearchParams();
-      // Add filters dynamically based on selected options
       if (selectedFilterOptions.carType.length > 0) {
-        filterParams.append("carType", selectedFilterOptions.carType.join(","));
+        filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase());
       }
       if (selectedFilterOptions.transmission.length > 0) {
-        filterParams.append("transmission", selectedFilterOptions.transmission.join(","));
+        filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase());
       }
       if (selectedFilterOptions.passengers.length > 0) {
         filterParams.append("minPassengers", selectedFilterOptions.passengers[0]); // Assuming single selection
       }
       if (selectedFilterOptions.sort.length > 0) {
         filterParams.append("sortOption", selectedFilterOptions.sort[0]); // Assuming single selection
+      }
+      if (selectedFilterOptions.energySource.length > 0) {
+        filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
       }
 
       console.log("Filter params:", filterParams.toString());
@@ -225,10 +236,8 @@ export default function Rental() {
     });
 
     console.log("Selected filter options:", selectedFilterOptions);
-    fetchCarData();
     toggleFilter();
   };
-
   return (
     <div className="rental-page">
       <section className="main-section">
@@ -268,6 +277,7 @@ export default function Rental() {
                   <h3>Energy Source</h3>
                   {renderCheckboxes("energySource", filterOptions.energySource)}
                 </div>
+                <IntervalSlider minVal={minVal} maxVal={maxVal} setMinVal={setMinVal} setMaxVal={setMaxVal} maxCarRentalPrice={maxCarRentalPrice}/>
               </div>
               <hr></hr>
               <button className="close-button" onClick={handleFilterChange}>

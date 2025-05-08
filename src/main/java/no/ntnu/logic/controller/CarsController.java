@@ -88,13 +88,17 @@ public class CarsController {
       @RequestParam(required = false) List<Cars.CarType> carType,
       @RequestParam(required = false) List<Cars.Transmission> transmission,
       @RequestParam(required = false) Integer minPassengers,
-      @RequestParam(required = false) String sortOption
+      @RequestParam(required = false) String sortOption,
+      @RequestParam(required = false) Integer minPricePerDay,
+      @RequestParam(required = false) Integer maxPricePerDay,
+      @RequestParam(required = false) List<Cars.EnergySource> energySource
   ) {
 
     System.out.println("Searching cars with parameters: " +
         "carType=" + carType +
         ", transmission=" + transmission +
         ", minPassengers=" + minPassengers +
+        ", energySource=" + energySource +
         ", sortOption=" + sortOption);
 
     Sort sortOrder = Sort.unsorted();
@@ -119,20 +123,32 @@ public class CarsController {
     List<Cars.Transmission> transmissionParam = (transmission != null && !transmission.isEmpty()) ?
         transmission : List.of(Cars.Transmission.values());
     int passengersParam = (minPassengers != null) ? minPassengers : 2;
-    System.out.println("Executing query...");
+    List<Cars.EnergySource> energySourceParam = (energySource != null && !energySource.isEmpty()) ?
+        energySource : List.of(Cars.EnergySource.values());
+    int minPricePerDayParam = (minPricePerDay != null) ? minPricePerDay : 0;
+    int maxPricePerDayParam = (maxPricePerDay != null) ? maxPricePerDay : Integer.MAX_VALUE;
 
+
+    System.out.println("Executing query...");
     System.out.println("Searching cars with NEW parameters: " +
         "carType=" + carTypeParam +
         ", transmission=" + transmissionParam +
-        ", minPassengers=" + passengersParam);
+        ", minPassengers=" + passengersParam +
+        ", energySource=" + energySourceParam +
+        ", minPricePerDay=" + minPricePerDayParam +
+        ", maxPricePerDay=" + maxPricePerDayParam);
+
 
     List<Cars> cars;
     try {
       cars = carsRepository
-          .findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqual(
+          .findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqualAndEnergySourceInAndPricePerDayBetween(
               carTypeParam,
               transmissionParam,
               passengersParam,
+              energySourceParam,
+              minPricePerDayParam,
+              maxPricePerDayParam,
               pageable
           );
       System.out.println("Query executed successfully. Result: " + cars);
