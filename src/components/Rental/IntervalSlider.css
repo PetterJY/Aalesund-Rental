@@ -5,7 +5,7 @@
 .rental-page .price-range-input-wrapper {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 12px;
   margin: 10px 0;
 }
 
@@ -73,4 +73,23 @@
   cursor: pointer;
   border: none;
   pointer-events: auto;
+}
+
+.price-range-input {
+  text-align: center;
+  font-weight: 700;
+  border: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* For Firefox */
+  -webkit-appearance: none; /* For Chrome, Safari, and Edge */
+  appearance: none; /* Standard property */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove spin buttons in WebKit browsers */
+  margin: 0; /* Optional: Remove margin for consistency */
+
 }

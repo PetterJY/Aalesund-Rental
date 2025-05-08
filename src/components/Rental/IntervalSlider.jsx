@@ -40,6 +40,14 @@ const IntervalSlider = ({ maxPrice = 1000 }) => {
   }, [minVal, maxVal]);
 
   useEffect(() => {
+    const minPriceDisplayValue = document.getElementById("price-range-min");
+    minPriceDisplayValue.setAttribute("value", minVal);
+
+    const maxPriceDisplayValue = document.getElementById("price-range-max");
+    maxPriceDisplayValue.setAttribute("value", maxVal);
+  }, []);
+
+  useEffect(() => {
     updateSlider();
   }, [minVal, maxVal]);
 
@@ -66,6 +74,7 @@ const IntervalSlider = ({ maxPrice = 1000 }) => {
             max={maxPrice}
             step={intervalStep}
             onChange={handleMinChange}
+            defaultValue={minVal}
           />
           <input
             type="range"
@@ -75,6 +84,7 @@ const IntervalSlider = ({ maxPrice = 1000 }) => {
             max={maxPrice}
             step={intervalStep}
             onChange={handleMaxChange}
+            defaultValue={maxVal}
           />
         </div>
         <input

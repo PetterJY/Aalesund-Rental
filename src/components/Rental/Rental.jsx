@@ -13,13 +13,11 @@ export default function Rental() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const containerRef = useRef(null);
   const [carsPerRow, setCarsPerRow] = useState(3);
-  const maxPrice =  1000;
-  const [range, setRange] = useState({min: 0, max: maxPrice});
 
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
   const toggleDropdown = (category) =>
-    setOpenDropdown(openDropdown === category ? null : category);
+  setOpenDropdown(openDropdown === category ? null : category);
 
   const renderCheckboxes = (category, options) => (
     <div className="checkbox-group">
@@ -236,11 +234,6 @@ const renderRadioButtons = (category, options) => (
     console.log("Selected filter options:", selectedFilterOptions);
     toggleFilter();
   };
-
-  useEffect(() => {
-
-  }, []);
-
   return (
     <div className="rental-page">
       <section className="main-section">
