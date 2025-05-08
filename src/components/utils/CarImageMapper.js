@@ -3,7 +3,7 @@ const CarImageMapping = {
   "Tesla Model Y": require("../../resources/images/cars/TeslaModelY.png"),
   "Volkswagen Golf": require("../../resources/images/cars/VolkswagenGolf.png"),
   "Volkswagen Transporter": require("../../resources/images/cars/VolkswagenTransporter.webp"),
-  "BMW M3": require("../../resources/images/cars/BMWM3.png"),
+  "BMW M3": require("../../resources/images/cars/BMWm3.png"),
   "Mazda 2": require("../../resources/images/cars/Mazda2.png"),
   "Nissan Leaf": require("../../resources/images/cars/NissanLeaf.png"),
   "Peugeot 207": require("../../resources/images/cars/Peugeot207.png"),

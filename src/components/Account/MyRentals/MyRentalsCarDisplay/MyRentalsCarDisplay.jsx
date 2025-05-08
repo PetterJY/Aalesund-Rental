@@ -5,13 +5,14 @@ import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
 import './MyRentalsCarDisplay.css';
 import '../../../App.css';
 
-const MyRentalsCarDisplay = ({ car: rental }) => {
+const MyRentalsCarDisplay = ({ car, setCachedRentals, cachedRentals }) => {
   const [tableVisibility, setTableVisibility] = useState(false);
-  const [rentals, setRental] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
 
-  const [displayCar, setDisplayCar] = useState(rental);
-  const [editedCar, setEditedCar] = useState(rental);
+  const [displayCar, setDisplayCar] = useState(car);
+  const [editedCar, setEditedCar] = useState(car);
+
+  const [rentalDetails, setRentalDetails] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,6 +22,11 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
 
   useEffect(() => {
     async function fetchRentalDetails() {
+      if (cachedRentals[car.id]) {
+        setRentalDetails(cachedRentals[car.id]);
+        return;
+      }
+
       setIsLoading(true);
       try {
         const response = await fetch(`http://localhost:8080/rentals`, {
@@ -35,7 +41,13 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
           return;
         }
         const rentalDetails = await response.json();
-        setRental(rentalDetails);
+        setRentalDetails(rentalDetails);
+
+        setCachedRentals((prevCache) => ({
+          ...prevCache,
+          [car.id]: rentalDetails,
+        }));
+
         console.log('Fetched rental:', rentalDetails);
       } catch (error) {
         console.error('Error fetching rental:', error);
@@ -44,13 +56,13 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
       }
     }
     fetchRentalDetails();
-  }, [rental.id]);
+  }, [car.id]);
 
   // When car prop changes, update both local display and edited state
   useEffect(() => {
-    setDisplayCar(rental);
-    setEditedCar(rental);
-  }, [rental]);
+    setDisplayCar(car);
+    setEditedCar(car);
+  }, [car]);
 
   const handleEditClick = e => {
     e.stopPropagation();
@@ -60,7 +72,7 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
   const handleSave = () => {
     async function updateCar() {
       try {
-        const response = await fetch(`http://localhost:8080/cars/${rental.id}`, {
+        const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -95,7 +107,7 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`http://localhost:8080/cars/${rental.id}`, {
+      const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -285,7 +297,7 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
         isLoading ? (
           <div>Loading rentals...</div> 
         ) : (
-          rentals && <MyRentalsCarTable rentals={rentals} /> 
+          <MyRentalsCarTable rentals={rentalDetails} /> 
         )
       )}
     </div>

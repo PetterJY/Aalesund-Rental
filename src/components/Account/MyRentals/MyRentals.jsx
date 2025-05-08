@@ -9,7 +9,12 @@ import '../../App.css';
 const MyRentals = () => {
   const [cars, setCars] = useState([]);
 
+  const [rentals, setRentals] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
+    setIsLoading(true);
     async function fetchCars() {
       try {
         const response = await fetch('http://localhost:8080/cars', {
@@ -28,10 +33,27 @@ const MyRentals = () => {
         console.log('Fetched cars:', data);
       } catch (error) {
         console.error('Error fetching cars:', error);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchCars();
   }, []);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedCars = cars.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(cars.length / itemsPerPage);
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
   const [isCreateCarModalOpen, setIsCreateCarModalOpen] = useState(false);
   const toggleCreateCarModal = () => {
@@ -50,10 +72,32 @@ const MyRentals = () => {
             <span className="add-car-text">Add Car</span>
           </button>
         </div>
-        <div className="my-rentals-list">
-          {cars.map(car => (
-            <MyRentalsCarDisplay car={car} key={car.id} />
-          ))}
+
+        {isLoading ? (
+          <h1>
+            Loading your rentals... 
+          </h1>
+        ) : (
+          <div className="my-rentals-list">
+            {paginatedCars.map(car => (
+              <MyRentalsCarDisplay 
+                car={car} 
+                key={car.id} 
+                setCachedRentals={setRentals}
+                cachedRentals={rentals}
+              />
+            ))}
+          </div>
+        )}
+
+        <div className="pagination-controls">
+          <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            Next
+          </button>
         </div>
       </section>
     </div>
