@@ -422,6 +422,7 @@ p {
   overflow: visible;
   text-align: center;
   padding: 2px 14px 2px 14px;
+  max-width: 100%;
 }
 
 .pickup-location.selected {
@@ -704,5 +705,33 @@ background: #e94100; /* Darker shade of #FF5F00 */
 
   .date-input {
     flex-direction: column;
+  }
+
+  .location-section {
+    margin-top: 200px;
+    margin-bottom: 0px;
+    padding-right: 30px;
+    border-radius: 15px 0px 0px 0px;
+
+  }
+
+  .hero-section {
+    border-radius: 0px;
+  }
+
+  .schedule-and-save-container {
+    background-color: white;
+    padding: 15px 60px 20px 20px;
+    border-radius: 0px 0px 15px 15px;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+  .menu-wrapper {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
