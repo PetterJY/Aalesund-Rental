@@ -12,10 +12,9 @@ export const checkTokenExpiration = () => {
       console.log("Token has expired");
       localStorage.removeItem("jwt"); // Remove the expired token
     } else {
-      console.log("Token is valid");
+      console.log("Valid Token");
     }
   } else {
-    console.log("No token found");
     throw new Error("No token found in localStorage");
   }
 };
@@ -26,7 +25,6 @@ export const getToken = () => {
   if (token) {
     return token;
   } else {
-    console.error("No token found");
     throw new Error("No token found in localStorage");
   }
 }
@@ -35,7 +33,6 @@ export const getRole = () => {
   console.log("Retrieving role from token");
   const token = localStorage.getItem("jwt");
   if (!token || token === "undefined") {
-    console.error("No JWT token found");
     throw new Error("No JWT token found");
   }
   const decodedToken = jwtDecode(token);
@@ -49,7 +46,6 @@ export const getAccountId = () => {
     const decodedToken = jwtDecode(token);
     return decodedToken.id; 
   } else {
-    console.error("No token found");
     throw new Error("No token found in localStorage");
   }
 }
@@ -62,7 +58,6 @@ export const getEmail = () => {
     const decodedToken = jwtDecode(token);
     return decodedToken.sub; 
   } else {
-    console.error("No token found");
     throw new Error("No token found in localStorage");
   }
 }
