@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAccountId, getToken } from '../../../utils/JwtUtility'; 
-import { Upload } from '@phosphor-icons/react';
+import ExtraFeaturesModal from './ExtraFeaturesModal/ExtraFeaturesModal'; 
 import './CreateCarModal.css';
 import '../../../App.css';
 
@@ -13,49 +13,17 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     setErrorMessage("");
   }, [isCreateCarModalOpen]);
 
-  const [extraFeatures, setExtraFeatures] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
-
-  const [selectedImage, setSelectedImage] = useState(null);
-  const fileInputRef = useRef(null);
-
-  useEffect(() => {
-    if (isCreateCarModalOpen) {
-      async function fetchExtraFeatures() {
-        try {
-          const response = await fetch('http://localhost:8080/extra-features', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${getToken()}`,
-            },
-          });
-          if (!response.ok) {
-            console.error('Failed to fetch extra features:', response.statusText);
-            return;
-          }
-          const data = await response.json();
-          setExtraFeatures(data); 
-        } catch (error) {
-          console.error('Error fetching extra features:', error);
-        }
-      }
-      fetchExtraFeatures();
-    }
-  }, [isCreateCarModalOpen]);
-
-  const handleFeatureSelection = (featureId) => {
-    setSelectedFeatures((prevSelected) =>
-      prevSelected.includes(featureId)
-        ? prevSelected.filter((id) => id !== featureId) // Remove if already selected
-        : [...prevSelected, featureId] // Add if not selected
-    );
+  const [isExtraFeaturesModalOpen, setIsExtraFeaturesModalOpen] = useState(false);
+  const toggleExtraFeaturesModal = () => {
+    setIsExtraFeaturesModalOpen(!isExtraFeaturesModalOpen);
   };
 
   const retrieveCarDetails = () => {
     try {
       return {
         providerId: getAccountId(),
+        extraFeatureIds: selectedFeatures,
         plateNumber: document.getElementById('plate-number').value,
         carBrand: document.getElementById('car-brand').value,
         modelName: document.getElementById('model-name').value,
@@ -72,7 +40,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     }
   };
 
-  async function handleSubmit(event) {
+  async function createCar(event) {
     event.preventDefault();
   
     const carDetails = retrieveCarDetails();
@@ -84,7 +52,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
       return;
     }
 
-    console.log('Car Details:', carDetails);
+    console.log('Car Details being sent:', carDetails);
   
     try {
       const response = await fetch('http://localhost:8080/cars', {
@@ -104,23 +72,20 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
         const errorData = await response.json();
         console.error('Bad Request:', errorData.message);
         setErrorMessage("Bad Request: " + errorData.message);
-        setShowErrorMessage(true);
       } else if (response.status === 401) {
         console.error('Unauthorized: Invalid or expired token.');
         setErrorMessage("Unauthorized: Invalid or expired token.");
-        setShowErrorMessage(true);
       } else if (response.status === 403) {
-        console.error('Duplicate entry: The car already exists.');
-        setErrorMessage("Duplicate entry: The car already exists.");
-        setShowErrorMessage(true);
+        console.error('Apologies, you do not have permission to create a car.');
+        setErrorMessage("Apologies, you do not have permission to create a car.");
       } else {
         console.error('Failed to create car:', response.statusText);
         setErrorMessage("Failed to create car. Please try again.");
-        setShowErrorMessage(true);
       }
     } catch (error) {
       console.error('Error creating car:', error);
       setErrorMessage("An error occurred while creating the car. Please try again.");
+    } finally {
       setShowErrorMessage(true);
     }
   };
@@ -154,7 +119,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
       <div className="modal-content">
         <span className="close" onClick={onClose}>&times;</span>
         <h2>Create Car</h2>
-        <form id="create-car-form" onSubmit={handleSubmit}>
+        <form id="create-car-form" onSubmit={createCar}>
           <input type="text" id="plate-number" placeholder="Plate Number" required />
           <input type="text" id="car-brand" placeholder="Car Brand" required />
           <input type="text" id="model-name" placeholder="Model Name" required />
@@ -162,6 +127,18 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
           <input type="number" id="price-per-day" placeholder="Price Per Day" required />
           <input type="number" id="production-year" placeholder="Production Year" required />
           <input type="number" id="passengers" placeholder="Number of Passengers" required />
+
+          <button id='add-extra-feature-button' type="button" onClick={toggleExtraFeaturesModal}>
+            Add Extra Features
+          </button>
+          {isExtraFeaturesModalOpen && (
+            <ExtraFeaturesModal 
+              onClose={toggleExtraFeaturesModal} 
+              isCreateCarModalOpen={isCreateCarModalOpen} 
+              setSelectedFeatures={setSelectedFeatures} 
+              selectedFeatures={selectedFeatures}
+            />
+          )}
 
           <section className="create-car-button-wrapper">
             <button id="gas" type="button" onClick={handleSelectFuel}>Gas</button>

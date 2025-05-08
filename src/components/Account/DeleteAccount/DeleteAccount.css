@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 10000; /* Increased from 1 to ensure it appears above other elements */
+  z-index: 10000; 
   left: 0;
   top: 0;
   width: 100%;
@@ -22,7 +22,7 @@
   width: 80%;
   max-width: 500px;
   border-radius: 10px;
-  text-align: center; /* Center text for consistency */
+  text-align: center;
 }
 
 /* Title (same as .title in LoginRegister.css) */
@@ -42,14 +42,14 @@
 .modal-content #bottom-section {
   display: flex;
   flex-direction: column;
-  background-color: white; /* Modal content background */
+  background-color: white; 
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   max-width: 400px;
-  width: 90%; /* Responsive width */
-  text-align: left; /* Align text to the left for better readability */
-  margin: 0 auto; /* Center the section horizontally */
+  width: 90%; 
+  text-align: left;
+  margin: 0 auto;
 }
 
 .modal-content #bottom-section label {

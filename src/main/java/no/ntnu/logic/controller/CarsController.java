@@ -193,7 +193,7 @@ public class CarsController {
     }
     car.setPricePerDay(carRequest.getPricePerDay());
     Cars createdCar = carsService.save(car);
-    logger.debug("Created car: {}", createdCar);
+    logger.debug("Created car: {}", createdCar.getId());
     return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
   }
 
