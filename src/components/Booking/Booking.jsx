@@ -1,7 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import carImage from "../../resources/images/car.png";
+import { mapCarImage } from '../utils/CarImageMapper';
+import { getAccountId } from "../utils/JwtUtility";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
 import "../App.css";
@@ -11,7 +12,7 @@ const Booking = () => {
 	const carId = location.state || null;
 
 	const [carDetails, setCarDetails] = useState(null);
-
+	const [accountDetails, setAccountDetails] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
@@ -35,12 +36,49 @@ const Booking = () => {
 				setIsLoading(false);
 				console.log("Car details fetched:", carDetails);
 			} 
+			
 			catch(error) {
 				console.error(error);
 			};
 		}
 		fetchCarDetails();
 	}, [carId]);
+
+  useEffect(() => {
+    async function fetchAccountDetails() {
+			const userId = getAccountId();
+      try {
+        const response = await fetch(`http://localhost:8080/users/${userId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const accountDetails = await response.json();
+        setAccountDetails(accountDetails);
+        console.log("Account details fetched:", accountDetails);
+      } catch (error) {
+        console.error("Error fetching account details:", error);
+      }
+    }
+
+    fetchAccountDetails();
+  }, []);
+	if (isLoading) {
+		return <p>Loading...</p>;
+	}
+
+	if (!carDetails) {
+		return <p>No car details available.</p>;
+	}
+
+	const carImage = mapCarImage(carDetails.carBrand, carDetails.modelName);
 
   return (
 		<main className="booking-page">
@@ -49,15 +87,15 @@ const Booking = () => {
 					<h2 className="driver-information">Driver Information</h2>   
 					<div className="e-mail">
 						<label htmlFor="email">Email:</label>
-						<input type="email" id="email" name="email" required></input>
+						<input type="email" id="email" name="email" value={accountDetails?.email || ""} readOnly required></input>
 					</div>  
 					<div className="first-name">
 						<label htmlFor="name">First Name:</label>
-						<input type="text" id="name" name="name" required></input>
+						<input type="text" id="name" name="name" value={accountDetails.firstName || ""} readOnly required></input>
 					</div>
 					<div className="last-name">
 						<label htmlFor="last-name">Last Name:</label>
-						<input type="text" id="last-name" name="last-name" required></input>
+						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || ""} readOnly required></input>
 					</div>
 				</form>
 				<button type="submit">Book Now</button>
@@ -73,7 +111,7 @@ const Booking = () => {
 							<p>Loading...</p>
 						) : (
 							<>
-								<h2>{carDetails.modelName}</h2>
+								<h2>{carDetails.carBrand} {carDetails.modelName}</h2>
 								<p className="rent-period">{carDetails.rentalPeriod}</p>
 							</>
 						)}

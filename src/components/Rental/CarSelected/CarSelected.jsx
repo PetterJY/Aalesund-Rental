@@ -11,7 +11,7 @@ const CarSelected = ({car}) => {
 
   const handleRentCar = () => {
     return () => {
-      console.log(`Booking car with ID: ${car.id}`);
+      console.log(`Renting car with ID: ${car.id}`);
       navigate("/booking", { state: car.id });
     };
   };
