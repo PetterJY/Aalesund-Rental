@@ -122,17 +122,13 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.create-car-modal .create-car-button-wrapper .selectedTransmission, .create-car-modal .create-car-button-wrapper .selectedFuel {
+.create-car-modal .selectedTransmission, .create-car-modal .selectedFuel {
   background-color: #FF5F00;
   color: white;
   border: none;
 }
 
-/* Styling for the upload button */
-.create-car-modal .upload-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#add-extra-feature-button {
   background-color: #FF5F00;
   color: white;
   border: none;
@@ -142,26 +138,15 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  gap: 10px; /* Space between icon and text */
+  gap: 10px;
 }
 
-.create-car-modal .upload-button:hover {
+#add-extra-feature-button:hover {
   background-color: #E65500;
   transform: scale(1.05);
 }
 
-.create-car-modal .upload-button:active {
+#add-extra-feature-button:active {
   background-color: #CC4A00;
   transform: scale(0.95);
-}
-
-.create-car-modal .upload-button svg {
-  fill: white; /* Ensures the icon color matches the text */
-}
-
-.error-message {
-  color: red;
-  font-size: 12px;
-  font-weight: bold;
-  margin-top: 10px;
 }
