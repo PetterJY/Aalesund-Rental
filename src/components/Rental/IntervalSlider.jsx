@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './IntervalSlider.css';
 
-const IntervalSlider = ({ maxPrice = 1000 }) => {
-  const [minVal, setMinVal] = useState(0);
-  const [maxVal, setMaxVal] = useState(1000);
+const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice}) => {
   const intervalStep = 50;
 
   const updateSlider = () => {
-    const minPercent = (minVal / maxPrice) * 100;
-    const maxPercent = (maxVal / maxPrice) * 100;
+    const minPercent = (minVal / maxCarRentalPrice) * 100;
+    const maxPercent = (maxVal / maxCarRentalPrice) * 100;
 
     document.getElementById('slider-range').style.left = `${minPercent}%`;
     document.getElementById('slider-range').style.width = `${maxPercent - minPercent}%`;
@@ -59,7 +57,7 @@ const IntervalSlider = ({ maxPrice = 1000 }) => {
           type="number"
           id="price-range-min"
           className="price-range-input"
-          max={maxPrice}
+          max={maxCarRentalPrice}
           min="0"
         />
         <div className="slider-wrapper">
@@ -71,7 +69,7 @@ const IntervalSlider = ({ maxPrice = 1000 }) => {
             id="slider-min"
             className="price-range-slider"
             min="0"
-            max={maxPrice}
+            max={maxCarRentalPrice}
             step={intervalStep}
             onChange={handleMinChange}
             defaultValue={minVal}
@@ -81,7 +79,7 @@ const IntervalSlider = ({ maxPrice = 1000 }) => {
             id="slider-max"
             className="price-range-slider"
             min="0"
-            max={maxPrice}
+            max={maxCarRentalPrice}
             step={intervalStep}
             onChange={handleMaxChange}
             defaultValue={maxVal}
@@ -91,7 +89,7 @@ const IntervalSlider = ({ maxPrice = 1000 }) => {
           type="number"
           id="price-range-max"
           className="price-range-input"
-          max={maxPrice}
+          max={maxCarRentalPrice}
           min="1"
         />
       </div>
