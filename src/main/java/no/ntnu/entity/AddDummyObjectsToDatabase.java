@@ -115,9 +115,9 @@ public class AddDummyObjectsToDatabase {
 		addCar("8", "AB 11111", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
 		addCar("9", "AB 22222", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
 		addCar("10", "AC 88888", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("11", "AB 33333", "BMW", "M3", Cars.CarType.SPORTS_CAR, 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("12", "AB 44444", "BMW", "M3", Cars.CarType.SPORTS_CAR, 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("13", "AC 77777", "BMW", "M3", Cars.CarType.SPORTS_CAR, 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
+		addCar("11", "AB 33333", "BMW", "M3", Cars.CarType.SPORTS, 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
+		addCar("12", "AB 44444", "BMW", "M3", Cars.CarType.SPORTS, 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
+		addCar("13", "AC 77777", "BMW", "M3", Cars.CarType.SPORTS, 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
 		addCar("14", "AB 55555", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 300, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
 		addCar("15", "AB 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 299, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
 		addCar("16", "AC 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 700, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
@@ -129,7 +129,6 @@ public class AddDummyObjectsToDatabase {
 		addCar("6", "AC 33333", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
 		addCar("17", "AC 44444", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 200, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
 		addCar("6", "AC 55555", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 201, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
-	
 		logger.info("Finished adding cars to the database.");
 
 		logger.info("Adding rentals to the database.");
