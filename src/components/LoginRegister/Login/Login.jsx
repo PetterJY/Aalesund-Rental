@@ -106,7 +106,7 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode })
               <>
                 <h2 className="title">Login</h2>
                 <form onSubmit={handleLogin}>
-                  <input className='input-field' type="text" placeholder="E-mail" required />
+                  <input className='input-field' id='login-email-field' type="text" placeholder="E-mail" required />
                   <div className="toggle-password-button-container">
                     <input
                       id="login-password-field"
