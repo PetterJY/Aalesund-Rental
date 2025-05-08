@@ -4,6 +4,7 @@ import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
 import "./Rental.css";
 import "../App.css";
+import IntervalSlider from "./IntervalSlider";
 
 export default function Rental() {
   const [cars, setCars] = useState([]);
@@ -12,7 +13,7 @@ export default function Rental() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const containerRef = useRef(null);
   const [carsPerRow, setCarsPerRow] = useState(3);
-  const maxPrice = useState(10000)
+  const maxPrice =  1000;
   const [range, setRange] = useState({min: 0, max: maxPrice});
 
 
@@ -31,7 +32,7 @@ export default function Rental() {
     </div>
   );
 
-  const renderRadioButtons = (category, options) => (
+const renderRadioButtons = (category, options) => (
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
@@ -54,7 +55,7 @@ export default function Rental() {
         <div className="dropdown-content">
           {(category === "sort" || category === "passengers")
             ? renderRadioButtons(category, options)
-            : renderCheckboxes(category, options)}
+            : renderCheckboxes(options, options)}
         </div>
       )}
     </div>
@@ -236,6 +237,10 @@ export default function Rental() {
     toggleFilter();
   };
 
+  useEffect(() => {
+
+  }, []);
+
   return (
     <div className="rental-page">
       <section className="main-section">
@@ -275,12 +280,7 @@ export default function Rental() {
                   <h3>Energy Source</h3>
                   {renderCheckboxes("energySource", filterOptions.energySource)}
                 </div>
-                <div className="price-range">
-                  <h3>Price Range</h3>
-                  <input type="number" className="price-range-input" max={maxPrice-1} min="0"/>
-                  <input type="range" min="0" max="100000" step="50" />
-                  <input type="number" className="price-range-input" max={maxPrice} min="1"/>
-                </div>
+                <IntervalSlider/>
               </div>
               <hr></hr>
               <button className="close-button" onClick={handleFilterChange}>
