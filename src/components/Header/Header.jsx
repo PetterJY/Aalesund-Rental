@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { User, X, PencilSimple } from '@phosphor-icons/react';
-import { format } from 'date-fns';
+import { User, X, PencilSimple, Car, UserCircleCheck } from '@phosphor-icons/react';
+import { format, set } from 'date-fns';
 import logo from '../../resources/images/logo.png';
 import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../Home/BookingForm/BookingForm';
 import DropDownMenu from './DropDownMenu/DropDownMenu';
+import {getRole, getAccountId} from '../utils/JwtUtility';
 import './Header.css';
 import '../App.css';
 
@@ -13,8 +14,10 @@ const Header = () => {
   const showMenu = useLocation().pathname === "/rental";
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userIcon, setUserIcon] = useState(<User size={24} className="user-icon" />);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [mobileDisplaySize, setMobileDisplaySize] = useState(false);
+  const [userDisplayName, setUserDisplayName] = useState('Login | Register');
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -42,6 +45,60 @@ const Header = () => {
     window.addEventListener('resize', handleWindowResize);
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      setIsLoggedIn(true);
+      fetchAccountDetails(); // Fetch account details only once
+    } else {
+      setIsLoggedIn(false);
+      setUserDisplayName('Login | Register');
+      setUserIcon(<User size={24} className="user-icon" />);
+    }
+  }, []);
+
+  const fetchAccountDetails = async () => {
+    try {
+      const accountId = getAccountId(); // Get the account ID from the JWT
+      const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const account = await response.json();
+
+      // Determine the display name based on the role
+      switch (account.role) {
+        case 'ROLE_USER':
+          setUserDisplayName(`${account.firstName} ${account.lastName}`);
+          setUserIcon(<User size={24} className="user-icon" />);
+          break;
+        case 'ROLE_PROVIDER':
+          setUserDisplayName(account.companyName);
+          setUserIcon(<Car size={24} className="user-icon" />);
+          break;
+        case 'ROLE_ADMIN':
+          setUserDisplayName(`Admin: ${account.name}`);
+          setUserIcon(<UserCircleCheck size={24} className="user-icon" />);
+          break;
+        default:
+          setUserDisplayName('My Account');
+          setUserIcon(<User size={24} className="user-icon" />);
+      }
+    } catch (error) {
+      console.error('Error fetching account details:', error);
+    }
+  };
+
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -125,6 +182,8 @@ const Header = () => {
     console.log("Logging out...");
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);
+    setUserDisplayName('Login | Register');
+    setUserIcon(<User size={24} className="user-icon" />);
     setIsDropdownVisible(false);
     navigate('/home');
   }; 
@@ -167,9 +226,8 @@ const Header = () => {
           />
 
           <button id="login-create" onClick={handleUserClick}>
-            <User size={24} className="user-icon"/>
-            {!isLoggedIn && <span className="login-register-text">Login | Register</span>}
-            {isLoggedIn && <span id="logged-in-text" className="login-register-text">My Account</span>}
+            {userIcon}{}
+            <span className="login-register-text">{userDisplayName}</span>
           </button>
           {isDropdownVisible && (
             <DropDownMenu
