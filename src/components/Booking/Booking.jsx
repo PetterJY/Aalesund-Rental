@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import carImage from "../../resources/images/car.png";
+import { mapCarImage } from '../utils/CarImageMapper';
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
 import "../App.css";
@@ -35,12 +35,23 @@ const Booking = () => {
 				setIsLoading(false);
 				console.log("Car details fetched:", carDetails);
 			} 
+			
 			catch(error) {
 				console.error(error);
 			};
 		}
 		fetchCarDetails();
 	}, [carId]);
+
+	if (isLoading) {
+		return <p>Loading...</p>;
+	}
+
+	if (!carDetails) {
+		return <p>No car details available.</p>;
+	}
+
+	const carImage = mapCarImage(carDetails.carBrand, carDetails.modelName);
 
   return (
 		<main className="booking-page">
@@ -73,7 +84,7 @@ const Booking = () => {
 							<p>Loading...</p>
 						) : (
 							<>
-								<h2>{carDetails.modelName}</h2>
+								<h2>{carDetails.carBrand} {carDetails.modelName}</h2>
 								<p className="rent-period">{carDetails.rentalPeriod}</p>
 							</>
 						)}

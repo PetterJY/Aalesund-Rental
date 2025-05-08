@@ -26,7 +26,7 @@ const Header = () => {
     dropoffDate: new Date(new Date().setDate(new Date().getDate() + 13)),
     dropoffTime: new Date(),
   });
-
+  
   useEffect(() => {
     const handleWindowResize = () => {
       if (window.innerWidth >= 1500) {
