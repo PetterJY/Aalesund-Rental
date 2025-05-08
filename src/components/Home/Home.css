@@ -1,0 +1,122 @@
+:root {
+  --center-container-width: 87vw;
+  --center-element-width: calc(var(--center-container-width) / 3.3);
+  --center-element-height: 50px;
+}
+
+html, body {
+  height: 100%;
+}
+
+.home-container {
+  position: relative;
+  display: block;
+  z-index: 1;
+  min-height: 100vh;
+  padding-top: 30px;
+  background-image: url(./../../resources/images/HeroSection/van-nature.jpg);
+  background-size: 2560px auto;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center; /* Align to top */
+  background-repeat: no-repeat;
+  max-width: 2560px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-section {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  width: var(--center-container-width);
+  background: white;
+  gap: 12px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 -2400px 100px 2400px rgba(0, 0, 0, 0.25);
+  min-height: 200px;
+  max-height: 200px;
+}
+
+
+.booking-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  border-radius: 10px;
+}
+
+.intermediary-1 {
+  height: 1000px;
+  background-image:
+          url("./../../resources/images/HeroSection/scenic/scenic-ride-forest.jpg");
+  background-size: 2560px auto;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center; /* Align to top */
+  background-repeat: no-repeat;
+}
+
+.intermediary-2 {
+  height: 750px;
+  background-image:
+          url("./../../resources/images/HeroSection/scenic/scenic-ride-winter.jpg");
+  background-size: 2560px auto;
+  background-attachment: fixed; /* Prevents zooming when scrolling */
+  background-position: center; /* Align to top */
+  background-repeat: no-repeat;
+}
+
+.hero-call-to-action {
+  position: fixed;
+  width: 90vw;
+  max-width: 1440px;
+  z-index: -20; /* Changed to a neutral value instead of -2 */
+  margin: 70vh auto;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hero-call-to-action h1 {
+  font-size: 4.7rem;
+  color: white;
+  margin: 0;
+}
+
+.hero-call-to-action h2 {
+  color: white;
+  font-size: 2.2rem;
+}
+
+@keyframes fade-and-drop-in {
+  from {
+    transform: translateY(-500%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fade-and-drop-in {
+  animation: fade-and-drop-in 1.5s ease forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 2.7s ease forwards;
+}

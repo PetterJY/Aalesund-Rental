@@ -1,0 +1,323 @@
+
+:root {
+  --text-box-color: #F4F4F9;
+  --text-box-hover-color: #efeff4;
+}
+
+.rental-page {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* For absolute positioning of filter-panel */
+}
+
+.rental-page h3 {
+  font-weight: bold;
+}
+
+.rental-page .main-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.rental-page .main-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+  max-width: 1230px;
+  padding: 10px;
+}
+
+.rental-page .sort-bar {
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-start;
+  padding: 10px;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.rental-page .sort-button {
+  background-color: white;
+  color: #252422;
+  position: relative;
+  width: auto;
+  height: auto;
+  margin-right: 10px;
+  border: none;
+  border-bottom: #252422 1px solid;
+}
+
+.rental-page .sort-button:hover {
+  border-bottom: #EB5E28 1px solid;
+}
+
+.rental-page .filter-button {
+  background-color: #ffffff;
+}
+
+.filter-button {
+  background-color: white;
+  color: #252422;
+  position: relative;
+  width: auto;
+  height: 55px;
+  margin-right: 10px;
+  border: none;
+  border-bottom: #252422 1px solid;
+  border-radius: 0%;
+  justify-self: flex-start;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rental-page .filter-button:hover {
+  border-bottom: #EB5E28 1px solid;
+  color: #EB5E28;
+  background-color: white;
+}
+
+.rental-page .filter-button svg {
+  fill: #252422;
+  margin-bottom: -2px;
+}
+
+.rental-page .filter-button:hover svg {
+  fill: #EB5E28;
+}
+
+/* Filter panel styles */
+.rental-page .filter-panel {
+  display: none; /* Hidden by default */
+}
+
+.rental-page .panel-sort-button {
+  background-color: white;
+  color: #252422;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  border: none;
+  border-bottom: #252422 1px solid;
+}
+
+.rental-page .panel-sort-button:hover {
+  border-bottom: #EB5E28 1px solid;
+}
+
+.rental-page .close-button {
+  margin-top: 12px;
+  width: 90vw;
+  height: 50px;
+  border-radius: 12px;
+  font-weight: 800;
+  background-color: #EB5E28;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 861px) {
+  .rental-page .filter-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .rental-page .main-body {
+    max-width: 815px;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .rental-page .main-body {
+    max-width: 430px;
+    justify-content: center;
+  }
+
+  .rental-page .sort-bar {
+    justify-content: center;
+    justify-self: center;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    width: 85%;
+  }
+
+  .rental-page .sort-button {
+    display: none;
+  }
+
+  .rental-page .filter-button {
+    width: 100%;
+    justify-content: center;
+  }
+  .rental-page .sort-bar .dropdown-group {
+    display: none; /* Hide dropdowns on mobile */
+  }
+
+  .rental-page .filter-panel {
+    display: block;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 65px);
+    background: white;
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .rental-page .filter-content {
+    margin-bottom: auto;
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .rental-page .checkbox-group {
+    display: flex;
+    flex-direction: row; /* Change to row to align checkboxes horizontally */
+    flex-wrap: wrap; /* Allow wrapping to next line if needed */
+    gap: 10px; /* Add spacing between checkboxes */
+  }
+  
+  .rental-page .checkbox-label {
+    display: flex;
+    align-items: center;
+    margin: 0; /* Remove default margin to rely on gap for spacing */
+    color: #252422;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  
+  .rental-page .checkbox-label span {
+    color: #252422;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: white 1px solid;
+    white-space: nowrap; /* Prevent text from wrapping within each checkbox */
+  }
+  
+  .rental-page .filter-panel .checkbox-group {
+    flex-direction: row; 
+    gap: 5px;
+  }
+  
+}
+
+.rental-page .checkbox-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.rental-page .checkbox-label {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  color: #252422;
+  cursor: pointer;
+  accent-color: white;
+}
+
+.rental-page .checkbox-label input {
+  margin-right: 8px;
+  accent-color: #FF5F00;
+}
+
+/* hides the checkbox visually but remains accessible to screen readers */
+.rental-page .checkbox-label input {
+  position: absolute;
+  opacity: 0;
+}
+
+.rental-page .checkbox-label span {
+  background-color: var(--text-box-color);
+  border-radius: 12px;
+  color: #252422;
+  padding: 12px 24px;
+  cursor: pointer;
+  border-bottom: white 1px solid;
+}
+
+.rental-page .checkbox-label span:hover {
+ background-color: #c9c9cf;
+}
+
+.rental-page .checkbox-label input:checked + span {
+  background-color: #252422;
+  color:white;
+  border-radius: 5px;
+  border-bottom: white 1px solid;
+}
+
+.rental-page .checkbox-label input:checked + span:hover {
+  background-color: var(--text-box-hover-color);
+  color:white;
+  border-bottom: white 1px solid;
+  border-radius: 5px;
+}
+
+/* Adjustments for mobile filter panel */
+.rental-page .filter-panel .filter-group {
+  margin: 10px 0;
+}
+
+/* Dropdown styles for desktop */
+.rental-page .dropdown-group {
+  position: relative;
+  margin-right: 15px;
+}
+
+.rental-page .dropdown-button {
+  background-color: white;
+  color: #252422;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: auto;
+  border-radius: 6px;
+}
+
+.rental-page .dropdown-button:hover {
+  background-color: var(--text-box-hover-color);
+}
+
+.rental-page .dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 10px;
+  z-index: 20;
+  min-width: 150px;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.rental-page .car-selected-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}

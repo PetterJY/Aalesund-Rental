@@ -1,0 +1,79 @@
+.modal {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+}
+
+#submit-button {
+  padding: 20px;
+  background-color: #FF5F00;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+#register-forgot-wrapper {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  gap: 1em;
+}
+
+.toggle-login-register-button, .forgot-password-button {
+  font-size: 20px;
+  border-radius: 15px;
+  background-color: transparent;
+  color: #252422;
+  border: none;
+  width: auto;
+  height: fit-content;
+}
+
+.toggle-login-register-button:hover, .forgot-password-button:hover {
+  text-decoration: underline;
+  color: #FF5F00; /* Darker green on hover */
+  background-color: transparent; /* Ensure no background color on hover */
+}
+
+#submit-button:hover {
+  background-color: #eb5f28c9;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#name-wrapper, #password-wrapper {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
+
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #252422;
+}
+
+/* Main Content Styles */
+.booking-page {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  max-height: fit-content;
+  min-height: 700px;
+}
+
+/* Header Styles */
+
+.booking-page .header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 0 10vh 0 10vh;
+  
+}
+
+.booking-page .driver-information-form {
+  overflow: hidden;
+  padding: 20px;
+  min-height: 700px;
+  max-height: 900px;
+  width: 50%;
+  max-width: 800px;
+  min-width: 30em;
+  margin: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+  
+  /*I want the items to be right side*/
+  
+}
+
+.booking-page .car-information-form {
+  padding: 20px;
+  min-height: 700px;
+  max-height: 900px;
+  width: 30%;
+  max-width: 600px;
+  min-width: 20em;
+  margin: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  flex-shrink: 0;
+}
+
+.booking-page .rectangle-display {
+  margin-top: 10px;
+  width: 150px;
+  min-width: 150px;
+  height: 120px;
+  border-radius: 15px;
+  background: radial-gradient(50% 50% at 50% 50%, white, #403d39);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.booking-page #car-image {
+  max-width: 70%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Form Styles */
+.booking-page form label {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.booking-page form input, 
+.booking-page form select, 
+.booking-page form textarea {
+  background-color: #ffffff;
+  border: none;
+  border-bottom: 2px solid #FF5F00;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.booking-page form input:focus, 
+.booking-page form select:focus, 
+.booking-page form textarea:focus {
+  outline: none;
+}
+
+.booking-page input:-webkit-autofill,
+.booking-page input:-webkit-autofill:hover,
+.booking-page input:-webkit-autofill:focus,
+.booking-page input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important; /* Forces the background to white */
+    background-color: white !important; /* Explicitly sets the background */
+    -webkit-text-fill-color: black !important; /* Ensures text color isn't overridden */
+}
+
+.booking-page button {
+  padding: 20px;
+  background-color: #FF5F00;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 50%;
+}
+
+.booking-page button:hover {
+  background-color: #eb5f28c9;
+}
+
+/* Car Information Styles */
+.booking-page p {
+  color: #252422;
+}
+
+.booking-page .car-information-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-page .car-rental-header {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  height:fit-content;
+  width: 100%;
+  text-align: left;
+}
+
+.booking-page .car-rental-details {
+  grid-column: 2;
+  grid-row: 1;
+  color: #252422;
+  padding-left: 10px;
+}
+
+.booking-page .car-rental-details h2 {
+  line-height: 25px;
+}
+
+.booking-page .rental-schedule-container {
+  display: grid;
+  display: flex;
+  flex-direction: row;
+    border-bottom: 2px solid #252422;
+}
+.booking-page .rental-schedule-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
+  margin-top: 0.5em;
+}
+.booking-page .vertical-line {
+  width: 2px;
+  background-color: black;
+  height: 25%; /* Adjust the height as needed */
+  margin: 0em 1em; /* Optional: Add some margin to create space around the line */
+}
+
+.booking-page .rental-schedule-logos img{
+  width: 26px;
+  aspect-ratio: 1/1;
+}
+.booking-page .rental-schedule-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  gap: 2em;
+  text-align: left;
+}
+
+.booking-page .pickup-info p,
+.booking-page .pickup-info h4 {
+  margin: 0;
+  padding: 5px;
+}
+
+.booking-page .dropoff-info p,
+.booking-page .dropoff-info h4 {
+  margin: 0;
+  padding: 5px;
+
+}
+
+.booking-page .payment-details {
+  /*border for payment details*/
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  color: #252422;
+  margin-top: auto;
+  gap: 1px;
+  padding-left: 25px;
+}
+
+.booking-page .payment-details p {
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+}
+/* Driver Information Form */
+.booking-page .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.booking-page h2 {
+  font-size: 26px;
+  font-weight: 500;
+  color: #252422;
+}
+
+.booking-page form h2 {
+  font-size: 26px;
+  color: #252422;
+}
+
+.booking-page form label {
+  font-size: 18px;
+  color: #252422;
+}
+
+.booking-page form input, 
+.booking-page form select, 
+.booking-page form textarea {
+  font-size: 18px;
+}
+
+.booking-page form div {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  padding: 0px;
+}
+
+.booking-page .grid-container {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-column-gap: 5%;
+  grid-row-gap: 1em;
+}
+
+.booking-page .grid-container > div {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 3em;
+}
+
+.booking-page .driver-information {
+  text-align: left;
+  grid-column: 1 / 3;
+  grid-row: 1
+}
+
+.booking-page .e-mail {
+  grid-column: 1 / 3;
+  grid-row: 2
+}
+
+.booking-page .first-name {
+  grid-column: 1;
+  grid-row: 3
+}
+
+.booking-page .last-name {
+  grid-column: 2;
+  grid-row: 3
+}
+
+.booking-page .book-car {
+  grid-column: 2;
+  grid-row: 4
+}
+
+@media (max-width: 1000px) {
+  .booking-page button {
+    width: 100%;
+  } 
+  .booking-page {
+    flex-direction: column-reverse;
+    overflow: auto;
+    align-items: center;
+  }
+  .booking-page .driver-information-form {
+    width: 80%;
+    min-width: 10em;
+    min-height:max-content;
+  }
+  .booking-page .car-information-form {
+    width: 80%;
+    min-width: 10em;
+    min-height: fit-content;
+  }
+  .booking-page .grid-container {
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 1em;
+  }
+  .booking-page .driver-information {
+    grid-column: 1;
+    grid-row: 1
+  }
+
+  .booking-page .e-mail {
+    grid-column: 1;
+    grid-row: 2
+  }
+
+  .booking-page .first-name {
+    grid-column: 1;
+    grid-row: 3
+  }
+
+  .booking-page .last-name {
+    grid-column: 1;
+    grid-row: 4
+  }
+
+  .booking-page .book-car {
+    grid-column: 1;
+    grid-row: 5
+  }
+}

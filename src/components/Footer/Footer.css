@@ -1,0 +1,205 @@
+.footer-section {
+  position: relative;
+  z-index: 100;
+  /* additional styling */
+}
+
+.footer-container {
+  background-color: #252422;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly; /* Space between sections */
+}
+
+.footer-section .menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between; /* Ensures space between elements */
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.footer-section nav {
+  margin-left: 20px;
+  gap: 0;
+}
+
+.footer-section .dropdown {
+  position: relative;
+  transition: rotate 10s ease-in-out;
+}
+
+.footer-section .dropdown.clicked {
+  rotate: 180deg;
+  transition: rotate 0.15s ease-in-out;
+}
+
+.footer-section #creators, #contact, #links {
+  padding: 3vh;
+}
+
+.footer-section .footer-item {
+  display: flex;
+  color: white;
+  flex-direction: column;
+  font-size: 20px;
+  list-style: none; /* Removes bullet points */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+}
+
+.footer-section h2 {
+  color: white;
+}
+
+.footer-section li p {
+  color: white;
+  font-size: 20px;
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+  
+}
+
+.footer-section a {
+  position: relative;
+  text-decoration: none; /* Remove default underline */
+  color: white; /* Keep original text color */
+}
+
+.footer-section a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Adjust as needed */
+  width: 0;
+  height: 2px; /* Thickness of underline */
+  background-color: currentColor; /* Matches text color */
+  transition: width 0.2s ease-in-out;
+  color: white;
+}
+
+.footer-section a:hover::after {
+  width: 100%;
+  color: white;
+}
+
+.footer-section .trademark {
+  position: absolute;
+  padding: 0 0 20px 20px;
+  color: white;
+}
+
+.footer-section .dropdown {
+  position: relative;
+  right: 10vw;
+  transition: transform 0.15s ease-in-out;
+  opacity: 0;
+}
+
+.footer-section .dropdown.expanded {
+  transform: rotate(180deg); /* Rotate the caret when expanded */
+  opacity: 1;
+}
+
+.footer-section .dropdown.not-expanded {
+  opacity: 1;
+}
+
+.footer-section .dropdown.visible {
+  opacity: 1;
+}
+
+.footer-section .dropdown.not-visible {
+  opacity: 0;
+}
+
+
+.footer-section .map-container {
+  display: flex;
+  justify-content: center; /* Center the map horizontally */
+  align-items: center; /* Center the map vertically */
+  max-width: 100%; /* Ensure responsiveness */
+  overflow: hidden; /* Prevent overflow issues */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+  margin-top: 16px;
+}
+
+.footer-section .map-container iframe {
+  width: 100%;
+  height: 250px; /* Adjust height to fit the container */
+  border: 2px solid #ccc; /* Optional: Add a border */
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 1000px) {
+  .footer-container {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+
+
+
+  .footer-section .menu {
+    width: 100vw;
+  }
+
+
+
+  .footer-section .map-container iframe {
+    width: 50%;
+    height: 250px; /* Adjust height to fit the container */
+    border: none; /* Remove default iframe border */
+    margin-right: auto;
+    margin-bottom: 12px;
+  }
+
+  .footer-section #creators, #contact, #links {
+    padding: 0 0 0.7rem;
+  }
+
+  .footer-section footer nav {
+    position: relative;
+    padding-bottom: 24px;
+  }
+
+  /*footer nav#contact::before {*/
+  /*  content: "";*/
+  /*  position: absolute;*/
+  /*  top: -10px;*/
+  /*  left: 0vw; !* 5% of the viewport width *!*/
+  /*  width: 90vw; !* 90% of the viewport width *!*/
+  /*  height: 1px;*/
+  /*  background-color: white;*/
+  /*}*/
+
+  .footer-section footer nav#contact::after,
+  .footer-section footer nav#links::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0; /* 5% of the viewport width */
+    width: 90vw; /* 90% of the viewport width */
+    height: 1px;
+    background-color: white;
+  }
+
+  /*footer nav#creators::after {*/
+  /*  content: "";*/
+  /*  position: absolute;*/
+  /*  bottom: -10px;*/
+  /*  left: 0vw; !* 5% of the viewport width *!*/
+  /*  width: 90vw; !* 90% of the viewport width *!*/
+  /*  height: 1px;*/
+  /*  background-color: white;*/
+  /*}*/
+
+  .footer-section .dropdown.visible {
+    opacity: 1;
+    background-color: #252422;
+  }
+}

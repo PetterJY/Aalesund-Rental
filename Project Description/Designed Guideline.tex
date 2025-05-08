@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Design Guideline}
+\author{Authors: }
+\date{Somethingary 2025}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\section{Consept phase}
+In the concept phase, before writing code, you should decide the general rules and direction:
+\begin{enumerate}
+    \item Theme: how serious or playful the design should be
+    \item Color scheme:
+    \begin{itemize}
+        \item Does the company have a color scheme?
+        \item Which colors are suggested by the theme of the site?
+        \item Pick the main color
+        \item Pick an accent color (optional)
+    \end{itemize}
+    \item Hierarchy and layout:
+    \begin{itemize}
+        \item What is the most important message/product on the page?
+        \item What is the order of importance for the different elements?
+        \item What sections will there be on the page?
+        \item What layout(s) will you use for the sections?
+    \end{itemize}
+    \item Images:
+    \begin{itemize}
+        \item Gather the available images
+        \item Will there be text on images or aside images?
+        \item Will we use clear images or a color-overlay?
+        \item Will there be blur for images?
+    \end{itemize}
+    \item Icons:
+    \begin{itemize}
+        \item Will we use icons and for what?
+        \item Colored or black-and-white/greyscale icons?
+    \end{itemize}
+    \item Typography:
+    \begin{itemize}
+        \item Should it by a Serif or Sans-Serif font?
+        \item Bold or thin font?
+        \item Rounded or sharp edges?
+    \end{itemize}
+    \item Border rounding:
+    \begin{itemize}
+        \item How rounded should be the edges, according to the theme?
+    \end{itemize}
+        \item Shadows:
+    \begin{itemize}
+        \item How much shadow will we use in general, according to the theme?
+    \end{itemize}
+\end{enumerate}
+
+
+\newpage
+\section{Sketching}
+Create a sketch of the page which shows the general layout of the page.
+
+\noindent\hrulefill
+
+\section{Specific Technical Decisions }
+This comes at a later stage when you start implementing the site:
+\begin{enumerate}
+    \item Colours:
+    \begin{itemize}
+        \item Generate color shades/tints (See video 2.2.3 Colors)
+    \end{itemize}
+    \item Typography:
+    \begin{enumerate}
+        \item[a] Choose a font for titles (You will probably want to change it when you see the site, but
+start with something)
+        \item[b] If body text needs another font, choose it. Preferably, use the same font for all texts.
+        \item[c] Define font scale using https://type-scale.com/
+    \end{enumerate}
+    \item Hierarchy and layout:
+    \begin{enumerate}
+        \item[a] Which elements will need an accent because we want to increase their priority in the
+hierarchy?
+        \item[b] What components will we need to implement the necessary layouts?
+    \end{enumerate}
+    \item Icons:
+    \begin{enumerate}
+        \item[a] Choose icon pack if you need one. See http://codingheroes.io/resources/icons
+    \end{enumerate}
+    \item  Spacing:
+        \begin{enumerate}
+        \item[a] Define spacing scale, f.ex, multiples of 16px (multiples of 4px for smaller padding)
+    \end{enumerate}
+    \item  Border rounding:
+        \begin{enumerate}
+        \item[a] Synchronize the chosen font with roundedness (very rounded font → more border
+rounding for elements)
+        \item[b]  Border rounding amount for general elements: cards, forms, images, etc
+        \item[c] Border rounding for buttons
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

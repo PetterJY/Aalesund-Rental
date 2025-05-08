@@ -1,0 +1,145 @@
+.car-display {
+  width: 400px;
+  border-radius: 15px;
+  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  align-self: flex-start; 
+}
+.car-display h2, h1, h3, h4, p {
+  font-weight: 200;
+}
+
+.car-display:hover {
+  outline: #252422 3px solid;
+  outline-offset: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: 0.1s;
+}
+
+.car-display.selected {
+  outline: #EB5E28 3px solid;
+  outline-offset: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: 0.1s;
+}
+
+
+.car-display .top-section {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.car-display .top-left-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-display .car-name {
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0 0 0 10px;
+}
+
+.car-display .passenger-tag {
+  background-color: rgba(217, 217, 217, 0.2);
+  flex-direction: row;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  width: 60px;
+  height: 30px;
+  border-radius: 25px;
+  
+}
+
+.car-display .passenger-count {
+  color: white;
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+.car-display .top-right-section {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+}
+
+.car-display .car-tag {
+  background-color: #EB5E28; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  font-size: 16px;
+
+  width: 100px;
+  height: 30px;
+  border-radius: 25px;
+
+  color: white;
+}
+
+.car-display .bottom-section {
+  margin-top: -65px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.car-display .rental-place {
+  color: white;
+  font-size: 16px;
+  text-align: left;
+}
+
+.car-display .price-section {
+  margin-top: -25px;
+  display: flex;
+  flex-direction: row;
+}
+
+.car-display #price-day {
+  color: white;
+  font-size: 16px;
+}
+
+.car-display #price-total {
+  color: #CCC5B9;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.car-display .car-image {
+  width: 380px;
+  height: auto;
+  align-self: center;
+  margin-top: -50px;
+}
+
+.car-display #car-image img {
+  width: fit-content;
+  height: fit-content;
+}
+
+.selected-arrow {
+  position: absolute;
+  bottom: -25px; /* adjust as needed */
+  left: 50%;
+  transform: translateX(-100%);
+}
+
+@media screen and (max-width: 860px) {
+  .car-display.selected {
+    outline: 0 solid;
+  }
+
+  .selected-arrow {
+    bottom: -20px; /* adjust as needed */
+    left: 50%;
+    transform: translateX(-100%);
+  }
+  
+}

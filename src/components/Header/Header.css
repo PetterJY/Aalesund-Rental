@@ -1,0 +1,182 @@
+.top-header {
+  position: relative;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1A1A1A;
+  padding: 10px 5%;
+}
+
+.desktop-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.mobile-header {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping */
+  justify-content: space-between; /* Pushes first and second divs apart */
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.home-button, .home-button:hover {
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+#logo-image {
+  width: 64px;
+  height: 64px;
+}
+
+.user-icon {
+  margin-right: 6px;
+}
+
+.date-time-popup-menu {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 217px;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  flex-direction: row;
+  visibility: hidden;
+  text-align: left;
+  transform: translateY(-100%);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  transition:
+  transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+  box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+  visibility 0s 0.4s;
+}
+
+.date-time-popup-menu.open {
+  transform: translateY(0);
+  visibility: visible;
+  box-shadow: 0 0 100vmax 5000px rgba(0, 0, 0, 0.4);
+  transition:
+  transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+  box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+  visibility 0s;
+  box-sizing: border-box;
+}
+
+.menu-wrapper {
+  align-self: center;
+  height: auto;
+  display: flex;
+  max-width: 1440px;
+  gap: 12px;
+  margin: 0 auto; /* Add this to center the grid */
+  justify-items: center; /* Center items horizontally in their cells */
+  align-items: center;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+}
+
+#login-create {
+  font-size: 16px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: fit-content;
+}
+
+#login-create:hover {
+  color: white;
+  text-decoration: none;
+  border-bottom: white 2px solid;
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+}
+
+#login-create:hover::after {
+  width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+  .date-time-popup-menu {
+    height: 100vh;
+    width: 100vw;
+    transition: none;
+  }
+  
+  .menu-wrapper {
+    box-sizing: border-box;
+    margin-bottom: auto;
+    margin-top: 12px;
+    width: 100%;
+    padding: 24px;
+  }
+
+  .mobile-display-top-menu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+  }
+
+  .booking-details-title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .x-button {
+    border-radius: 0;
+    position: absolute;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 12px;
+    padding: 0;
+    transition: transform 0.1s ease-in-out;
+  }
+
+  .x-button:hover {
+    background-color: transparent;
+    transform: scale(1.15);
+  }
+
+  .x-icon {
+    position: absolute;
+    color: black;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .menu-wrapper {
+    flex-direction: column;
+    width: 80vw;
+  }
+}
