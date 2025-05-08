@@ -4,7 +4,7 @@ import './FeaturedCars.css'
 import VolkswagenGolf from '../../../resources/images/cars/VolkswagenGolf.png'
 import TeslaModel3 from '../../../resources/images/cars/TeslaModel3.webp'
 import TeslaModelY from '../../../resources/images/cars/TeslaModelY.png'
-import BMWM3 from '../../../resources/images/cars/BMWM3.png'
+import BMWm3 from '../../../resources/images/cars/BMWm3.png'
 import Peugot3008 from '../../../resources/images/cars/Peugeot3008.png'
 import VolkswagenTransporter from '../../../resources/images/cars/VolkswagenTransporter.webp'
 
@@ -116,7 +116,7 @@ const FeaturedCars = () => {
               onMouseLeave={resumeAutoplay}
               className={`featured-car ${isCardActive(2) ? 'active' : ''} ${getCardPosition(2)}`}
               id="featured-car-3">
-              <img src={BMWM3} alt="BMW-M3-car" className="featured-car-image"/>
+              <img src={BMWm3} alt="BMW-M3-car" className="featured-car-image"/>
             </div>
             <div
               onMouseEnter={pauseAutoplay}
