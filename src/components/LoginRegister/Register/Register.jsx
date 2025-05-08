@@ -3,7 +3,7 @@ import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../LoginRegister.css';
 import '../../App.css';
 
-const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
+const RegisterButton = ({ closeModal, isModalVisible, toggleMode, setIsLoggedIn }) => {
   const [showErrorMessage, setShowErrorMessage] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState(""); 
 
@@ -17,8 +17,29 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
     setConfirmPasswordVisible((prevState) => !prevState);
   };
   
-  const handleRegister = (event) => {
+  function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  function validatePassword(password) {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return passwordRegex.test(password);
+  }
+
+  function retrieveData() {
+    return {
+      firstName: document.getElementById('first-name-field').value,
+      lastName: document.getElementById('last-name-field').value,
+      email: document.getElementById('register-email-field').value,
+      password: document.getElementById('register-password-field').value,
+      phoneNumber: document.getElementById('phone-number-field').value
+    };
+  }
+  
+  async function handleRegister(event) {
     event.preventDefault(); 
+
     console.log("Register button clicked.");
 
     const data = retrieveData();
@@ -56,47 +77,66 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
     
     console.log("Data object: ", data);
 
-    fetch('http://localhost:8080/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("User has been registered.");
-          closeModal();
-        } else {
-          console.log("Error creating account.");
-          setErrorMessage("Error creating account. Please try again later.");
-          setShowErrorMessage(true);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        setErrorMessage("Error creating account. Please try again later.");
-        setShowErrorMessage(true);
+    try {
+      const response = await fetch('http://localhost:8080/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
+
+      if (!response.ok) {
+        throw new Error("Registration failed: " + response.statusText);
+      }
+
+      console.log("User has been registered.");
+      const responseData = await response.json();
+      console.log("Response data: ", responseData);
+      const loginDetails = {
+        email: data.email,
+        password: data.password,
+      };
+      await login(loginDetails);
+      closeModal();
+    } catch(error) {
+      console.error(error);
+      setErrorMessage("Error creating account. Please try again later.");
+      setShowErrorMessage(true);
+    };
   };
 
-  function retrieveData() {
-    return {
-      firstName: document.getElementById('first-name-field').value,
-      lastName: document.getElementById('last-name-field').value,
-      email: document.getElementById('register-email-field').value,
-      password: document.getElementById('register-password-field').value
-    };
-  }
+  async function login(loginDetails) {
+    try {
+      const response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginDetails),
+      });
 
-  function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
+      console.log("Response status: ", response.status);
+      if (!response.ok) {
+        console.error("Login failed: ", response.statusText);
+        if (response.status === 401) {;
+          throw new Error("Login Failed: The username and/or password you specified are not correct.");
+        } else if (response.status === 403) {
+          throw new Error("Login Failed: You do not have permission to access this resource.");
+        } else {
+          throw new Error("Login Failed: An unknown error occurred. Please try again later.");
+        }
+      }
 
-  function validatePassword(password) {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    return passwordRegex.test(password);
+      const data = await response.json();
+      const token = data.jwt;
+
+      console.log("User has been logged in. Token: ", token);
+      localStorage.setItem('jwt', token); 
+      setIsLoggedIn(true);
+    } catch(error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -107,6 +147,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
             <h2 className="title">Create Account</h2>
             <form id="wrapper">
               <input className='input-field' id='register-email-field' type="text" placeholder="E-mail" required />
+              <input className='input-field' id='phone-number-field' type="text" placeholder="Phone Number" required />
               <div id="name-wrapper">
                 <input className='input-field' id="first-name-field" type="text" placeholder="First Name" required />
                 <input className='input-field' id="last-name-field" type="text" placeholder="Last Name" required />

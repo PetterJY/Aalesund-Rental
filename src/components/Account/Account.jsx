@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { getAccountId, getRole } from '../utils/JwtUtility';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
 import AccountHeader from './AccountHeader/AccountHeader';
-import { getAccountId, getRole } from '../utils/JwtUtility';
 import './Account.css';
 import '../App.css';
 

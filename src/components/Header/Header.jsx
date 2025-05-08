@@ -163,7 +163,6 @@ const Header = () => {
             closeModal={closeModal}
             isModalVisible={isModalVisible}
             setIsLoggedIn={setIsLoggedIn}
-            isLoggedIn={isLoggedIn}
             defaultMode="login"
           />
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import { getAccountId, getToken } from '../../../utils/JwtUtility'; 
 import { Upload } from '@phosphor-icons/react';
 import './CreateCarModal.css';
 import '../../../App.css';
@@ -27,7 +27,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+              'Authorization': `Bearer ${getToken()}`,
             },
           });
           if (!response.ok) {
@@ -35,7 +35,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
             return;
           }
           const data = await response.json();
-          setExtraFeatures(data); // Store the fetched features
+          setExtraFeatures(data); 
         } catch (error) {
           console.error('Error fetching extra features:', error);
         }
@@ -53,24 +53,37 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   };
 
   const retrieveCarDetails = () => {
-    return {
-      providerId: jwtDecode(localStorage.getItem('jwt')).id,
-      plateNumber: document.getElementById('plate-number').value,
-      carBrand: document.getElementById('car-brand').value,
-      modelName: document.getElementById('model-name').value,
-      carType: document.getElementById('car-type').value,
-      pricePerDay: document.getElementById('price-per-day').value,
-      productionYear: document.getElementById('production-year').value,
-      passengers: document.getElementById('passengers').value,
-      transmission: document.querySelector('.create-car-button-wrapper .selectedTransmission')?.id.toUpperCase(),
-      energySource: document.querySelector('.create-car-button-wrapper .selectedFuel')?.id.toUpperCase(),
-    };
+    try {
+      return {
+        providerId: getAccountId(),
+        plateNumber: document.getElementById('plate-number').value,
+        carBrand: document.getElementById('car-brand').value,
+        modelName: document.getElementById('model-name').value,
+        carType: document.getElementById('car-type').value,
+        pricePerDay: document.getElementById('price-per-day').value,
+        productionYear: document.getElementById('production-year').value,
+        passengers: document.getElementById('passengers').value,
+        transmission: document.querySelector('.create-car-button-wrapper .selectedTransmission')?.id.toUpperCase(),
+        energySource: document.querySelector('.create-car-button-wrapper .selectedFuel')?.id.toUpperCase(),
+      };
+    } catch (error) {
+      console.error('Error retrieving car details:', error);
+      return null; 
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
   
     const carDetails = retrieveCarDetails();
+
+    if (!carDetails) {
+      console.error('Failed to retrieve car details. Please check the form inputs.');
+      setErrorMessage("Failed to retrieve car details. Please check the form inputs.");
+      setShowErrorMessage(true);
+      return;
+    }
+
     console.log('Car Details:', carDetails);
   
     try {
@@ -78,7 +91,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+          'Authorization': `Bearer ${getToken()}`,
         },
         body: JSON.stringify(carDetails),
       });
@@ -136,17 +149,6 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     });
   };
 
-  const handleImageUploadClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedImage(file); 
-    }
-  };
-
   return (
     <div className={`create-car-modal ${isCreateCarModalOpen ? 'open' : ''}`}>
       <div className="modal-content">
@@ -172,24 +174,6 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
             <button id="automatic" type="button" onClick={handleSelectTransmission}>Automatic</button>
             <button id="manual" type="button" onClick={handleSelectTransmission}>Manual</button>
           </section>
-
-          <button
-            id="car-image"
-            type="button"
-            className="upload-button"
-            onClick={handleImageUploadClick}
-          >
-            <Upload size={32} weight="bold" />
-            Upload Image
-          </button>
-          <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-          {selectedImage && <p>Selected Image: {selectedImage.name}</p>}
 
           {showErrorMessage && (
             <p className="error-message" id="register-error-message">

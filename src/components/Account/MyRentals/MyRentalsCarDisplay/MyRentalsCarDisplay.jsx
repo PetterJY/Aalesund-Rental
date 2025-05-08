@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode'; // adjust the import if necessary
 import { NotePencil } from "@phosphor-icons/react";
-import { getCarImage } from '../../../utils/CarImageMapper';
+import { mapCarImage } from '../../../utils/CarImageMapper';
 import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
 import './MyRentalsCarDisplay.css';
 import '../../../App.css';
@@ -10,7 +9,7 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
   const [tableVisibility, setTableVisibility] = useState(false);
   const [rentals, setRental] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  // local state to show updated values on the card
+
   const [displayCar, setDisplayCar] = useState(rental);
   const [editedCar, setEditedCar] = useState(rental);
 
@@ -129,7 +128,7 @@ const MyRentalsCarDisplay = ({ car: rental }) => {
     }));
   };
 
-  const carImage = getCarImage(editedCar.carBrand, editedCar.modelName);
+  const carImage = mapCarImage(editedCar.carBrand, editedCar.modelName);
 
   return (
     <div className="my-rentals-car-display">
