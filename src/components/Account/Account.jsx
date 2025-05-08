@@ -48,7 +48,9 @@ const Account = () => {
       fetchUserData();
     } else if (role === 'ROLE_PROVIDER') {
       fetchProviderData();
-    } 
+    } else if (role === 'ROLE_ADMIN') {
+      fetchAdminData();
+    }
   });
 
   async function updateAccountInformation() {
@@ -56,6 +58,8 @@ const Account = () => {
       await updateUserInformation();
     } else if (role === 'ROLE_PROVIDER') {
       await updateProviderInformation();
+    } else if (role === 'ROLE_ADMIN') {
+      await updateAdminInformation();
     }
   }
 
@@ -75,10 +79,12 @@ const Account = () => {
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
         },
       });
+
       if (!response.ok) {
         console.error('Failed to fetch user data:', response.statusText);
         return;
       }
+
       const data = await response.json();
       setFirstName(data.firstName);
       document.getElementById('first-name').value = firstName;
@@ -255,6 +261,104 @@ const Account = () => {
       setShowErrorMessage(true);
     }
   }
+
+  //ADMIN SECTION:
+
+  async function fetchAdminData() {
+    if (role !== 'ROLE_ADMIN') {
+      console.error('Unauthorized access: Admin role is not ROLE_ADMIN');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/admins/' + accountId, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.error('Failed to fetch admin data:', response.statusText);
+        return;
+      }
+
+      const data = await response.json();
+      setUsername(data.name);
+      document.getElementById('username').value = username;
+      return data;
+    } catch (error) {
+      console.error('Error fetching admin data:', error);
+    }
+  }
+
+  const [username, setUsername] = useState('');
+
+  async function updateAdminInformation() {
+    if (role !== 'ROLE_ADMIN') {
+      console.error('Unauthorized access: Account role is not ROLE_ADMIN');
+      setErrorMessage('Unauthorized access: Account role is not ROLE_ADMIN');
+      setShowErrorMessage(true);
+      return;
+    }
+
+    const updatedUsername = document.getElementById('username').value;
+
+    if (updatedUsername === '') {
+      setErrorMessage('Please fill in all fields.');
+      setShowErrorMessage(true);
+      return;
+    }
+
+    if (updatedUsername === username) {
+      setErrorMessage('You can not update your account with the same data.');
+      setShowErrorMessage(true);
+      return;
+    }
+
+    try {
+      const adminData = await fetchAdminData();
+      if (!adminData) {
+        setErrorMessage('Failed to fetch admin data. Please try again.');
+        setShowErrorMessage(true);
+        return;
+      }
+
+      const adminDetails = {
+        ...adminData, // Include all existing fields
+        username: updatedUsername,
+      };
+
+      console.log('Updated admin details:', adminDetails);
+
+      const response = await fetch('http://localhost:8080/admins/' + accountId, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        },
+        body: JSON.stringify(adminDetails),
+      });
+
+      if (!response.ok) {
+        console.error('Failed to update admin data:', response.statusText);
+        setErrorMessage('Failed to update admin data. Please try again.');
+        setShowErrorMessage(true);
+        return;
+      }
+
+      if (response.ok) {
+        const data = await response.json();
+        setUsername(data.username);
+        document.getElementById('username').value = username;
+      }
+    } catch (error) {
+      console.error('Error updating admin data:', error);
+      setErrorMessage('An error occurred while updating admin data. Please try again.');
+      setShowErrorMessage(true);
+    }
+  }
     
   return (
     <div className="account">
@@ -262,6 +366,7 @@ const Account = () => {
       <section className="account-section">
         <h1>Account</h1>
         <h2>Personal Information</h2>
+
         {role === 'ROLE_USER' && (
           <>
             <h3>First name</h3>
@@ -276,6 +381,13 @@ const Account = () => {
             <h3>Company name</h3>
             <input type="text" id="company-name" name="company-name" required />    
           </>  
+        )}
+
+        {role === 'ROLE_ADMIN' && (
+          <>
+            <h3>Username</h3>
+            <input type="text" id="username" name="name" required />
+          </>
         )}
 
         {showErrorMessage && <p className="error-message">{errorMessage}</p>}

@@ -124,7 +124,7 @@ const Header = () => {
         switch (accountDetails.role) {
           case 'ROLE_ADMIN':
             setUserIcon(<UserCircleCheck size={24} className="user-icon" />);
-            setUserDisplayName(`Admin: ${accountDetails.name}`);            
+            setUserDisplayName(`${accountDetails.name}`);            
             break;
           case 'ROLE_PROVIDER':
             setUserIcon(<Car size={24} className="user-icon" />);

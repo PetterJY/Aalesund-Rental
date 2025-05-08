@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +12,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import no.ntnu.entity.models.Cars;
-import no.ntnu.entity.models.ExtraFeatures;
-import no.ntnu.logic.service.AdminService;
 
 public class AddDummyObjectsToDatabase {
 	private static final Logger logger =
@@ -59,6 +56,12 @@ public class AddDummyObjectsToDatabase {
 		addUser("Olivia", "Martinez", "olivia.martinez@example.com", "password444", "99001122");
 
 		logger.info("Finished adding renters to the database.");
+
+		logger.info("Adding admins to the database.");
+
+		addAdmin("Admin", "admin@admin.com", "admin123");
+
+		logger.info("Finished adding admins to the database.");
 
 		logger.info("Logging in to get JWT token.");
 
@@ -153,6 +156,7 @@ public class AddDummyObjectsToDatabase {
 				+ "\"email\": \"" + email + "\","
 				+ "\"password\": \"" + password + "\""
 				+ "}";
+				
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("http://localhost:8080/auth/login"))
 				.header("Content-Type", "application/json")
@@ -239,6 +243,37 @@ public class AddDummyObjectsToDatabase {
 						System.out.println("Successfully added car with plate " + plateNumber);
 					} else {
 						System.out.println("Failed to add car with plate " + plateNumber + ". HTTP status: " + response.statusCode());
+					}
+				})
+				.join();
+	}
+
+	// Add more admins.
+	public static void addAdmin(
+			String name,
+			String email,
+			String password) {
+		HttpClient client = HttpClient.newHttpClient();
+
+		String json = "{"
+				+ "\"name\": \"" + name + "\","
+				+ "\"email\": \"" + email + "\","
+				+ "\"password\": \"" + password + "\""
+				+ "}";
+
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("http://localhost:8080/admins"))
+				.header("Content-Type", "application/json")
+				.header("Authorization", "Bearer " + jwt_token)
+				.POST(HttpRequest.BodyPublishers.ofString(json))
+				.build();
+
+		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+				.thenAccept(response -> {
+					if (response.statusCode() == 200 || response.statusCode() == 201) {
+						System.out.println("Successfully added admin with name " + name);
+					} else {
+						System.out.println("Failed to add admin with name " + name + ". HTTP status: " + response.statusCode());
 					}
 				})
 				.join();
