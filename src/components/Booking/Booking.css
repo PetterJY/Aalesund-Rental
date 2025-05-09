@@ -68,7 +68,11 @@ body {
   min-width: 150px;
   height: 120px;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, white, #403d39);
+  background-image: url('../../resources/images/car-background.webp');
+  background-size: 100% auto;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat; 
   display: flex;
   justify-content: center;
   align-items: center;

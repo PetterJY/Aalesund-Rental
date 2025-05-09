@@ -19,6 +19,17 @@
   width: 100%;
 }
 
-@media screen and (max-width: 930px) {
-  
+.orders h2 {
+  width: 100%;
 }
+
+@media screen and (max-width: 950px) {
+  .orders-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+
+  }
+}
+  

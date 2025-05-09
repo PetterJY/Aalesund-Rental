@@ -21,7 +21,11 @@
 .rentals-car-display-card .car-background{
   min-width: 480px;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
+  background-image: url('../../../../resources/images/car-background.webp');
+  background-size: 100% auto;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat; 
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   position: relative; 
   display: flex;

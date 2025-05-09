@@ -17,7 +17,11 @@
 .orders-car-display-card .car-background {
   min-width: 480px;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
+  background-image: url('../../../../resources/images/car-background.webp');
+  background-size: 100% auto;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat; 
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   position: relative; 
   display: flex;
@@ -106,10 +110,76 @@
   margin-bottom: 30px;
 }
 
-@media screen and (max-width: 850px) {
+.orders-car-display-card .cancel-order{
+  display: flex;
+  flex-direction: row;
+  background-color: #252422;
+  border-radius: 10px;  
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 5px 5px auto auto;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+.orders-car-display-card .cancel-order:hover {
+  background-color: #FF5F00;
+  transition: 0.3s;
+}
+
+/*chenges color when pressed*/
+.orders-car-display-card .cancel-order:active {
+  background-color: #252422;
+  transition: 0.1s;
+}
+
+@media screen and (max-width: 950px) {
   .orders-car-display-card {
     flex-direction: column;
+    align-items: flex-start;
+    width: 48%;
+  }
+
+  .orders-car-display-card .car-background {
+    width: 100%;
+    height: auto;
+    min-width: 100px;
+    min-height: none;
+  }
+
+  .orders-car-display-card .car-image {
+    width: 50% ;
+    height: auto;
+    min-height: none;
+  }
+
+  .orders-car-display-card .car-details {
+    margin-left: 30px;
+    align-items: left;
+    text-align: left;
+    flex-direction: column;
+  }
+
+  .orders-car-display-card .cancel-order{
+    display: flex;
+    flex-direction: row;
+    background-color: #252422;
+    border-radius: 10px;  
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: auto 5px 5px auto;
     align-items: center;
+    padding: 0px 10px;
+    align-self: center;
+  }
+
+  
+}
+
+@media screen and (max-width: 650px) {
+  .orders-car-display-card {
     width: 100%;
   }
 
@@ -127,9 +197,10 @@
   }
 
   .orders-car-display-card .car-details {
-    margin-left: 0;
+    margin-left: 30px;
     align-items: left;
     text-align: left;
+    flex-direction: column;
   }
   
 }

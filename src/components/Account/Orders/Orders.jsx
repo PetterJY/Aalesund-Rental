@@ -45,16 +45,8 @@ const Orders = ({ orders = [] }) => {
         <h2 className="title">My Bookings</h2>
         {rentals.map((rental) => (
             <OrdersCarDisplay
-              key={rental.id}
-              provider={rental.provider.companyName}
-              brand={rental.car.carBrand}
-              model={rental.car.modelName}
-              pickUpLocation={rental.pickupLocation}
-              dropOffLocation={rental.dropoffLocation}
-              pickUpTime={rental.startDate}
-              dropOffTime={rental.endDate}
-              priceTotal={rental.totalCost}
-              image={carImage}
+              key={rental.rentalId}
+              rental={rental}
             />
           ))}
         </div>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
 import no.ntnu.entity.dto.RentalDetails;
 import no.ntnu.entity.models.Cars;
 import no.ntnu.entity.models.Providers;
@@ -80,7 +81,7 @@ public class RentalsController {
    */
   @PostMapping
   @ApiOperation(value = "Creates a new rental.", notes = "The newly created rental is returned.")
-  public ResponseEntity<Rentals> createRental(@RequestBody RentalDetails rentalRequest) {
+  public ResponseEntity<Rentals> createRental(@Valid @RequestBody RentalDetails rentalRequest) {
     logger.info("Creating new rental");
     Rentals createdRental = new Rentals();
     
@@ -101,7 +102,7 @@ public class RentalsController {
     createdRental.setPickupLocation(rentalRequest.getPickupLocation());
     createdRental.setDropoffLocation(rentalRequest.getDropoffLocation());
     createdRental.setTotalCost(rentalRequest.getTotalCost());
-    createdRental.setStatus(Rentals.Status.PENDING);
+    createdRental.setStatus(rentalRequest.getStatus());
 
     Rentals savedRental = rentalsService.save(createdRental);
     logger.debug("Created rental: {}", savedRental);
@@ -119,13 +120,17 @@ public class RentalsController {
   @ApiOperation(value = "Updates a rental by its ID.", 
       notes = "If the rental is not found, a 404 error is returned.")
   public ResponseEntity<Rentals> updateRental(
-      @PathVariable Long id, @RequestBody Rentals rentalDetails) {
+      @PathVariable Long id, @Valid @RequestBody RentalDetails rentalDetails) {
     logger.info("Updating rental with id: {}", id);
+
     Rentals rental = rentalsService.findById(id);
     rental.setStartDate(rentalDetails.getStartDate());
     rental.setEndDate(rentalDetails.getEndDate());
-    rental.setCar(rentalDetails.getCar());
-    rental.setRenter(rentalDetails.getRenter());
+    rental.setPickupLocation(rentalDetails.getPickupLocation());
+    rental.setDropoffLocation(rentalDetails.getDropoffLocation());
+    rental.setTotalCost(rentalDetails.getTotalCost());
+    rental.setStatus(rentalDetails.getStatus());
+
     Rentals updatedRental = rentalsService.save(rental);
     logger.debug("Updated rental: {}", updatedRental);
     return ResponseEntity.status(HttpStatus.OK).body(updatedRental);
