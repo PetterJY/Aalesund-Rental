@@ -14,8 +14,8 @@ export default function Rental() {
   const containerRef = useRef(null);
   const [carsPerRow, setCarsPerRow] = useState(3);
 
-  const [minVal, setMinVal] = useState(0);
-  const [maxVal, setMaxVal] = useState(1000);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000);
   const maxCarRentalPrice = 1000; // the max price of renting a car (per day)
   // TODO: retrieve this value by querying the rentals
 
@@ -161,6 +161,8 @@ const renderRadioButtons = (category, options) => (
       if (selectedFilterOptions.energySource.length > 0) {
         filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
       }
+      filterParams.append("minPricePerDay", minPrice);
+      filterParams.append("maxPricePerDay", maxPrice);
 
       console.log("Filter params:", filterParams.toString());
 
@@ -277,7 +279,7 @@ const renderRadioButtons = (category, options) => (
                   <h3>Energy Source</h3>
                   {renderCheckboxes("energySource", filterOptions.energySource)}
                 </div>
-                <IntervalSlider minVal={minVal} maxVal={maxVal} setMinVal={setMinVal} setMaxVal={setMaxVal} maxCarRentalPrice={maxCarRentalPrice}/>
+                <IntervalSlider minVal={minPrice} maxVal={maxPrice} setMinVal={setMinPrice} setMaxVal={setMaxPrice} maxCarRentalPrice={maxCarRentalPrice}/>
               </div>
               <hr></hr>
               <button className="close-button" onClick={handleFilterChange}>
