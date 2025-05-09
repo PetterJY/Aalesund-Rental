@@ -9,8 +9,6 @@ import '../../App.css';
 const MyRentals = () => {
   const [cars, setCars] = useState([]);
 
-  const [rentals, setRentals] = useState([]);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -81,23 +79,17 @@ const MyRentals = () => {
           <div className="my-rentals-list">
             {paginatedCars.map(car => (
               <MyRentalsCarDisplay 
-                car={car} 
                 key={car.id} 
-                setCachedRentals={setRentals}
-                cachedRentals={rentals}
+                car={car} 
               />
             ))}
           </div>
         )}
 
         <div className="pagination-controls">
-          <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-            Previous
-          </button>
+          <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
           <span>Page {currentPage} of {totalPages}</span>
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-            Next
-          </button>
+          <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
         </div>
       </section>
     </div>
