@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { getAccountId } from '../../utils/JwtUtility'; 
 import OrdersCarDisplay from './OrdersCarDisplay/OrdersCarDisplay'; 
 import AccountHeader from '../AccountHeader/AccountHeader';
-import carImage from '../../../resources/images/car.png';
+import carImage from '../../../resources/images/logo.svg';
 import '../Orders/Orders.css';
 import '../../App.css';
 
 const Orders = ({ orders = [] }) => { 
   const [rentals, setRentals] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [selectedStatus, setSelectedStatus] = React.useState('All'); 
 
   useEffect(() => {
     async function fetchRentals() {
@@ -37,18 +38,47 @@ const Orders = ({ orders = [] }) => {
     fetchRentals();
   }, []);
 
+  const filteredRentals = rentals.filter((rental) => {
+    if (selectedStatus === 'All') return true;
+    return rental.status === selectedStatus;
+  });
+
   return (
     <div className="orders">
       <AccountHeader />
       <section className="orders-section">
-        <div className="orders-list">
-        <h2 className="title">My Bookings</h2>
-        {rentals.map((rental) => (
-            <OrdersCarDisplay
-              key={rental.rentalId}
-              rental={rental}
-            />
-          ))}
+        <div orders-header>
+        <div className="orders-header">
+            <h2 className="title">My Bookings - </h2> 
+            <select
+              name="Booking Categories"
+              id="booking-select"
+              value={selectedStatus} // Bind the selected value to the state
+              onChange={(e) => setSelectedStatus(e.target.value)} // Update the state on change
+            >
+              <option value="All">All</option>
+              <option value="PENDING">Pending</option>
+              <option value="ACTIVE">Active</option>
+              <option value="CANCELLED">Cancelled</option>
+              <option value="COMPLETED">Completed</option>
+            </select>
+          </div>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : filteredRentals.length > 0 ? (
+            filteredRentals.map((rental) => (
+              <OrdersCarDisplay
+                key={rental.rentalId}
+                rental={rental}
+              />
+            ))
+          ) : (
+            <div className='no-matching'>
+              <h3>No rentals match the selected filter.</h3>
+              <img src={carImage} alt="No rentals" className="no-rentals-image" />
+              <p>Try changing the filter or check back later.</p>
+            </div> // Message when no rentals match the filter
+          )}
         </div>
       </section>
     </div>

@@ -121,6 +121,7 @@
   margin: 5px 5px auto auto;
   align-items: center;
   padding: 0px 10px;
+  margin-bottom: auto;
 }
 
 .orders-car-display-card .cancel-order:hover {
@@ -132,6 +133,24 @@
 .orders-car-display-card .cancel-order:active {
   background-color: #252422;
   transition: 0.1s;
+}
+
+.orders-car-display-card .order-status-container {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 350px;
+}
+
+
+.orders-car-display-card .order-status-container p {
+  color: black;
+}
+
+.orders-car-display-card .cancel-order p {
+  color: white;
 }
 
 @media screen and (max-width: 950px) {
@@ -169,12 +188,20 @@
     color: white;
     border: none;
     cursor: pointer;
-    margin: auto 5px 5px auto;
+    margin-right: auto;
     align-items: center;
     padding: 0px 10px;
-    align-self: center;
+    margin-left: 0px;
   }
 
+  .orders-car-display-card .order-status-container {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+    justify-content: space-between;
+    height:100%;
+  }
   
 }
 

@@ -80,7 +80,7 @@ const OrdersCarDisplay = ({rental}) => {
 				<h3 id='provider-name'>{rental.provider.companyName}</h3>
       </div>
       <div className="car-details">
-        <h3>{rental.car.carBrand} {rental.car.modelName} - {status}</h3>
+        <h3>{rental.car.carBrand} {rental.car.modelName}</h3>
         <p>{rentingTime} days renting</p>
         <section className="rental-schedule-container">
 					<div className="rental-schedule-logos">
@@ -104,9 +104,12 @@ const OrdersCarDisplay = ({rental}) => {
         <p><b>Renting costs: {dailyPrice}kr/day</b></p>
         <p><b>Total: {rental.totalCost}kr</b></p>
       </div>
-			<button className="cancel-order" onClick={handleCancelOrder}> <XCircle size={18} color="white" weight="fill" />
-			<p>Cancel Order</p>
-			</button>
+			<div className="order-status-container">
+				<button className="cancel-order" onClick={handleCancelOrder}> <XCircle size={18} color="white" weight="fill" />
+					<p>Cancel Order</p>
+				</button>
+				<p>{status}</p>
+			</div>
     </div>
   );
 };
