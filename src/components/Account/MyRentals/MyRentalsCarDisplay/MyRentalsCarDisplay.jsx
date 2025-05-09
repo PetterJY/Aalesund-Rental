@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NotePencil } from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
 import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
 import './MyRentalsCarDisplay.css';
 import '../../../App.css';
 
-const MyRentalsCarDisplay = ({ car, setCachedRentals, cachedRentals }) => {
-  const [tableVisibility, setTableVisibility] = useState(false);
+const MyRentalsCarDisplay = ({ car }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [displayCar, setDisplayCar] = useState(car);
@@ -16,16 +15,22 @@ const MyRentalsCarDisplay = ({ car, setCachedRentals, cachedRentals }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [tableVisibility, setTableVisibility] = useState(false);
   const toggleDetails = () => {
     setTableVisibility(prev => !prev);
   };
 
+  const abortControllerRef = useRef(null);
+
   useEffect(() => {
     async function fetchRentalDetails() {
-      if (cachedRentals[car.id]) {
-        setRentalDetails(cachedRentals[car.id]);
-        return;
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
       }
+
+      const abortController = new AbortController();
+      abortControllerRef.current = abortController;
+      const signal = abortController.signal;
 
       setIsLoading(true);
       try {
@@ -35,6 +40,7 @@ const MyRentalsCarDisplay = ({ car, setCachedRentals, cachedRentals }) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
           },
+          signal,
         });
         if (!response.ok) {
           console.error('Failed to fetch rentals:', response.statusText);
@@ -43,19 +49,25 @@ const MyRentalsCarDisplay = ({ car, setCachedRentals, cachedRentals }) => {
         const rentalDetails = await response.json();
         setRentalDetails(rentalDetails);
 
-        setCachedRentals((prevCache) => ({
-          ...prevCache,
-          [car.id]: rentalDetails,
-        }));
-
         console.log('Fetched rental:', rentalDetails);
       } catch (error) {
-        console.error('Error fetching rental:', error);
+        if (error.name === 'AbortError') {
+          console.log('Fetch aborted:', error.message);
+        } else {
+          console.error('Error fetching rental:', error);
+        }
       } finally {
         setIsLoading(false);
       }
     }
     fetchRentalDetails();
+
+    return () => {
+      // Cleanup function to abort the fetch request if the component unmounts
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
   }, [car.id]);
 
   // When car prop changes, update both local display and edited state
@@ -149,7 +161,7 @@ const MyRentalsCarDisplay = ({ car, setCachedRentals, cachedRentals }) => {
           <img 
           src={carImage}
           alt={`${displayCar.carBrand} ${displayCar.modelName}`}
-          classname="car-image" 
+          className="car-image" 
           />
         </div>
         <section className="car-display-info">
