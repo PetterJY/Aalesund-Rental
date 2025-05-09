@@ -157,6 +157,8 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
           openToDate={new Date()}
           shouldCloseOnSelect={false}
           locale={enGB}
+          showDisabledMonthNavigation={false}
+          disabledKeyboardNavigation={false}
         />
       </div>
       <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
