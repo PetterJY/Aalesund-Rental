@@ -3,7 +3,7 @@ import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Home from './Home/Home';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
-import Rental from './Rental/Rental';
+import Rental from './Rental/Rental/Rental';
 import Booking from './Booking/Booking';
 import Account from './Account/Account';
 import Orders from './Account/Orders/Orders';

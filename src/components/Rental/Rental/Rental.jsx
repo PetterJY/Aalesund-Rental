@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
-import CarDisplay from "./CarDisplay/CarDisplay";
-import CarSelected from './CarSelected/CarSelected';
+import CarDisplay from "../CarDisplay/CarDisplay";
+import CarSelected from '../CarSelected/CarSelected';
 import "./Rental.css";
-import "../App.css";
-import IntervalSlider from "./IntervalSlider";
+import "../../App.css";
+import IntervalSlider from "../IntervalSlider/IntervalSlider";
 
 export default function Rental() {
   const [cars, setCars] = useState([]);
@@ -146,23 +146,15 @@ const renderRadioButtons = (category, options) => (
   const fetchCarData = async () => {
     try {
       const filterParams = new URLSearchParams();
-      if (selectedFilterOptions.carType.length > 0) {
-        filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase());
-      }
-      if (selectedFilterOptions.transmission.length > 0) {
-        filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase());
-      }
-      if (selectedFilterOptions.passengers.length > 0) {
-        filterParams.append("minPassengers", selectedFilterOptions.passengers[0]); // Assuming single selection
-      }
-      if (selectedFilterOptions.sort.length > 0) {
-        filterParams.append("sortOption", selectedFilterOptions.sort[0]); // Assuming single selection
-      }
-      if (selectedFilterOptions.energySource.length > 0) {
-        filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
-      }
-      filterParams.append("minPricePerDay", minPrice);
-      filterParams.append("maxPricePerDay", maxPrice);
+
+      filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase() || "");
+      filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase() || "");
+      filterParams.append("minPassengers", selectedFilterOptions.passengers[0] || "");
+      filterParams.append("sortOption", selectedFilterOptions.sort[0] || "");
+      filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase() || "");
+      filterParams.append("minPricePerDay", minPrice || 0);
+      filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
+
 
       console.log("Filter params:", filterParams.toString());
 
@@ -250,6 +242,7 @@ const renderRadioButtons = (category, options) => (
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
             {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
             {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
+
             <button className="filter-button" onClick={handleFilterChange}>
               <FunnelSimple size={20} color="#252322" /> Sort and filter
             </button>

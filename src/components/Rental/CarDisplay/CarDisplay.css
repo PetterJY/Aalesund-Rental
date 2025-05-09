@@ -1,13 +1,20 @@
 .car-display {
+  background-size: 100% auto;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../../../resources/images/car-background.webp");
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
   width: 400px;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
-  position: relative; 
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 400px;
   align-self: flex-start; 
 }
+
+
 .car-display h2, h1, h3, h4, p {
   font-weight: 200;
 }
