@@ -27,7 +27,7 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
       daysOfRental.push(addDays(pickupDate, i));
     }
   } else if (format === "dropoff" && dropoffDate !== null && pickupDate !== null) {
-    for (let i = 1; i < nrOfDaysOfRental; i++) {
+    for (let i = 1; i <= nrOfDaysOfRental; i++) {
       daysOfRental.push(subDays(dropoffDate, i));
     }
   }
@@ -105,16 +105,16 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        isTimePickerSelected &&
         timePickerRef.current &&
-        !timePickerRef.current.contains(event.target)
+        !timePickerRef.current.contains(event.target) &&
+        event.target.id !== `${format}-picker`
       ) {
         setIsTimePickerSelected(false);
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => document.removeEventListener('pointerdown', handleClickOutside);
   }, [isTimePickerSelected]);
 
 
@@ -123,6 +123,7 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
       if (window.innerWidth >= 1500) {
         setMonthsToShow(3);
       } else if (window.innerWidth > 900) {
+        //TODO: turn these into constants?
         setMonthsToShow(2);
       } else {
         setMonthsToShow(1);
@@ -157,10 +158,15 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
           openToDate={new Date()}
           shouldCloseOnSelect={false}
           locale={enGB}
+          showDisabledMonthNavigation={false}
+          disabledKeyboardNavigation={false}
         />
       </div>
       <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
-        <button className="time-picker-button" onClick={() => setIsTimePickerSelected(true)}></button>
+        <button className="time-picker-button"
+                id={`${format}-time`}
+                onMouseDown={() => setIsTimePickerSelected(true)}>
+        </button>
         <span className="selected-time-option-text" ref={selectedTimeRef}>11:00</span>
         {isTimePickerSelected && (
           <div className="time-picker-radio" ref={timePickerRef}>

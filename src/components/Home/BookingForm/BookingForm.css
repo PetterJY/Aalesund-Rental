@@ -470,6 +470,11 @@ background: #e94100; /* Darker shade of #FF5F00 */
   display: none !important; /* Hide the arrow */
 }
 
+.react-datepicker__input-container input:focus {
+  outline: none; /* Removes the blue border */
+  box-shadow: none; /* Removes any additional focus shadow */
+}
+
 /* Style the main date picker popup container */
 .date-picker-popper .react-datepicker {
   background: #ffffff; /* White background */
