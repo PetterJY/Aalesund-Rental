@@ -21,8 +21,11 @@ function App() {
           <Route index element={<Navigate to={"/home"} replace />} />
           <Route path="home" element={<Home />} />
           <Route path="rental" element={<Rental />} />
-          <Route path="booking" element={<Booking />} />
+          
+          <Route path="booking/:carId" element={<Booking />} />
+          <Route path="booking" element={<Navigate to={"/rental"} replace />} />
 
+          {/* Protected Routes */}
           <Route path="account" element={<ProtectedAccount />}>
             <Route index element={<Navigate to={"/account/account"} replace />} />
             <Route path="account" element={<Account />} />

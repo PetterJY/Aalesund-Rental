@@ -10,10 +10,8 @@ const CarSelected = ({car}) => {
   const navigate = useNavigate();
 
   const handleRentCar = () => {
-    return () => {
-      console.log(`Renting car with ID: ${car.id}`);
-      navigate("/booking", { state: car.id });
-    };
+    console.log(`Renting car with ID: ${car.id}`);
+    navigate(`/booking/${car.id}`);
   };
 
   const carImage = mapCarImage(car.carBrand, car.modelName);

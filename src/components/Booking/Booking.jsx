@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { mapCarImage } from '../utils/CarImageMapper';
 import { getRole, getAccountId } from "../utils/JwtUtility";
 import storageLogo from "../../resources/images/storage-logo.png";
@@ -17,8 +17,7 @@ const Booking = () => {
 		}
 	}, [navigate, role]);
 
-	const location = useLocation();
-	const carId = location.state || null;
+	const { carId } = useParams();
 
 	const [rentalDetails, setRentalDetails] = useState(null);
 	const [accountDetails, setAccountDetails] = useState(null);
@@ -41,6 +40,8 @@ const Booking = () => {
 			}
 
 			const carDetails = await response.json();
+			console.log("Car details fetched:", carDetails);
+
 			setRentalDetails(
 				{
 					...rentalDetails,
@@ -49,10 +50,10 @@ const Booking = () => {
 					companyName: carDetails.provider.companyName
 				}
 			);
+
 			setIsLoading(false);
-			console.log("Car details fetched:", carDetails);
-		} 
-		
+		}
+
 		catch(error) {
 			console.error(error);
 		};
