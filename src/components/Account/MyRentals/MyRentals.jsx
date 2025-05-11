@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { PlusCircle } from "@phosphor-icons/react";
-import AccountHeader from '../AccountHeader/AccountHeader';
 import MyRentalsCarDisplay from './MyRentalsCarDisplay/MyRentalsCarDisplay';
 import CreateCarModal from './CreateCarModal/CreateCarModal';
 import './MyRentals.css';
@@ -60,7 +59,6 @@ const MyRentals = () => {
 
   return (
     <div className="orders">
-      <AccountHeader />
       <section className="my-rentals-section">
         <div id='my-rentals-header'>
           <h2 className="title">My Rentals</h2>

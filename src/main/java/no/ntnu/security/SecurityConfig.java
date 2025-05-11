@@ -37,6 +37,7 @@ public class SecurityConfig {
   public DefaultSecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     logger.info("Configuring security filter chain.");
     http.csrf(csrfCustomizer -> csrfCustomizer.disable())
+    
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
               "/auth/login", 

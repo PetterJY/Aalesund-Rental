@@ -14,7 +14,7 @@ const DropDownMenu = ({ isDropdownVisible, navigate, handleLogout }) => {
   return (
     <div className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}>
       <ul className="dropdown-menu-list">
-        <li onClick={() => navigate('/account')}>Account</li>
+        <li onClick={() => navigate('/account/account')}>Account</li>
         {role === 'ROLE_USER' && (
           <li onClick={() => navigate('/account/orders')}>Orders</li>
         )}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAccountId } from '../../utils/JwtUtility'; 
 import OrdersCarDisplay from './OrdersCarDisplay/OrdersCarDisplay'; 
-import AccountHeader from '../AccountHeader/AccountHeader';
 import carImage from '../../../resources/images/logo.svg';
 import '../Orders/Orders.css';
 import '../../App.css';
@@ -45,7 +44,6 @@ const Orders = ({ orders = [] }) => {
 
   return (
     <div className="orders">
-      <AccountHeader />
       <section className="orders-section">
         <div orders-header>
         <div className="orders-header">

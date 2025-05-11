@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getAccountId, getRole } from '../utils/JwtUtility';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
-import AccountHeader from './AccountHeader/AccountHeader';
 import './Account.css';
 import '../App.css';
 
@@ -362,7 +361,6 @@ const Account = () => {
     
   return (
     <div className="account">
-      <AccountHeader />
       <section className="account-section">
         <h1>Account</h1>
         <h2>Personal Information</h2>

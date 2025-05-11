@@ -1,6 +1,30 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
+export const tokenIsValid = () => {
+  console.log("Checking if user is logged in");
+  const token = localStorage.getItem("jwt");
+  if (!token) {
+    console.warn("Token not found in localStorage");
+    return false; 
+  }
+
+  try {
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // Current time in seconds
+    if (decodedToken.exp < currentTime) {
+      console.log("Token has expired");
+      localStorage.removeItem("jwt");
+      return false;
+    }
+    console.log("Valid Token");
+    return true;
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return false;
+  }
+};
+
 export const checkTokenExpiration = () => {
   console.log("Checking token expiration");
   const token = localStorage.getItem("jwt");
@@ -10,12 +34,13 @@ export const checkTokenExpiration = () => {
     
     if (decodedToken.exp < currentTime) {
       console.log("Token has expired");
-      localStorage.removeItem("jwt"); // Remove the expired token
+      localStorage.removeItem("jwt"); 
     } else {
       console.log("Valid Token");
     }
   } else {
-    throw new Error("No token found in localStorage");
+    console.warn("Token not found in localStorage");
+    return false; 
   }
 };
 
@@ -25,7 +50,8 @@ export const getToken = () => {
   if (token) {
     return token;
   } else {
-    throw new Error("No token found in localStorage");
+    console.warn("Token not found in localStorage");
+    return null; 
   }
 }
 
@@ -33,7 +59,8 @@ export const getRole = () => {
   console.log("Retrieving role from token");
   const token = localStorage.getItem("jwt");
   if (!token || token === "undefined") {
-    throw new Error("No JWT token found");
+    console.warn("Token not found in localStorage or is undefined");
+    return null;
   }
   const decodedToken = jwtDecode(token);
   return decodedToken.roles[0]?.authority || null; 
@@ -46,7 +73,8 @@ export const getAccountId = () => {
     const decodedToken = jwtDecode(token);
     return decodedToken.id; 
   } else {
-    throw new Error("No token found in localStorage");
+    console.warn("Token not found in localStorage");
+    return null; 
   }
 }
 
@@ -58,6 +86,7 @@ export const getEmail = () => {
     const decodedToken = jwtDecode(token);
     return decodedToken.sub; 
   } else {
-    throw new Error("No token found in localStorage");
+    console.warn("Token not found in localStorage");
+    return null;
   }
 }

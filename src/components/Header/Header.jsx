@@ -98,7 +98,12 @@ const Header = () => {
   };
 
   async function fetchAccountDetails() {
+    
     const accountId = getAccountId();
+    
+    if (!accountId) { 
+      return null;
+    }
     
     const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
       method: 'GET',
