@@ -20,36 +20,45 @@ const Booking = () => {
 	const location = useLocation();
 	const carId = location.state || null;
 
-	const [carDetails, setCarDetails] = useState('');
-	const [accountDetails, setAccountDetails] = useState('');
+	const [rentalDetails, setRentalDetails] = useState(null);
+	const [accountDetails, setAccountDetails] = useState(null);
+
 	const [isLoading, setIsLoading] = useState(true);
 
-	useEffect(() => {
-		async function fetchCarDetails() {
-			setIsLoading(true);
-			try {
-				const response = await fetch(`http://localhost:8080/cars/${carId}`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-					},
-				})
-				
-				if (!response.ok) {
-					throw new Error('Failed to fetch car details', response.statusText);
-				}
-
-				const carDetails = await response.json();
-				setCarDetails(carDetails);
-				setIsLoading(false);
-				console.log("Car details fetched:", carDetails);
-			} 
+	async function fetchCarDetails() {
+		setIsLoading(true);
+		try {
+			const response = await fetch(`http://localhost:8080/cars/${carId}`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+				},
+			})
 			
-			catch(error) {
-				console.error(error);
-			};
-		}
+			if (!response.ok) {
+				throw new Error('Failed to fetch car details', response.statusText);
+			}
+
+			const carDetails = await response.json();
+			setRentalDetails(
+				{
+					...rentalDetails,
+					carBrand: carDetails.carBrand,
+					modelName: carDetails.modelName,
+					companyName: carDetails.provider.companyName
+				}
+			);
+			setIsLoading(false);
+			console.log("Car details fetched:", carDetails);
+		} 
+		
+		catch(error) {
+			console.error(error);
+		};
+	}
+
+	useEffect(() => {
 		fetchCarDetails();
 	}, [carId]);
 
@@ -83,11 +92,11 @@ const Booking = () => {
 		return <p>Loading...</p>;
 	}
 
-	if (!carDetails) {
+	if (!rentalDetails) {
 		return <p>No car details available.</p>;
 	}
 
-	const carImage = mapCarImage(carDetails.carBrand, carDetails.modelName);
+	const carImage = mapCarImage(rentalDetails.carBrand, rentalDetails.modelName);
 
   return (
 		<main className="booking-page">
@@ -100,7 +109,7 @@ const Booking = () => {
 					</div>  
 					<div className="first-name">
 						<label htmlFor="first-name">First Name:</label>
-						<input type="text" id="first-name" name="first-name" value={accountDetails.firstName || ""} readOnly required></input>
+						<input type="text" id="first-name" name="first-name" value={accountDetails?.firstName || ""} readOnly required></input>
 					</div>
 					<div className="last-name">
 						<label htmlFor="last-name">Last Name:</label>
@@ -120,8 +129,8 @@ const Booking = () => {
 							<p>Loading...</p>
 						) : (
 							<>
-								<h2>{carDetails.carBrand} {carDetails.modelName}</h2>
-								<p className="rent-period">{carDetails.rentalPeriod}</p>
+								<h2>{rentalDetails.carBrand} {rentalDetails.modelName}</h2>
+								<p className="rent-period">{rentalDetails.rentalPeriod}</p>
 							</>
 						)}
 					</div>
@@ -139,8 +148,8 @@ const Booking = () => {
 								<p>Loading...</p>
 							) : (
 								<>
-									<h4>{carDetails.provider.companyName}</h4>
-									<p className="pickup-time">{carDetails.pickUpTime}</p>
+									<h4>{rentalDetails.companyName}</h4>
+									<p className="pickup-time">{rentalDetails.pickUpTime}</p>
 								</>
 							)}
 						</div>
@@ -150,8 +159,8 @@ const Booking = () => {
 								<p>Loading...</p>
 							) : (
 								<>
-									<h4>{carDetails.provider.companyName}</h4>
-									<p className="dropoff-time">{carDetails.dropOffTime}</p>
+									<h4>{rentalDetails.companyName}</h4>
+									<p className="dropoff-time">{rentalDetails.dropOffTime}</p>
 								</>
 							)}
 						</div>
@@ -163,8 +172,8 @@ const Booking = () => {
 						<p>Loading...</p>
 					) : (
 						<>
-							<p>{carDetails.rentalPeriod} days</p>
-							<p>{carDetails.pricePerDay}kr/day</p>
+							<p>{rentalDetails.rentalPeriod} days</p>
+							<p>{rentalDetails.pricePerDay}kr/day</p>
 						</>
 					)}
 				</footer>
