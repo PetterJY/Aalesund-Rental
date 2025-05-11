@@ -24,6 +24,7 @@ function App() {
           <Route path="booking" element={<Booking />} />
 
           <Route path="account" element={<ProtectedAccount />}>
+            <Route index element={<Navigate to={"/account/account"} replace />} />
             <Route path="account" element={<Account />} />
             <Route path="orders" element={<Orders />} />
             <Route path="my-rentals" element={<MyRentals />} />
