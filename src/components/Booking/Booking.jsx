@@ -1,18 +1,27 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { mapCarImage } from '../utils/CarImageMapper';
-import { getAccountId } from "../utils/JwtUtility";
+import { getRole, getAccountId } from "../utils/JwtUtility";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
 import "../App.css";
 
 const Booking = () => {
+	const navigate = useNavigate();
+	const role = getRole();
+
+	useEffect(() => {
+		if (role !== 'ROLE_USER' && role !== 'ROLE_ADMIN') {
+			console.error('Unauthorized access to Booking page. Redirecting to home.');
+			navigate('/home');
+		}
+	}, [navigate, role]);
+
 	const location = useLocation();
 	const carId = location.state || null;
 
-	const [carDetails, setCarDetails] = useState(null);
-	const [accountDetails, setAccountDetails] = useState(null);
+	const [carDetails, setCarDetails] = useState('');
+	const [accountDetails, setAccountDetails] = useState('');
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
@@ -28,7 +37,7 @@ const Booking = () => {
 				})
 				
 				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
+					throw new Error('Failed to fetch car details', response.statusText);
 				}
 
 				const carDetails = await response.json();
@@ -57,14 +66,14 @@ const Booking = () => {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error('Failed to fetch account details', response.statusText);
         }
 
         const accountDetails = await response.json();
         setAccountDetails(accountDetails);
         console.log("Account details fetched:", accountDetails);
       } catch (error) {
-        console.error("Error fetching account details:", error);
+        console.error(error);
       }
     }
 
@@ -90,8 +99,8 @@ const Booking = () => {
 						<input type="email" id="email" name="email" value={accountDetails?.email || ""} readOnly required></input>
 					</div>  
 					<div className="first-name">
-						<label htmlFor="name">First Name:</label>
-						<input type="text" id="name" name="name" value={accountDetails.firstName || ""} readOnly required></input>
+						<label htmlFor="first-name">First Name:</label>
+						<input type="text" id="first-name" name="first-name" value={accountDetails.firstName || ""} readOnly required></input>
 					</div>
 					<div className="last-name">
 						<label htmlFor="last-name">Last Name:</label>

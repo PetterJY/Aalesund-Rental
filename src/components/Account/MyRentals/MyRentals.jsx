@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getRole } from '../../utils/JwtUtility';
 import { PlusCircle } from "@phosphor-icons/react";
 import MyRentalsCarDisplay from './MyRentalsCarDisplay/MyRentalsCarDisplay';
 import CreateCarModal from './CreateCarModal/CreateCarModal';
@@ -6,6 +8,16 @@ import './MyRentals.css';
 import '../../App.css';
 
 const MyRentals = () => {
+  const navigate = useNavigate();
+  const role = getRole();
+  
+  useEffect(() => {
+    if (role !== 'ROLE_ADMIN' && role !== 'ROLE_PROVIDER') {
+      console.error('Unauthorized access to My Rentals page. Redirecting to home.');
+      navigate('/home');
+    }
+  }, [navigate, role]);
+
   const [cars, setCars] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
