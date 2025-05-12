@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { getToken, getEmail } from '../../utils/JwtUtility'; 
+import { getToken } from '../../utils/JwtUtility'; 
 import { Warning, Eye, EyeSlash } from '@phosphor-icons/react';
 import './DeleteAccount.css';
 import '../../App.css';
@@ -13,29 +13,9 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
-
-  const retrieveDetails = () => {
-    try {
-      return {
-        email: getEmail(),
-        password: document.getElementById('delete-account-password-field').value,
-      };
-    } catch (error) {
-      return null; 
-    }
-  };
   
   async function deleteAccount(event) {
     event.preventDefault();
-
-    const accountDetails = retrieveDetails();
-    
-    if (accountDetails === null) {
-      console.log("Unable to retrieve email or password.");
-      setErrorMessage("Unable to retrieve email or password.");
-      setShowErrorMessage(true);
-      return; 
-    }
 
     // Check if the verification-keyword matches
     if (document.getElementById('verify-field').value !== 'delete') {
@@ -45,6 +25,10 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
       return; // Exit early if the verification keyword is incorrect
     }
   
+    const passwordField = {
+      password: document.getElementById('delete-account-password-field').value,
+    }
+
     try {
       const response = await fetch('http://localhost:8080/accounts', {
         method: 'DELETE',
@@ -52,7 +36,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${getToken()}`,
         },
-        body: JSON.stringify(accountDetails),
+        body: JSON.stringify(passwordField),
       });
 
       if (response) {
