@@ -72,22 +72,24 @@ const Orders = () => {
               <option value="COMPLETED">Completed</option>
             </select>
           </div>
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : filteredRentals.length > 0 ? (
-            filteredRentals.map((rental) => (
-              <OrdersCarDisplay
-                key={rental.rentalId}
-                rental={rental}
-              />
-            ))
-          ) : (
-            <div className='no-matching'>
-              <h3>No rentals match the selected filter.</h3>
-              <img src={carImage} alt="No rentals" className="no-rentals-image" />
-              <p>Try changing the filter or check back later.</p>
-            </div> // Message when no rentals match the filter
-          )}
+          <div className="orders-list">
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : filteredRentals.length > 0 ? (
+              filteredRentals.map((rental) => (
+                <OrdersCarDisplay
+                  key={rental.rentalId}
+                  rental={rental}
+                />
+              ))
+            ) : (
+              <div className='no-matching'>
+                <h3>No rentals match the selected filter.</h3>
+                <img src={carImage} alt="No rentals" className="no-rentals-image" />
+                <p>Try changing the filter or check back later.</p>
+              </div> // Message when no rentals match the filter
+            )}
+          </div>
         </div>
       </section>
     </div>

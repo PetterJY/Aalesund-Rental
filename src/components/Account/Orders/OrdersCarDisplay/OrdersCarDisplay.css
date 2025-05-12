@@ -16,7 +16,7 @@
 
 .orders-car-display-card .car-background {
   min-width: 480px;
-  border-radius: 15px;
+  border-radius: 18px;
   background-image: url('../../../../resources/images/car-background.webp');
   background-size: 100% auto;
   background-attachment: scroll;
