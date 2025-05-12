@@ -204,10 +204,13 @@ public class CarsController {
     car.setPassengers(carRequest.getPassengers());
     car.setTransmission(carRequest.getTransmission());
     car.setEnergySource(carRequest.getEnergySource());
+    car.setLocation(carRequest.getLocation());
+    car.setPricePerDay(carRequest.getPricePerDay());
+
     if (carRequest.isAvailable() != null) {
       car.setAvailable(carRequest.isAvailable());
     }
-    car.setPricePerDay(carRequest.getPricePerDay());
+
     Cars createdCar = carsService.save(car);
     logger.debug("Created car: {}", createdCar.getId());
     return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
@@ -235,6 +238,7 @@ public class CarsController {
     car.setPassengers(carDetails.getPassengers());
     car.setTransmission(carDetails.getTransmission());
     car.setEnergySource(carDetails.getEnergySource());
+    car.setLocation(carDetails.getLocation());
     
     Set<ExtraFeatures> extraFeatures = (carDetails.getExtraFeatureIds() != null ? carDetails.getExtraFeatureIds() : new HashSet<>())
       .stream()

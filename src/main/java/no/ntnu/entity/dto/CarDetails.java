@@ -52,6 +52,9 @@ public class CarDetails {
   @NotNull(message = "Energy source is required")
   private Cars.EnergySource energySource;
 
+  @NotNull(message = "Location is required")
+  private Cars.Location location;
+
   private Boolean available;
 
   private Set<Long> extraFeatureIds;
@@ -94,6 +97,10 @@ public class CarDetails {
 
   public Cars.EnergySource getEnergySource() {
     return energySource;
+  }
+
+  public Cars.Location getLocation() {
+    return location;
   }
 
   public Boolean isAvailable() {

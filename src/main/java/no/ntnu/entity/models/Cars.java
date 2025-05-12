@@ -65,6 +65,10 @@ public class Cars {
   private int passengers;
 
   @Column(nullable = false)
+  @ApiModelProperty("Whether the car is available or not")
+  private boolean available;
+
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   @ApiModelProperty("Whether the car's transmission type is automatic or manual")
   private Transmission transmission;
@@ -75,8 +79,9 @@ public class Cars {
   private EnergySource energySource;
 
   @Column(nullable = false)
-  @ApiModelProperty("Whether the car is available or not")
-  private boolean available;
+  @Enumerated(EnumType.STRING)
+  @ApiModelProperty("The location of the car")
+  private Location location;
 
   @ManyToMany
   @JoinTable(
@@ -89,6 +94,15 @@ public class Cars {
   private Set<ExtraFeatures> extraFeatures;
 
   /**
+   * Enum for the type of car.
+   * Allowed values are SEDAN, HATCHBACK, SUV, TRUCK, COUPE, CONVERTIBLE,
+   * LUXURY, MINIVAN, SPORTS, CROSSOVER, STATION_WAGON.
+   */
+  public enum CarType {
+    SEDAN, HATCHBACK, SUV, TRUCK, COUPE, CONVERTIBLE, LUXURY, MINIVAN, SPORTS, CROSSOVER, STATION_WAGON;
+  }
+
+  /**
    * Enum for the energy source of the car.
    * Allowed values are GAS, DIESEL, HYBRID, ELECTRIC.
    */
@@ -96,13 +110,17 @@ public class Cars {
     GAS, DIESEL, HYBRID, ELECTRIC;
   }
 
+  /**
+   * Enum for the transmission type of the car.
+   * Allowed values are AUTOMATIC, MANUAL.
+   */
   public enum Transmission {
     AUTOMATIC, MANUAL;
   }
 
-  public enum CarType {
-    SEDAN, HATCHBACK, SUV, TRUCK, COUPE, CONVERTIBLE, LUXURY, MINIVAN, SPORTS, CROSSOVER, STATION_WAGON;
-}
+  public enum Location {
+    OSLO, BERGEN, STAVANGER, TRONDHEIM, DRAMMEN, LILLEHAMMER, ÅLESUND, TROMSØ;
+  }
 
   public int getId() {
     return id;
@@ -190,6 +208,14 @@ public class Cars {
 
   public void setEnergySource(EnergySource energySource) {
     this.energySource = energySource;
+  }
+
+  public Location getLocation() {
+    return location;
+  }
+
+  public void setLocation(Location location) {
+    this.location = location;
   }
 
   public boolean isAvailable() {
