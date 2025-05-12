@@ -50,8 +50,6 @@ const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice
   }, [minVal, maxVal]);
 
   return (
-    <div className="price-range">
-      <h3>Price Range</h3>
       <div className="price-range-input-wrapper">
         <input
           type="number"
@@ -93,7 +91,6 @@ const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice
           min="1"
         />
       </div>
-    </div>
   );
 };
 

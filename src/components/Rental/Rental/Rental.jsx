@@ -21,43 +21,51 @@ export default function Rental() {
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
   const toggleDropdown = (category) =>
-  setOpenDropdown(openDropdown === category ? null : category);
+    setOpenDropdown(openDropdown === category ? null : category);
 
   const renderCheckboxes = (category, options) => (
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
-          <input type="checkbox" name={category} value={value}/>
+          <input type="checkbox"
+                 name={category}
+                 value={value}
+                 checked={selectedFilterOptions[category]?.includes(value)}
+                 onChange={handleFilterChange}/>
           <span>{label}</span>
         </label>
       ))}
     </div>
   );
 
-const renderRadioButtons = (category, options) => (
+  const renderRadioButtons = (category, options) => (
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
-          <input type="radio" name={category} value={value}/>
+          <input type="radio"
+                 name={category}
+                 value={value}
+                 checked={selectedFilterOptions[category]?.includes(value)}
+                 onChange={handleFilterChange}/>
           <span>{label}</span>
         </label>
       ))}
     </div>
   );
 
-  const renderDropdown = (category, title, options) => (
+  const renderDropdown = (category, title, options, customContent = null) => (
     <div className="dropdown-group">
       <button
         className="dropdown-button"
-        onClick={() => toggleDropdown(category)}
-      >
+        onClick={() => toggleDropdown(category)}>
         {title} <CaretDown size={16} />
       </button>
       {openDropdown === category && (
-        <div className="dropdown-content">
-          {(category === "sort" || category === "passengers")
-            ? renderRadioButtons(category, options)
-            : renderCheckboxes(options, options)}
+        <div className={`dropdown-content ${customContent != null ? 'custom' : ''}`}>
+          {customContent || (
+            (category === "sort" || category === "passengers")
+              ? renderRadioButtons(category, options)
+              : renderCheckboxes(category, options))}
         </div>
       )}
     </div>
@@ -99,13 +107,20 @@ const renderRadioButtons = (category, options) => (
     ],
   };
 
-  const [selectedFilterOptions, setSelectedFilterOptions] = useState({
+const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     sort: [],
     carType: [],
     transmission: [],
     passengers: [],
     energySource: [],
   });
+
+
+  useEffect(() => {
+    console.log("Updated selectedFilterOptions:", selectedFilterOptions);
+  }, [selectedFilterOptions]);
+
+
 
 
   const handleCarClick = (carId) => {
@@ -147,11 +162,11 @@ const renderRadioButtons = (category, options) => (
     try {
       const filterParams = new URLSearchParams();
 
-      filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase() || "");
-      filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase() || "");
+      filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase());
+      filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase());
       filterParams.append("minPassengers", selectedFilterOptions.passengers[0] || "");
       filterParams.append("sortOption", selectedFilterOptions.sort[0] || "");
-      filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase() || "");
+      filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
 
@@ -220,7 +235,24 @@ const renderRadioButtons = (category, options) => (
     return combined;
   };
 
-  const handleFilterChange = () => {
+
+  const handleFilterChange = (event) => {
+    const { name, value, checked } = event.target;
+
+    setSelectedFilterOptions((prev) => {
+      const currentCategory = Array.isArray(prev[name]) ? prev[name] : [];
+      const updatedCategory = checked
+        ? [...currentCategory, value]
+        : currentCategory.filter((v) => v !== value);
+
+      return {
+        ...prev,
+        [name]: updatedCategory,
+      };
+    });
+  };
+
+  const handleSaveFilters = () => {
     setSelectedFilterOptions({
       sort: Array.from(document.querySelectorAll('input[name="sort"]:checked')).map(input => input.value),
       carType: Array.from(document.querySelectorAll('input[name="carType"]:checked')).map(input => input.value),
@@ -232,18 +264,27 @@ const renderRadioButtons = (category, options) => (
     console.log("Selected filter options:", selectedFilterOptions);
     toggleFilter();
   };
+
   return (
     <div className="rental-page">
       <section className="main-section">
         <div className ="rental-page">
           <nav className="sort-bar">
-            {renderDropdown("sort", "Sort", filterOptions.sort)}
+            {renderDropdown("sort", "Sort by", filterOptions.sort)}
+            {renderDropdown("priceRange",
+              "Price Range",
+              null,
+              <IntervalSlider
+                minVal={minPrice}
+                maxVal={maxPrice}
+                setMinVal={setMinPrice}
+                setMaxVal={setMaxPrice}
+                maxCarRentalPrice={maxCarRentalPrice}/>)}
             {renderDropdown("carType", "Car Type", filterOptions.carType)}
+            {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
             {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
-            {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
-
-            <button className="filter-button" onClick={handleFilterChange}>
+            <button className="filter-button" onClick={toggleFilter}>
               <FunnelSimple size={20} color="#252322" /> Sort and filter
             </button>
           </nav>
@@ -272,10 +313,13 @@ const renderRadioButtons = (category, options) => (
                   <h3>Energy Source</h3>
                   {renderCheckboxes("energySource", filterOptions.energySource)}
                 </div>
-                <IntervalSlider minVal={minPrice} maxVal={maxPrice} setMinVal={setMinPrice} setMaxVal={setMaxPrice} maxCarRentalPrice={maxCarRentalPrice}/>
+                <div className="price-range">
+                  <h3>Price Range</h3>
+                  <IntervalSlider minVal={minPrice} maxVal={maxPrice} setMinVal={setMinPrice} setMaxVal={setMaxPrice} maxCarRentalPrice={maxCarRentalPrice}/>
+                </div>
               </div>
               <hr></hr>
-              <button className="close-button" onClick={handleFilterChange}>
+              <button className="close-button" onClick={handleSaveFilters}>
                 Save Changes
               </button>
             </div>
