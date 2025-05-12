@@ -137,6 +137,8 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     transmission: [],
     passengers: [],
     energySource: [],
+    minPrice: null,
+    maxPrice: null,
   });
 
   useEffect(() => {
@@ -284,7 +286,7 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
           ...prev,
           [name]: [value],
         };
-      } else {
+      } else if (type === "checkbox") {
         // For checkboxes, update the array
         const currentCategory = Array.isArray(prev[name]) ? prev[name] : [];
         const updatedCategory = checked
@@ -295,6 +297,11 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
           ...prev,
           [name]: updatedCategory,
         };
+      } else if (name === "minPrice" || type === "maxPrice") {
+        return {
+          ...prev,
+          [name]: parseInt(value, 10),
+        }
       }
     });
   };

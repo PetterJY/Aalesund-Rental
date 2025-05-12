@@ -54,6 +54,7 @@ const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice
         <input
           type="number"
           id="price-range-min"
+          name="minPrice"
           className="price-range-input"
           max={maxCarRentalPrice}
           min="0"
@@ -65,6 +66,7 @@ const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice
           <input
             type="range"
             id="slider-min"
+            name="minPrice"
             className="price-range-slider"
             min="0"
             max={maxCarRentalPrice}
@@ -75,6 +77,7 @@ const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice
           <input
             type="range"
             id="slider-max"
+            name="maxPrice"
             className="price-range-slider"
             min="0"
             max={maxCarRentalPrice}
@@ -86,6 +89,7 @@ const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice
         <input
           type="number"
           id="price-range-max"
+          name="maxPrice"
           className="price-range-input"
           max={maxCarRentalPrice}
           min="1"
