@@ -131,7 +131,6 @@ public class CarsController {
         ", minPricePerDay=" + minPricePerDayParam +
         ", maxPricePerDay=" + maxPricePerDayParam);
 
-
     List<Cars> cars;
     try {
       cars = carsRepository

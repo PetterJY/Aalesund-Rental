@@ -224,7 +224,6 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
 
       console.log("Request URL: ", `http://localhost:8080/cars/search?${filterParams.toString()}`)
       const response = await fetch(`http://localhost:8080/cars/search?${filterParams.toString()}`, {
-
         method: "GET",
         headers: {
           "Content-Type": "application/json",

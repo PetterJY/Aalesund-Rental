@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NotePencil } from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
 import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
+import { getAccountId } from '../../../utils/JwtUtility';
 import './MyRentalsCarDisplay.css';
 import '../../../App.css';
 
@@ -34,7 +35,13 @@ const MyRentalsCarDisplay = ({ car }) => {
 
       setIsLoading(true);
       try {
-        const response = await fetch(`http://localhost:8080/rentals`, {
+        const searchParams = new URLSearchParams();
+
+        searchParams.append("providerId", getAccountId())
+        searchParams.append("carId", car.id);
+
+        console.log("Request URL: ", `http://localhost:8080/rentals/my-rentals?${searchParams.toString()}`);
+        const response = await fetch(`http://localhost:8080/rentals/my-rentals?${searchParams.toString()}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -43,7 +50,8 @@ const MyRentalsCarDisplay = ({ car }) => {
           signal,
         });
         if (!response.ok) {
-          console.error('Failed to fetch rentals:', response.statusText);
+          const errorDetails = await response.text();
+          console.error("Failed to fetch car data:", response.status, errorDetails);
           return;
         }
         const rentalDetails = await response.json();
