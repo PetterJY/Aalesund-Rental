@@ -151,19 +151,29 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
           !event.target.closest(`#${key}-checkbox`)) {
           toggleDropdown(null);
           selectedFilterComponentCopy[key] = false;
-          console.log(`Key: ${key}, Value: ${selectedFilterComponentCopy[key]}`);}
+        }
       })
       setSelectedFilterComponent(selectedFilterComponentCopy);
     }
 
     document.addEventListener("mousedown", handleClickOutsideFilterComponent);
     return () => document.removeEventListener("mousedown", handleClickOutsideFilterComponent)
-  }, [selectedFilterComponent]);
-
+  }, [selectedFilterComponent, minPrice, maxPrice]);
 
   useEffect(() => {
-    console.log("Updated selectedFilterOptions:", selectedFilterOptions);
-  }, [selectedFilterOptions]);
+    console.log("MinPrice or maxPrice changed: " + minPrice, " - " + maxPrice);
+    setSelectedFilterOptions((prev) => {
+      return {
+        ...prev,
+        [minPrice]: minPrice,
+        [maxPrice]: maxPrice,
+      }
+    })
+  }, [minPrice, maxPrice]);
+
+  // useEffect(() => {
+  //   console.log("Updated selectedFilterOptions:", selectedFilterOptions);
+  // }, [selectedFilterOptions]);
 
   const handleCarClick = (carId) => {
     console.log("Selected car:", carId);
@@ -280,6 +290,11 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
   const handleFilterChange = (event) => {
     const { name, value, checked, type } = event.target;
 
+    console.log("name: " + name);
+    console.log("value: " + value);
+    console.log("checked: " + checked);
+    console.log("type: " + type);
+
     setSelectedFilterOptions((prev) => {
       if (type === "radio") {
         return {
@@ -297,11 +312,6 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
           ...prev,
           [name]: updatedCategory,
         };
-      } else if (name === "minPrice" || type === "maxPrice") {
-        return {
-          ...prev,
-          [name]: parseInt(value, 10),
-        }
       }
     });
   };
