@@ -171,10 +171,6 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     })
   }, [minPrice, maxPrice]);
 
-  // useEffect(() => {
-  //   console.log("Updated selectedFilterOptions:", selectedFilterOptions);
-  // }, [selectedFilterOptions]);
-
   const handleCarClick = (carId) => {
     console.log("Selected car:", carId);
     setSelectedCarId((prev) => (prev === carId ? null : carId));

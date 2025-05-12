@@ -31,7 +31,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1440px;
+  max-width: 1600px;
   width: var(--center-container-width);
   background: white;
   gap: 12px;
@@ -73,7 +73,7 @@ html, body {
 .hero-call-to-action {
   position: fixed;
   width: 90vw;
-  max-width: 1440px;
+  max-width: 1600px;
   z-index: -20; /* Changed to a neutral value instead of -2 */
   margin: 70vh auto;
   top: 0;
