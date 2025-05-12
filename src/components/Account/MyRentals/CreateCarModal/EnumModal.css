@@ -1,0 +1,156 @@
+.enum-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.enum-modal .modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-height: 80%;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.enum-modal .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.enum-modal h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.enum-modal .search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.enum-modal .enum-scrollable {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.enum-modal .enum-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.enum-modal .enum-item label {
+  width: 100%;
+}
+
+.enum-modal .enum-item input[type="radio"] {
+  appearance: none; /* Remove default styling */
+  -webkit-appearance: none; /* For Safari */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%; /* Make it square (set to 0 for sharp corners) */
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  box-shadow: none;
+}
+
+.enum-modal .enum-item input[type="radio"]:checked {
+  border-color: #FF5F00;
+  background-color: white;
+}
+
+.enum-modal .enum-item input[type="radio"]:checked::before {
+  content: ""; /* Inner circle */
+  width: 14px; /* Size of the inner circle */
+  height: 14px;
+  background-color: #FF5F00; /* Inner circle color */
+  border-radius: 50%; /* Make it circular */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+.enum-modal .enum-item input[type="radio"]:hover {
+  border-color: #FF5F00;
+}
+
+.enum-modal .enum-item input[type="checkbox"] {
+  appearance: none; /* Remove default styling */
+  -webkit-appearance: none; /* For Safari */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 20%; /* Make it square (set to 0 for sharp corners) */
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  box-shadow: none;
+}
+
+.enum-modal .enum-item input[type="checkbox"]:checked {
+  border-color: #FF5F00;
+  background-color: #FF5F00;
+}
+
+.enum-modal .enum-item input[type="checkbox"]:checked::after {
+  content: "✔"; /* Unicode checkmark */
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.enum-modal .enum-item input[type="checkbox"]:hover {
+  border-color: #FF5F00;
+}
+
+.enum-modal .enum-item input[type="checkbox"]:checked:hover {
+  background-color: #FF5F00bb;
+  border-color: #FF5F00bb;
+}
+
+.enum-modal .confirm-button {
+  background-color: #FF5F00;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-top: 20px;
+  width: 80%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.enum-modal .confirm-button:hover {
+  background-color: #E65500;
+  transform: scale(1.05);
+}
+
+.enum-modal .confirm-button:active {
+  background-color: #CC4A00;
+  transform: scale(0.95);
+}

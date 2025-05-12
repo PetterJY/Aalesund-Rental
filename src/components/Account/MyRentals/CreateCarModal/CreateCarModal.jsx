@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAccountId, getToken } from '../../../utils/JwtUtility'; 
+import CarTypeModal from './CarTypeModal/CarTypeModal';
+import LocationModal from './LocationModal/LocationModal';
 import ExtraFeaturesModal from './ExtraFeaturesModal/ExtraFeaturesModal'; 
 import './CreateCarModal.css';
 import '../../../App.css';
+import { set } from 'date-fns';
 
 const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -13,8 +16,18 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     setErrorMessage("");
   }, [isCreateCarModalOpen]);
 
+  const [selectedCarType, setSelectedCarType] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [isExtraFeaturesModalOpen, setIsExtraFeaturesModalOpen] = useState(false);
+  const [isCarTypeModalOpen, setIsCarTypeModalOpen] = useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const toggleCarTypeModal = () => {
+    setIsCarTypeModalOpen(!isCarTypeModalOpen);
+  };
+  const toggleLocationModal = () => {
+    setIsLocationModalOpen(!isLocationModalOpen);
+  };
   const toggleExtraFeaturesModal = () => {
     setIsExtraFeaturesModalOpen(!isExtraFeaturesModalOpen);
   };
@@ -123,17 +136,44 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
           <input type="text" id="plate-number" placeholder="Plate Number" required />
           <input type="text" id="car-brand" placeholder="Car Brand" required />
           <input type="text" id="model-name" placeholder="Model Name" required />
-          <input type="text" id="car-type" placeholder="Car Type" required />
           <input type="number" id="price-per-day" placeholder="Price Per Day" required />
           <input type="number" id="production-year" placeholder="Production Year" required />
           <input type="number" id="passengers" placeholder="Number of Passengers" required />
 
+          <div className="enum-text-container">
+            <button type="button" id="enum-button" onClick={toggleLocationModal}>
+              Select Car Location
+            </button>
+            <p id="car-type">{selectedLocation}</p>
+          </div>
+          <div className="enum-text-container">
+            <button type="button" id="enum-button" onClick={toggleCarTypeModal}>
+              Select Car Type
+            </button>
+            <p>{selectedCarType}</p>
+          </div>
           <button id='add-extra-feature-button' type="button" onClick={toggleExtraFeaturesModal}>
             Add Extra Features
           </button>
+          {isCarTypeModalOpen && (
+            <CarTypeModal
+              toggleModal={toggleCarTypeModal}
+              isCreateCarModalOpen={isCreateCarModalOpen}
+              setSelectedCarType={setSelectedCarType}
+              selectedCarType={selectedCarType}
+            />
+          )}
+          {isLocationModalOpen && (
+            <LocationModal
+              toggleModal={toggleLocationModal}
+              isCreateCarModalOpen={isCreateCarModalOpen}
+              setSelectedLocation={setSelectedLocation}
+              selectedLocation={selectedLocation}
+            />
+          )}
           {isExtraFeaturesModalOpen && (
             <ExtraFeaturesModal 
-              onClose={toggleExtraFeaturesModal} 
+              toggleModal={toggleExtraFeaturesModal} 
               isCreateCarModalOpen={isCreateCarModalOpen} 
               setSelectedFeatures={setSelectedFeatures} 
               selectedFeatures={selectedFeatures}

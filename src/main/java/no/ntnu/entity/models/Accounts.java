@@ -53,6 +53,10 @@ public class Accounts {
   @Column(nullable = false)
   @ApiModelProperty("The creation time of the account")
   private LocalDateTime createdAt;
+
+  @Column(nullable = false)
+  @ApiModelProperty("Boolean indicating if the account is deleted")
+  private boolean isDeleted = false;
   
   @PrePersist
   protected void onCreate() {
@@ -98,5 +102,13 @@ public class Accounts {
 
   public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public boolean isDeleted() {
+    return this.isDeleted;
+  }
+
+  public void setDeleted(boolean isDeleted) {
+    this.isDeleted = isDeleted;
   }
 }

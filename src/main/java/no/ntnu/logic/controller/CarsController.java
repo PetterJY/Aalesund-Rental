@@ -175,6 +175,46 @@ public class CarsController {
     return ResponseEntity.status(HttpStatus.OK).body(cars);
   }
 
+
+  /**
+   * Returns all car types.
+   *
+   * @return List of all car types.
+   */
+
+@GetMapping("/car-types")
+@ApiOperation(value = "Returns all car types.")
+public ResponseEntity<List<Cars.CarType>> getCarTypes() {
+  try {
+    logger.info("Fetching all car types");
+    List<Cars.CarType> carTypes = List.of(Cars.CarType.values());
+    logger.debug("Fetched car types: {}", carTypes);
+    return ResponseEntity.status(HttpStatus.OK).body(carTypes);
+  } catch (Exception e) {
+    logger.error("Error fetching car types: {}", e.getMessage());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+  }
+}
+
+  /**
+   * Returns all car locations.
+   * 
+   * @return List of all car locations.
+   */
+  @GetMapping("/locations")
+  @ApiOperation(value = "Returns all car locations.")
+  public ResponseEntity<List<Cars.Location>> getCarLocations() {
+    try {
+      logger.info("Fetching all car locations");
+      List<Cars.Location> carLocations = List.of(Cars.Location.values());
+      logger.debug("Fetched car locations: {}", carLocations);
+      return ResponseEntity.status(HttpStatus.OK).body(carLocations);
+    } catch (Exception e) {
+      logger.error("Error fetching car locations: {}", e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
   /**
    * Creates a new car.
    *
@@ -204,10 +244,13 @@ public class CarsController {
     car.setPassengers(carRequest.getPassengers());
     car.setTransmission(carRequest.getTransmission());
     car.setEnergySource(carRequest.getEnergySource());
+    car.setLocation(carRequest.getLocation());
+    car.setPricePerDay(carRequest.getPricePerDay());
+
     if (carRequest.isAvailable() != null) {
       car.setAvailable(carRequest.isAvailable());
     }
-    car.setPricePerDay(carRequest.getPricePerDay());
+
     Cars createdCar = carsService.save(car);
     logger.debug("Created car: {}", createdCar.getId());
     return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
@@ -235,6 +278,7 @@ public class CarsController {
     car.setPassengers(carDetails.getPassengers());
     car.setTransmission(carDetails.getTransmission());
     car.setEnergySource(carDetails.getEnergySource());
+    car.setLocation(carDetails.getLocation());
     
     Set<ExtraFeatures> extraFeatures = (carDetails.getExtraFeatureIds() != null ? carDetails.getExtraFeatureIds() : new HashSet<>())
       .stream()

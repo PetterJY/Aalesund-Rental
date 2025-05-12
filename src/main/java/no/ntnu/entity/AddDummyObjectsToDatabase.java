@@ -103,32 +103,33 @@ public class AddDummyObjectsToDatabase {
 
 		logger.info("Adding cars to the database.");
 
-		addCar("1", "AA 11111", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 600, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3");
-		addCar("2", "AA 22222", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3");
-		addCar("3", "AA 33333", "Tesla", "Model 3", Cars.CarType.SEDAN, 700, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3");
-		addCar("4", "AA 44444", "Tesla", "Model 3", Cars.CarType.SEDAN, 500, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3");
-		addCar("3", "AA 55555", "Tesla", "Model Y", Cars.CarType.SUV, 900, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4");
-		addCar("4", "AA 66666", "Tesla", "Model Y", Cars.CarType.SUV, 700, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4");
-		addCar("5", "AA 77777", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
-		addCar("6", "AA 88888", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
-		addCar("7", "AA 99999", "Mazda", "2", Cars.CarType.HATCHBACK, 400, 2017, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "2");
-		addCar("8", "AB 11111", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("9", "AB 22222", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("10", "AC 88888", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("11", "AB 33333", "BMW", "M3", Cars.CarType.SPORTS, 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("12", "AB 44444", "BMW", "M3", Cars.CarType.SPORTS, 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("13", "AC 77777", "BMW", "M3", Cars.CarType.SPORTS, 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("14", "AB 55555", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 300, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("15", "AB 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 299, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("16", "AC 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 700, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("17", "AB 77777", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 600, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13");
-		addCar("6", "AB 88888", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 550, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13");
-		addCar("17", "AB 99999", "Peugeot", "207", Cars.CarType.HATCHBACK, 500, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19");
-		addCar("6", "AC 11111", "Peugeot", "207", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19");
-		addCar("17", "AC 22222", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
-		addCar("6", "AC 33333", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
-		addCar("17", "AC 44444", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 200, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
-		addCar("6", "AC 55555", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 201, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
+		addCar("1", "AA 11111", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 600, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3", Cars.Location.OSLO);
+		addCar("2", "AA 22222", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3", Cars.Location.OSLO);
+		addCar("3", "AA 33333", "Tesla", "Model 3", Cars.CarType.SEDAN, 700, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3", Cars.Location.BERGEN);
+		addCar("4", "AA 44444", "Tesla", "Model 3", Cars.CarType.SEDAN, 500, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3", Cars.Location.BERGEN);
+		addCar("3", "AA 55555", "Tesla", "Model Y", Cars.CarType.SUV, 900, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4", Cars.Location.STAVANGER);
+		addCar("4", "AA 66666", "Tesla", "Model Y", Cars.CarType.SUV, 700, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4", Cars.Location.STAVANGER);
+		addCar("5", "AA 77777", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "", Cars.Location.TRONDHEIM);
+		addCar("6", "AA 88888", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "", Cars.Location.TRONDHEIM);
+		addCar("7", "AA 99999", "Mazda", "2", Cars.CarType.HATCHBACK, 400, 2017, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "2", Cars.Location.DRAMMEN);
+		addCar("8", "AB 11111", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.ÅLESUND);
+		addCar("9", "AB 22222", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.ÅLESUND);
+		addCar("10", "AC 88888", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.TROMSØ);
+		addCar("11", "AB 33333", "BMW", "M3", Cars.CarType.SPORTS, 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11", Cars.Location.OSLO);
+		addCar("12", "AB 44444", "BMW", "M3", Cars.CarType.SPORTS, 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11", Cars.Location.OSLO);
+		addCar("13", "AC 77777", "BMW", "M3", Cars.CarType.SPORTS, 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11", Cars.Location.OSLO);
+		addCar("14", "AB 55555", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 300, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12", Cars.Location.BERGEN);
+		addCar("15", "AB 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 299, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12", Cars.Location.BERGEN);
+		addCar("16", "AC 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 700, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12", Cars.Location.TROMSØ);
+		addCar("17", "AB 77777", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 600, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13", Cars.Location.DRAMMEN);
+		addCar("6", "AB 88888", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 550, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13", Cars.Location.ÅLESUND);
+		addCar("17", "AB 99999", "Peugeot", "207", Cars.CarType.HATCHBACK, 500, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19", Cars.Location.STAVANGER);
+		addCar("6", "AC 11111", "Peugeot", "207", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19", Cars.Location.TRONDHEIM);
+		addCar("17", "AC 22222", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22", Cars.Location.TRONDHEIM);
+		addCar("6", "AC 33333", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22", Cars.Location.ÅLESUND);
+		addCar("17", "AC 44444", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 200, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24", Cars.Location.STAVANGER);
+		addCar("6", "AC 55555", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 201, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24", Cars.Location.STAVANGER);
+
 		logger.info("Finished adding cars to the database.");
 
 		logger.info("Adding rentals to the database.");
@@ -211,7 +212,8 @@ public class AddDummyObjectsToDatabase {
 			Cars.Transmission transmission,
 			Cars.EnergySource energySource,
 			boolean available,
-			String extraFeatures) {
+			String extraFeatures,
+			Cars.Location location) {
 		HttpClient client = HttpClient.newHttpClient();
 
 		String json = "{"
@@ -226,6 +228,7 @@ public class AddDummyObjectsToDatabase {
 				+ "\"transmission\": \"" + transmission.name() + "\","
 				+ "\"energySource\": \"" + energySource.name() + "\","
 				+ "\"available\": " + available + ","
+				+ "\"location\": \"" + location.name() + "\","
 				+ "\"extraFeatureIds\": " + (extraFeatures == null ? "null" : "[" + extraFeatures + "]")
 				+ "}";
 
