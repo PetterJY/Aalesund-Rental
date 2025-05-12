@@ -22,30 +22,31 @@ const MyRentals = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  async function fetchCars() {
     setIsLoading(true);
-    async function fetchCars() {
-      try {
-        const response = await fetch('http://localhost:8080/cars', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-          },
-        });
-        if (!response.ok) {
-          console.error('Failed to fetch cars:', response.statusText);
-          return;
-        }
-        const data = await response.json();
-        setCars(data);
-        console.log('Fetched cars:', data);
-      } catch (error) {
-        console.error('Error fetching cars:', error);
-      } finally {
-        setIsLoading(false);
+    try {
+      const response = await fetch('http://localhost:8080/cars', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
+      });
+      if (!response.ok) {
+        console.error('Failed to fetch cars:', response.statusText);
+        return;
       }
+      const data = await response.json();
+      setCars(data);
+      console.log('Fetched cars:', data);
+    } catch (error) {
+      console.error('Error fetching cars:', error);
+    } finally {
+      setIsLoading(false);
     }
+  }
+  
+  useEffect(() => {
     fetchCars();
   }, []);
 

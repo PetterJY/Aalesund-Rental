@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { MagnifyingGlass, XCircle, X } from "@phosphor-icons/react";
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
-import './BookingForm.css'; // You'll need to copy relevant CSS from Header.css
+import DropDownSuggestions from './DropDownSuggestions/DropDownSuggestions';
+import './BookingForm.css'; 
+import '../../App.css';
 
 const BookingForm = ({
                        onSave,
@@ -17,6 +19,43 @@ const BookingForm = ({
   const [isDropoffTextInputHovered, setIsDropoffTextInputHovered] = useState(false);
   const [isPickupTextFieldSelected, setIsPickupTextFieldSelected] = useState(false);
   const [isDropoffTextFieldSelected, setIsDropoffTextFieldSelected] = useState(false);
+
+  const [isLoadingLocations, setIsLoadingLocations] = useState(false);
+
+  const [pickupLocations, setPickupLocations] = useState([]);
+  const [showPickupLocationSuggestions, setShowPickupLocationSuggestions] = useState(false);
+
+  const [dropoffLocations, setDropoffLocations] = useState([]);
+  const [showDropoffLocationSuggestions, setShowDropoffLocationSuggestions] = useState(false);
+
+  async function fetchPickupLocations() {
+    setIsLoadingLocations(true);
+    try {
+      const response = await fetch(`http://localhost:8080/cars/locations`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        },
+      });
+      if (!response.ok) {
+        console.error('Failed to fetch pickup locations:', response.statusText);
+        return;
+      }
+      const data = await response.json();
+      setPickupLocations(data);
+      setDropoffLocations(data);
+      console.log('Fetched pickup locations:', data);
+    } catch (error) {
+      console.error('Error fetching pickup locations:', error);
+    } finally {
+      setIsLoadingLocations(false);
+    }
+  };
+  
+  useEffect(() => {
+    fetchPickupLocations();
+  }, []);
 
   const [pickupDate, setPickupDate] = useState(() => {
     const time = new Date();
@@ -155,13 +194,34 @@ const BookingForm = ({
                onMouseLeave={() => setIsPickupTextInputHovered(false)}
                onClick={() => setIsPickupTextFieldSelected(true)}>
             <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-            <input type="text"
-                  className="text-input"
-                  id="pickup-destination-input-field"
-                  placeholder="Pickup location"
-                  value={pickupLocationValue}
-                  onChange={(e) => setPickupLocationValue(e.target.value)}>
-            </input>
+            <input 
+              type="text"
+              className="text-input"
+              id="pickup-destination-input-field"
+              placeholder="Pickup location"
+              value={pickupLocationValue}
+              onChange={(e) => {
+                setPickupLocationValue(e.target.value)
+                if (e.target.value.length > 0) {
+                  setShowPickupLocationSuggestions(true);
+                } else {
+                  setShowPickupLocationSuggestions(false);
+                }
+              }}
+            />
+
+            {showPickupLocationSuggestions && !isLoadingLocations && (
+              <DropDownSuggestions
+                locations={
+                  pickupLocations.filter(loc =>
+                  loc.toLowerCase().includes(pickupLocationValue.toLowerCase())
+                )}
+                setLocationSuggestions={setPickupLocations}
+                setLocationValue={setPickupLocationValue}
+                setShowSuggestions={setShowPickupLocationSuggestions}
+              />
+            )}
+
             <button className="xCircleButton"
                     onClick={handlePickupXCircleClick}>
               <XCircle className={`cross-icon ${isPickupTextInputHovered && pickupLocationValue !== "" ? 'visible' : ''}`}
@@ -178,13 +238,34 @@ const BookingForm = ({
               onMouseLeave={() => setIsDropoffTextInputHovered(false)}
               onClick={() => setIsDropoffTextFieldSelected(true)}>
             <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-            <input type="text"
+            <input
+              type="text"
               className="text-input"
               id="dropoff-destination-input-field"
               placeholder="Drop-off location"
               value={dropoffLocationValue}
-              onChange={(e) => setDropoffLocationValue(e.target.value)}>
-            </input>
+              onChange={(e) => {
+                setDropoffLocationValue(e.target.value);
+                if (e.target.value.length > 0) {
+                  setShowDropoffLocationSuggestions(true);
+                } else {
+                  setShowDropoffLocationSuggestions(false);
+                }
+              }}
+            />
+
+            {showDropoffLocationSuggestions && !isLoadingLocations && (
+              <DropDownSuggestions
+                locations={
+                  dropoffLocations.filter(loc =>
+                  loc.toLowerCase().includes(dropoffLocationValue.toLowerCase())
+                )}
+                setLocationSuggestions={setDropoffLocations}
+                setLocationValue={setDropoffLocationValue}
+                setShowSuggestions={setShowDropoffLocationSuggestions}
+              />
+            )}
+
             <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
               <XCircle className={`cross-icon ${isDropoffTextInputHovered && dropoffLocationValue !== "" ? 'visible' : ''}`}
                        size={24}
