@@ -129,101 +129,34 @@
 }
 
 
-
-
-
-
-@media screen and (min-width: 861px) {
-  .rental-page .filter-button {
-    display: none;
-  }
+.rental-page .checkbox-label {
+  display: flex;
+  align-items: center;
+  margin: 0; /* Remove default margin to rely on gap for spacing */
+  color: #252422;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
-@media screen and (max-width: 1300px) {
-  .rental-page .main-body {
-    max-width: 815px;
-  }
+
+.rental-page .checkbox-label span {
+  color: #252422;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: white 1px solid;
+  white-space: nowrap; /* Prevent text from wrapping within each checkbox */
 }
 
-@media screen and (max-width: 860px) {
-  .rental-page .main-body {
-    max-width: 430px;
-    justify-content: center;
-  }
-
-  .rental-page .sort-bar {
-    justify-content: center;
-    justify-self: center;
-    flex-wrap: wrap;
-    flex-direction: column-reverse;
-    width: 85%;
-  }
-
-  .rental-page .sort-button {
-    display: none;
-  }
-
-  .rental-page .filter-button {
-    width: 100%;
-    justify-content: center;
-  }
-  .rental-page .sort-bar .dropdown-group {
-    display: none; /* Hide dropdowns on mobile */
-  }
-
-  .rental-page .filter-panel {
-    display: block;
-    position: fixed;
-    top: 65px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 65px);
-    background: white;
-    z-index: 10;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  .rental-page .filter-content {
-    margin-bottom: auto;
-    flex-direction: column;
-    gap: 10px;
-    height: auto;
-    overflow-y: auto;
-  }
-
-  .rental-page .checkbox-group {
-    display: flex;
-    flex-direction: row; /* Change to row to align checkboxes horizontally */
-    gap: 10px; /* Add spacing between checkboxes */
-    overflow-x: scroll;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  }
-  
-  .rental-page .checkbox-label {
-    display: flex;
-    align-items: center;
-    margin: 0; /* Remove default margin to rely on gap for spacing */
-    color: #252422;
-    cursor: pointer;
-    border-radius: 6px;
-  }
-  
-  .rental-page .checkbox-label span {
-    color: #252422;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-bottom: white 1px solid;
-    white-space: nowrap; /* Prevent text from wrapping within each checkbox */
-  }
-  
-  .rental-page .filter-panel .checkbox-group {
-    flex-direction: row; 
-    gap: 5px;
-  }
-  
+.rental-page .checkbox-label span {
+  background-color: var(--text-box-color);
+  width: 90%;
+  border-radius: 12px;
+  color: #252422;
+  padding: 12px 24px;
+  cursor: pointer;
+  border-bottom: white 1px solid;
 }
+
 
 .rental-page .checkbox-group {
   display: flex;
@@ -307,6 +240,8 @@
 
 .rental-page .dropdown-content {
   position: absolute;
+  width: auto; /* Adjust width to fit content */
+  white-space: nowrap; /* Prevents text wrapping */
   top: 100%;
   left: 0;
   background-color: white;
@@ -314,9 +249,15 @@
   border-radius: 12px;
   padding: 10px;
   z-index: 20;
-  min-width: 150px;
   overflow-y: auto;
-  max-height: 200px;
+  min-width: 200px;
+  text-align: center;
+}
+
+.rental-page .dropdown-content.custom {
+  text-align: left;
+  min-width: 250px;
+  display: flex;
 }
 
 .rental-page .car-selected-menu {
@@ -327,4 +268,100 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
+}
+
+
+
+
+@media screen and (min-width: 861px) {
+  .rental-page .filter-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .rental-page .main-body {
+    max-width: 815px;
+  }
+}
+
+
+@media screen and (max-width: 860px) {
+  .rental-page .main-body {
+    max-width: 430px;
+    justify-content: center;
+  }
+
+  .rental-page .sort-bar {
+    justify-content: center;
+    justify-self: center;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    width: 85%;
+  }
+
+  .rental-page .sort-button {
+    display: none;
+  }
+
+  .rental-page .filter-button {
+    width: 100%;
+    justify-content: center;
+  }
+  .rental-page .sort-bar .dropdown-group {
+    display: none; /* Hide dropdowns on mobile */
+  }
+
+  .rental-page .filter-panel {
+    display: block;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 65px);
+    background: white;
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .rental-page .filter-content {
+    margin-bottom: auto;
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .rental-page .checkbox-group {
+    display: flex;
+    flex-direction: row; /* Change to row to align checkboxes horizontally */
+    gap: 10px; /* Add spacing between checkboxes */
+    overflow-x: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  .rental-page .checkbox-label {
+    display: flex;
+    align-items: center;
+    margin: 0; /* Remove default margin to rely on gap for spacing */
+    color: #252422;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  .rental-page .checkbox-label span {
+    color: #252422;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: white 1px solid;
+    white-space: nowrap; /* Prevent text from wrapping within each checkbox */
+  }
+
+  .rental-page .filter-panel .checkbox-group {
+    flex-direction: row;
+    gap: 5px;
+  }
+
 }
