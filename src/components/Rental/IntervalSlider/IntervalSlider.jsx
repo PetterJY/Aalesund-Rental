@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './IntervalSlider.css';
 
-const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice}) => {
+const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice, priceRangeRef}) => {
   const intervalStep = 50;
 
   const updateSlider = () => {
@@ -50,7 +50,7 @@ const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice
   }, [minVal, maxVal]);
 
   return (
-      <div className="price-range-input-wrapper">
+      <div className="price-range-input-wrapper" ref={priceRangeRef}>
         <input
           type="number"
           id="price-range-min"

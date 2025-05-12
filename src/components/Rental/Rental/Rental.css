@@ -73,7 +73,7 @@
   margin-right: 10px;
   border: none;
   border-bottom: #252422 1px solid;
-  border-radius: 0%;
+  border-radius: 0;
   justify-self: flex-start;
   align-self: flex-start;
   display: flex;
@@ -199,7 +199,7 @@
 .rental-page .checkbox-label input:checked + span {
   background-color: #252422;
   color:white;
-  border-radius: 5px;
+  border-radius: 6px;
   border-bottom: white 1px solid;
 }
 
@@ -207,8 +207,10 @@
   background-color: var(--text-box-hover-color);
   color:white;
   border-bottom: white 1px solid;
-  border-radius: 5px;
+  border-radius: 6px;
 }
+
+
 
 /* Adjustments for mobile filter panel */
 .rental-page .filter-panel .filter-group {

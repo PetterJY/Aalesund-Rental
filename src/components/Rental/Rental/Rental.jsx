@@ -19,7 +19,27 @@ export default function Rental() {
   const maxCarRentalPrice = 1000; // the max price of renting a car (per day)
   // TODO: retrieve this value by querying the rentals
 
+  const [selectedFilterComponent, setSelectedFilterComponent] = useState({
+    sortBy: false,
+    carType: false,
+    transmission: false,
+    passengers: false,
+    energySource: false,
+    priceRange: false,
+  })
+
+  const filterRefs = {
+    sortBy: useRef(null),
+    carType: useRef(null),
+    transmission: useRef(null),
+    passengers: useRef(null),
+    energySource: useRef(null),
+    priceRange: useRef(null),
+  };
+
+
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
+
   const toggleDropdown = (category) =>
     setOpenDropdown(openDropdown === category ? null : category);
 
@@ -42,26 +62,30 @@ export default function Rental() {
     <div className="checkbox-group">
       {options.map(({ value, label }) => (
         <label key={value} className="checkbox-label">
-          <input type="radio"
-                 name={category}
-                 value={value}
-                 checked={selectedFilterOptions[category]?.includes(value)}
-                 onChange={handleFilterChange}/>
+          <input
+            type="radio"
+            name={category}
+            value={value}
+            checked={selectedFilterOptions[category]?.[0] === value.toString()}
+            onChange={handleFilterChange}
+          />
           <span>{label}</span>
         </label>
       ))}
     </div>
   );
-
   const renderDropdown = (category, title, options, customContent = null) => (
-    <div className="dropdown-group">
+    <div className="dropdown-group" id={`${category}-checkbox`}>
       <button
         className="dropdown-button"
-        onClick={() => toggleDropdown(category)}>
+        onClick={() => {
+          toggleDropdown(category);
+          setSelectedFilterComponent({...selectedFilterComponent, [category] : true})}}>
         {title} <CaretDown size={16} />
       </button>
       {openDropdown === category && (
-        <div className={`dropdown-content ${customContent != null ? 'custom' : ''}`}>
+        <div ref={filterRefs[category]}
+             className={`dropdown-content ${customContent != null ? 'custom' : ''}`}>
           {customContent || (
             (category === "sort" || category === "passengers")
               ? renderRadioButtons(category, options)
@@ -115,13 +139,29 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     energySource: [],
   });
 
+  useEffect(() => {
+    const handleClickOutsideFilterComponent = (event) => {
+      const selectedFilterComponentCopy = {...selectedFilterComponent};
+
+      Object.keys(filterRefs).forEach((key) => {
+        if (filterRefs[key].current &&
+          !filterRefs[key].current.contains(event.target) &&
+          !event.target.closest(`#${key}-checkbox`)) {
+          toggleDropdown(null);
+          selectedFilterComponentCopy[key] = false;
+          console.log(`Key: ${key}, Value: ${selectedFilterComponentCopy[key]}`);}
+      })
+      setSelectedFilterComponent(selectedFilterComponentCopy);
+    }
+
+    document.addEventListener("mousedown", handleClickOutsideFilterComponent);
+    return () => document.removeEventListener("mousedown", handleClickOutsideFilterComponent)
+  }, [selectedFilterComponent]);
+
 
   useEffect(() => {
     console.log("Updated selectedFilterOptions:", selectedFilterOptions);
   }, [selectedFilterOptions]);
-
-
-
 
   const handleCarClick = (carId) => {
     console.log("Selected car:", carId);
@@ -169,7 +209,6 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
       filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
-
 
       console.log("Filter params:", filterParams.toString());
 
@@ -237,18 +276,26 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
 
 
   const handleFilterChange = (event) => {
-    const { name, value, checked } = event.target;
+    const { name, value, checked, type } = event.target;
 
     setSelectedFilterOptions((prev) => {
-      const currentCategory = Array.isArray(prev[name]) ? prev[name] : [];
-      const updatedCategory = checked
-        ? [...currentCategory, value]
-        : currentCategory.filter((v) => v !== value);
+      if (type === "radio") {
+        return {
+          ...prev,
+          [name]: [value],
+        };
+      } else {
+        // For checkboxes, update the array
+        const currentCategory = Array.isArray(prev[name]) ? prev[name] : [];
+        const updatedCategory = checked
+          ? [...currentCategory, value]
+          : currentCategory.filter((v) => v !== value);
 
-      return {
-        ...prev,
-        [name]: updatedCategory,
-      };
+        return {
+          ...prev,
+          [name]: updatedCategory,
+        };
+      }
     });
   };
 
@@ -271,15 +318,13 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
         <div className ="rental-page">
           <nav className="sort-bar">
             {renderDropdown("sort", "Sort by", filterOptions.sort)}
-            {renderDropdown("priceRange",
-              "Price Range",
-              null,
+            {renderDropdown("priceRange", "Price Range", null, (
               <IntervalSlider
                 minVal={minPrice}
                 maxVal={maxPrice}
                 setMinVal={setMinPrice}
                 setMaxVal={setMaxPrice}
-                maxCarRentalPrice={maxCarRentalPrice}/>)}
+                maxCarRentalPrice={maxCarRentalPrice}/>))}
             {renderDropdown("carType", "Car Type", filterOptions.carType)}
             {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
@@ -295,7 +340,7 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
                 <h2>Sort and Filter</h2>
                 <div className="filter-group">
                   <h3>Sort</h3>
-                  {renderRadioButtons("sort", filterOptions.sort)}
+                  {renderRadioButtons("sortBy", filterOptions.sort)}
                 </div>
                 <div className="filter-group">
                   <h3>Car Type</h3>
@@ -315,7 +360,13 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
                 </div>
                 <div className="price-range">
                   <h3>Price Range</h3>
-                  <IntervalSlider minVal={minPrice} maxVal={maxPrice} setMinVal={setMinPrice} setMaxVal={setMaxPrice} maxCarRentalPrice={maxCarRentalPrice}/>
+                  <IntervalSlider
+                    minVal={minPrice}
+                    maxVal={maxPrice}
+                    setMinVal={setMinPrice}
+                    setMaxVal={setMaxPrice}
+                    maxCarRentalPrice={maxCarRentalPrice}
+                    priceRangeRef={filterRefs.priceRange}/>
                 </div>
               </div>
               <hr></hr>
