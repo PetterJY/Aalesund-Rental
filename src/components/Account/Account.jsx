@@ -167,7 +167,7 @@ const Account = () => {
     }
   }
 
-  //PROVIDER SECTION:
+  // PROVIDER SECTION:
 
   async function fetchProviderData() {
     if (role !== 'ROLE_PROVIDER') {
