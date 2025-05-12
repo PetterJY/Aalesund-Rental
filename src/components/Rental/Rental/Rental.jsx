@@ -87,7 +87,7 @@ export default function Rental() {
         <div ref={filterRefs[category]}
              className={`dropdown-content ${customContent != null ? 'custom' : ''}`}>
           {customContent || (
-            (category === "sort" || category === "passengers")
+            (category === "sortBy" || category === "passengers")
               ? renderRadioButtons(category, options)
               : renderCheckboxes(category, options))}
         </div>
@@ -96,7 +96,7 @@ export default function Rental() {
   );
 
   const filterOptions = {
-    sort: [
+    sortBy: [
       { value: "newest", label: "Newest" },
       { value: "price-low-to-high", label: "Price - Low to High" },
       { value: "price-high-to-low", label: "Price - High to Low" },
@@ -132,7 +132,7 @@ export default function Rental() {
   };
 
 const [selectedFilterOptions, setSelectedFilterOptions] = useState({
-    sort: [],
+    sortBy: [],
     carType: [],
     transmission: [],
     passengers: [],
@@ -207,7 +207,7 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
       filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase());
       filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase());
       filterParams.append("minPassengers", selectedFilterOptions.passengers[0] || "");
-      filterParams.append("sortOption", selectedFilterOptions.sort[0] || "");
+      filterParams.append("sortOption", selectedFilterOptions.sortBy[0] || "");
       filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
@@ -308,7 +308,7 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
 
   const handleSaveFilters = () => {
     setSelectedFilterOptions({
-      sort: Array.from(document.querySelectorAll('input[name="sort"]:checked')).map(input => input.value),
+      sortBy: Array.from(document.querySelectorAll('input[name="sortBy"]:checked')).map(input => input.value),
       carType: Array.from(document.querySelectorAll('input[name="carType"]:checked')).map(input => input.value),
       transmission: Array.from(document.querySelectorAll('input[name="transmission"]:checked')).map(input => input.value),
       passengers: Array.from(document.querySelectorAll('input[name="passengers"]:checked')).map(input => input.value),
@@ -324,7 +324,7 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
       <section className="main-section">
         <div className ="rental-page">
           <nav className="sort-bar">
-            {renderDropdown("sort", "Sort by", filterOptions.sort)}
+            {renderDropdown("sortBy", "Sort by", filterOptions.sortBy)}
             {renderDropdown("priceRange", "Price Range", null, (
               <IntervalSlider
                 minVal={minPrice}
@@ -347,7 +347,7 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
                 <h2>Sort and Filter</h2>
                 <div className="filter-group">
                   <h3>Sort</h3>
-                  {renderRadioButtons("sortBy", filterOptions.sort)}
+                  {renderRadioButtons("sortBy", filterOptions.sortBy)}
                 </div>
                 <div className="filter-group">
                   <h3>Car Type</h3>
