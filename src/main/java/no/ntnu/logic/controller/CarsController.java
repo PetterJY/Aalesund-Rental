@@ -94,13 +94,6 @@ public class CarsController {
       @RequestParam(required = false) List<Cars.EnergySource> energySource
   ) {
 
-    System.out.println("Searching cars with parameters: " +
-        "carType=" + carType +
-        ", transmission=" + transmission +
-        ", minPassengers=" + minPassengers +
-        ", energySource=" + energySource +
-        ", sortOption=" + sortOption);
-
     Sort sortOrder = Sort.unsorted();
     if (sortOption != null) {
       sortOrder = switch (sortOption) {

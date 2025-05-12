@@ -112,6 +112,8 @@ export default function Rental() {
       { value: "hatchback", label: "Hatchback" },
       { value: "minivan", label: "Minivan" },
       { value: "sports", label: "Sports" },
+      {value: "crossover", label: "Crossover"},
+      {value: "station_wagon", label: "Station Wagon"},
     ],
     transmission: [
       { value: "automatic", label: "Automatic" },

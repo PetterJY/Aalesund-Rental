@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getRole } from '../../utils/JwtUtility';
+import { getRole, getAccountId } from '../../utils/JwtUtility';
 import { PlusCircle } from "@phosphor-icons/react";
 import MyRentalsCarDisplay from './MyRentalsCarDisplay/MyRentalsCarDisplay';
 import CreateCarModal from './CreateCarModal/CreateCarModal';
@@ -25,7 +25,7 @@ const MyRentals = () => {
   async function fetchCars() {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/cars', {
+      const response = await fetch('http://localhost:8080/cars/my-cars/' + getAccountId(), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
