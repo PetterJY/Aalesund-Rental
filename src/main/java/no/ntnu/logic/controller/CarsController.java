@@ -175,6 +175,27 @@ public class CarsController {
     return ResponseEntity.status(HttpStatus.OK).body(cars);
   }
 
+
+  /**
+   * Returns all car types.
+   *
+   * @return List of all car types.
+   */
+
+@GetMapping("/car-types")
+@ApiOperation(value = "Returns all car types.")
+public ResponseEntity<List<Cars.CarType>> getCarTypes() {
+    try {
+        logger.info("Fetching all car types");
+        List<Cars.CarType> carTypes = List.of(Cars.CarType.values());
+        logger.debug("Fetched car types: {}", carTypes);
+        return ResponseEntity.status(HttpStatus.OK).body(carTypes);
+    } catch (Exception e) {
+        logger.error("Error fetching car types: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+}
+
   /**
    * Creates a new car.
    *
