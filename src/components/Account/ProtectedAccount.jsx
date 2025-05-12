@@ -15,7 +15,11 @@ const ProtectedAccount = () => {
   }, [isAuthenticated, isAuthInitialized, navigate]);
 
   if (!isAuthInitialized) {
-    return null;
+    return (
+      <div className="loading">
+        <h1>Loading...</h1>
+      </div>
+    );
   }
 
   return (

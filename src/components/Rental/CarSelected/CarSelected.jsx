@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mapCarImage } from '../../utils/CarImageMapper';
 import { Car, Seatbelt, PlusCircle, Calendar, CaretDown } from "@phosphor-icons/react";
-
 import './CarSelected.css';
 import '../../App.css';
 
@@ -20,8 +19,8 @@ const CarSelected = ({car}) => {
     <div className="car-selected">
       <div id ="car-background">
         <header>
-        <h2>{car.carBrand} {car.carModel}</h2>
-        <h3>{car.energySource}</h3>
+          <h2>{car.carBrand} {car.carModel}</h2>
+          <h3>{car.energySource}</h3>
         </header>
         <img 
           src={carImage}
@@ -55,7 +54,7 @@ const CarSelected = ({car}) => {
           <h4>{car.pricePerDay},- kr / day - {car.priceTotal},- kr in total</h4>
         </div>
       </section>
-      <button className='next-button' onClick={handleRentCar()}>Rent</button>
+      <button className='next-button' onClick={handleRentCar}>Rent</button>
     </div>
   );
 }  
