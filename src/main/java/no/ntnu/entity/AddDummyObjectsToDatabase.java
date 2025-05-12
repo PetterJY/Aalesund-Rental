@@ -112,7 +112,7 @@ public class AddDummyObjectsToDatabase {
 		addCar("5", "AA 77777", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "", Cars.Location.TRONDHEIM);
 		addCar("6", "AA 88888", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "", Cars.Location.TRONDHEIM);
 		addCar("7", "AA 99999", "Mazda", "2", Cars.CarType.HATCHBACK, 400, 2017, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "2", Cars.Location.DRAMMEN);
-		addCar("8", "AB 11111", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.LILLEHAMMER);
+		addCar("8", "AB 11111", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.ÅLESUND);
 		addCar("9", "AB 22222", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.ÅLESUND);
 		addCar("10", "AC 88888", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.TROMSØ);
 		addCar("11", "AB 33333", "BMW", "M3", Cars.CarType.SPORTS, 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11", Cars.Location.OSLO);

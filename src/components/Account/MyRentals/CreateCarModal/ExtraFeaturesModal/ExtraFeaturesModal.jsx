@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { getToken } from '../../../../utils/JwtUtility';
-import './ExtraFeaturesModal.css';
+import '../EnumModal.css';
 import '../../../../App.css';
 
-const ExtraFeaturesModal = ({ onClose, isCreateCarModalOpen, setSelectedFeatures, selectedFeatures }) => {
+const ExtraFeaturesModal = ({ toggleModal, isCreateCarModalOpen, setSelectedFeatures, selectedFeatures }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [extraFeatures, setExtraFeatures] = useState([]);
@@ -48,9 +48,9 @@ const ExtraFeaturesModal = ({ onClose, isCreateCarModalOpen, setSelectedFeatures
   }, [isCreateCarModalOpen]);
 
   return (
-    <div className="extra-features-modal">
+    <div className="enum-modal">
       <div className="modal-content">
-        <span className="close" onClick={onClose}>&times;</span>
+        <span className="close" onClick={toggleModal}>&times;</span>
         <h2>Select Extra Features</h2>
         <input
           type="text"
@@ -60,13 +60,13 @@ const ExtraFeaturesModal = ({ onClose, isCreateCarModalOpen, setSelectedFeatures
         />
         {isLoading && <p>Loading...</p>}
         {!isLoading && (
-          <div className="extra-features-scrollable">
+          <div className="enum-scrollable">
             {extraFeatures
               .filter((feature) =>
                 feature.name.toLowerCase().includes(searchQuery.toLowerCase())
               )
               .map((feature) => (
-              <div key={feature.id} className="extra-feature-item">
+              <div key={feature.id} className="enum-item">
                 <label htmlFor={`feature-${feature.id}`}>{feature.name}</label>
                 <input
                   type="checkbox"
@@ -79,7 +79,7 @@ const ExtraFeaturesModal = ({ onClose, isCreateCarModalOpen, setSelectedFeatures
             ))}
           </div>
         )}
-        <button className="confirm-button" onClick={onClose}>Confirm</button>
+        <button className="confirm-button" onClick={toggleModal}>Confirm</button>
       </div>
     </div>
   );

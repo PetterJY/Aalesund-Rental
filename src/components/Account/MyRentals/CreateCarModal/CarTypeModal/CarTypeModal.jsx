@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getToken } from '../../../../utils/JwtUtility';
-import './CarTypeModal.css';
+import '../EnumModal.css'
 import '../../../../App.css';
 
-const CarTypeModal = ({ onClose, isCreateCarModalOpen, setSelectedCarType, selectedCarType }) => {
+const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, selectedCarType }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [carTypes, setCarTypes] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -44,9 +44,9 @@ const CarTypeModal = ({ onClose, isCreateCarModalOpen, setSelectedCarType, selec
   }, [isCreateCarModalOpen]);
 
   return (
-    <div className="car-type-modal">
+    <div className="enum-modal">
       <div className="modal-content">
-        <span className="close" onClick={onClose}>&times;</span>
+        <span className="close" onClick={toggleModal}>&times;</span>
         <h2>Select Car Type</h2>
         <input
           type="text"
@@ -58,11 +58,11 @@ const CarTypeModal = ({ onClose, isCreateCarModalOpen, setSelectedCarType, selec
         {isLoading && <p>Loading...</p>}
         {error && <p className="error-message">{error}</p>}
         {!isLoading && !error && (
-          <div className="car-types-scrollable">
+          <div className="enum-scrollable">
             {carTypes
               .filter((carType) => carType.toLowerCase().includes(searchQuery.toLowerCase()))
               .map((carType) => (
-                <div key={carType} className="car-type-item">
+                <div key={carType} className="enum-item">
                   <label htmlFor={`car-type-${carType}`}>{carType}</label>
                   <input
                     type="radio"
@@ -76,7 +76,7 @@ const CarTypeModal = ({ onClose, isCreateCarModalOpen, setSelectedCarType, selec
               ))}
           </div>
         )}
-        <button className="confirm-button" onClick={onClose}>Confirm</button>
+        <button className="confirm-button" onClick={toggleModal}>Confirm</button>
       </div>
     </div>
   );
