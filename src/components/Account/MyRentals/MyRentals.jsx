@@ -73,39 +73,37 @@ const MyRentals = () => {
   };
 
   return (
-    <div className="orders">
-      <section className="my-rentals-section">
-        <div id='my-rentals-header'>
-          <h2 className="title">My Rentals</h2>
-          {isCreateCarModalOpen && <CreateCarModal onClose={toggleCreateCarModal} isCreateCarModalOpen={isCreateCarModalOpen} />}
-          <button id="add-car-button" onClick={toggleCreateCarModal}>
-            <PlusCircle size={32} />
-            <span className="add-car-text">Add Car</span>
-          </button>
-        </div>
+    <section className="my-rentals-container">
+      <div id='my-rentals-header'>
+        <h2 className="title">My Rentals</h2>
+        {isCreateCarModalOpen && <CreateCarModal onClose={toggleCreateCarModal} isCreateCarModalOpen={isCreateCarModalOpen} />}
+        <button id="add-car-button" onClick={toggleCreateCarModal}>
+          <PlusCircle size={32} />
+          <span className="add-car-text">Add Car</span>
+        </button>
+      </div>
 
-        {isLoading ? (
-          <h1>
-            Loading your rentals... 
-          </h1>
-        ) : (
-          <div className="my-rentals-list">
-            {paginatedCars.map(car => (
-              <MyRentalsCarDisplay 
-                key={car.id}
-                car={car}
-              />
-            ))}
-          </div>
-        )}
-
-        <div className="pagination-controls">
-          <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
-          <span>Page {currentPage} of {totalPages}</span>
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+      {isLoading ? (
+        <h1>
+          Loading your rentals... 
+        </h1>
+      ) : (
+        <div className="my-rentals-list">
+          {paginatedCars.map(car => (
+            <MyRentalsCarDisplay 
+              key={car.id}
+              car={car}
+            />
+          ))}
         </div>
-      </section>
-    </div>
+      )}
+
+      <div className="pagination-controls">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+      </div>
+    </section>
   );
 }
 
