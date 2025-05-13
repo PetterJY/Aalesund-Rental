@@ -51,7 +51,8 @@ const Booking = () => {
 					...rentalDetails,
 					carBrand: carDetails.carBrand,
 					modelName: carDetails.modelName,
-					companyName: carDetails.provider.companyName
+					companyName: carDetails.provider.companyName,
+					pricePerDay: carDetails.pricePerDay,
 				}
 			);
 
@@ -187,8 +188,9 @@ const Booking = () => {
 						<p>Loading...</p>
 					) : (
 						<>
-							<p>{rentalDetails.rentalPeriod} days</p>
-							<p>{rentalDetails.pricePerDay}kr/day</p>
+							<p>{`${(bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
+							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
+							<p>{`${Math.imul(((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24)), rentalDetails.pricePerDay)}`} in total</p>
 						</>
 					)}
 				</footer>
