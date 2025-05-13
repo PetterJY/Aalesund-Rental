@@ -478,18 +478,19 @@ background: #e94100; /* Darker shade of #FF5F00 */
 .date-picker-popper .react-datepicker {
   background: #ffffff; /* White background */
   display: flex; /* Display months side by side */
-  gap: 20px; /* Space between months */
-  padding: 10px;
+  gap: 0px; /* Space between months */
+  padding: 0px;
   font-family: "Arial", sans-serif; /* Clean sans-serif font */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  font-size: 1.25rem;
+  font-size: 1rem;
   border-radius: 12px;
-
+  margin-top: -40px;
 }
 
 /* Style each month container */
 .date-picker-popper .react-datepicker__month-container {
-  width: 400px; /* Fixed width for each month */
+  width: 300px; /* Fixed width for each month */
+  max-width: fit-content;
   padding: 12px;
 }
 
@@ -513,8 +514,8 @@ background: #e94100; /* Darker shade of #FF5F00 */
 /* Style the day names (MA, TI, ON, TO, FR, LØ, SØ) */
 .date-picker-popper .react-datepicker__day-name {
   color: #999999; /* Light gray for day names */
-  width: 50px;
-  line-height: 50px;
+  width: 40px;
+  line-height: 30px;
   text-align: center;
   margin: 2px;
   font-weight: normal;
@@ -524,8 +525,8 @@ background: #e94100; /* Darker shade of #FF5F00 */
 /* Style the days */
 .date-picker-popper .react-datepicker__day {
   color: #000000; /* Black text for active dates */
-  width: 50px;
-  line-height: 50px;
+  width: 40px;
+  line-height: 40px;
   text-align: center;
   margin: 2px;
   cursor: pointer;
