@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { mapCarImage } from '../utils/CarImageMapper';
 import { getRole, getAccountId } from "../utils/JwtUtility";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
 import "../App.css";
+import {BookingContext} from "../utils/BookingContext";
+import {formatDate} from "date-fns";
 
 const Booking = () => {
 	const navigate = useNavigate();
@@ -18,6 +20,8 @@ const Booking = () => {
 	}, [navigate, role]);
 
 	const { carId } = useParams();
+
+	const { bookingData } = useContext(BookingContext);
 
 	const [rentalDetails, setRentalDetails] = useState(null);
 	const [accountDetails, setAccountDetails] = useState(null);
@@ -123,7 +127,7 @@ const Booking = () => {
 			<div className="car-information-form">
 				<header className="car-rental-header">
 					<div className="rectangle-display">
-						<img id="car-image" src={carImage}></img>
+						<img id="car-image" src={carImage} alt="ordered-car-image"/>
 					</div>      
 					<div className="car-rental-details">
 						{ isLoading ? (
@@ -150,7 +154,12 @@ const Booking = () => {
 							) : (
 								<>
 									<h4>{rentalDetails.companyName}</h4>
-									<p className="pickup-time">{rentalDetails.pickUpTime}</p>
+									<p>{`${bookingData.pickupLocation}`}</p>
+									<p className="pickup-time">
+										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} , 
+										${formatDate(bookingData.pickupTime, "d. MMM, yyyy")}  | 
+										${formatDate(bookingData.pickupTime, "HH:mm")}`}
+									</p>
 								</>
 							)}
 						</div>
@@ -161,7 +170,12 @@ const Booking = () => {
 							) : (
 								<>
 									<h4>{rentalDetails.companyName}</h4>
-									<p className="dropoff-time">{rentalDetails.dropOffTime}</p>
+									<p>{`${bookingData.pickupLocation}`}</p>
+									<p className="dropoff-time">
+										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} ,
+										${formatDate(bookingData.dropoffTime, "d. MMM, yyyy")}  |
+								  	${formatDate(bookingData.dropoffTime, "HH:mm")}`}
+									</p>
 								</>
 							)}
 						</div>
