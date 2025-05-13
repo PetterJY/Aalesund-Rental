@@ -4,7 +4,7 @@ import { AuthProvider } from './utils/AuthContext';
 import Home from './Home/Home';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
-import Rental from './Rental/Rental/Rental';
+import Rental from './Rental/Rental';
 import Booking from './Booking/Booking';
 import ProtectedAccount from './Account/ProtectedAccount';
 import Account from './Account/Account';

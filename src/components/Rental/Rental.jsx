@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
-import CarDisplay from "../CarDisplay/CarDisplay";
-import CarSelected from '../CarSelected/CarSelected';
+import CarDisplay from "./CarDisplay/CarDisplay";
+import CarSelected from './CarSelected/CarSelected';
+import IntervalSlider from "./IntervalSlider/IntervalSlider";
 import "./Rental.css";
-import "../../App.css";
-import IntervalSlider from "../IntervalSlider/IntervalSlider";
+import "../App.css";
 
 export default function Rental() {
   const [cars, setCars] = useState([]);

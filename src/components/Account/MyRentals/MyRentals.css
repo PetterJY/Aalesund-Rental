@@ -1,36 +1,31 @@
- .my-rentals {
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+.my-rentals-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
 
-  .my-rentals-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: none !important;
-  }
+.my-rentals-list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: white;
+  width: 100%;
+  max-width: 1600px;
+}
 
-  .my-rentals-list {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: white;
-    width: 100%;
-    max-width: 1600px;
-  }
+#my-rentals-header {
+  display: flex;
+  box-shadow: none;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  padding: 0 20px;
+}
 
-  #my-rentals-header {
-    display: flex;
-    box-shadow: none;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1600px;
-    padding: 0 20px;
-  }
-
-  #add-car-button {
+#add-car-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,7 +63,7 @@
 }
 
 /* Style for the pagination controls container */
-.orders .pagination-controls {
+.pagination-controls {
   display: flex;
   justify-content: center;
   align-items: center;
