@@ -12,30 +12,33 @@ import Orders from './Account/Orders/Orders';
 import MyRentals from './Account/MyRentals/MyRentals';
 import PageNotFound from './PageNotFound/PageNotFound';
 import './App.css';
+import {BookingProvider} from "./utils/BookingContext";
 
 function App() {
   return (
     <AuthProvider>
-      <Routes>
-        <Route path="/" element={<Root />}>
-          <Route index element={<Navigate to={"/home"} replace />} />
-          <Route path="home" element={<Home />} />
-          <Route path="rental" element={<Rental />} />
-          
-          <Route path="booking/:carId" element={<Booking />} />
-          <Route path="booking" element={<Navigate to={"/rental"} replace />} />
+      <BookingProvider>
+        <Routes>
+          <Route path="/" element={<Root />}>
+            <Route index element={<Navigate to={"/home"} replace />} />
+            <Route path="home" element={<Home />} />
+            <Route path="rental" element={<Rental />} />
 
-          {/* Protected Routes */}
-          <Route path="account" element={<ProtectedAccount />}>
-            <Route index element={<Navigate to={"/account/account"} replace />} />
-            <Route path="account" element={<Account />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="my-rentals" element={<MyRentals />} />
+            <Route path="booking/:carId" element={<Booking />} />
+            <Route path="booking" element={<Navigate to={"/rental"} replace />} />
+
+            {/* Protected Routes */}
+            <Route path="account" element={<ProtectedAccount />}>
+              <Route index element={<Navigate to={"/account/account"} replace />} />
+              <Route path="account" element={<Account />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="my-rentals" element={<MyRentals />} />
+            </Route>
+
+            <Route path="*" element={<PageNotFound />} />
           </Route>
-          
-          <Route path="*" element={<PageNotFound />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </BookingProvider>
     </AuthProvider>
   );
 } 

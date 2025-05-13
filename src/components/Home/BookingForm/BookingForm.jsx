@@ -1,20 +1,27 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, {useRef, useState, useEffect, useContext} from 'react';
 import { MagnifyingGlass, XCircle, X } from "@phosphor-icons/react";
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import DropDownSuggestions from './DropDownSuggestions/DropDownSuggestions';
+import { BookingContext } from '../../utils/BookingContext'
 import './BookingForm.css'; 
 import '../../App.css';
 
 const BookingForm = ({
+                       initialData,
                        onSave,
                        mobileDisplaySize = false,
                        onClose = null,
                        showCloseButton = false
                      }) => {
+
+  const {bookingData, setBookingData} = useContext(BookingContext);
+
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);
-  const [pickupLocationValue, setPickupLocationValue] = useState("");
-  const [dropoffLocationValue, setDropoffLocationValue] = useState("");
+
+  const [pickupLocationValue, setPickupLocationValue] = useState(bookingData.pickupLocation || "");
+  const [dropoffLocationValue, setDropoffLocationValue] = useState(bookingData.dropoffLocation || "");
+
   const [isPickupTextInputHovered, setIsPickupTextInputHovered] = useState(false);
   const [isDropoffTextInputHovered, setIsDropoffTextInputHovered] = useState(false);
   const [isPickupTextFieldSelected, setIsPickupTextFieldSelected] = useState(false);
@@ -51,7 +58,7 @@ const BookingForm = ({
     } finally {
       setIsLoadingLocations(false);
     }
-  };
+  }
   
   useEffect(() => {
     fetchPickupLocations();
@@ -60,28 +67,43 @@ const BookingForm = ({
   const [pickupDate, setPickupDate] = useState(() => {
     const time = new Date();
     time.setDate(time.getDate()+1)
-    return time;
+    return initialData.pickupDate || time;
   });
 
   const [dropoffDate, setDropoffDate] = useState(() => {
     const time = new Date();
     time.setDate(time.getDate()+13);
-    return time;
+    return initialData.dropoffDate || time;
   });
 
   const [pickupTime, setPickUpTime] = useState(() => {
     const time = new Date();
     time.setHours(time.getHours()+1);
     time.setMinutes(0);
-    return time;
+    return initialData.pickupTime || time;
   });
 
-  const [dropoffTime] = useState(() => {
+  const [dropoffTime, setDropoffTime] = useState(() => {
     const time = new Date();
     time.setHours(time.getHours()+1);
     time.setMinutes(0);
-    return time;
+    return initialData.dropoffTime || time;
   });
+
+  useEffect(() => {
+    const pickupDateTemp = new Date(new Date().setDate(new Date().getDate() + 1));
+    const dropOffDateTemp = new Date(new Date().setDate(new Date().getDate() + 13));
+    const pickupTimeTemp = new Date(new Date().setHours(new Date().getHours() + 1, 0));
+    const dropoffTimeTemp = new Date(new Date().setHours(new Date().getHours() + 2, 0));
+
+    setPickupLocationValue(initialData.pickupLocation || "");
+    setDropoffLocationValue(initialData.dropoffLocation || "");
+
+    setPickupDate(initialData.pickupDate || pickupDateTemp);
+    setDropoffDate(initialData.dropoffDate || dropOffDateTemp);
+    setPickUpTime(initialData.pickupTime || pickupTimeTemp);
+    setDropoffTime(initialData.dropoffTime || dropoffTimeTemp);
+  }, [initialData]);
 
   const handlePickupDateChange = (date) => {
     if (dropoffDate !== null && date !== null) {
@@ -110,7 +132,7 @@ const BookingForm = ({
     const newTime = new Date();
     newTime.setHours(hours);
     newTime.setMinutes(minutes);
-    setPickUpTime(newTime);
+    setDropoffTime(newTime);
   }
 
   const handlePickupTimeChange = (timeString) => {
@@ -165,7 +187,9 @@ const BookingForm = ({
   }, [isDropoffTextFieldSelected]);
 
   const handleSave = () => {
-    onSave({
+    onSave();
+    setBookingData({
+      ...bookingData,
       pickupLocation: pickupLocationValue,
       dropoffLocation: dropoffLocationValue,
       pickupDate,

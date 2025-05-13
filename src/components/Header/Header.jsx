@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { User, X, PencilSimple, Car, UserCircleCheck } from '@phosphor-icons/react';
 import { format } from 'date-fns';
-import { getAccountId, getRole } from '../utils/JwtUtility';
+import { getAccountId } from '../utils/JwtUtility';
 import logo from '../../resources/images/logo.png';
 import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../Home/BookingForm/BookingForm';
 import DropDownMenu from './DropDownMenu/DropDownMenu';
 import './Header.css';
 import '../App.css';
+import {BookingContext} from "../utils/BookingContext";
 
 const Header = () => {
   const showMenu = useLocation().pathname === "/rental";
@@ -22,14 +23,7 @@ const Header = () => {
   const [userIcon, setUserIcon] = useState();
   const [userDisplayName, setUserDisplayName] = useState();
 
-  const [bookingData, setBookingData] = useState({
-    pickupLocation: '',
-    dropoffLocation: '',
-    pickupDate: new Date(new Date().setDate(new Date().getDate() + 1)),
-    pickupTime: new Date(new Date().setHours(new Date().getHours() + 1, 0)),
-    dropoffDate: new Date(new Date().setDate(new Date().getDate() + 13)),
-    dropoffTime: new Date(),
-  });
+  const { bookingData } = useContext(BookingContext);
   
   useEffect(() => {
     const handleWindowResize = () => {
@@ -72,8 +66,7 @@ const Header = () => {
   const closeModal = () => setIsModalVisible(false);
   const handleXClick = () => setIsMenuOpen(false);
 
-  const handleSaveBooking = (updatedBookingData) => {
-    setBookingData(updatedBookingData);
+  const handleSaveBooking = () => {
     toggleMenu();
   };
 
@@ -82,7 +75,7 @@ const Header = () => {
       <div className={mobileDisplaySize ? "date-time-menu-mobile" : "date-time-menu-desktop"}>
         <div className="date-range-display">
           <div className="location-display">
-            {bookingData.pickupLocation} Pickup-location <span className="separator"> - </span> {bookingData.dropoffLocation} Dropoff-location
+            {bookingData.pickupLocation || "Pickup-location"} <span className="separator"> - </span> {bookingData.dropoffLocation || "Dropoff-location"}
           </div>
           <div className="time-display">
             {format(bookingData.pickupDate, 'd. MMM')} <span className="separator"> | </span> {format(bookingData.pickupTime, 'HH:mm')}

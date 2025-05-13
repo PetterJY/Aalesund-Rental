@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import BookingForm from './BookingForm/BookingForm';
 import Testimonials from "./Testimonials/Testimonials";
@@ -7,10 +7,13 @@ import FeaturedCars from "./FeaturedCars/FeaturedCars";
 import CallToAction from "./CallToAction/CallToAction";
 import '../App.css';
 import './Home.css';
+import {BookingContext} from "../utils/BookingContext";
 
 const Home = () => {
   const navigate = useNavigate();
   const [mobileDisplaySize, setMobileDisplaySize] = useState(false);
+
+  const {bookingData} = useContext(BookingContext)
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -22,11 +25,8 @@ const Home = () => {
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
 
-  const handleBookingSubmit = (bookingData) => {
-    // Handle the booking data here
-    console.log('Booking data:', bookingData);
-    // Navigate to search results or rental page
-    navigate('/rental', { state: { bookingData } });
+  const handleBookingSubmit = () => {
+    navigate('/rental');
   };
 
   const HeroCallToAction = () => {
@@ -49,6 +49,7 @@ const Home = () => {
       <div className="hero-section">
         <div className="booking-form-container">
           <BookingForm
+            initialData={bookingData}
             onSave={handleBookingSubmit}
             mobileDisplaySize={mobileDisplaySize}
             />
