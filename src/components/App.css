@@ -1,6 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
 
-* {
+:root {
+   /* Color variables */
+  --main-color: #1A1A1A;
+  --secondary-color: #EB5E28;
+  --background-color: #F4F4F9;
+  --hover-color: #efeff4;
+
+  /* Button styles */
+
+  /* Main buttons*/
+  --main-button-hover-color: var(--secondary-color);
+  --main-button-text-color: white;
+
+  /* Secondary buttons*/
+  --secondary-button-color: rgb(243, 243, 250);
+  --secondary-button-hover-color: rgb(230, 230, 240);
+  --secondary-button-checked-color: var(--main-color);
+
+
 }
 
 *:hover {

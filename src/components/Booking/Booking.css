@@ -24,7 +24,24 @@ body {
   display: flex;
   flex-direction: row;
   margin: 0 10vh 0 10vh;
-  
+}
+
+.booking-page .pickup-dropoff-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.booking-page .booking-details-title {
+  font-weight: 700;
+}
+
+.booking-page .pickup-dropoff-time {
+  font-weight: 700;
+}
+
+.booking-page h4 {
+  font-style: italic;
+  font-weight: 400;
 }
 
 .booking-page .driver-information-form {

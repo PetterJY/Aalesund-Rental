@@ -36,9 +36,7 @@
 .rental-page .sort-bar {
   display: flex;
   flex-direction: row;
-  justify-self: flex-start;
   margin: 24px 0 24px 0;
-  align-self: flex-start;
   width: 1230px;
 }
 
@@ -57,40 +55,33 @@
   border-bottom: #EB5E28 1px solid;
 }
 
-.rental-page .filter-button {
-  background-color: #ffffff;
-}
 
-.filter-button {
-  background-color: white;
-  color: #252422;
+
+.rental-page .filter-button {
+  background-color: var(--secondary-button-color);
+  color: black;
   position: relative;
-  width: auto;
-  height: 55px;
+  width: 165px;
+  border-radius: 12px;
+  height: 37px;
   margin-right: 10px;
   border: none;
-  border-bottom: #252422 1px solid;
-  border-radius: 0;
-  justify-self: flex-start;
-  align-self: flex-start;
   display: flex;
   align-items: center;
   gap: 10px;
+  font-size: 1.25rem;
 }
 
 .rental-page .filter-button:hover {
-  border-bottom: #EB5E28 1px solid;
-  color: #EB5E28;
-  background-color: white;
+  background-color: var(--secondary-button-hover-color);
 }
 
 .rental-page .filter-button svg {
-  fill: #252422;
+  fill: black;
   margin-bottom: -2px;
 }
 
 .rental-page .filter-button:hover svg {
-  fill: #EB5E28;
 }
 
 /* Filter panel styles */
@@ -130,7 +121,6 @@
   cursor: pointer;
 }
 
-
 .rental-page .checkbox-label {
   display: flex;
   align-items: center;
@@ -139,7 +129,6 @@
   cursor: pointer;
   border-radius: 6px;
 }
-
 
 .rental-page .checkbox-label span {
   color: #252422;
@@ -187,31 +176,24 @@
 }
 
 .rental-page .checkbox-label span {
-  background-color: var(--text-box-color);
+  background-color: var(--secondary-button-color);
   border-radius: 12px;
   color: #252422;
   padding: 12px 24px;
   cursor: pointer;
-  border-bottom: white 1px solid;
 }
 
 .rental-page .checkbox-label span:hover {
- background-color: #c9c9cf;
+ background-color: var(--secondary-button-hover-color);
 }
 
 .rental-page .checkbox-label input:checked + span {
   background-color: #252422;
   color:white;
-  border-radius: 6px;
-  border-bottom: white 1px solid;
+
 }
 
-.rental-page .checkbox-label input:checked + span:hover {
-  background-color: #c9c9cf;
-  color:#252422;
-  border-bottom: white 1px solid;
-  border-radius: 6px;
-}
+
 
 
 
@@ -228,20 +210,21 @@
 }
 
 .rental-page .dropdown-button {
-  background-color: white;
-  color: #252422;
+  background-color: var(--secondary-button-color);
+  color: black;
   border: none;
   padding: 8px 12px;
+  border-radius: 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
   width: auto;
-  border-radius: 6px;
+
 }
 
 .rental-page .dropdown-button:hover {
-  background-color: var(--text-box-hover-color);
+  background-color: var(--secondary-button-hover-color);
 }
 
 .rental-page .dropdown-content {
@@ -283,7 +266,6 @@
   }
     .rental-page .sort-bar {
     width: 860px;
-    justify-content: center;
   }
 }
 
@@ -311,7 +293,6 @@
 
   .rental-page .sort-bar {
     width: 100%;
-    justify-content: center;
   }
 
   .rental-page .sort-button {
@@ -319,7 +300,6 @@
   }
 
   .rental-page .filter-button {
-    width: 33%;
     justify-content: center;
   }
   .rental-page .sort-bar .dropdown-group {

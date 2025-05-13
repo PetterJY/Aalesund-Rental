@@ -129,13 +129,14 @@ const Booking = () => {
 				<header className="car-rental-header">
 					<div className="rectangle-display">
 						<img id="car-image" src={carImage} alt="ordered-car-image"/>
-					</div>      
+					</div>
 					<div className="car-rental-details">
 						{ isLoading ? (
 							<p>Loading...</p>
 						) : (
 							<>
 								<h2>{rentalDetails.carBrand} {rentalDetails.modelName}</h2>
+								<h4>Provider - {rentalDetails.companyName}</h4>
 								<p className="rent-period">{rentalDetails.rentalPeriod}</p>
 							</>
 						)}
@@ -149,14 +150,13 @@ const Booking = () => {
 					</div>
 					<div className="rental-schedule-text">
 						<div className="pickup-info">
-							<p className="pickup">Pickup</p>
+							<p className="pickup-dropoff-title">Pickup</p>
 							{isLoading ? (
 								<p>Loading...</p>
 							) : (
 								<>
-									<h4>{rentalDetails.companyName}</h4>
 									<p>{`${bookingData.pickupLocation}`}</p>
-									<p className="pickup-time">
+									<p className="pickup-dropoff-time">
 										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} , 
 										${formatDate(bookingData.pickupTime, "d. MMM, yyyy")}  | 
 										${formatDate(bookingData.pickupTime, "HH:mm")}`}
@@ -165,14 +165,12 @@ const Booking = () => {
 							)}
 						</div>
 						<div className="dropoff-info">
-							<p className="dropoff">Dropoff</p>
+							<p className="pickup-dropoff-title">Dropoff</p>
 							{isLoading ? (
 								<p>Loading...</p>
 							) : (
-								<>
-									<h4>{rentalDetails.companyName}</h4>
-									<p>{`${bookingData.pickupLocation}`}</p>
-									<p className="dropoff-time">
+								<><p>{`${bookingData.pickupLocation}`}</p>
+									<p className="pickup-dropoff-time">
 										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} ,
 										${formatDate(bookingData.dropoffTime, "d. MMM, yyyy")}  |
 								  	${formatDate(bookingData.dropoffTime, "HH:mm")}`}
@@ -183,14 +181,17 @@ const Booking = () => {
 					</div>
 				</section>
 				<footer className="payment-details">
-					<p>Renting costs:</p>
+					<p className="booking-details-title">Renting costs</p>
 					{isLoading ? (
 						<p>Loading...</p>
 					) : (
 						<>
 							<p>{`${(bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
 							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
-							<p>{`${Math.imul(((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24)), rentalDetails.pricePerDay)}`} in total</p>
+							<p>
+								{`${Math.imul((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24), 
+								rentalDetails.pricePerDay)}`} in total
+							</p>
 						</>
 					)}
 				</footer>
