@@ -143,24 +143,28 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     maxPrice: null,
   });
 
-  useEffect(() => {
-    const handleClickOutsideFilterComponent = (event) => {
-      const selectedFilterComponentCopy = {...selectedFilterComponent};
+useEffect(() => {
+  const handleClickOutsideFilterComponent = (event) => {
+    const selectedFilterComponentCopy = { ...selectedFilterComponent };
 
-      Object.keys(filterRefs).forEach((key) => {
-        if (filterRefs[key].current &&
-          !filterRefs[key].current.contains(event.target) &&
-          !event.target.closest(`#${key}-checkbox`)) {
-          toggleDropdown(null);
-          selectedFilterComponentCopy[key] = false;
-        }
-      })
-      setSelectedFilterComponent(selectedFilterComponentCopy);
-    }
+    Object.keys(filterRefs).forEach((key) => {
+      if (
+        filterRefs[key].current &&
+        !filterRefs[key].current.contains(event.target) &&
+        !event.target.closest(`#${key}-checkbox`)
+      ) {
+        toggleDropdown(null); // Close the dropdown
+        selectedFilterComponentCopy[key] = false; // Mark the filter as closed
+      }
+    });
 
-    document.addEventListener("mousedown", handleClickOutsideFilterComponent);
-    return () => document.removeEventListener("mousedown", handleClickOutsideFilterComponent)
-  }, [selectedFilterComponent, minPrice, maxPrice]);
+    setSelectedFilterComponent(selectedFilterComponentCopy);
+  };
+
+  document.addEventListener("mousedown", handleClickOutsideFilterComponent);
+  return () =>
+    document.removeEventListener("mousedown", handleClickOutsideFilterComponent);
+}, [selectedFilterComponent, minPrice, maxPrice]);
 
   useEffect(() => {
     console.log("MinPrice or maxPrice changed: " + minPrice, " - " + maxPrice);

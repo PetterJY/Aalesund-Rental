@@ -96,6 +96,11 @@
 /* Filter panel styles */
 .rental-page .filter-panel {
   display: none; /* Hidden by default */
+  overflow-y: auto;
+}
+
+.rental-page .filter-panel .filter-content {
+  max-width: 100%;
 }
 
 .rental-page .panel-sort-button {
@@ -370,6 +375,7 @@
 
   .rental-page .filter-panel .checkbox-group {
     flex-direction: row;
+    flex-wrap: wrap; /* Prevent wrapping */
     gap: 5px;
   }
 
