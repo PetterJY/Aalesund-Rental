@@ -5,6 +5,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
@@ -71,6 +76,32 @@ public class RentalsController {
     Rentals rental = rentalsService.findById(id);
     logger.debug("Fetched rental: {}", rental);
     return ResponseEntity.status(HttpStatus.OK).body(rental);
+  }
+
+  /**
+   * Returns a rental by its Provider ID.
+   *
+   * @param providerId The ID of the provider.
+   * @param carId The ID of the car.
+   * @return The rentals with the specified Provider ID.
+   */
+  @GetMapping("/my-rentals")
+  @ApiOperation(value = "Returns rentals by their Provider ID.",
+      notes = "If the provider is not found, a 404 error is returned.")
+  public ResponseEntity<List<Rentals>> getRentalsByProviderIdAndCarId(
+      @RequestParam Long providerId,
+      @RequestParam Long carId) {
+
+    Sort sortOrder = Sort.unsorted();
+    Sort.by(Sort.Direction.ASC, "startDate", "endDate");
+
+    Pageable pageable = Pageable.unpaged(sortOrder);
+
+    logger.info("Fetching rentals with provider id: {} and car id: {} and sorting by: {}",
+        providerId, carId, pageable);
+    List<Rentals> rentals = rentalsService.findByProviderIdAndCarId(providerId, carId, pageable);
+    logger.debug("Fetched rentals: {}", rentals);
+    return ResponseEntity.status(HttpStatus.OK).body(rentals);
   }
 
   /**

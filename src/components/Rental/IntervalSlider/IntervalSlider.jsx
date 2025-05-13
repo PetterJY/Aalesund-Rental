@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './IntervalSlider.css';
 
-const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice}) => {
+const IntervalSlider = ({ minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice, priceRangeRef }) => {
   const intervalStep = 50;
 
   const updateSlider = () => {
@@ -24,73 +24,70 @@ const IntervalSlider = ({minVal, maxVal, setMinVal, setMaxVal, maxCarRentalPrice
     document.getElementById('slider-max').value = newMax;
   };
 
-  useEffect(() => {
-    const minPriceDisplayValue = document.getElementById("price-range-min");
-    minPriceDisplayValue.setAttribute("value", minVal);
+  const handleMinInputChange = (e) => {
+    const newMin = Math.min(Math.max(parseInt(e.target.value) || 0, 0), maxVal - intervalStep); // Clamp value
+    setMinVal(newMin);
+  };
 
-    const maxPriceDisplayValue = document.getElementById("price-range-max");
-    maxPriceDisplayValue.setAttribute("value", maxVal);
-
-    if (minVal > maxVal) {
-      setMinVal(maxVal);
-      setMaxVal(minVal);
-    }
-  }, [minVal, maxVal]);
-
-  useEffect(() => {
-    const minPriceDisplayValue = document.getElementById("price-range-min");
-    minPriceDisplayValue.setAttribute("value", minVal);
-
-    const maxPriceDisplayValue = document.getElementById("price-range-max");
-    maxPriceDisplayValue.setAttribute("value", maxVal);
-  }, []);
+  const handleMaxInputChange = (e) => {
+    const newMax = Math.max(Math.min(parseInt(e.target.value) || maxCarRentalPrice, maxCarRentalPrice), minVal + intervalStep); // Clamp value
+    setMaxVal(newMax);
+  };
 
   useEffect(() => {
     updateSlider();
   }, [minVal, maxVal]);
 
   return (
-      <div className="price-range-input-wrapper">
-        <input
-          type="number"
-          id="price-range-min"
-          className="price-range-input"
-          max={maxCarRentalPrice}
-          min="0"
-        />
-        <div className="slider-wrapper">
-          <div className="slider-track">
-            <div className="slider-range" id="slider-range"></div>
-          </div>
-          <input
-            type="range"
-            id="slider-min"
-            className="price-range-slider"
-            min="0"
-            max={maxCarRentalPrice}
-            step={intervalStep}
-            onChange={handleMinChange}
-            defaultValue={minVal}
-          />
-          <input
-            type="range"
-            id="slider-max"
-            className="price-range-slider"
-            min="0"
-            max={maxCarRentalPrice}
-            step={intervalStep}
-            onChange={handleMaxChange}
-            defaultValue={maxVal}
-          />
+    <div className="price-range-input-wrapper" ref={priceRangeRef}>
+      <input
+        type="number"
+        id="price-range-min"
+        name="minPrice"
+        className="price-range-input"
+        max={maxCarRentalPrice}
+        min="0"
+        value={minVal}
+        onChange={handleMinInputChange} // Update slider when textbox changes
+      />
+      <div className="slider-wrapper">
+        <div className="slider-track">
+          <div className="slider-range" id="slider-range"></div>
         </div>
         <input
-          type="number"
-          id="price-range-max"
-          className="price-range-input"
+          type="range"
+          id="slider-min"
+          name="minPrice"
+          className="price-range-slider"
+          min="0"
           max={maxCarRentalPrice}
-          min="1"
+          step={intervalStep}
+          onChange={handleMinChange}
+          value={minVal}
+        />
+        <input
+          type="range"
+          id="slider-max"
+          name="maxPrice"
+          className="price-range-slider"
+          min="0"
+          max={maxCarRentalPrice}
+          step={intervalStep}
+          onChange={handleMaxChange}
+          value={maxVal}
         />
       </div>
+      <input
+        type="number"
+        id="price-range-max"
+        name="maxPrice"
+        className="price-range-input"
+        max={maxCarRentalPrice}
+        min="1"
+        value={maxVal}
+        onChange={handleMaxInputChange} // Update slider when textbox changes
+      />
+    </div>
   );
 };
 

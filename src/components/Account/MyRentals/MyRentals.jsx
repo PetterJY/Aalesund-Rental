@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getRole } from '../../utils/JwtUtility';
+import { getRole, getAccountId } from '../../utils/JwtUtility';
 import { PlusCircle } from "@phosphor-icons/react";
 import MyRentalsCarDisplay from './MyRentalsCarDisplay/MyRentalsCarDisplay';
 import CreateCarModal from './CreateCarModal/CreateCarModal';
@@ -25,7 +25,7 @@ const MyRentals = () => {
   async function fetchCars() {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/cars', {
+      const response = await fetch('http://localhost:8080/cars/my-cars/' + getAccountId(), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -56,6 +56,8 @@ const MyRentals = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedCars = cars.slice(startIndex, endIndex);
+
+  console.log("Paginated cars: ", JSON.stringify(paginatedCars, null, 2));
 
   const totalPages = Math.ceil(cars.length / itemsPerPage);
   const handleNextPage = () => {
@@ -90,8 +92,8 @@ const MyRentals = () => {
           <div className="my-rentals-list">
             {paginatedCars.map(car => (
               <MyRentalsCarDisplay 
-                key={car.id} 
-                car={car} 
+                key={car.id}
+                car={car}
               />
             ))}
           </div>

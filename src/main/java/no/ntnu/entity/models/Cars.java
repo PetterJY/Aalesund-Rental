@@ -28,7 +28,7 @@ import jakarta.persistence.ManyToOne;
 public class Cars {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private long id;
 
   @ManyToOne
   @JoinColumn(name = "provider_id", referencedColumnName = "id")
@@ -122,7 +122,7 @@ public class Cars {
     OSLO, BERGEN, STAVANGER, TRONDHEIM, DRAMMEN, LILLEHAMMER, ÅLESUND, TROMSØ;
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 

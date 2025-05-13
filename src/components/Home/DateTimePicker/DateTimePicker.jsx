@@ -129,9 +129,7 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
         setMonthsToShow(1);
       }
     }
-
     handleWindowResize();
-
     window.addEventListener('resize', handleWindowResize);
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);

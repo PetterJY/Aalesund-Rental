@@ -139,7 +139,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s ease-in-out;
+  transition: transform 0.5s ;
   overflow: visible;
   height: auto;
   min-height: 250px;
@@ -162,7 +162,7 @@
 
 .hidden-card-left {
   transform: translate(-350%, -50%);
-  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0s 0.5s;
+  transition: transform 0.5s , opacity 0s 0.5s;
   opacity: 0;
   pointer-events: none;
   z-index: 1;
@@ -195,7 +195,7 @@
 
 .hidden-card-right {
   transform: translate(250%, -50%);
-  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0s 0.5s;
+  transition: transform 0.5s , opacity 0s 0.5s;
   opacity: 0;
   pointer-events: none;
   z-index: 1;
