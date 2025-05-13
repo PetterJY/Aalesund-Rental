@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { getToken } from '../../../../utils/JwtUtility';
-import '../EnumModal.css';
+import './EnumModal.css';
 import '../../../../App.css';
 
 const ExtraFeaturesModal = ({ toggleModal, isCreateCarModalOpen, setSelectedFeatures, selectedFeatures }) => {

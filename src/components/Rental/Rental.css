@@ -96,6 +96,11 @@
 /* Filter panel styles */
 .rental-page .filter-panel {
   display: none; /* Hidden by default */
+  overflow-y: auto;
+}
+
+.rental-page .filter-panel .filter-content {
+  max-width: 100%;
 }
 
 .rental-page .panel-sort-button {
@@ -158,6 +163,7 @@
 .rental-page .checkbox-group {
   display: flex;
   flex-direction: column;
+  max-height: 300px;
 }
 
 .rental-page .checkbox-label {
@@ -201,8 +207,8 @@
 }
 
 .rental-page .checkbox-label input:checked + span:hover {
-  background-color: var(--text-box-hover-color);
-  color:white;
+  background-color: #c9c9cf;
+  color:#252422;
   border-bottom: white 1px solid;
   border-radius: 6px;
 }
@@ -369,6 +375,7 @@
 
   .rental-page .filter-panel .checkbox-group {
     flex-direction: row;
+    flex-wrap: wrap; /* Prevent wrapping */
     gap: 5px;
   }
 

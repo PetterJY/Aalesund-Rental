@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getRole, getAccountId } from '../../utils/JwtUtility'; 
 import OrdersCarDisplay from './OrdersCarDisplay/OrdersCarDisplay'; 
 import carImage from '../../../resources/images/logo.svg';
+import OrdersDropdown from './OrdersDropDown/OrdersDropDown';
 import '../Orders/Orders.css';
 import '../../App.css';
 
@@ -17,9 +18,9 @@ const Orders = () => {
     }
   }, [navigate, role]);
 
-  const [rentals, setRentals] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [selectedStatus, setSelectedStatus] = React.useState('All'); 
+  const [rentals, setRentals] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState('All'); 
 
   useEffect(() => {
     async function fetchRentals() {
@@ -53,24 +54,19 @@ const Orders = () => {
     return rental.status === selectedStatus;
   });
 
+  const statusOptions = ['All', 'PENDING', 'ACTIVE', 'CANCELLED', 'COMPLETED'];
+
   return (
     <div className="orders">
       <section className="orders-section">
         <div orders-header>
         <div className="orders-header">
             <h2 className="title">My Bookings - </h2> 
-            <select
-              name="Booking Categories"
-              id="booking-select"
-              value={selectedStatus} // Bind the selected value to the state
-              onChange={(e) => setSelectedStatus(e.target.value)} // Update the state on change
-            >
-              <option value="All">All</option>
-              <option value="PENDING">Pending</option>
-              <option value="ACTIVE">Active</option>
-              <option value="CANCELLED">Cancelled</option>
-              <option value="COMPLETED">Completed</option>
-            </select>
+            <OrdersDropdown
+              options={statusOptions}
+              selectedOption={selectedStatus}
+              onSelect={setSelectedStatus}
+            />
           </div>
           <div className="orders-list">
             {isLoading ? (
