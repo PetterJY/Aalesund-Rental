@@ -158,6 +158,7 @@
 .rental-page .checkbox-group {
   display: flex;
   flex-direction: column;
+  max-height: 300px;
 }
 
 .rental-page .checkbox-label {
@@ -201,8 +202,8 @@
 }
 
 .rental-page .checkbox-label input:checked + span:hover {
-  background-color: var(--text-box-hover-color);
-  color:white;
+  background-color: #c9c9cf;
+  color:#252422;
   border-bottom: white 1px solid;
   border-radius: 6px;
 }
