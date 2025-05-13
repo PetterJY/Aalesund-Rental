@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { getToken } from '../../../../utils/JwtUtility';
-import '../EnumModal.css'
+import './EnumModal.css'
 import '../../../../App.css';
 
-const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation, selectedLocation }) => {
+const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, selectedCarType }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [locations, setLocations] = useState([]);
+  const [carTypes, setCarTypes] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState(null);
 
-  const handleLocationSelection = (location) => {
-    setSelectedLocation(location);
+  const handleCarTypeSelection = (carTypeId) => {
+    setSelectedCarType(carTypeId);
   };
 
   useEffect(() => {
     if (isCreateCarModalOpen) {
       setIsLoading(true);
       setError(null); // Reset error state
-      async function fetchLocations() {
+      async function fetchCarTypes() {
         try {
-          const response = await fetch('http://localhost:8080/cars/locations', {
+          const response = await fetch('http://localhost:8080/cars/car-types', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -27,18 +27,19 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
             },
           });
           if (!response.ok) {
-            throw new Error(`Failed to fetch locations: ${response.statusText}`);
+            throw new Error(`Failed to fetch car types: ${response.statusText}`);
           }
           const data = await response.json();
-          setLocations(data); // Expecting an array of strings (enum values)
+          setCarTypes(data);
+          console.log('Fetched car types:', data);
         } catch (error) {
-          console.error('Error fetching locations:', error);
-          setError('Failed to load locations. Please try again later.');
+          console.error('Error fetching car types:', error);
+          setError('Failed to load car types. Please try again later.');
         } finally {
           setIsLoading(false);
         }
       }
-      fetchLocations();
+      fetchCarTypes();
     }
   }, [isCreateCarModalOpen]);
 
@@ -46,10 +47,10 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
     <div className="enum-modal">
       <div className="modal-content">
         <span className="close" onClick={toggleModal}>&times;</span>
-        <h2>Select Location</h2>
+        <h2>Select Car Type</h2>
         <input
           type="text"
-          placeholder="Search locations..."
+          placeholder="Search car types..."
           className="search-input"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -58,18 +59,18 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
         {error && <p className="error-message">{error}</p>}
         {!isLoading && !error && (
           <div className="enum-scrollable">
-            {locations
-              .filter((location) => location.toLowerCase().includes(searchQuery.toLowerCase()))
-              .map((location) => (
-                <div key={location} className="enum-item">
-                  <label htmlFor={`location-${location}`}>{location}</label>
+            {carTypes
+              .filter((carType) => carType.toLowerCase().includes(searchQuery.toLowerCase()))
+              .map((carType) => (
+                <div key={carType} className="enum-item">
+                  <label htmlFor={`car-type-${carType}`}>{carType}</label>
                   <input
                     type="radio"
-                    id={`location-${location}`}
-                    name="location"
-                    value={location}
-                    onChange={() => handleLocationSelection(location)}
-                    checked={selectedLocation === location}
+                    id={`car-type-${carType}`}
+                    name="car-type"
+                    value={carType}
+                    onChange={() => handleCarTypeSelection(carType)}
+                    checked={selectedCarType === carType}
                   />
                 </div>
               ))}
@@ -81,4 +82,4 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
   );
 };
 
-export default LocationModal;
+export default CarTypeModal;

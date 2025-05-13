@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAccountId, getToken } from '../../../utils/JwtUtility'; 
-import CarTypeModal from './CarTypeModal/CarTypeModal';
-import LocationModal from './LocationModal/LocationModal';
-import ExtraFeaturesModal from './ExtraFeaturesModal/ExtraFeaturesModal'; 
+import CarTypeModal from './EnumModal/CarTypeModal';
+import LocationModal from './EnumModal/LocationModal';
+import ExtraFeaturesModal from './EnumModal/ExtraFeaturesModal'; 
 import './CreateCarModal.css';
 import '../../../App.css';
-import { set } from 'date-fns';
 
 const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -140,18 +139,21 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
           <input type="number" id="production-year" placeholder="Production Year" required />
           <input type="number" id="passengers" placeholder="Number of Passengers" required />
 
-          <div className="enum-text-container">
-            <button type="button" id="enum-button" onClick={toggleLocationModal}>
-              Select Car Location
-            </button>
-            <p id="car-type">{selectedLocation}</p>
-          </div>
-          <div className="enum-text-container">
-            <button type="button" id="enum-button" onClick={toggleCarTypeModal}>
-              Select Car Type
-            </button>
-            <p>{selectedCarType}</p>
-          </div>
+          <section id="select-car-type-location-container">
+            <div className="enum-text-container">
+              <button type="button" id="enum-button" onClick={toggleLocationModal}>
+                Select Location
+              </button>
+              <p id="car-type">{selectedLocation}</p>
+            </div>
+            <div className="enum-text-container">
+              <button type="button" id="enum-button" onClick={toggleCarTypeModal}>
+                Select Car Type
+              </button>
+              <p>{selectedCarType}</p>
+            </div>
+          </section>
+          
           <button id='add-extra-feature-button' type="button" onClick={toggleExtraFeaturesModal}>
             Add Extra Features
           </button>

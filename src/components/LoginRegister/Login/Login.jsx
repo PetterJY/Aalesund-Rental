@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import RegisterButton from '../Register/Register';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
+import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../../App.css';
 import '../LoginRegister.css';
 
 const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
+
+  const { setIsAuthenticated, setIsAuthInitialized } = useAuth();
   
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -74,6 +77,8 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode })
 
       console.log("User has been logged in. Token: ", token);
       localStorage.setItem('jwt', token); 
+      setIsAuthenticated(true);
+      setIsAuthInitialized(true);
       setIsLoggedIn(true);
       closeModal();
 
