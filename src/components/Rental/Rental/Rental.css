@@ -8,7 +8,8 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  min-width: 1600px;
+  justify-content: center;
+  align-items: center;
 }
 
 .rental-page .main-section {
@@ -29,7 +30,7 @@
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 15px;
-  max-width: 1600px;
+  max-width: 1230px;
 }
 
 .rental-page .sort-bar {
@@ -38,7 +39,7 @@
   justify-self: flex-start;
   margin: 24px 0 24px 0;
   align-self: flex-start;
-  width: 100%;
+  width: 1230px;
 }
 
 .rental-page .sort-button {
@@ -274,6 +275,10 @@
   .rental-page .main-body {
     max-width: 815px;
   }
+    .rental-page .sort-bar {
+    width: 860px;
+    justify-content: center;
+  }
 }
 
 
@@ -289,6 +294,8 @@
     min-width: 1px;
     width: 100%;
     padding: 0 32px 0 32px;
+    align-items: center;
+    justify-content: center;
   }
 
   .rental-page .main-body {
@@ -298,6 +305,7 @@
 
   .rental-page .sort-bar {
     width: 100%;
+    justify-content: center;
   }
 
   .rental-page .sort-button {
