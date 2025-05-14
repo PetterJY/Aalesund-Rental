@@ -156,7 +156,6 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
           popperClassName="date-picker-popper"
           minDate={today}
           startDate={new Date()}
-          openToDate={new Date()}
           shouldCloseOnSelect={false}
           locale={enGB}
           showDisabledMonthNavigation={false}
