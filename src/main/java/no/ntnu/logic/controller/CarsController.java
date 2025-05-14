@@ -1,5 +1,6 @@
 package no.ntnu.logic.controller;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -91,8 +93,11 @@ public class CarsController {
       @RequestParam(required = false) String sortOption,
       @RequestParam(required = false) Integer minPricePerDay,
       @RequestParam(required = false) Integer maxPricePerDay,
-      @RequestParam(required = false) List<Cars.EnergySource> energySource
-  ) {
+      @RequestParam(required = false) List<Cars.EnergySource> energySource,
+      @RequestParam Cars.Location pickupLocation,
+      @RequestParam String startDate,
+      @RequestParam String endDate
+      ) {
 
     Sort sortOrder = Sort.unsorted();
     if (sortOption != null) {
@@ -120,6 +125,8 @@ public class CarsController {
         energySource : List.of(Cars.EnergySource.values());
     int minPricePerDayParam = (minPricePerDay != null) ? minPricePerDay : 0;
     int maxPricePerDayParam = (maxPricePerDay != null) ? maxPricePerDay : Integer.MAX_VALUE;
+    LocalDateTime startDateParam = LocalDateTime.parse(startDate);
+    LocalDateTime endDateParam = LocalDateTime.parse(endDate);
 
 
     System.out.println("Executing query...");
@@ -134,13 +141,16 @@ public class CarsController {
     List<Cars> cars;
     try {
       cars = carsRepository
-          .findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqualAndEnergySourceInAndPricePerDayBetween(
+          .findFilteredCars(
               carTypeParam,
               transmissionParam,
               passengersParam,
               energySourceParam,
               minPricePerDayParam,
               maxPricePerDayParam,
+              pickupLocation,
+              startDateParam,
+              endDateParam,
               pageable
           );
       System.out.println("Query executed successfully. Result: " + cars);

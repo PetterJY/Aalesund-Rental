@@ -5,6 +5,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import java.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -293,14 +294,20 @@ public class AddDummyObjectsToDatabase {
 			String dropoffLocation,
 			Double totalCost,
 			String status) {
+
 		HttpClient client = HttpClient.newHttpClient();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+		String formattedStartDate = startDate.formatted(formatter);
+		String formattedEndDate = endDate.formatted(formatter);
+
 
 		String json = "{"
 				+ "\"renterId\": " + renterId + ","
 				+ "\"providerId\": " + providerId + ","
 				+ "\"carId\": " + carId + ","
-				+ "\"startDate\": \"" + startDate + "\","
-				+ "\"endDate\": \"" + endDate + "\","
+				+ "\"startDate\": \"" + formattedStartDate + "\","
+				+ "\"endDate\": \"" + formattedEndDate + "\","
 				+ "\"pickupLocation\": \"" + pickupLocation + "\","
 				+ "\"dropoffLocation\": \"" + dropoffLocation + "\","
 				+ "\"totalCost\": " + totalCost + ","

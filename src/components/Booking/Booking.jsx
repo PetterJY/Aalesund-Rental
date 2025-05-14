@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { mapCarImage } from '../utils/CarImageMapper';
 import { getRole, getAccountId } from "../utils/JwtUtility";
 import { useAuth } from "../utils/AuthContext";
-import {BookingContext} from "../utils/BookingContext";
-import {formatDate} from "date-fns";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
 import "../App.css";
+import {BookingContext} from "../utils/BookingContext";
+import {formatDate} from "date-fns";
 
 const Booking = () => {
 	const { isAuthenticated, isAuthInitialized } = useAuth();
@@ -40,16 +40,19 @@ const Booking = () => {
 			const carDetails = await response.json();
 			console.log("Car details fetched:", carDetails);
 
-			setRentalDetails(prev => ({
-				...prev,
-				carBrand: carDetails.carBrand,
-				modelName: carDetails.modelName,
-				companyName: carDetails.provider.companyName,
-				pricePerDay: carDetails.pricePerDay,
-			}));
+			setRentalDetails(
+				{
+					...rentalDetails,
+					carBrand: carDetails.carBrand,
+					modelName: carDetails.modelName,
+					companyName: carDetails.provider.companyName,
+					pricePerDay: carDetails.pricePerDay,
+				}
+			);
 
 			console.log("Rental details updated:", rentalDetails);
 		}
+
 		catch(error) {
 			console.error(error);
 		} finally {
@@ -102,7 +105,7 @@ const Booking = () => {
 
     fetchAccountDetails();
   }, [isAuthenticated, isAuthInitialized, role]);
-	
+
 	if (isLoading) {
 		return <p>Loading...</p>;
 	}
