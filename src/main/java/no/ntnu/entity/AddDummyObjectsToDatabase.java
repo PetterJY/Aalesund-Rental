@@ -147,9 +147,6 @@ public class AddDummyObjectsToDatabase {
 		addRental("26", "9", "9", "2025-06-09T00:00:00", "2025-06-13T00:00:00", "Oslo", "Kristiansand", 3100.0, "COMPLETED");
 		addRental("27", "10", "10", "2025-06-10T00:00:00", "2025-06-14T00:00:00", "Bergen", "Ålesund", 2600.0, "ACTIVE");
 
-
-		logger.info("Adding additional rentals to the database.");
-
 // June 2025 Rentals
 		addRental("18", "3", "3", "2025-06-01T00:00:00", "2025-06-07T00:00:00", "Bergen", "Oslo", 3200.0, "PENDING");
 		addRental("19", "5", "7", "2025-06-05T00:00:00", "2025-06-12T00:00:00", "Trondheim", "Stavanger", 2800.0, "ACTIVE");

@@ -18,7 +18,7 @@ export default function Rental() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
   const maxCarRentalPrice = 1000; // the max price of renting a car (per day)
-  // TODO: retrieve this value by querying the rentals
+  // TODO: retrieve this value by querying the rentals?
 
   const [selectedFilterComponent, setSelectedFilterComponent] = useState({
     sortBy: false,
@@ -149,6 +149,18 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     dropoffDate: bookingData.dropoffDate,
   });
 
+  useEffect(() => {
+    setSelectedFilterOptions((prev) => {
+      return {
+        ...prev,
+        pickupLocation: bookingData.pickupLocation,
+        pickupDate: bookingData.pickupDate,
+        dropoffDate: bookingData.dropoffDate,
+      }
+    })
+    fetchCarData();
+  }, [bookingData]);
+
 useEffect(() => {
   const handleClickOutsideFilterComponent = (event) => {
     const selectedFilterComponentCopy = { ...selectedFilterComponent };
@@ -222,8 +234,6 @@ useEffect(() => {
     try {
       const filterParams = new URLSearchParams();
 
-      console.log("Before converting to ISO String: ", selectedFilterOptions.pickupDate);
-
       filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase());
       filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase());
       filterParams.append("minPassengers", selectedFilterOptions.passengers[0] || "");
@@ -234,8 +244,6 @@ useEffect(() => {
       filterParams.append("pickupLocation", selectedFilterOptions.pickupLocation || "OSLO");
       filterParams.append("pickupDate", selectedFilterOptions.pickupDate.toISOString().slice(0, -1));
       filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString().slice(0, -1));
-
-      console.log("After converting to ISO String : ", selectedFilterOptions.pickupDate.toISOString());
 
       console.log("Filter params:", filterParams.toString());
 
