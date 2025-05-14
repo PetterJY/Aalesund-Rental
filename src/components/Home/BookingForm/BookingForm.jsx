@@ -35,7 +35,7 @@ const BookingForm = ({
   const [dropoffLocations, setDropoffLocations] = useState([]);
   const [showDropoffLocationSuggestions, setShowDropoffLocationSuggestions] = useState(false);
 
-  async function fetchPickupLocations() {
+  async function fetchLocations() {
     setIsLoadingLocations(true);
     try {
       const response = await fetch(`http://localhost:8080/cars/locations`, {
@@ -61,7 +61,7 @@ const BookingForm = ({
   }
   
   useEffect(() => {
-    fetchPickupLocations();
+    fetchLocations();
   }, []);
 
   const [pickupDate, setPickupDate] = useState(() => {

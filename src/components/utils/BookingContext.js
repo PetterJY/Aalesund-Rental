@@ -1,4 +1,3 @@
-// src/context/BookingContext.jsx
 import React, { createContext, useState } from 'react';
 
 export const BookingContext = createContext();

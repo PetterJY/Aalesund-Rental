@@ -21,9 +21,8 @@ const Booking = () => {
 
 	const { carId } = useParams();
 
-	const { bookingData } = useContext(BookingContext);
+	const { bookingData : rentalDetails, setBookingData : setRentalDetails } = useContext(BookingContext);
 
-	const [rentalDetails, setRentalDetails] = useState(null);
 	const [accountDetails, setAccountDetails] = useState(null);
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -46,15 +45,15 @@ const Booking = () => {
 			const carDetails = await response.json();
 			console.log("Car details fetched:", carDetails);
 
-			setRentalDetails(
-				{
-					...rentalDetails,
-					carBrand: carDetails.carBrand,
-					modelName: carDetails.modelName,
-					companyName: carDetails.provider.companyName,
-					pricePerDay: carDetails.pricePerDay,
-				}
-			);
+			setRentalDetails(prev => ({
+				...prev,
+				carBrand: carDetails.carBrand,
+				modelName: carDetails.modelName,
+				companyName: carDetails.provider.companyName,
+				pricePerDay: carDetails.pricePerDay,
+			}));
+
+			console.log("Rental details updated:", rentalDetails);
 
 			setIsLoading(false);
 		}
@@ -155,11 +154,11 @@ const Booking = () => {
 								<p>Loading...</p>
 							) : (
 								<>
-									<p>{`${bookingData.pickupLocation}`}</p>
+									<p>{`${rentalDetails.pickupLocation}`}</p>
 									<p className="pickup-dropoff-time">
 										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} , 
-										${formatDate(bookingData.pickupTime, "d. MMM, yyyy")}  | 
-										${formatDate(bookingData.pickupTime, "HH:mm")}`}
+										${formatDate(rentalDetails.pickupDate, "d. MMM, yyyy")}  | 
+										${formatDate(rentalDetails.pickupTime, "HH:mm")}`}
 									</p>
 								</>
 							)}
@@ -169,11 +168,11 @@ const Booking = () => {
 							{isLoading ? (
 								<p>Loading...</p>
 							) : (
-								<><p>{`${bookingData.pickupLocation}`}</p>
+								<><p>{`${rentalDetails.dropoffLocation}`}</p>
 									<p className="pickup-dropoff-time">
 										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} ,
-										${formatDate(bookingData.dropoffTime, "d. MMM, yyyy")}  |
-								  	${formatDate(bookingData.dropoffTime, "HH:mm")}`}
+										${formatDate(rentalDetails.dropoffDate, "d. MMM, yyyy")}  |
+								  	${formatDate(rentalDetails.dropoffTime, "HH:mm")}`}
 									</p>
 								</>
 							)}
@@ -186,10 +185,10 @@ const Booking = () => {
 						<p>Loading...</p>
 					) : (
 						<>
-							<p>{`${(bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
+							<p>{`${(rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
 							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
 							<p>
-								{`${Math.imul((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24), 
+								{`${Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24), 
 								rentalDetails.pricePerDay)}`} in total
 							</p>
 						</>
