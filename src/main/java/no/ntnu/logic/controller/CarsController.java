@@ -95,8 +95,8 @@ public class CarsController {
       @RequestParam(required = false) Integer maxPricePerDay,
       @RequestParam(required = false) List<Cars.EnergySource> energySource,
       @RequestParam Cars.Location pickupLocation,
-      @RequestParam String startDate,
-      @RequestParam String endDate
+      @RequestParam String pickupDate,
+      @RequestParam String dropoffDate
       ) {
 
     Sort sortOrder = Sort.unsorted();
@@ -125,8 +125,8 @@ public class CarsController {
         energySource : List.of(Cars.EnergySource.values());
     int minPricePerDayParam = (minPricePerDay != null) ? minPricePerDay : 0;
     int maxPricePerDayParam = (maxPricePerDay != null) ? maxPricePerDay : Integer.MAX_VALUE;
-    LocalDateTime startDateParam = LocalDateTime.parse(startDate);
-    LocalDateTime endDateParam = LocalDateTime.parse(endDate);
+    LocalDateTime pickupDateParam = LocalDateTime.parse(pickupDate);
+    LocalDateTime dropoffDateParam = LocalDateTime.parse(dropoffDate);
 
 
     System.out.println("Executing query...");
@@ -136,7 +136,11 @@ public class CarsController {
         ", minPassengers=" + passengersParam +
         ", energySource=" + energySourceParam +
         ", minPricePerDay=" + minPricePerDayParam +
-        ", maxPricePerDay=" + maxPricePerDayParam);
+        ", maxPricePerDay=" + maxPricePerDayParam +
+        ", pickupLocation=" + pickupLocation);
+
+    System.out.println("pickupDate=" + pickupDateParam +
+        ", dropoffDate =" + dropoffDateParam);
 
     List<Cars> cars;
     try {
@@ -149,8 +153,8 @@ public class CarsController {
               minPricePerDayParam,
               maxPricePerDayParam,
               pickupLocation,
-              startDateParam,
-              endDateParam,
+              pickupDateParam,
+              dropoffDateParam,
               pageable
           );
       System.out.println("Query executed successfully. Result: " + cars);
@@ -222,7 +226,6 @@ public ResponseEntity<List<Cars.CarType>> getCarTypes() {
    * 
    * @return Set of all extra features.
    */
-
   @GetMapping("/{id}/extra-features")
   @ApiOperation(value = "Returns all extra features for a specific car.")
 public ResponseEntity<Set<ExtraFeatures>> getExtraFeaturesByCarId(@PathVariable Long id) {

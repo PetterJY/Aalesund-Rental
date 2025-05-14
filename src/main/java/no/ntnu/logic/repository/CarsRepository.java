@@ -26,8 +26,8 @@ public interface CarsRepository extends JpaRepository<Cars, Long> {
       List<Cars.EnergySource> energySourceParam,
       int minPricePerDayParam,
       int maxPricePerDayParam,
-      Cars.Location pickUpLocation,
-      LocalDateTime startDateParam,
-      LocalDateTime endDateParam,
+      Cars.Location pickupLocation,
+      LocalDateTime pickupDateParam,
+      LocalDateTime dropoffDateParam,
       Pageable pageable);
 }
