@@ -1,7 +1,9 @@
 import "../../App.css";
 import "./CarDisplay.css";
+import React, { useState, useEffect } from "react";
 import { mapCarImage } from '../../utils/CarImageMapper';
-import { Seatbelt, CaretDown } from "@phosphor-icons/react";
+import passengerImage from "../../../resources/images/passenger.png";
+import { Car, Seatbelt, PlusCircle, CaretDown } from "@phosphor-icons/react";
 
 const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
 
