@@ -23,17 +23,21 @@
 }
 
 .rental-page .main-body {
+  justify-self: center;
+  padding-left: 24px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 12px;
+  gap: 16px;
   max-width: 1600px;
+  width: 100%;
 }
 
 .rental-page .sort-bar {
   display: flex;
   flex-direction: row;
+  padding-left: 24px;
   margin: 24px 0 24px 0;
   max-width: 1600px;
   width: 100%;
@@ -249,10 +253,9 @@
 }
 
 .rental-page .car-selected-menu {
-  width: 100%;
+  width: calc(100% - 12px);
   display: flex;
   flex-direction: column;
-
   gap: 10px;
   margin-bottom: 20px;
 }

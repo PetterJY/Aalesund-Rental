@@ -11,7 +11,6 @@
   flex-direction: column;
   height: 512px; /* Allow height to adjust based on content */
   align-self: flex-start;
-  margin: 0;
 }
 
 
@@ -27,6 +26,7 @@
 }
 
 .car-display.selected {
+  width: 100%;
   outline: #EB5E28 3px solid;
   outline-offset: 3px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

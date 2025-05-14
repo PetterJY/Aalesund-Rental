@@ -94,8 +94,8 @@ const BookingForm = ({
   useEffect(() => {
     const pickupDateTemp = new Date(new Date().setDate(new Date().getDate() + 1));
     const dropOffDateTemp = new Date(new Date().setDate(new Date().getDate() + 13));
-    const pickupTimeTemp = new Date(new Date().setHours(new Date().getHours() + 1, 0));
-    const dropoffTimeTemp = new Date(new Date().setHours(new Date().getHours() + 2, 0));
+    const pickupTimeTemp = new Date(new Date().setHours(12, 0));
+    const dropoffTimeTemp = new Date(new Date().setHours(12, 0));
 
     setPickupLocationValue(initialData.pickupLocation || "");
     setDropoffLocationValue(initialData.dropoffLocation || "");
@@ -240,6 +240,7 @@ const BookingForm = ({
             <input 
               type="text"
               className="text-input"
+              required={true}
               id="pickup-destination-input-field"
               placeholder="Pickup location"
               value={pickupLocationValue}
