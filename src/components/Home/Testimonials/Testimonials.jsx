@@ -25,7 +25,6 @@ const Testimonials = () => {
   };
 
   const handlePreviousClick = () => {
-    // console.log("clicked next!")
     if (isButtonDisabled) return;
 
     setCardOrder(prev => [prev[prev.length - 1], ...prev.slice(0, -1)]);
@@ -47,8 +46,8 @@ const Testimonials = () => {
     console.log("resumed autoplay!")
     if (!autoPlayInterval) {
       const interval = setInterval(() => {
-        handlePreviousClick();
-      }, 5000);
+        handleNextClick();
+      }, 7500);
       setAutoPlayInterval(interval);
     }
   }
