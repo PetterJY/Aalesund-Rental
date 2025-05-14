@@ -3,8 +3,8 @@ import RegisterButton from '../Register/Register';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
-import '../../App.css';
 import '../LoginRegister.css';
+import '../../App.css';
 
 const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
@@ -73,14 +73,19 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
       }
 
       const data = await response.json();
-      const token = data.jwt;
+    
+      const accessToken = data.accessToken;
+      const refreshToken = data.refreshToken;
 
-      console.log("Token: ", token);
-      localStorage.setItem('accessToken', token); 
+      console.log("Refresh Token: ", refreshToken);
+      console.log("Access Token: ", accessToken);
+
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('accessToken', accessToken); 
+
       setIsAuthenticated(true);
       setIsAuthInitialized(true);
       closeModal();
-
     } catch(error) {
       console.error(error);
       setErrorMessage("The username and/or password you specified are not correct.");
