@@ -57,8 +57,6 @@ const MyRentals = () => {
   const endIndex = startIndex + itemsPerPage;
   const paginatedCars = cars.slice(startIndex, endIndex);
 
-  console.log("Paginated cars: ", JSON.stringify(paginatedCars, null, 2));
-
   const totalPages = Math.ceil(cars.length / itemsPerPage);
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);

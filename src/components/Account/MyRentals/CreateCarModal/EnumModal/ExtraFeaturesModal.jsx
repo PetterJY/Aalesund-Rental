@@ -4,20 +4,30 @@ import { getToken } from '../../../../utils/JwtUtility';
 import './EnumModal.css';
 import '../../../../App.css';
 
-const ExtraFeaturesModal = ({ toggleModal, isCreateCarModalOpen, setSelectedFeatures, selectedFeatures }) => {
+const ExtraFeaturesModal = ({
+  toggleModal,
+  isCreateCarModalOpen,
+  setSelectedFeatures,
+  selectedFeatures = [], // Default to an empty array
+}) => {
   const [isLoading, setIsLoading] = useState(true);
-
   const [extraFeatures, setExtraFeatures] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleFeatureSelection = (featureId) => {
-    console.log('Feature selected:', featureId);
-    setSelectedFeatures((prevSelected) =>
-      prevSelected.includes(featureId)
-        ? prevSelected.filter((id) => id !== featureId) // Remove if already selected
-        : [...prevSelected, featureId] // Add if not selected
-    );
-  };
+const handleFeatureSelection = (featureId) => {
+  console.log('Feature selected:', featureId);
+
+  setSelectedFeatures((prevSelected) => {
+    if (!Array.isArray(prevSelected)) {
+      console.error('prevSelected is not an array:', prevSelected);
+      return []; 
+    }
+
+    return prevSelected.includes(featureId)
+      ? prevSelected.filter((id) => id !== featureId)
+      : [...prevSelected, featureId]; 
+  });
+};
 
   useEffect(() => {
     if (isCreateCarModalOpen) {
@@ -36,7 +46,7 @@ const ExtraFeaturesModal = ({ toggleModal, isCreateCarModalOpen, setSelectedFeat
             return;
           }
           const data = await response.json();
-          setExtraFeatures(data); 
+          setExtraFeatures(data);
         } catch (error) {
           console.error('Error fetching extra features:', error);
         } finally {
@@ -50,7 +60,9 @@ const ExtraFeaturesModal = ({ toggleModal, isCreateCarModalOpen, setSelectedFeat
   return (
     <div className="enum-modal">
       <div className="modal-content">
-        <span className="close" onClick={toggleModal}>&times;</span>
+        <span className="close" onClick={toggleModal}>
+          &times;
+        </span>
         <h2>Select Extra Features</h2>
         <input
           type="text"
@@ -66,23 +78,25 @@ const ExtraFeaturesModal = ({ toggleModal, isCreateCarModalOpen, setSelectedFeat
                 feature.name.toLowerCase().includes(searchQuery.toLowerCase())
               )
               .map((feature) => (
-              <div key={feature.id} className="enum-item">
-                <label htmlFor={`feature-${feature.id}`}>{feature.name}</label>
-                <input
-                  type="checkbox"
-                  id={`feature-${feature.id}`}
-                  value={feature.id}
-                  onChange={() => handleFeatureSelection(feature.id)}
-                  checked={selectedFeatures.includes(feature.id)}
-                />
-             </div>
-            ))}
+                <div key={feature.id} className="enum-item">
+                  <label htmlFor={`feature-${feature.id}`}>{feature.name}</label>
+                  <input
+                    type="checkbox"
+                    id={`feature-${feature.id}`}
+                    value={feature.id}
+                    onChange={() => handleFeatureSelection(feature.id)}
+                    checked={selectedFeatures.includes(feature.id)}
+                  />
+                </div>
+              ))}
           </div>
         )}
-        <button className="confirm-button" onClick={toggleModal}>Confirm</button>
+        <button className="confirm-button" onClick={toggleModal}>
+          Confirm
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default ExtraFeaturesModal;

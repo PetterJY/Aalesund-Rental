@@ -6,7 +6,7 @@ import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../../App.css';
 import '../LoginRegister.css';
 
-const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode }) => {
+const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
 
   const { setIsAuthenticated, setIsAuthInitialized } = useAuth();
@@ -75,11 +75,10 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode })
       const data = await response.json();
       const token = data.jwt;
 
-      console.log("User has been logged in. Token: ", token);
+      console.log("Token: ", token);
       localStorage.setItem('jwt', token); 
       setIsAuthenticated(true);
       setIsAuthInitialized(true);
-      setIsLoggedIn(true);
       closeModal();
 
     } catch(error) {
@@ -98,7 +97,6 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode })
               <RegisterButton 
                 closeModal={closeModal} 
                 isModalVisible={isModalVisible}
-                setIsLoggedIn={setIsLoggedIn} 
                 toggleMode={() => toggleMode('login')} 
               />
             ) : mode === 'forgotPassword' ? (

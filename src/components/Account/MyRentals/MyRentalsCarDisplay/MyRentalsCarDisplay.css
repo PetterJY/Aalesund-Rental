@@ -142,7 +142,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 908px) {
+@media screen and (max-width: 1148px) {
   .rentals-car-display-card {
     flex-direction: column;
     align-items: center;

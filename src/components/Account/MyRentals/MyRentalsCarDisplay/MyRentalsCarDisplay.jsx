@@ -2,25 +2,31 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NotePencil } from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
 import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
-import { getAccountId } from '../../../utils/JwtUtility';
+import ExtraFeaturesModal from '../CreateCarModal/EnumModal/ExtraFeaturesModal';
+import { getAccountId, getToken } from '../../../utils/JwtUtility';
 import './MyRentalsCarDisplay.css';
 import '../../../App.css';
 
 const MyRentalsCarDisplay = ({ car }) => {
   const [isEditing, setIsEditing] = useState(false);
-
   const [displayCar, setDisplayCar] = useState(car);
   const [editedCar, setEditedCar] = useState(car);
-
   const [rentalDetails, setRentalDetails] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
-
   const [tableVisibility, setTableVisibility] = useState(false);
-  const toggleDetails = () => {
-    setTableVisibility(prev => !prev);
-  };
+  const [isExtraFeaturesModalOpen, setIsExtraFeaturesModalOpen] = useState(false);
+  const [selectedFeatures, setSelectedFeatures] = useState([]);
 
+  const toggleDetails = () => {
+    if (!isEditing) {
+      setTableVisibility((prev) => !prev); // Only toggle if not in editing mode
+    }
+  };
+  
+  const toggleExtraFeaturesModal = () => {
+    setIsExtraFeaturesModalOpen((prev) => !prev); // Toggle modal visibility
+  };
+  
   const abortControllerRef = useRef(null);
 
   useEffect(() => {
@@ -37,7 +43,7 @@ const MyRentalsCarDisplay = ({ car }) => {
       try {
         const searchParams = new URLSearchParams();
 
-        searchParams.append("providerId", getAccountId())
+        searchParams.append("providerId", getAccountId());
         searchParams.append("carId", car.id);
 
         console.log("Request URL: ", `http://localhost:8080/rentals/my-rentals?${searchParams.toString()}`);
@@ -78,7 +84,6 @@ const MyRentalsCarDisplay = ({ car }) => {
     };
   }, [car.id]);
 
-  // When car prop changes, update both local display and edited state
   useEffect(() => {
     setDisplayCar(car);
     setEditedCar(car);
@@ -89,64 +94,76 @@ const MyRentalsCarDisplay = ({ car }) => {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
-    async function updateCar() {
-      try {
-        const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-          },
-          body: JSON.stringify(editedCar)
-        });
-        if (!response.ok) {
-          console.error('Failed to update car:', response.statusText);
-          return;
-        }
-        const data = await response.json();
-        console.log('Updated car:', data);
-        // Update the displayed car details with updated data
-        setDisplayCar(data);
-      } catch (error) {
-        console.error('Error updating car:', error);
-      }
+  function formatRentalDetails(rentalDetails) {
+    const formattedDetails =  {
+      providerId: rentalDetails.provider.id,
+      plateNumber: rentalDetails.plateNumber,
+      carBrand: rentalDetails.carBrand,
+      modelName: rentalDetails.modelName,
+      carType: rentalDetails.carType,
+      pricePerDay: rentalDetails.pricePerDay,
+      productionYear: rentalDetails.productionYear,
+      passengers: rentalDetails.passengers,
+      transmission: rentalDetails.transmission,
+      energySource: rentalDetails.energySource,
+      location: rentalDetails.location,
+      extraFeatureIds: rentalDetails.extraFeatures.map(feature => feature.id),
     }
-    updateCar();
+
+    console.log('Formatted rental details:', formattedDetails);
+
+    return formattedDetails;
+  }
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+        },
+        body: JSON.stringify(formatRentalDetails(editedCar)),
+      });
+      if (!response.ok) {
+        console.error('Failed to update car:', response.statusText);
+        return;
+      }
+      await response.json();
+      console.log('Updated car:', editedCar);
+      setDisplayCar(editedCar); 
+    } catch (error) {
+      console.error('Error updating car:', error);
+    }
     setIsEditing(false);
   };
 
   const handleDiscard = () => {
-    // Reset the edits to original displayed car details
     setEditedCar(displayCar);
     setIsEditing(false);
   };
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this car?");
+    const confirmDelete = window.confirm('Are you sure you want to delete this car?');
     if (!confirmDelete) return;
-  
+
     try {
       const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         },
       });
-  
+
       if (!response.ok) {
         console.error('Failed to delete car:', response.statusText);
         return;
       }
       if (response.status === 204) {
-        console.log('Car deleted successfully');
-        //Gives a message to the user that the car was deleted successfully
         alert('Car deleted successfully!');
+        window.location.reload(); 
       }
-  
-      console.log('Car deleted successfully');
-      window.location.reload(); 
     } catch (error) {
       console.error('Error deleting car:', error);
     }
@@ -160,16 +177,72 @@ const MyRentalsCarDisplay = ({ car }) => {
     }));
   };
 
+  useEffect(() => {
+    handleExtraFeaturesUpdate(selectedFeatures);
+  }, [selectedFeatures]);
+
+const handleExtraFeaturesUpdate = async (selectedFeatureIds) => {
+  if (!Array.isArray(selectedFeatureIds)) {
+    console.error('selectedFeatureIds is not an array:', selectedFeatureIds);
+    selectedFeatureIds = []; 
+  }
+
+ const updatedFeatures = await Promise.all(
+    selectedFeatureIds.map(async (id) => {
+      const existingFeature = displayCar.extraFeatures.find((feature) => feature.id === id);
+      if (existingFeature) {
+        return existingFeature;
+      }
+
+      const name = await fetchFeatureName(id);
+      return { id, name }; 
+    })
+  );
+        
+  setEditedCar((prev) => ({
+    ...prev,
+    extraFeatures: updatedFeatures,
+  }));
+
+  editedCar.extraFeatures.map((feature) => {
+    console.log('Feature ID:', feature.id);
+    console.log('Feature Name:', feature.name);
+  });
+};
+
+const fetchFeatureName = async (featureId) => {
+  try {
+    const response = await fetch(`http://localhost:8080/extra-features/${featureId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    });
+
+    if (!response.ok) {
+      console.error('Failed to fetch feature name:', response.statusText);
+      return `Unknown Feature (${featureId})`; 
+    }
+
+    const featureData = await response.json();
+    return featureData.name;
+  } catch (error) {
+    console.error('Error fetching feature name:', error);
+    return `Unknown Feature (${featureId})`; 
+  }
+};
+
   const carImage = mapCarImage(editedCar.carBrand, editedCar.modelName);
 
   return (
     <div className="my-rentals-car-display">
       <button className="rentals-car-display-card" onClick={toggleDetails}>
         <div className="car-background">
-          <img 
-          src={carImage}
-          alt={`${displayCar.carBrand} ${displayCar.modelName}`}
-          className="car-image" 
+          <img
+            src={carImage}
+            alt={`${displayCar.carBrand} ${displayCar.modelName}`}
+            className="car-image"
           />
         </div>
         <section className="car-display-info">
@@ -177,27 +250,27 @@ const MyRentalsCarDisplay = ({ car }) => {
             <h3>
               {isEditing ? (
                 <>
-                  <input 
+                  <input
                     placeholder="Brand name"
-                    type="text" 
-                    name="carBrand" 
-                    value={editedCar.carBrand} 
-                    onChange={handleChange} 
-                  />{" "}
-                  <input 
+                    type="text"
+                    name="carBrand"
+                    value={editedCar.carBrand}
+                    onChange={handleChange}
+                  />{' '}
+                  <input
                     placeholder="Model name"
-                    type="text" 
-                    name="modelName" 
-                    value={editedCar.modelName} 
-                    onChange={handleChange} 
-                  />{" "}
-                  ~{" "}
-                  <input 
+                    type="text"
+                    name="modelName"
+                    value={editedCar.modelName}
+                    onChange={handleChange}
+                  />{' '}
+                  ~{' '}
+                  <input
                     placeholder="Plate number"
-                    type="text" 
-                    name="plateNumber" 
-                    value={editedCar.plateNumber} 
-                    onChange={handleChange} 
+                    type="text"
+                    name="plateNumber"
+                    value={editedCar.plateNumber}
+                    onChange={handleChange}
                   />
                 </>
               ) : (
@@ -205,96 +278,119 @@ const MyRentalsCarDisplay = ({ car }) => {
               )}
             </h3>
             <p>
-              Car type:{" "}
+              Car type:{' '}
               {isEditing ? (
-                <input 
-                  type="text" 
-                  name="carType" 
-                  value={editedCar.carType} 
-                  onChange={handleChange} 
+                <input
+                  type="text"
+                  name="carType"
+                  value={editedCar.carType}
+                  onChange={handleChange}
                 />
               ) : (
                 displayCar.carType
               )}
             </p>
             <p>
-              Year:{" "}
+              Year:{' '}
               {isEditing ? (
-                <input 
-                  type="number" 
-                  name="productionYear" 
-                  value={editedCar.productionYear} 
-                  onChange={handleChange} 
+                <input
+                  type="number"
+                  name="productionYear"
+                  value={editedCar.productionYear}
+                  onChange={handleChange}
                 />
               ) : (
                 displayCar.productionYear
               )}
             </p>
             <p>
-              Fuel:{" "}
+              Fuel:{' '}
               {isEditing ? (
-                <input 
-                  type="text" 
-                  name="energySource" 
-                  value={editedCar.energySource} 
-                  onChange={handleChange} 
+                <input
+                  type="text"
+                  name="energySource"
+                  value={editedCar.energySource}
+                  onChange={handleChange}
                 />
               ) : (
                 displayCar.energySource
               )}
             </p>
             <p>
-              Transmission:{" "}
+              Transmission:{' '}
               {isEditing ? (
-                <select 
-                  name="automatic" 
-                  value={editedCar.automatic ? "Automatic" : "Manual"} 
+                <select
+                  name="automatic"
+                  value={editedCar.automatic ? 'Automatic' : 'Manual'}
                   onChange={handleChange}
                 >
                   <option value="Automatic">Automatic</option>
                   <option value="Manual">Manual</option>
                 </select>
               ) : (
-                displayCar.automatic ? "Automatic" : "Manual"
+                displayCar.automatic ? 'Automatic' : 'Manual'
               )}
             </p>
             <p>
-              Passengers:{" "}
+              Passengers:{' '}
               {isEditing ? (
-                <input 
-                  type="number" 
-                  name="passengers" 
-                  value={editedCar.passengers} 
-                  onChange={handleChange} 
+                <input
+                  type="number"
+                  name="passengers"
+                  value={editedCar.passengers}
+                  onChange={handleChange}
                 />
               ) : (
                 displayCar.passengers
               )}
             </p>
             <p>
-              Location:{" "}
+              Location:{' '}
               {isEditing ? (
-                <input 
-                  type="text" 
-                  name="location" 
-                  value={editedCar.location} 
-                  onChange={handleChange} 
+                <input
+                  type="text"
+                  name="location"
+                  value={editedCar.location}
+                  onChange={handleChange}
                 />
               ) : (
                 displayCar.location
               )}
             </p>
             <p>
-              Renting costs:{" "}
+              Renting costs:{' '}
               {isEditing ? (
-                <input 
-                  type="number" 
-                  name="pricePerDay" 
-                  value={editedCar.pricePerDay} 
-                  onChange={handleChange} 
+                <input
+                  type="number"
+                  name="pricePerDay"
+                  value={editedCar.pricePerDay}
+                  onChange={handleChange}
                 />
               ) : (
                 `${displayCar.pricePerDay}kr/day`
+              )}
+            </p>
+            <p>
+              Extra Features:{' '}
+              {editedCar.extraFeatures && editedCar.extraFeatures.length > 0 ? (
+                editedCar.extraFeatures.map((feature) => (
+                  <span key={feature.id} className="extra-feature">
+                    {feature.name}, {' '}
+                  </span>
+                ))
+              ) : (
+                'No extra features'
+              )}
+              {isEditing && (
+                <button
+                  className="edit-extra-features-button"
+                  onClick={(e) => {
+                    e.stopPropagation(); 
+                    toggleExtraFeaturesModal();
+                  }}
+                >
+                  Edit Features
+                </button>
               )}
             </p>
           </div>
@@ -313,13 +409,24 @@ const MyRentalsCarDisplay = ({ car }) => {
           </div>
         </section>
       </button>
-      {tableVisibility && (
-        isLoading ? (
-          <div>Loading rentals...</div> 
+      {tableVisibility &&
+        (isLoading ? (
+          <div>Loading rentals...</div>
         ) : (
-          <MyRentalsCarTable rentals={rentalDetails} /> 
-        )
-      )}
+          <MyRentalsCarTable rentals={rentalDetails} />
+        ))}
+        {isExtraFeaturesModalOpen && (
+          <ExtraFeaturesModal
+            toggleModal={toggleExtraFeaturesModal}
+            isCreateCarModalOpen={isExtraFeaturesModalOpen}
+            setSelectedFeatures={setSelectedFeatures}
+            selectedFeatures={
+              Array.isArray(editedCar.extraFeatures)
+                ? editedCar.extraFeatures.map((feature) => feature.id)
+                : []
+            }
+          />
+        )}
     </div>
   );
 };

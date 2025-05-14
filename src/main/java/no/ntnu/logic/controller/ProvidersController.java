@@ -73,10 +73,10 @@ public class ProvidersController {
    * @param providerRegisterRequest The provider registration request.
    * @return The created provider.
    */
-  @PostMapping
+  @PostMapping("/register")
   @ApiOperation(value = "Creates a new provider.", 
       notes = "The newly created provider is returned.")
-  public ResponseEntity<Providers> createProvider(
+  public ResponseEntity<Providers> register(
       @RequestBody ProviderDetails providerRegisterRequest) {
     Providers provider = new Providers();
     provider.setCompanyName(providerRegisterRequest.getCompanyName());

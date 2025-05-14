@@ -1,8 +1,9 @@
 import React, {useState, useEffect, useRef, useContext} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { User, X, PencilSimple, Car, UserCircleCheck } from '@phosphor-icons/react';
-import { format } from 'date-fns';
 import { getAccountId } from '../utils/JwtUtility';
+import { useAuth } from '../utils/AuthContext';
+import { format } from 'date-fns';
 import logo from '../../resources/images/logo.png';
 import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../Home/BookingForm/BookingForm';
@@ -62,9 +63,6 @@ const Header = () => {
   };
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const showModal = () => setIsModalVisible(true);
-  const closeModal = () => setIsModalVisible(false);
-  const handleXClick = () => setIsMenuOpen(false);
 
   const handleSaveBooking = () => {
     toggleMenu();
@@ -113,7 +111,7 @@ const Header = () => {
     return await response.json();
   }
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isAuthenticated, setIsAuthenticated, setIsAuthInitialized } = useAuth();
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -143,28 +141,29 @@ const Header = () => {
     };
   
     fetchDetails(); 
-  }, [isLoggedIn]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
     if (token) {
-      setIsLoggedIn(true);
+      setIsAuthenticated(true);
+      setIsAuthInitialized(true);
     } else {
-      setIsLoggedIn(false);
+      setIsAuthenticated(false);
+      setIsAuthInitialized(true);
     }
   }, []);
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const toggleDropdownMenu = () => {
     setIsDropdownVisible((prev) => {
-      console.log("Toggling dropdown menu, new state:", !prev);
       return !prev;
     });
   };
   
   const handleUserClick = () => {
-    console.log("HandleUserClick, isLoggedIn value: " + isLoggedIn);
-    if (isLoggedIn) {
+    console.log("isAuthenticated value: " + isAuthenticated);
+    if (isAuthenticated) {
       toggleDropdownMenu();
     } else {
       setIsModalVisible(true);
@@ -174,10 +173,13 @@ const Header = () => {
   const handleLogout = () => {
     console.log("Logging out");
     localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
+    setIsAuthenticated(false);
     setIsDropdownVisible(false);
     navigate('/home');
   }; 
+
+  const handleXClick = () => setIsMenuOpen(false);
+  const closeModal = () => setIsModalVisible(false);
 
   return (
     <header className="top-header">
@@ -212,14 +214,13 @@ const Header = () => {
           <LoginButton
             closeModal={closeModal}
             isModalVisible={isModalVisible}
-            setIsLoggedIn={setIsLoggedIn}
             defaultMode="login"
           />
 
           <button id="login-create" onClick={handleUserClick}>
             {userIcon}
-            {!isLoggedIn && <span className="login-register-text">Login | Register</span>}
-            {isLoggedIn && <span id="logged-in-text" className="login-register-text">{userDisplayName}</span>}
+            {!isAuthenticated && <span className="login-register-text">Login | Register</span>}
+            {isAuthenticated && <span id="logged-in-text" className="login-register-text">{userDisplayName}</span>}
           </button>
           {isDropdownVisible && (
             <DropDownMenu

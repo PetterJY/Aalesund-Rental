@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { mapCarImage } from '../utils/CarImageMapper';
 import { getRole, getAccountId } from "../utils/JwtUtility";
+import { useAuth } from "../utils/AuthContext";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
 import "../App.css";
@@ -9,21 +10,14 @@ import {BookingContext} from "../utils/BookingContext";
 import {formatDate} from "date-fns";
 
 const Booking = () => {
-	const navigate = useNavigate();
-	const role = getRole();
+	const { isAuthenticated, isAuthInitialized } = useAuth();
 
-	useEffect(() => {
-		if (role !== 'ROLE_USER' && role !== 'ROLE_ADMIN') {
-			console.error('Unauthorized access to Booking page. Redirecting to home.');
-			navigate('/home');
-		}
-	}, [navigate, role]);
+	const role = getRole();
 
 	const { carId } = useParams();
 
-	const { bookingData } = useContext(BookingContext);
+	const { bookingData : rentalDetails, setBookingData : setRentalDetails } = useContext(BookingContext);
 
-	const [rentalDetails, setRentalDetails] = useState(null);
 	const [accountDetails, setAccountDetails] = useState(null);
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -56,12 +50,14 @@ const Booking = () => {
 				}
 			);
 
-			setIsLoading(false);
+			console.log("Rental details updated:", rentalDetails);
 		}
 
 		catch(error) {
 			console.error(error);
-		};
+		} finally {
+			setIsLoading(false);
+		}
 	}
 
 	useEffect(() => {
@@ -69,7 +65,22 @@ const Booking = () => {
 	}, [carId]);
 
   useEffect(() => {
+		if (!isAuthInitialized) {
+			console.warn("Auth not initialized. Can't fetch Account Details.");
+			return;
+		}
+
     async function fetchAccountDetails() {
+			if (!isAuthenticated) {
+				console.warn("Can't fetch Account Details. User is not logged in.");
+				return;
+			}
+
+			if (role !== "ROLE_USER") {
+				console.warn("Account is not of role USER.");
+				return;
+			}
+
 			const userId = getAccountId();
       try {
         const response = await fetch(`http://localhost:8080/users/${userId}`, {
@@ -93,7 +104,8 @@ const Booking = () => {
     }
 
     fetchAccountDetails();
-  }, []);
+  }, [isAuthenticated, isAuthInitialized, role]);
+
 	if (isLoading) {
 		return <p>Loading...</p>;
 	}
@@ -121,8 +133,25 @@ const Booking = () => {
 						<label htmlFor="last-name">Last Name:</label>
 						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || ""} readOnly required></input>
 					</div>
+					<div className="phone-number">
+						<label htmlFor="phone-number">Phone Number:</label>
+						<input type="tel" id="phone-number" name="phone-number" value={accountDetails?.phoneNumber || ""} readOnly required></input>
+					</div>
+					<div className="submit-button-container">
+						<button
+							type="submit"
+							className="book-now-button"
+							disabled={!isAuthenticated}
+						>
+							Book Now
+						</button>
+						{!isAuthenticated && (
+							<h4 className="login-warning">
+								Please login or register to proceed with the booking.
+							</h4>
+						)}
+					</div>
 				</form>
-				<button type="submit">Book Now</button>
 			</section>
 
 			<div className="car-information-form">
@@ -155,11 +184,11 @@ const Booking = () => {
 								<p>Loading...</p>
 							) : (
 								<>
-									<p>{`${bookingData.pickupLocation}`}</p>
+									<p>{`${rentalDetails.pickupLocation}`}</p>
 									<p className="pickup-dropoff-time">
 										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} , 
-										${formatDate(bookingData.pickupTime, "d. MMM, yyyy")}  | 
-										${formatDate(bookingData.pickupTime, "HH:mm")}`}
+										${formatDate(rentalDetails.pickupDate, "d. MMM, yyyy")}  | 
+										${formatDate(rentalDetails.pickupTime, "HH:mm")}`}
 									</p>
 								</>
 							)}
@@ -169,11 +198,11 @@ const Booking = () => {
 							{isLoading ? (
 								<p>Loading...</p>
 							) : (
-								<><p>{`${bookingData.pickupLocation}`}</p>
+								<><p>{`${rentalDetails.dropoffLocation}`}</p>
 									<p className="pickup-dropoff-time">
 										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} ,
-										${formatDate(bookingData.dropoffTime, "d. MMM, yyyy")}  |
-								  	${formatDate(bookingData.dropoffTime, "HH:mm")}`}
+										${formatDate(rentalDetails.dropoffDate, "d. MMM, yyyy")}  |
+								  	${formatDate(rentalDetails.dropoffTime, "HH:mm")}`}
 									</p>
 								</>
 							)}
@@ -186,10 +215,10 @@ const Booking = () => {
 						<p>Loading...</p>
 					) : (
 						<>
-							<p>{`${Math.ceil((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24))} days`}</p>
+							<p>{`${(rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
 							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
 							<p>
-								{`${Math.ceil(Math.imul((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24)), 
+								{`${Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24), 
 								rentalDetails.pricePerDay)}`} in total
 							</p>
 						</>
