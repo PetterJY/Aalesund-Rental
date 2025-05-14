@@ -265,7 +265,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/admins"))
+				.uri(URI.create("http://localhost:8080/admins/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -370,7 +370,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/providers"))
+				.uri(URI.create("http://localhost:8080/providers/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
