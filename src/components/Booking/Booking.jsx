@@ -186,10 +186,10 @@ const Booking = () => {
 						<p>Loading...</p>
 					) : (
 						<>
-							<p>{`${(bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
+							<p>{`${Math.ceil((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24))} days`}</p>
 							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
 							<p>
-								{`${Math.imul((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24), 
+								{`${Math.ceil(Math.imul((bookingData.dropoffDate - bookingData.pickupDate) / (1000 * 60 * 60 * 24)), 
 								rentalDetails.pricePerDay)}`} in total
 							</p>
 						</>
