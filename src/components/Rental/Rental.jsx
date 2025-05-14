@@ -231,9 +231,9 @@ useEffect(() => {
       filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
-      filterParams.append("pickupLocation", selectedFilterOptions.pickupLocation);
-      filterParams.append("pickupDate", selectedFilterOptions.pickupDate.toISOString());
-      filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString());
+      filterParams.append("pickupLocation", selectedFilterOptions.pickupLocation || "OSLO");
+      filterParams.append("pickupDate", selectedFilterOptions.pickupDate.toISOString().slice(0, -1));
+      filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString().slice(0, -1));
 
       console.log("After converting to ISO String : ", selectedFilterOptions.pickupDate.toISOString());
 

@@ -135,17 +135,17 @@ public class AddDummyObjectsToDatabase {
 
 		logger.info("Adding rentals to the database.");
 
-		addRental("18", "1", "1", "2023-10-01T00:00:00", "2023-10-05T00:00:00", "Oslo", "Bergen", 3000.0, "COMPLETED");
+		addRental("18", "1", "1", "2025-10-01T00:00:00", "2025-10-05T00:00:00", "Oslo", "Bergen", 3000.0, "COMPLETED");
 		addRental("18", "1", "1", "2024-10-01T00:00:00", "2024-10-05T00:00:00", "Bergen", "Oslo", 3000.0, "PENDING");
-		addRental("19", "2", "2", "2023-10-02T00:00:00", "2023-10-06T00:00:00", "Stavanger", "Kristiansand", 2500.0, "ACTIVE");
-		addRental("20", "3", "3", "2023-10-03T00:00:00", "2023-10-07T00:00:00", "Trondheim", "Ålesund", 3500.0, "PENDING");
-		addRental("21", "4", "4", "2023-10-04T00:00:00", "2023-10-08T00:00:00", "Bergen", "Stavanger", 2800.0, "CANCELLED");
-		addRental("22", "5", "5", "2023-10-05T00:00:00", "2023-10-09T00:00:00", "Oslo", "Trondheim", 3200.0, "COMPLETED");
-		addRental("23", "6", "6", "2023-10-06T00:00:00", "2023-10-10T00:00:00", "Stavanger", "Oslo", 2700.0, "ACTIVE");
-		addRental("24", "7", "7", "2023-10-07T00:00:00", "2023-10-11T00:00:00", "Kristiansand", "Bergen", 3300.0, "PENDING");
-		addRental("25", "8", "8", "2023-10-08T00:00:00", "2023-10-12T00:00:00", "Ålesund", "Stavanger", 2900.0, "CANCELLED");
-		addRental("26", "9", "9", "2023-10-09T00:00:00", "2023-10-13T00:00:00", "Oslo", "Kristiansand", 3100.0, "COMPLETED");
-		addRental("27", "10", "10", "2023-10-10T00:00:00", "2023-10-14T00:00:00", "Bergen", "Ålesund", 2600.0, "ACTIVE");
+		addRental("19", "2", "2", "2025-10-02T00:00:00", "2025-10-06T00:00:00", "Stavanger", "Kristiansand", 2500.0, "ACTIVE");
+		addRental("20", "3", "3", "2025-10-03T00:00:00", "2025-10-07T00:00:00", "Trondheim", "Ålesund", 3500.0, "PENDING");
+		addRental("21", "4", "4", "2025-10-04T00:00:00", "2025-10-08T00:00:00", "Bergen", "Stavanger", 2800.0, "CANCELLED");
+		addRental("22", "5", "5", "2025-10-05T00:00:00", "2025-10-09T00:00:00", "Oslo", "Trondheim", 3200.0, "COMPLETED");
+		addRental("23", "6", "6", "2025-10-06T00:00:00", "2025-10-10T00:00:00", "Stavanger", "Oslo", 2700.0, "ACTIVE");
+		addRental("24", "7", "7", "2025-10-07T00:00:00", "2025-10-11T00:00:00", "Kristiansand", "Bergen", 3300.0, "PENDING");
+		addRental("25", "8", "8", "2025-10-08T00:00:00", "2025-10-12T00:00:00", "Ålesund", "Stavanger", 2900.0, "CANCELLED");
+		addRental("26", "9", "9", "2025-10-09T00:00:00", "2025-10-13T00:00:00", "Oslo", "Kristiansand", 3100.0, "COMPLETED");
+		addRental("27", "10", "10", "2025-10-10T00:00:00", "2025-10-14T00:00:00", "Bergen", "Ålesund", 2600.0, "ACTIVE");
 
 		logger.info("Finished adding rentals to the database.");
 	}
@@ -300,7 +300,6 @@ public class AddDummyObjectsToDatabase {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 		String formattedStartDate = startDate.formatted(formatter);
 		String formattedEndDate = endDate.formatted(formatter);
-
 
 		String json = "{"
 				+ "\"renterId\": " + renterId + ","

@@ -139,8 +139,7 @@ public class CarsController {
         ", maxPricePerDay=" + maxPricePerDayParam +
         ", pickupLocation=" + pickupLocation);
 
-    System.out.println("pickupDate=" + pickupDateParam +
-        ", dropoffDate =" + dropoffDateParam);
+    System.out.println("pickupDate=" + pickupDateParam + ", dropoffDate=" + dropoffDateParam);
 
     List<Cars> cars;
     try {
