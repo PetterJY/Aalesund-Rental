@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect, useContext} from "react";
 import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
 import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
 import IntervalSlider from "./IntervalSlider/IntervalSlider";
 import "./Rental.css";
 import "../App.css";
+import {BookingContext} from "../utils/BookingContext";
 
 export default function Rental() {
   const [cars, setCars] = useState([]);
@@ -26,7 +27,7 @@ export default function Rental() {
     passengers: false,
     energySource: false,
     priceRange: false,
-  })
+  });
 
   const filterRefs = {
     sortBy: useRef(null),
@@ -36,6 +37,8 @@ export default function Rental() {
     energySource: useRef(null),
     priceRange: useRef(null),
   };
+
+  const { bookingData } = useContext(BookingContext);
 
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
@@ -141,6 +144,9 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     energySource: [],
     minPrice: null,
     maxPrice: null,
+    pickupLocation: bookingData.pickupLocation,
+    pickupDate: bookingData.pickupDate,
+    dropoffDate: bookingData.dropoffDate,
   });
 
 useEffect(() => {
@@ -223,6 +229,9 @@ useEffect(() => {
       filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
+      filterParams.append("pickupLocation", selectedFilterOptions.pickupLocation);
+      filterParams.append("pickupDate", selectedFilterOptions.pickupDate);
+      filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate);
 
       console.log("Filter params:", filterParams.toString());
 
