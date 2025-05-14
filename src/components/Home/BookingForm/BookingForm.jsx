@@ -149,6 +149,7 @@ const BookingForm = ({
     inputField.value = "";
     inputField.focus();
     setPickupLocationValue("");
+    setShowPickupLocationSuggestions(true);
   }
 
   function handleDropoffXCircleClick() {
@@ -156,6 +157,7 @@ const BookingForm = ({
     inputField.value = "";
     inputField.focus();
     setDropoffLocationValue("");
+    setShowDropoffLocationSuggestions(true);
   }
 
   useEffect(() => {
@@ -200,6 +202,22 @@ const BookingForm = ({
     });
   };
 
+  useEffect(() => {
+    if (isPickupTextFieldSelected) {
+      setShowPickupLocationSuggestions(true);
+    } else {
+      setShowPickupLocationSuggestions(false);
+    }
+  }, [isPickupTextFieldSelected]);
+
+  useEffect(() => {
+    if (isDropoffTextFieldSelected) {
+      setShowDropoffLocationSuggestions(true);
+    } else {
+      setShowDropoffLocationSuggestions(false);
+    }
+  }, [isDropoffTextFieldSelected]);
+
   return (
     <div className="menu-wrapper">
       {showCloseButton && mobileDisplaySize && (
@@ -227,7 +245,7 @@ const BookingForm = ({
               value={pickupLocationValue}
               onChange={(e) => {
                 setPickupLocationValue(e.target.value)
-                if (e.target.value.length > 0) {
+                if (isPickupTextFieldSelected) {
                   setShowPickupLocationSuggestions(true);
                 } else {
                   setShowPickupLocationSuggestions(false);
