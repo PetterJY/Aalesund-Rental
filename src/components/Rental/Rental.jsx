@@ -222,6 +222,8 @@ useEffect(() => {
     try {
       const filterParams = new URLSearchParams();
 
+      console.log("Before converting to ISO String: ", selectedFilterOptions.pickupDate);
+
       filterParams.append("carType", selectedFilterOptions.carType.join(",").toUpperCase());
       filterParams.append("transmission", selectedFilterOptions.transmission.join(",").toUpperCase());
       filterParams.append("minPassengers", selectedFilterOptions.passengers[0] || "");
@@ -230,8 +232,10 @@ useEffect(() => {
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
       filterParams.append("pickupLocation", selectedFilterOptions.pickupLocation);
-      filterParams.append("pickupDate", selectedFilterOptions.pickupDate);
-      filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate);
+      filterParams.append("pickupDate", selectedFilterOptions.pickupDate.toISOString());
+      filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString());
+
+      console.log("After converting to ISO String : ", selectedFilterOptions.pickupDate.toISOString());
 
       console.log("Filter params:", filterParams.toString());
 
@@ -245,6 +249,7 @@ useEffect(() => {
       });
 
       if (!response.ok) {
+        console.log("Response not ok: ", response);
         throw new Error("Failed to fetch car data.");
       }
 
