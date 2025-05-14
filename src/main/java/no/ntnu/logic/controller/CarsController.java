@@ -208,6 +208,22 @@ public ResponseEntity<List<Cars.CarType>> getCarTypes() {
   }
 
   /**
+   * Returns all extra features for a specific car.
+   * 
+   * @return Set of all extra features.
+   */
+
+  @GetMapping("/{id}/extra-features")
+  @ApiOperation(value = "Returns all extra features for a specific car.")
+public ResponseEntity<Set<ExtraFeatures>> getExtraFeaturesByCarId(@PathVariable Long id) {
+    logger.info("Fetching extra features for car with id: {}", id);
+    Cars car = carsService.findById(id);
+    Set<ExtraFeatures> extraFeatures = car.getExtraFeatures();
+    logger.debug("Fetched extra features: {}", extraFeatures);
+    return ResponseEntity.status(HttpStatus.OK).body(extraFeatures);
+  }
+  
+  /**
    * Creates a new car.
    *
    * @param carRequest The car to create.
