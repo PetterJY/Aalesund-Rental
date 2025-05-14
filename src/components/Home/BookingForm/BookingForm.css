@@ -421,7 +421,6 @@ p {
   overflow: visible;
   text-align: center;
   padding: 2px 14px 2px 14px;
-  max-width: 100%;
 }
 
 .pickup-location.selected {
@@ -435,12 +434,14 @@ p {
 }
 
 .separator {
-margin-right: 10px;
-margin-left: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  visibility: visible;
 }
 
-
-
+.separator.hidden {
+  visibility: hidden;
+}
 
 .save-button:hover {
 background: #e94100; /* Darker shade of #FF5F00 */

@@ -274,7 +274,7 @@ const BookingForm = ({
           </div>
         </div>
         <div className="dropoff-location-section">
-          <label>Dropoff</label>
+          <label>Drop-off</label>
           <div className={`dropoff-location ${isDropoffTextFieldSelected ? 'selected' : ''}`}
               ref={dropoffTextFieldRef}
               onMouseEnter={() => setIsDropoffTextInputHovered(true)}
@@ -285,7 +285,7 @@ const BookingForm = ({
               type="text"
               className="text-input"
               id="dropoff-destination-input-field"
-              placeholder="Drop-off location"
+              placeholder="+ Other drop-off location"
               value={dropoffLocationValue}
               onChange={(e) => {
                 setDropoffLocationValue(e.target.value);

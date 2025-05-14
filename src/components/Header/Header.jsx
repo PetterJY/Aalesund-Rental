@@ -73,7 +73,7 @@ const Header = () => {
       <div className={mobileDisplaySize ? "date-time-menu-mobile" : "date-time-menu-desktop"}>
         <div className="date-range-display">
           <div className="location-display">
-            {bookingData.pickupLocation || "Pickup-location"} <span className="separator"> - </span> {bookingData.dropoffLocation || "Dropoff-location"}
+            {bookingData.pickupLocation || "Pickup-location"} <span className={`separator ${bookingData.dropoffLocation ? '' : 'hidden'}`}> - </span> {bookingData.dropoffLocation || ""}
           </div>
           <div className="time-display">
             {format(bookingData.pickupDate, 'd. MMM')} <span className="separator"> | </span> {format(bookingData.pickupTime, 'HH:mm')}
