@@ -51,7 +51,7 @@ const MyRentalsCarDisplay = ({ car }) => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
           },
           signal,
         });
@@ -121,7 +121,7 @@ const MyRentalsCarDisplay = ({ car }) => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+          "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
         },
         body: JSON.stringify(formatRentalDetails(editedCar)),
       });
@@ -152,7 +152,7 @@ const MyRentalsCarDisplay = ({ car }) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       });
 
@@ -216,7 +216,7 @@ const fetchFeatureName = async (featureId) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     });
 

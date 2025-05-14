@@ -40,7 +40,7 @@ const OrdersCarDisplay = ({rental}) => {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
 			},
 			body: JSON.stringify({
 				...fetchRentalDetails(),

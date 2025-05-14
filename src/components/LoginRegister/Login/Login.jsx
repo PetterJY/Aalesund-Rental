@@ -76,7 +76,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
       const token = data.jwt;
 
       console.log("Token: ", token);
-      localStorage.setItem('jwt', token); 
+      localStorage.setItem('accessToken', token); 
       setIsAuthenticated(true);
       setIsAuthInitialized(true);
       closeModal();

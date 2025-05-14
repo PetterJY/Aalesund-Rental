@@ -135,7 +135,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       const token = data.jwt;
 
       console.log("Token: ", token);
-      localStorage.setItem('jwt', token); 
+      localStorage.setItem('accessToken', token); 
       setIsAuthenticated(true);
       setIsAuthInitialized(true);
     } catch(error) {

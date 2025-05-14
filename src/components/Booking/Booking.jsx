@@ -29,7 +29,7 @@ const Booking = () => {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+					Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
 				},
 			})
 			
@@ -84,7 +84,7 @@ const Booking = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         });
 

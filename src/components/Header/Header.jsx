@@ -100,7 +100,7 @@ const Header = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     });
     
@@ -144,7 +144,7 @@ const Header = () => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem('accessToken');
     if (token) {
       setIsAuthenticated(true);
       setIsAuthInitialized(true);
@@ -172,7 +172,7 @@ const Header = () => {
 
   const handleLogout = () => {
     console.log("Logging out");
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('accessToken');
     setIsAuthenticated(false);
     setIsDropdownVisible(false);
     navigate('/home');

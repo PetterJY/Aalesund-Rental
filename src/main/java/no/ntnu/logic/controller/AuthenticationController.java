@@ -1,5 +1,7 @@
 package no.ntnu.logic.controller;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import no.ntnu.entity.CustomUserDetails;
-import no.ntnu.entity.dto.AuthenticationResponse;
 import no.ntnu.entity.dto.LoginDetails;
 import no.ntnu.security.JwtUtility;
 
@@ -60,9 +61,10 @@ public class AuthenticationController {
     } 
     final CustomUserDetails userDetails = (CustomUserDetails) 
         userDetailsService.loadUserByUsername(loginRequest.getEmail());    
-    final String jwt = jwtUtility.generateToken(userDetails);
-    logger.info("JWT token generated for: {}", loginRequest.getEmail());
-    return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    final String accessToken = jwtUtility.generateAccessToken(userDetails);
+    final String refreshToken = jwtUtility.generateRefreshToken(userDetails);
+    logger.info("JWT tokens generated for: {}", loginRequest.getEmail());
+    return ResponseEntity.ok(Map.of("accessToken", accessToken, "refreshToken", refreshToken));
   }
 
   @PostMapping("/refresh-token")
