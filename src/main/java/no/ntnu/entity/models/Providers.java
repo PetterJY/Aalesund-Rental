@@ -11,7 +11,6 @@ import jakarta.persistence.Entity;
  */
 @Entity
 public class Providers extends Accounts {
-
   @Column(nullable = false)
   @ApiModelProperty("The name of the company of the provider")
   private String companyName;
@@ -33,7 +32,7 @@ public class Providers extends Accounts {
   }
 
   public String getPhoneNumber() {
-        return phoneNumber;
+    return phoneNumber;
   }
 
   public void setPhoneNumber(String phoneNumber) {
