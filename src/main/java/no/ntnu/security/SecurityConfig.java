@@ -40,6 +40,9 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
               "/auth/login", 
+              "/users/register",
+              "/providers/register",
+              "/admins/register",
               "/cars/search",
               "/cars/locations",
               "/cars/{id}"

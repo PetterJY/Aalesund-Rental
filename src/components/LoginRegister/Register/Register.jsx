@@ -134,7 +134,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       const data = await response.json();
       const token = data.jwt;
 
-      console.log("User has been logged in. Token: ", token);
+      console.log("Token: ", token);
       localStorage.setItem('jwt', token); 
       setIsAuthenticated(true);
       setIsAuthInitialized(true);

@@ -76,7 +76,7 @@ public class AdminsController {
    */
   @PostMapping
   @ApiOperation(value = "Creates a new admin.", notes = "The newly created admin is returned.")
-  public ResponseEntity<Admins> createAdmin(
+  public ResponseEntity<Admins> register(
       @RequestBody AdminDetails adminRegisterRequest) {
     Admins admin = new Admins();
     admin.setName(adminRegisterRequest.getName());
