@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { AuthProvider } from './utils/AuthContext';
+import { BookingProvider } from "./utils/BookingContext";
 import Home from './Home/Home';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -12,7 +13,6 @@ import Orders from './Account/Orders/Orders';
 import MyRentals from './Account/MyRentals/MyRentals';
 import PageNotFound from './PageNotFound/PageNotFound';
 import './App.css';
-import {BookingProvider} from "./utils/BookingContext";
 
 function App() {
   return (

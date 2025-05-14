@@ -63,9 +63,6 @@ const Header = () => {
   };
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const showModal = () => setIsModalVisible(true);
-  const closeModal = () => setIsModalVisible(false);
-  const handleXClick = () => setIsMenuOpen(false);
 
   const handleSaveBooking = () => {
     toggleMenu();
@@ -180,6 +177,9 @@ const Header = () => {
     setIsDropdownVisible(false);
     navigate('/home');
   }; 
+
+  const handleXClick = () => setIsMenuOpen(false);
+  const closeModal = () => setIsModalVisible(false);
 
   return (
     <header className="top-header">
