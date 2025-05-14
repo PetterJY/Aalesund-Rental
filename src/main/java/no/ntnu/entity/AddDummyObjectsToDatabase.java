@@ -193,8 +193,8 @@ public class AddDummyObjectsToDatabase {
 			// Parse the JSON response
 			JsonNode rootNode = objectMapper.readTree(jsonResponse);
 
-			// Extract the "jwt" field
-			return rootNode.get("jwt").asText();
+			// Extract the "accessToken" field
+			return rootNode.get("accessToken").asText();
 		} catch (Exception e) {
 			System.err.println("Failed to parse JWT token: " + e.getMessage());
 			return null; // Return null if parsing fails

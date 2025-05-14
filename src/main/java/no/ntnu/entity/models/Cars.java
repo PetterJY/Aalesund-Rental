@@ -85,9 +85,9 @@ public class Cars {
 
   @ManyToMany
   @JoinTable(
-      name = "cars_extra_features",
-      joinColumns = @JoinColumn(name = "car_id"),
-      inverseJoinColumns = @JoinColumn(name = "extra_feature_id")
+    name = "cars_extra_features",
+    joinColumns = @JoinColumn(name = "car_id"),
+    inverseJoinColumns = @JoinColumn(name = "extra_feature_id")
   )
   @ApiModelProperty("The extra features of the car")
   @JsonManagedReference
