@@ -3,6 +3,8 @@ import { NotePencil } from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
 import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
 import ExtraFeaturesModal from '../CreateCarModal/EnumModal/ExtraFeaturesModal';
+import LocationModal from '../CreateCarModal/EnumModal/LocationModal';
+import CarTypeModal from '../CreateCarModal/EnumModal/CarTypeModal';
 import { getAccountId, getToken } from '../../../utils/JwtUtility';
 import './MyRentalsCarDisplay.css';
 import '../../../App.css';
@@ -16,6 +18,10 @@ const MyRentalsCarDisplay = ({ car }) => {
   const [tableVisibility, setTableVisibility] = useState(false);
   const [isExtraFeaturesModalOpen, setIsExtraFeaturesModalOpen] = useState(false);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(editedCar.location);
+  const [isCarTypeModalOpen, setIsCarTypeModalOpen] = useState(false);
+  const [selectedCarType, setSelectedCarType] = useState(editedCar.carType);
 
   const toggleDetails = () => {
     if (!isEditing) {
@@ -34,7 +40,32 @@ const toggleExtraFeaturesModal = () => {
   }
   setIsExtraFeaturesModalOpen((prev) => !prev);
 };
-  
+
+const toggleLocationModal = () => {
+  setIsLocationModalOpen((prev) => !prev);
+};
+
+useEffect(() => {
+  if (selectedLocation && selectedLocation !== editedCar.location) {
+    setEditedCar((prev) => ({
+      ...prev,
+      location: selectedLocation,
+    }));
+  }
+}, [selectedLocation]);
+  const toggleCarTypeModal = () => {
+  setIsCarTypeModalOpen((prev) => !prev);
+};
+
+useEffect(() => {
+  if (selectedCarType && selectedCarType !== editedCar.carType) {
+    setEditedCar((prev) => ({
+      ...prev,
+      carType: selectedCarType,
+    }));
+  }
+}, [selectedCarType]);
+
   const abortControllerRef = useRef(null);
 
   useEffect(() => {
@@ -181,7 +212,7 @@ const toggleExtraFeaturesModal = () => {
     const { name, value } = e.target;
     setEditedCar(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === "automatic" ? value === "Automatic" : value
     }));
   };
 
@@ -288,12 +319,24 @@ const fetchFeatureName = async (featureId) => {
             <p>
               Car type:{' '}
               {isEditing ? (
-                <input
-                  type="text"
-                  name="carType"
-                  value={editedCar.carType}
-                  onChange={handleChange}
-                />
+                <>
+                  <button
+                    type="button"
+                    className="enum-button"
+                    onClick={toggleCarTypeModal}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {editedCar.carType ? editedCar.carType : "Choose car type"}
+                  </button>
+                  {isCarTypeModalOpen && (
+                    <CarTypeModal
+                      toggleModal={toggleCarTypeModal}
+                      isCreateCarModalOpen={isCarTypeModalOpen}
+                      setSelectedCarType={setSelectedCarType}
+                      selectedCarType={editedCar.carType}
+                    />
+                  )}
+                </>
               ) : (
                 displayCar.carType
               )}
@@ -354,16 +397,28 @@ const fetchFeatureName = async (featureId) => {
             </p>
             <p>
               Location:{' '}
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="location"
-                  value={editedCar.location}
-                  onChange={handleChange}
-                />
-              ) : (
-                displayCar.location
-              )}
+            {isEditing ? (
+              <>
+                <button
+                  type="button"
+                  className="enum-button"
+                  onClick={toggleLocationModal}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {editedCar.location ? editedCar.location : "Choose location"}
+                </button>
+                {isLocationModalOpen && (
+                  <LocationModal
+                    toggleModal={toggleLocationModal}
+                    isCreateCarModalOpen={isLocationModalOpen}
+                    setSelectedLocation={setSelectedLocation}
+                    selectedLocation={editedCar.location}
+                  />
+                )}
+              </>
+            ) : (
+              displayCar.location
+            )}
             </p>
             <p>
               Renting costs:{' '}
@@ -391,7 +446,7 @@ const fetchFeatureName = async (featureId) => {
               )}
               {isEditing && (
                 <button
-                  className="edit-extra-features-button"
+                  className="enum-button"
                   onClick={(e) => {
                     e.stopPropagation(); 
                     toggleExtraFeaturesModal();

@@ -58,6 +58,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
+  border-bottom: 2px solid #252422;
   outline: none;
   font-size: 16px;
   color: #252422;
@@ -66,7 +67,6 @@
 
 .rentals-car-display-card .car-details input:focus {
   border-bottom: 2px solid #EB5E28;
-  transform: scale(1.05);
   transition: 0s;
 }
 
@@ -74,6 +74,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
+  border-bottom: 2px solid #252422;
   outline: none;
   font-size: 16px;
   color: #252422;
@@ -82,7 +83,6 @@
 
 .rentals-car-display-card .car-details select:focus {
   border-bottom: 2px solid #EB5E28;
-  transform: scale(1.05);
   transition: 0s;
 }
 
@@ -98,6 +98,20 @@
   padding: 0;
   font-size: 16px;
   color: #252422;
+}
+
+.rentals-car-display-card .car-details .enum-button{
+  background-color: transparent;
+  color: #252422;
+  border-bottom: 2px solid #252422;
+  border-radius: 0px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.rentals-car-display-card .car-details .enum-button:hover{
+  border-bottom: #EB5E28 2px solid;
+  cursor: pointer;
 }
 
 .rentals-car-display-card .my-rental-buttons {
