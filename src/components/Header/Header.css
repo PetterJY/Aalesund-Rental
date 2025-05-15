@@ -29,8 +29,8 @@
 
 .mobile-header {
   display: flex;
-  flex-wrap: wrap; /* Allows wrapping */
-  justify-content: space-between; /* Pushes first and second divs apart */
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   max-width: 1200px;

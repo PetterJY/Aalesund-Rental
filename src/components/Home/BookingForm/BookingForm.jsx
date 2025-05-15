@@ -192,6 +192,12 @@ const BookingForm = ({
     return() => document.removeEventListener('mousedown', handleClickOutside);
   }, [isDropoffTextFieldSelected]);
 
+  useEffect(() => {
+    if (!pickupLocationValue && pickupLocations && pickupLocations.length > 0) {
+      setPickupLocationValue(pickupLocations[0]); // Set the default to the first suggestion
+    }
+  }, [setPickupLocationValue, pickupLocations]);
+
   const handleSave = () => {
     if (!pickupLocationValue.trim() || !pickupLocations.includes(pickupLocationValue)) {
       setIsPickupFieldValid(false);
