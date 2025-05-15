@@ -147,27 +147,25 @@ public class AddDummyObjectsToDatabase {
 		addRental("26", "9", "9", "2025-06-09T00:00:00", "2025-06-13T00:00:00", "Oslo", "Kristiansand", 3100.0, "COMPLETED");
 		addRental("27", "10", "10", "2025-06-10T00:00:00", "2025-06-14T00:00:00", "Bergen", "Ålesund", 2600.0, "ACTIVE");
 
-// June 2025 Rentals
+		// June 2025 Rentals
 		addRental("18", "3", "3", "2025-06-01T00:00:00", "2025-06-07T00:00:00", "Bergen", "Oslo", 3200.0, "PENDING");
 		addRental("19", "5", "7", "2025-06-05T00:00:00", "2025-06-12T00:00:00", "Trondheim", "Stavanger", 2800.0, "ACTIVE");
 		addRental("20", "7", "9", "2025-06-10T00:00:00", "2025-06-18T00:00:00", "Drammen", "Bergen", 3000.0, "COMPLETED");
 		addRental("21", "12", "13", "2025-06-15T00:00:00", "2025-06-22T00:00:00", "Oslo", "Tromsø", 3500.0, "CANCELLED");
 		addRental("22", "17", "21", "2025-06-20T00:00:00", "2025-06-27T00:00:00", "Stavanger", "Kristiansand", 2900.0, "PENDING");
 
-// July 2025 Rentals
+		// July 2025 Rentals
 		addRental("23", "1", "1", "2025-07-01T00:00:00", "2025-07-09T00:00:00", "Oslo", "Ålesund", 3400.0, "ACTIVE");
 		addRental("24", "4", "6", "2025-07-05T00:00:00", "2025-07-12T00:00:00", "Stavanger", "Bergen", 2700.0, "COMPLETED");
 		addRental("25", "6", "22", "2025-07-10T00:00:00", "2025-07-17T00:00:00", "Trondheim", "Oslo", 3100.0, "CANCELLED");
 		addRental("26", "8", "10", "2025-07-15T00:00:00", "2025-07-23T00:00:00", "Ålesund", "Stavanger", 3300.0, "PENDING");
 		addRental("27", "14", "16", "2025-07-20T00:00:00", "2025-07-28T00:00:00", "Bergen", "Drammen", 3000.0, "ACTIVE");
 
-// August 2025 Rentals
+		// August 2025 Rentals
 		addRental("18", "9", "11", "2025-08-01T00:00:00", "2025-08-08T00:00:00", "Ålesund", "Trondheim", 2800.0, "COMPLETED");
 		addRental("19", "10", "12", "2025-08-05T00:00:00", "2025-08-13T00:00:00", "Tromsø", "Oslo", 3600.0, "PENDING");
 		addRental("20", "13", "15", "2025-08-10T00:00:00", "2025-08-17T00:00:00", "Oslo", "Bergen", 3200.0, "ACTIVE");
 		addRental("21", "15", "18", "2025-08-15T00:00:00", "2025-08-22T00:00:00", "Tromsø", "Stavanger", 2900.0, "CANCELLED");
-
-		logger.info("Finished adding additional rentals to the database.");
 
 		logger.info("Finished adding rentals to the database.");
 	}

@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.UserNotFoundException;
-import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.repository.UsersRepository;
 
@@ -41,7 +40,7 @@ public class UsersService {
   public List<Users> findAll() {
     logger.info("Fetching all users");
     return StreamSupport.stream(usersRepository.findAll().spliterator(), false)
-        .filter(user -> user.getRole() == Accounts.Role.ROLE_USER)
+        .filter(user -> !user.isDeleted())
         .toList();
   }
 
@@ -55,7 +54,8 @@ public class UsersService {
   public Users findById(Long id) throws UserNotFoundException {
     logger.info("Fetching user with id: {}", id);
     return usersRepository.findById(id)
-      .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        .filter(user -> !user.isDeleted())
+        .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
   }
 
   /**
@@ -65,12 +65,12 @@ public class UsersService {
    * @return the saved user.
    */
   public Users save(Users user) {
-      logger.info("Saving user with email: {}", user.getEmail());
-      String password = user.getPassword();
-      if (!password.startsWith("$2a$")) { // Only encode if not already encoded
-          user.setPassword(passwordEncoder.encode(password));
-      }
-      return usersRepository.save(user);
+    logger.info("Saving user with email: {}", user.getEmail());
+    String password = user.getPassword();
+    if (!password.startsWith("$2a$")) { // Only encode if not already encoded
+      user.setPassword(passwordEncoder.encode(password));
+    }
+    return usersRepository.save(user);
   }
 
   /**
@@ -82,23 +82,5 @@ public class UsersService {
   public Users saveWithoutEncoding(Users user) {
     logger.info("Saving user without encoding password with email: {}", user.getEmail());
     return usersRepository.save(user);
-  }
-
-  /**
-   * Deletes a user based on their ID.
-   *
-   * @param id the ID of the user to delete
-   * @throws UserNotFoundException if no user is found with the given ID
-   */
-  public void deleteById(Long id) throws UserNotFoundException {
-    logger.info("Deleting user with id: {}", id);
-    if (!usersRepository.existsById(id)) {
-      throw new UserNotFoundException("User not found with id: " + id);
-    }
-    usersRepository.deleteById(id);
-  }
-
-  public String encodePassword(String password) {
-    return passwordEncoder.encode(password);
   }
 }

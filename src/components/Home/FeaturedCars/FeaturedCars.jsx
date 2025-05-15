@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { mapCarImage } from '../../utils/CarImageMapper';
 import './FeaturedCars.css'
-import VolkswagenGolf from '../../../resources/images/cars/VolkswagenGolf.png'
-import TeslaModel3 from '../../../resources/images/cars/TeslaModel3.webp'
-import TeslaModelY from '../../../resources/images/cars/TeslaModelY.png'
-import BMWM3 from '../../../resources/images/cars/BMWM3.png'
-import Peugot3008 from '../../../resources/images/cars/Peugeot3008.png'
-import VolkswagenTransporter from '../../../resources/images/cars/VolkswagenTransporter.webp'
 
 
 const FeaturedCars = () => {
+  const [cars, setCars] = useState([]);
   const [cardOrder, setCardOrder] = useState([0, 1, 2, 3, 4]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [autoPlayInterval, setAutoPlayInterval] = useState(null);
+
+useEffect(() => {
+  async function fetchCars() {
+    try {
+      const response = await fetch('http://localhost:8080/cars', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+      if (!response.ok) throw new Error('Failed to fetch cars');
+      const data = await response.json();
+      setCars(data.slice(0, 5)); // Show only 5 featured cars
+      setCardOrder([...Array(Math.min(5, data.length)).keys()]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  fetchCars();
+  }, []);
 
   const handleNextClick = () => {
     if (isButtonDisabled) return;
@@ -53,7 +70,7 @@ const FeaturedCars = () => {
     if (!autoPlayInterval) {
       const interval = setInterval(() => {
         handleNextClick();
-      }, 7500);
+      }, 20000);
       setAutoPlayInterval(interval);
     }
   }
@@ -80,7 +97,8 @@ const FeaturedCars = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handlePreviousClick();
-    }, 20000);
+      console.log(cardOrder);
+    }, 200000);
 
     setAutoPlayInterval(interval);
 
@@ -95,42 +113,30 @@ const FeaturedCars = () => {
       <div className="featured-cars-slideshow">
         <h1>Our Featured Cars</h1>
         <div className="featured-cars-with-controls">
-        <div className="featured-cars">
-          <div
-            onMouseEnter={pauseAutoplay}
-            onMouseLeave={resumeAutoplay}
-            className={`featured-car ${isCardActive(0) ? 'active' : ''} ${getCardPosition(0)}`}
-            id="featured-car-1">
-            <img src={TeslaModel3} alt="Tesla-Model-3-car" className="featured-car-image"/>
-            </div>
-            <div
-              onMouseEnter={pauseAutoplay}
-              onMouseLeave={resumeAutoplay}
-              className={`featured-car ${isCardActive(1) ? 'active' : ''} ${getCardPosition(1)}`}
-              id="featured-car-2">
-              <img src={TeslaModelY} alt="Tesla-Model-Y-car" className="featured-car-image"/>
-            </div>
-            <div
-              onMouseEnter={pauseAutoplay}
-              onMouseLeave={resumeAutoplay}
-              className={`featured-car ${isCardActive(2) ? 'active' : ''} ${getCardPosition(2)}`}
-              id="featured-car-3">
-              <img src={BMWM3} alt="BMW-M3-car" className="featured-car-image"/>
-            </div>
-            <div
-              onMouseEnter={pauseAutoplay}
-              onMouseLeave={resumeAutoplay}
-              className={`featured-car ${isCardActive(3) ? 'active' : ''} ${getCardPosition(3)}`}
-              id="featured-car-4">
-              <img src={Peugot3008} alt="Peugeot-3008-car" className="featured-car-image"/>
-            </div>
-            <div
-              onMouseEnter={pauseAutoplay}
-              onMouseLeave={resumeAutoplay}
-              className={`featured-car ${isCardActive(4) ? 'active' : ''} ${getCardPosition(4)}`}
-              id="featured-car-5">
-              <img src={VolkswagenTransporter} alt="Volkswagen-Transporter-car" className="featured-car-image"/>
-            </div>
+          <div className="featured-cars">
+            {cardOrder.map((orderIdx, idx) => {
+              const car = cars[orderIdx];
+              console.log(car);
+              if (!car) return null;
+              return (
+                <div
+                  key={car.id}
+                  onMouseEnter={pauseAutoplay}
+                  onMouseLeave={resumeAutoplay}
+                  className={`featured-car ${isCardActive(idx) ? 'active' : ''} ${getCardPosition(idx)}`}
+                  id={`featured-car-${idx + 1}`}
+                >
+                  <img
+                    src={mapCarImage(car.carBrand, car.modelName)}
+                    alt={`${car.carBrand} ${car.modelName}`}
+                    className="featured-car-image"
+                  />
+                  <div className="featured-car-info">
+                    <h2>{car.carBrand} {car.modelName} {car.id}</h2>
+                  </div>
+                </div>
+              );
+            })}
           </div>
           <div className="featured-cars-controls">
             <div className="indicators">
