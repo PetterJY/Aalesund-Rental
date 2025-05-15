@@ -14,6 +14,28 @@
   gap: 12px;
 }
 
+.favourites-container .car-display .price-section {
+  display: none;
+}
+
+.favourites-container .car-selected .car-rental-economics {
+  display: none;
+}
+
+.favourites-container .car-selected button {
+ display: none;
+}
+
+@media screen and (max-width: 1300px) {
+  
+  .favourites-container .car-selected-menu{
+    min-width: 100%;
+  }
+  
+  .favourites-container .car-selected{
+    min-width: 100%;
+  }
+
 @media screen and (max-width: 900px) {
   .favourites-container {
     width: 100%;
@@ -27,6 +49,16 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
+  }
+  .favourites-container .car-selected-menu{
+    min-width: 89%;
+    margin-right: 5px;
+  }
+  
+  .favourites-container .car-selected{
+    min-width: 100%;
+  }
+
   }
   
 }
