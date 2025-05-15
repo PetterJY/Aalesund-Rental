@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { getAccountId } from "../../utils/JwtUtility";
 import { mapCarImage } from '../../utils/CarImageMapper';
 import passengerImage from "../../../resources/images/passenger.png";
-import { Car, Seatbelt, PlusCircle, CaretDown } from "@phosphor-icons/react";
+import { Car, Seatbelt, PlusCircle, CaretDown, Star } from "@phosphor-icons/react";
 
 const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
   const [isFavourited, setIsFavourited] = useState(false);
@@ -68,13 +68,17 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
         </section>
         <section className="top-right-section">
           <article className="car-tag">{car.energySource}</article>
-              <button
-                className={`favourite-btn${isFavourited ? " favourited" : ""}`}
-                onClick={handleToggleFavourite}
-                aria-label={isFavourited ? "Remove from favourites" : "Add to favourites"}
-              >
-                {isFavourited ? "♥" : "♡"}
-              </button>
+          <button
+            className={`favourite-btn${isFavourited ? " favourited" : ""}`}
+            onClick={handleToggleFavourite}
+            aria-label={isFavourited ? "Remove from favourites" : "Add to favourites"}
+          >
+            <Star
+              size={28}
+              color={isFavourited ? "#ee9922" : "#EEE"}
+              weight={isFavourited ? "fill" : "regular"}
+            />
+          </button>
         </section>
       </section>
 
