@@ -330,13 +330,13 @@
 }
 
 
-@media screen and (min-width: 901px) {
+@media screen and (min-width: 1001px) {
   .rental-page .filter-button {
     display: none;
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .rental-page {
     max-width: 999999px;
     min-width: 1px;
