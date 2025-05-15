@@ -286,7 +286,7 @@ const BookingForm = ({
               type="text"
               className="text-input"
               id="dropoff-destination-input-field"
-              placeholder="+ Other drop-off location"
+              placeholder="Dropoff location"
               value={dropoffLocationValue}
               onChange={(e) => {
                 setDropoffLocationValue(e.target.value);

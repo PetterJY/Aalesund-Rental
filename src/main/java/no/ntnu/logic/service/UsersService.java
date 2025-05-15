@@ -65,9 +65,12 @@ public class UsersService {
    * @return the saved user.
    */
   public Users save(Users user) {
-    logger.info("Saving user with email: {}", user.getEmail());
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    return usersRepository.save(user);
+      logger.info("Saving user with email: {}", user.getEmail());
+      String password = user.getPassword();
+      if (!password.startsWith("$2a$")) { // Only encode if not already encoded
+          user.setPassword(passwordEncoder.encode(password));
+      }
+      return usersRepository.save(user);
   }
 
   /**

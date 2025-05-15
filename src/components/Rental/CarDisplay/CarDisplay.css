@@ -129,7 +129,19 @@
   margin-bottom: auto;
 }
 
-
+.car-display .favourite-btn {
+    background: none;
+  border: none;
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: color 0.2s;
+}
+.car-display .favourite-btn.favourited,
+.car-display .favourite-btn:hover {
+  color: #EB5E28;
+}
 
 .selected-arrow {
   position: absolute;

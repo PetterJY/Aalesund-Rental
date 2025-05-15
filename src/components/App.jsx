@@ -11,6 +11,7 @@ import ProtectedAccount from './Account/ProtectedAccount';
 import Account from './Account/Account';
 import Orders from './Account/Orders/Orders';
 import MyRentals from './Account/MyRentals/MyRentals';
+import Favourites from './Account/Favourites/Favourites';
 import PageNotFound from './PageNotFound/PageNotFound';
 import './App.css';
 
@@ -33,6 +34,7 @@ function App() {
               <Route path="account" element={<Account />} />
               <Route path="orders" element={<Orders />} />
               <Route path="my-rentals" element={<MyRentals />} />
+              <Route path="favourites" element={<Favourites />} />
             </Route>
 
             <Route path="*" element={<PageNotFound />} />

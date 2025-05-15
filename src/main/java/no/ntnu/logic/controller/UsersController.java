@@ -1,6 +1,7 @@
 package no.ntnu.logic.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import jakarta.validation.Valid;
 import no.ntnu.entity.dto.UserDetails;
+import no.ntnu.entity.models.Cars;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.UsersService;
+import no.ntnu.logic.service.CarsService;
 
 /**
  * Controller for managing user-related operations.
@@ -32,10 +35,12 @@ public class UsersController {
       LoggerFactory.getLogger(UsersController.class.getSimpleName());
   
   private final UsersService usersService;
+  private final CarsService carsService;
 
   @Autowired
-  public UsersController(UsersService usersService) {
+  public UsersController(UsersService usersService, CarsService carsService) {
     this.usersService = usersService;
+    this.carsService = carsService;
   }
 
   /**
@@ -131,4 +136,30 @@ public class UsersController {
     logger.info("Deleting user with id: {}", id);
     return ResponseEntity.noContent().build();
   }
+
+  // Add to UsersController or a dedicated FavouritesController
+
+@PostMapping("/{userId}/favourites/{carId}")
+public ResponseEntity<?> addFavourite(@PathVariable Long userId, @PathVariable Long carId) {
+    Users user = usersService.findById(userId);
+    Cars car = carsService.findById(carId);
+    user.getFavouriteCars().add(car);
+    usersService.save(user);
+    return ResponseEntity.ok().build();
+}
+
+@DeleteMapping("/{userId}/favourites/{carId}")
+public ResponseEntity<?> removeFavourite(@PathVariable Long userId, @PathVariable Long carId) {
+    Users user = usersService.findById(userId);
+    Cars car = carsService.findById(carId);
+    user.getFavouriteCars().remove(car);
+    usersService.save(user);
+    return ResponseEntity.ok().build();
+}
+
+@GetMapping("/{userId}/favourites")
+public ResponseEntity<Set<Cars>> getFavourites(@PathVariable Long userId) {
+    Users user = usersService.findById(userId);
+    return ResponseEntity.ok(user.getFavouriteCars());
+}
 }
