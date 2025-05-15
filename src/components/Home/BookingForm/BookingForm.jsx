@@ -240,7 +240,8 @@ const BookingForm = ({
       <div className="location-section">
         <div className="pickup-location-section">
           <label>Pickup</label>
-          <div className={`pickup-location ${isPickupTextFieldSelected ? 'selected' : ''} ${isPickupFieldValid && !isPickupTextFieldSelected? '' : 'error'} `}
+          <div className={`pickup-location ${isPickupTextFieldSelected ? 'selected' : ''} 
+              ${(!isPickupFieldValid && !isPickupTextFieldSelected) ? 'error' : ''} `}
                ref={pickupTextFieldRef}
                onMouseEnter={() => setIsPickupTextInputHovered(true)}
                onMouseLeave={() => setIsPickupTextInputHovered(false)}

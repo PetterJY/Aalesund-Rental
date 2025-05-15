@@ -109,6 +109,10 @@ body, html {
   transform: scale(24);
 }
 
+#pickup-destination-input-field {
+  background-color: transparent;
+}
+
 .text-input {
   background-color: transparent;
   width: 100%;
@@ -414,8 +418,10 @@ p {
 }
 
 .pickup-location.error {
-  background-color: red;
-  opacity: 0.5;
+  box-sizing: border-box;
+  background-color: rgba(255, 0, 0, 0.2); /* Semi-transparent red */
+  outline: 2px solid red;
+  padding: 2px 14px 2px 14px;
 }
 
 .pickup-location, .dropoff-location {

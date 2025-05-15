@@ -24,7 +24,6 @@ const DropDownMenuMenu = ({ toggleDropdownMenu, isDropdownVisible, navigate, han
         toggleDropdownMenu();
       }
     };
-    console.log('isDropdownVisible', isDropdownVisible);
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
