@@ -54,8 +54,8 @@ const Header = () => {
         setIsMenuOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => document.removeEventListener('pointerdown', handleClickOutside);
   }, [isMenuOpen]);
 
   const navigateToHomePage = () => {
@@ -73,7 +73,7 @@ const Header = () => {
       <div className={mobileDisplaySize ? "date-time-menu-mobile" : "date-time-menu-desktop"}>
         <div className="date-range-display">
           <div className="location-display">
-            {bookingData.pickupLocation || "Pickup-location"} <span className={`separator ${bookingData.dropoffLocation ? '' : 'hidden'}`}> - </span> {bookingData.dropoffLocation || ""}
+            {bookingData.pickupLocation || "OSLO"} <span className={`separator ${bookingData.dropoffLocation ? '' : 'hidden'}`}> - </span> {bookingData.dropoffLocation || ""}
           </div>
           <div className="time-display">
             {format(bookingData.pickupDate, 'd. MMM')} <span className="separator"> | </span> {format(bookingData.pickupTime, 'HH:mm')}
@@ -190,6 +190,9 @@ const Header = () => {
         </button>
 
         {showMenu && !mobileDisplaySize && <DateTimeMenu />}
+        {isMenuOpen && (
+          <div className="backdrop" onClick={() => setIsMenuOpen(false)}></div>
+        )}
 
         <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
           <div className="menu-wrapper">
