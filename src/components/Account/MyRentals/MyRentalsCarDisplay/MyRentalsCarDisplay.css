@@ -165,6 +165,18 @@
   cursor: pointer;
 }
 
+.my-rentals-car-display .no-rentals-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 20px;
+  color: #252422;
+  font-weight: 600;
+  
+}
+
 @media screen and (max-width: 1148px) {
   .rentals-car-display-card {
     flex-direction: column;

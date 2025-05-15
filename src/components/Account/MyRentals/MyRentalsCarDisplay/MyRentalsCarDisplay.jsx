@@ -472,12 +472,15 @@ const fetchFeatureName = async (featureId) => {
           </div>
         </section>
       </button>
-      {tableVisibility &&
-        (isLoading ? (
-          <div>Loading rentals...</div>
-        ) : (
-          <MyRentalsCarTable rentals={rentalDetails} />
-        ))}
+        {tableVisibility &&
+          (isLoading ? (
+            <div>Loading rentals...</div>
+          ) : rentalDetails && rentalDetails.length > 0 ? (
+            <MyRentalsCarTable rentals={rentalDetails} />
+          ) : (
+            <div className="no-rentals-message">No rentals for this car.</div>
+          ))
+        }
         {isExtraFeaturesModalOpen && (
           <ExtraFeaturesModal
             toggleModal={toggleExtraFeaturesModal}

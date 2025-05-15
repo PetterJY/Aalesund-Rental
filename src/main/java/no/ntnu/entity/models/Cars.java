@@ -118,6 +118,11 @@ public class Cars {
     AUTOMATIC, MANUAL;
   }
 
+  /**
+   * Enum for the location of the car.
+   * Allowed values are OSLO, BERGEN, STAVANGER, TRONDHEIM, DRAMMEN,
+   * LILLEHAMMER, ÅLESUND, TROMSØ. (May be extended in the future)
+   */
   public enum Location {
     OSLO, BERGEN, STAVANGER, TRONDHEIM, DRAMMEN, LILLEHAMMER, ÅLESUND, TROMSØ;
   }
