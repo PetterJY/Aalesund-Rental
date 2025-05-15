@@ -41,6 +41,23 @@ export default function Rental() {
   const { bookingData } = useContext(BookingContext);
 
 
+  const handleClearFilters = () => {
+  setSelectedFilterOptions({
+    sortBy: [],
+    carType: [],
+    transmission: [],
+    passengers: [],
+    energySource: [],
+    minPrice: null,
+    maxPrice: null,
+    pickupLocation: bookingData.pickupLocation,
+    pickupDate: bookingData.pickupDate,
+    dropoffDate: bookingData.dropoffDate,
+  });
+  setMinPrice(0);
+  setMaxPrice(maxCarRentalPrice);
+};
+
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
 
   const toggleDropdown = (category) =>
@@ -369,6 +386,9 @@ useEffect(() => {
             {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
             {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
+            <button className="clear-button" onClick={handleClearFilters} type="button">
+              Clear Filters
+            </button>
             <button className="filter-button" onClick={toggleFilter}>
               <FunnelSimple size={20} color="#252322" /> Sort and filter
             </button>
@@ -378,6 +398,9 @@ useEffect(() => {
             <div className="filter-panel">
               <div className="filter-content">
                 <h2>Sort and Filter</h2>
+                <button className="clear-button-mobile" onClick={handleClearFilters} type="button">
+                  Clear Filters
+                </button>
                 <div className="filter-group">
                   <h3>Sort</h3>
                   {renderRadioButtons("sortBy", filterOptions.sortBy)}

@@ -258,6 +258,34 @@
   margin-bottom: 20px;
 }
 
+.rental-page .clear-button {
+  background-color: #efeff4;
+  color: #252422;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.rental-page .clear-button:hover {
+  background-color: #dedeec;
+  color: #252422;
+}
+
+.rental-page .clear-button-mobile{
+  background-color: #efeff4;
+  color: #252422;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.rental-page .clear-button-mobile:hover {
+  background-color: #dedeec;
+  color: #252422;
+}
+
 
 @media screen and (min-width: 901px) {
   .rental-page .filter-button {
@@ -275,6 +303,10 @@
   }
 
   .rental-page .sort-button {
+    display: none;
+  }
+
+  .rental-page .clear-button {
     display: none;
   }
 
