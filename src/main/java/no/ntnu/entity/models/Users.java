@@ -1,13 +1,12 @@
 package no.ntnu.entity.models;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
 /**
@@ -32,11 +31,10 @@ public class Users extends Accounts {
 
   @ManyToMany
   @JoinTable(
-      name = "user_favourites",
-      joinColumns = @JoinColumn(name = "user_id"),
-      inverseJoinColumns = @JoinColumn(name = "car_id")
-      )
-      
+    name = "user_favourites",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "car_id")
+  )
   private Set<Cars> favouriteCars;
   
   public Users() {
