@@ -40,28 +40,27 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     setIsExtraFeaturesModalOpen(!isExtraFeaturesModalOpen);
   };
 
-const retrieveCarDetails = () => {
-  try {
-    return {
-      providerId: getAccountId(),
-      extraFeatureIds: selectedFeatures,
-      plateNumber: plateNumber,         // from useState
-      carBrand: carBrand,               // from useState
-      modelName: modelName,             // from useState
-      carType: selectedCarType,         // from useState
-      pricePerDay: pricePerDay,         // from useState
-      productionYear: productionYear,   // from useState
-      passengers: passengers,           // from useState
-      transmission: selectedTransmission, // from useState
-      energySource: selectedFuel,         // from useState
-      location: selectedLocation,         // from useState
-    };
-  } catch (error) {
-    console.error('Error retrieving car details:', error);
-    return null; 
-  }
-};
-  
+  const retrieveCarDetails = () => {
+    try {
+      return {
+        providerId: getAccountId(),
+        plateNumber: document.getElementById('plate-number').value,
+        carBrand: document.getElementById('car-brand').value,
+        modelName: document.getElementById('model-name').value,
+        carType: selectedCarType,
+        pricePerDay: document.getElementById('price-per-day').value,
+        productionYear: document.getElementById('production-year').value,
+        passengers: document.getElementById('passengers').value,
+        transmission: document.querySelector('.create-car-button-wrapper .selectedTransmission')?.id.toUpperCase(),
+        energySource: document.querySelector('.create-car-button-wrapper .selectedFuel')?.id.toUpperCase(),
+        location: selectedLocation,
+        extraFeatureIds: selectedFeatures,
+      };
+    } catch (error) {
+      console.error('Error retrieving car details:', error);
+      return null; 
+    }
+  };
 
   async function createCar(event) {
     event.preventDefault();
@@ -157,7 +156,7 @@ const retrieveCarDetails = () => {
               <button type="button" id="enum-button" onClick={toggleLocationModal}>
                 Select Location
               </button>
-              <p id="car-type">{selectedLocation}</p>
+              <p>{selectedLocation}</p>
             </div>
             <div className="enum-text-container">
               <button type="button" id="enum-button" onClick={toggleCarTypeModal}>
