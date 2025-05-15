@@ -1,11 +1,13 @@
 import React, {useState, useRef, useEffect, useContext} from "react";
-import { FunnelSimple, CaretDown } from "@phosphor-icons/react";
+import {FunnelSimple, CaretDown, MagnifyingGlass, XCircle} from "@phosphor-icons/react";
 import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
 import IntervalSlider from "./IntervalSlider/IntervalSlider";
 import "./Rental.css";
 import "../App.css";
 import {BookingContext} from "../utils/BookingContext";
+// import '../Home/BookingForm/BookingForm.css';
+
 
 export default function Rental() {
   const [cars, setCars] = useState([]);
@@ -19,6 +21,11 @@ export default function Rental() {
   const [maxPrice, setMaxPrice] = useState(1000);
   const maxCarRentalPrice = 1000; // the max price of renting a car (per day)
   // TODO: retrieve this value by querying the rentals?
+
+  const searchFieldRef = useRef(null);
+  const [searchFieldValue, setSearchFieldValue] = useState("");
+  const [isSearchFieldSelected, setIsSearchFieldSelected] = useState(false);
+  const [isSearchFieldHovered, setIsSearchFieldHovered] = useState(false);
 
   const [selectedFilterComponent, setSelectedFilterComponent] = useState({
     sortBy: false,
@@ -369,11 +376,39 @@ useEffect(() => {
     toggleFilter();
   };
 
+
+  const handleSearchFieldClick = () => {
+
+  }
+
   return (
     <div className="rental-page">
       <section className="main-section">
         <div className ="rental-page">
           <nav className="sort-bar">
+            <div className={`search-cars-field ${isSearchFieldSelected ? 'selected' : ''}`}
+                 ref={searchFieldRef}
+                 onMouseEnter={() => {setIsSearchFieldHovered(true)
+                   console.log("lsdhbsjdfbsbfsdf")}}
+                 onMouseLeave={() => {setIsSearchFieldHovered(false)
+                 console.log("sdfhsidfhsdihfsdfh")}}
+                 onClick={() => setIsSearchFieldSelected(true)}>
+              <MagnifyingGlass size={24} weight="bold" className="search-icon" />
+              <input type="text"
+                     className="car-search-input-field"
+                     required={false}
+                     placeholder="Search for the name of a car"
+              onChange={(e) => setSearchFieldValue(e.target.value)}
+              value={searchFieldValue}>
+              </input>
+              <button className="xCircleButton"
+                      onClick={handleSearchFieldClick}>
+                <XCircle className={`cross-icon ${isSearchFieldHovered && searchFieldValue !== "" ? 'visible' : ''}`}
+                         size={24}
+                         weight="bold"/>
+              </button>
+            </div>
+            <section className="sorting-inputs">
             {renderDropdown("sortBy", "Sort by", filterOptions.sortBy)}
             {renderDropdown("priceRange", "Price Range", null, (
               <IntervalSlider
@@ -392,6 +427,7 @@ useEffect(() => {
             <button className="filter-button" onClick={toggleFilter}>
               <FunnelSimple size={20} color="#252322" /> Sort and filter
             </button>
+            </section>
           </nav>
 
           {isFilterOpen && (

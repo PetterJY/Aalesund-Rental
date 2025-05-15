@@ -11,12 +11,6 @@
   color: #000 !important;
 }
 
-@font-face {
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   --center-element-height: 50px;
   font-size: 12px;
@@ -108,7 +102,6 @@ body, html {
   transition: transform 0.1s ease-in-out;
   width: 1px;
   height: 1px;
-  visibility: hidden;
 }
 
 .cross-icon.visible {

@@ -14,6 +14,10 @@
   align-items: center;
 }
 
+.car-search-input-field {
+  justify-self: flex-start;
+}
+
 .rental-page .main-section {
   width: 100%;
   display: flex;
@@ -32,12 +36,53 @@
   max-width: 1600px;
 }
 
-.rental-page .sort-bar {
+.rental-page .search-cars-field {
   display: flex;
   flex-direction: row;
-  margin: 24px 0 24px 0;
+  border: 2px solid #C9C9CF;
+  max-width: 275px;
+  height: 37px;
+  padding: 6px 12px 6px 12px;
+  border-radius: 12px;
+  gap: 6px;
+}
+
+.rental-page .search-cars-field.selected {
+  border: 3px solid #FF5F00;
+  padding: 0 12px 0 12px;
+}
+
+.rental-page .car-search-input-field {
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  caret-color: #FF5F00;
+  line-height: 150%;
+}
+
+  .car-search-input-field:focus {
+    outline: none;
+    caret-color: #FF5F00;
+  }
+
+
+
+
+
+.rental-page .sort-bar {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0 16px 0;
   max-width: 1600px;
   width: 100%;
+  gap: 16px;
+}
+
+.rental-page .sorting-inputs {
+  display: flex;
+  flex-direction: row;
 }
 
 .rental-page .sort-button {
@@ -192,9 +237,6 @@
   color:white;
 
 }
-
-
-
 
 
 /* Adjustments for mobile filter panel */
