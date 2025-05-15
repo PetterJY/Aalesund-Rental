@@ -55,6 +55,7 @@ export default function Rental() {
     transmission: [],
     passengers: [],
     energySource: [],
+    search: "",
     minPrice: null,
     maxPrice: null,
     pickupLocation: bookingData.pickupLocation,
@@ -166,7 +167,7 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     transmission: [],
     passengers: [],
     energySource: [],
-    searchWords: [],
+    search: "",
     minPrice: null,
     maxPrice: null,
     pickupLocation: bookingData.pickupLocation,
@@ -264,7 +265,12 @@ useEffect(() => {
       filterParams.append("minPassengers", selectedFilterOptions.passengers[0] || "");
       filterParams.append("sortOption", selectedFilterOptions.sortBy[0] || "");
       filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
-      filterParams.append("searchWords", selectedFilterOptions.searchWords.join(",").toUpperCase());
+      filterParams.append("searchWord", selectedFilterOptions.search || "");
+      console.log("searchWord: ", selectedFilterOptions.search);
+      console.log("searchWord: ", selectedFilterOptions.search);
+      console.log("searchWord: ", selectedFilterOptions.search);
+      console.log("searchWord: ", selectedFilterOptions.search);
+      console.log("searchWord: ", selectedFilterOptions.search);
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
       filterParams.append("pickupLocation", selectedFilterOptions.pickupLocation || "OSLO");
@@ -421,20 +427,18 @@ useEffect(() => {
                      onChange={(e) => setSearchFieldValue(e.target.value)}
                      onKeyDown={(e) => {
                        if (e.key === "Enter") {
-                         const searchWordsArray = searchFieldValue.trim().split(/\s+/);
-                         console.log("Search value saved on enter key-press:", searchWordsArray);
+                         console.log("Search value saved on enter key-press:", searchFieldValue);
                          setSelectedFilterOptions((prev) => ({
                            ...prev,
-                           searchWords: searchWordsArray,
+                           search: searchFieldValue,
                          }));
                        }
                      }}
                      onBlur={() => {
-                       const searchWordsArray = searchFieldValue.trim().split(/\s+/);
                        console.log("Search value saved on blur:", searchFieldValue);
                        setSelectedFilterOptions((prev) => ({
                          ...prev,
-                         searchWords: searchWordsArray,
+                         search: searchFieldValue,
                        }));
                      }}
               value={searchFieldValue}>

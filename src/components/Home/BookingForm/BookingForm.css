@@ -407,7 +407,7 @@ p {
   display: flex;
   flex-direction: row;
   text-align: left;
-  gap: 160px;
+  gap: 12px;
 }
 
 .dropoff-location-section, .pickup-location-section {
