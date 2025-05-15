@@ -112,20 +112,4 @@ public class ProvidersController {
     logger.debug("Updated provider: {}", updatedProvider);
     return ResponseEntity.status(HttpStatus.OK).body(updatedProvider);
   }
-
-  /**
-   * Deletes a provider by its ID.
-   *
-   * @param id The ID of the provider to delete.
-   * @return A response entity with no content.
-   */
-  @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes a provider by its ID.", 
-      notes = "If the provider is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteProvider(@PathVariable Long id) {
-    logger.info("Deleting provider with id: {}", id);
-    providersService.deleteById(id);
-    logger.debug("Deleted provider with id: {}", id);
-    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-  }
 }

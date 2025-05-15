@@ -119,24 +119,6 @@ public class UsersController {
     return ResponseEntity.ok(updatedUser);
   }
 
-  /**
-   * Deletes a user by its ID.
-   * If the user is not found, a 404 error is returned.
-   * This method is 'role-sensitive'.
-   * Only accounts with role 'ROLE_USER' will be deleted.
-   *
-   * @param id The ID of the user.
-   * @return A response indicating the deletion status.
-   */
-  @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes a user by its ID.", 
-      notes = "If the user is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-    usersService.deleteById(id);
-    logger.info("Deleting user with id: {}", id);
-    return ResponseEntity.noContent().build();
-  }
-
   // Add to UsersController or a dedicated FavouritesController
 
   @PostMapping("/{userId}/favourites/{carId}")

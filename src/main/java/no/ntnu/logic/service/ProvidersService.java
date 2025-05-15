@@ -47,7 +47,7 @@ public class ProvidersService {
     logger.info("Fetching all providers");
     return StreamSupport.stream(
         providersRepository.findAll().spliterator(), false)
-        .filter(user -> user.getRole() == Accounts.Role.ROLE_PROVIDER)
+        .filter(provider -> !provider.isDeleted())
         .toList();
   }
 
@@ -61,6 +61,7 @@ public class ProvidersService {
   public Providers findById(Long id) throws ProviderNotFoundException {
     logger.info("Fetching provider with id: {}", id);
     return providersRepository.findById(id)
+      .filter(provider -> !provider.isDeleted())  
       .orElseThrow(() -> new ProviderNotFoundException("Provider not found with id: " + id));
   }
 
@@ -71,22 +72,12 @@ public class ProvidersService {
    * @return the saved provider
    */
   public Providers save(Providers provider) {
+    if (provider.isDeleted()) {
+      logger.warn("Attempted to save a deleted provider");
+      throw new IllegalArgumentException("Cannot save a deleted provider");
+    }
     logger.info("Saving provider with email: {}", provider.getEmail());
     provider.setPassword(passwordEncoder.encode(provider.getPassword()));
     return providersRepository.save(provider);
-  }
-
-  /**
-   * Deletes a provider by its ID.
-   *
-   * @param id the ID of the provider to delete
-   * @throws ProviderNotFoundException if the provider is not found
-   */
-  public void deleteById(Long id) throws ProviderNotFoundException {
-    logger.info("Deleting provider with id: {}", id);
-    if (!providersRepository.existsById(id)) {
-      throw new ProviderNotFoundException("Provider not found with id: " + id);
-    }
-    providersRepository.deleteById(id);
   }
 }
