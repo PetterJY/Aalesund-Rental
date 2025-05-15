@@ -37,8 +37,7 @@ public class Users extends Accounts {
       inverseJoinColumns = @JoinColumn(name = "car_id")
       )
       
-      
-  private Set<Cars> favouriteCars = new HashSet<>();
+  private Set<Cars> favouriteCars;
   
   public Users() {
     super(Role.ROLE_USER);

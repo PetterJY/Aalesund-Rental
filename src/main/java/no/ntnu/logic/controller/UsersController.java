@@ -139,27 +139,27 @@ public class UsersController {
 
   // Add to UsersController or a dedicated FavouritesController
 
-@PostMapping("/{userId}/favourites/{carId}")
-public ResponseEntity<?> addFavourite(@PathVariable Long userId, @PathVariable Long carId) {
+  @PostMapping("/{userId}/favourites/{carId}")
+  public ResponseEntity<?> addFavourite(@PathVariable Long userId, @PathVariable Long carId) {
     Users user = usersService.findById(userId);
     Cars car = carsService.findById(carId);
     user.getFavouriteCars().add(car);
     usersService.save(user);
     return ResponseEntity.ok().build();
-}
+  }
 
-@DeleteMapping("/{userId}/favourites/{carId}")
-public ResponseEntity<?> removeFavourite(@PathVariable Long userId, @PathVariable Long carId) {
+  @DeleteMapping("/{userId}/favourites/{carId}")
+  public ResponseEntity<?> removeFavourite(@PathVariable Long userId, @PathVariable Long carId) {
     Users user = usersService.findById(userId);
     Cars car = carsService.findById(carId);
     user.getFavouriteCars().remove(car);
     usersService.save(user);
     return ResponseEntity.ok().build();
-}
+  }
 
-@GetMapping("/{userId}/favourites")
-public ResponseEntity<Set<Cars>> getFavourites(@PathVariable Long userId) {
+  @GetMapping("/{userId}/favourites")
+  public ResponseEntity<Set<Cars>> getFavourites(@PathVariable Long userId) {
     Users user = usersService.findById(userId);
     return ResponseEntity.ok(user.getFavouriteCars());
-}
+  }
 }
