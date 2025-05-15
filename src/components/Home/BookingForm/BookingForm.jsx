@@ -5,7 +5,6 @@ import DropDownSuggestions from './DropDownSuggestions/DropDownSuggestions';
 import { BookingContext } from '../../utils/BookingContext'
 import './BookingForm.css'; 
 import '../../App.css';
-import {useNavigate} from "react-router-dom";
 
 const BookingForm = ({
                        initialData,
@@ -237,7 +236,7 @@ const BookingForm = ({
                onMouseLeave={() => setIsPickupTextInputHovered(false)}
                onClick={() => setIsPickupTextFieldSelected(true)}>
             <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-            <input 
+            <input
               type="text"
               className="text-input"
               required={true}
