@@ -1,6 +1,7 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.ProviderNotFoundException;
 import no.ntnu.entity.models.Accounts;
+import no.ntnu.entity.models.Admins;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.repository.ProvidersRepository;
 
@@ -45,10 +47,9 @@ public class ProvidersService {
    */
   public List<Providers> findAll() {
     logger.info("Fetching all providers");
-    return StreamSupport.stream(
-        providersRepository.findAll().spliterator(), false)
-        .filter(user -> user.getRole() == Accounts.Role.ROLE_PROVIDER)
-        .toList();
+    return StreamSupport.stream(providersRepository.findAll().spliterator(), false)
+        .filter(provider -> !provider.isDeleted())
+        .collect(Collectors.toList());
   }
 
   /**
@@ -61,6 +62,7 @@ public class ProvidersService {
   public Providers findById(Long id) throws ProviderNotFoundException {
     logger.info("Fetching provider with id: {}", id);
     return providersRepository.findById(id)
+      .filter(provider -> !provider.isDeleted())  
       .orElseThrow(() -> new ProviderNotFoundException("Provider not found with id: " + id));
   }
 
@@ -74,19 +76,5 @@ public class ProvidersService {
     logger.info("Saving provider with email: {}", provider.getEmail());
     provider.setPassword(passwordEncoder.encode(provider.getPassword()));
     return providersRepository.save(provider);
-  }
-
-  /**
-   * Deletes a provider by its ID.
-   *
-   * @param id the ID of the provider to delete
-   * @throws ProviderNotFoundException if the provider is not found
-   */
-  public void deleteById(Long id) throws ProviderNotFoundException {
-    logger.info("Deleting provider with id: {}", id);
-    if (!providersRepository.existsById(id)) {
-      throw new ProviderNotFoundException("Provider not found with id: " + id);
-    }
-    providersRepository.deleteById(id);
   }
 }

@@ -20,9 +20,8 @@ import no.ntnu.logic.repository.AdminRepository;
  */
 @Service
 public class AdminService {
-
   private static final Logger logger = 
-  LoggerFactory.getLogger(AdminService.class.getSimpleName());
+      LoggerFactory.getLogger(AdminService.class.getSimpleName());
   
   private final AdminRepository adminRepository;
 
@@ -48,7 +47,7 @@ public class AdminService {
   public List<Admins> findAll() {
     logger.info("Fetching all admins");
     return StreamSupport.stream(adminRepository.findAll().spliterator(), false)
-        .filter(admin -> admin.getRole() == Accounts.Role.ROLE_ADMIN)
+        .filter(admin -> !admin.isDeleted())
         .collect(Collectors.toList());
   }
 
@@ -62,13 +61,15 @@ public class AdminService {
   public Admins findById(Long id) throws AdminNotFoundException {
     logger.info("Fetching admin with id: {}", id);
     return adminRepository.findById(id)
-      .orElseThrow(() -> new AdminNotFoundException("Admin not found with id: " + id));
+        .filter(admin -> !admin.isDeleted())
+        .orElseThrow(() -> new AdminNotFoundException("Admin not found with id: " + id));
   }
 
   public Admins findByName(String username) {
     logger.info("Fetching admin with username: {}", username);
     return adminRepository.findByName(username)
-      .orElseThrow(() -> new AdminNotFoundException("Admin not found with username: " + username));
+        .filter(admin -> !admin.isDeleted())
+        .orElseThrow(() -> new AdminNotFoundException("Admin not found with username: " + username));
   }
 
   /**
@@ -81,19 +82,5 @@ public class AdminService {
     logger.info("Saving admin with email: {}", admin.getEmail());
     admin.setPassword(passwordEncoder.encode(admin.getPassword()));
     return adminRepository.save(admin);
-  }
-
-  /**
-   * Deletes an admin by its ID.
-   *
-   * @param id the ID of the admin to delete
-   * @throws AdminNotFoundException if the admin is not found
-   */
-  public void deleteById(Long id) throws AdminNotFoundException {
-    logger.info("Deleting admin with id: {}", id);
-    if (!adminRepository.existsById(id)) {
-      throw new AdminNotFoundException("Admin not found with id: " + id);
-    }
-    adminRepository.deleteById(id);
   }
 }

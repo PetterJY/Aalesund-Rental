@@ -110,20 +110,4 @@ public class AdminsController {
     logger.debug("Updated admin: {}", updatedAdmin);
     return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);
   }
-
-  /**
-   * Deletes an admin by its ID.
-   *
-   * @param id The ID of the admin to delete.
-   * @return A response entity with status NO_CONTENT.
-   */
-  @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes an admin by its ID.", 
-      notes = "If the admin is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
-    logger.info("Deleting admin with id: {}", id);
-    adminService.deleteById(id);
-    logger.debug("Deleted admin with id: {}", id);
-    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-  }
 }
