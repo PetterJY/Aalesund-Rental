@@ -21,6 +21,9 @@ const DropDownMenu = ({ isDropdownVisible, navigate, handleLogout }) => {
         {role === 'ROLE_PROVIDER' && (
           <li onClick={() => navigate('/account/my-rentals')}>My Rentals</li>
         )}
+        {role === 'ROLE_USER' && (
+          <li onClick={() => navigate('/account/favourites')}>Favourites</li>
+        )}
         <li onClick={handleLogout}>Logout</li>
       </ul>
     </div>

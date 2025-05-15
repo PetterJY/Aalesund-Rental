@@ -11,4 +11,22 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  gap: 12px;
+}
+
+@media screen and (max-width: 900px) {
+  .favourites-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 1px;
+    align-items: center;
+    justify-content: center;
+  }
+  .favourites-container .favourites-list {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  
 }
