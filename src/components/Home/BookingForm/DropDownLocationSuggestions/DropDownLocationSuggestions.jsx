@@ -1,7 +1,7 @@
 import React from 'react';
-import './DropDownSuggestions.css';
+import './DropDownLocationSuggestions.css';
 
-const DropDownSuggestions = ({
+const DropDownLocationSuggestions = ({
   locations = [],
   setLocationSuggestions,
   setLocationValue,
@@ -29,4 +29,4 @@ const DropDownSuggestions = ({
   );
 };
 
-export default DropDownSuggestions;
+export default DropDownLocationSuggestions;

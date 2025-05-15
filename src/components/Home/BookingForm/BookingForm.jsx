@@ -1,7 +1,7 @@
 import React, {useRef, useState, useEffect, useContext} from 'react';
 import { MagnifyingGlass, XCircle, X } from "@phosphor-icons/react";
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
-import DropDownSuggestions from './DropDownSuggestions/DropDownSuggestions';
+import DropDownLocationSuggestions from './DropDownLocationSuggestions/DropDownLocationSuggestions';
 import { BookingContext } from '../../utils/BookingContext'
 import './BookingForm.css'; 
 import '../../App.css';
@@ -254,7 +254,7 @@ const BookingForm = ({
             />
 
             {showPickupLocationSuggestions && !isLoadingLocations && (
-              <DropDownSuggestions
+              <DropDownLocationSuggestions
                 locations={
                   pickupLocations.filter(loc =>
                   loc.toLowerCase().includes(pickupLocationValue.toLowerCase())
@@ -298,7 +298,7 @@ const BookingForm = ({
             />
 
             {showDropoffLocationSuggestions && !isLoadingLocations && (
-              <DropDownSuggestions
+              <DropDownLocationSuggestions
                 locations={
                   dropoffLocations.filter(loc =>
                   loc.toLowerCase().includes(dropoffLocationValue.toLowerCase())

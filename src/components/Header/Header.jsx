@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import logo from '../../resources/images/logo.png';
 import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../Home/BookingForm/BookingForm';
-import DropDownMenu from './DropDownMenu/DropDownMenu';
+import HeaderDropDownMenuMenu from './HeaderDropDownMenu/HeaderDropDownMenuMenu';
 import './Header.css';
 import '../App.css';
 import {BookingContext} from "../utils/BookingContext";
@@ -154,13 +154,30 @@ const Header = () => {
     }
   }, []);
 
+
+  const accountHeaderRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const toggleDropdownMenu = () => {
     setIsDropdownVisible((prev) => {
-      return !prev;
+      const newState = !prev;
+      return newState;
     });
   };
-  
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isDropdownVisible &&
+        accountHeaderRef.current &&
+        !accountHeaderRef.current.contains(event.target)
+      ) {
+        toggleDropdownMenu();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isDropdownVisible]);
+
   const handleUserClick = () => {
     console.log("isAuthenticated value: " + isAuthenticated);
     if (isAuthenticated) {
@@ -217,20 +234,19 @@ const Header = () => {
             defaultMode="login"
           />
 
-          <button id="login-create" onClick={handleUserClick}>
+          <button id="login-create" onClick={handleUserClick} ref={accountHeaderRef}>
             {userIcon}
             {!isAuthenticated && <span className="login-register-text">Login | Register</span>}
             {isAuthenticated && <span id="logged-in-text" className="login-register-text">{userDisplayName}</span>}
           </button>
           {isDropdownVisible && (
-            <DropDownMenu
+            <HeaderDropDownMenuMenu
               isDropdownVisible={isDropdownVisible}
               navigate={navigate}
               handleLogout={handleLogout}
             />
           )}
         </nav>
-
         {showMenu && mobileDisplaySize && <DateTimeMenu />}
       </div>
     </header>

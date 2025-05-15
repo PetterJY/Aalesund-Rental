@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { getRole } from '../../utils/JwtUtility'; 
+import { getRole } from '../../utils/JwtUtility';
 import PropTypes from 'prop-types';
-import './DropDownMenu.css';
+import './HeaderDropDownMenu.css';
 import '../../App.css';
 
-const DropDownMenu = ({ isDropdownVisible, navigate, handleLogout }) => {
+const DropDownMenuMenu = ({ isDropdownVisible, navigate, handleLogout }) => {
   const [role, setRole] = useState('');
 
-  useEffect(() => { 
+  useEffect(() => {
     setRole(getRole());
   });
 
@@ -30,10 +30,10 @@ const DropDownMenu = ({ isDropdownVisible, navigate, handleLogout }) => {
   );
 };
 
-DropDownMenu.propTypes = {
+DropDownMenuMenu.propTypes = {
   isDropdownVisible: PropTypes.bool.isRequired,
   navigate: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,
 };
 
-export default DropDownMenu;
+export default DropDownMenuMenu;
