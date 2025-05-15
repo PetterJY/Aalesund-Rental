@@ -47,11 +47,20 @@
   flex-direction: row;
   align-self: flex-start;
   justify-content: space-between;
+  
 }
 .rentals-car-display-card .car-details {
   display: flex;
   flex-direction: column;
   margin-left: 50px;
+  overflow-y: auto;
+  scrollbar-width: thin; 
+  max-height: 350px;
+}
+
+.rentals-car-display-card .car-details::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 
 .rentals-car-display-card .car-details input {
@@ -167,5 +176,17 @@
   .rentals-car-display-card .car-details {
     margin-left: 10px;
     margin-top: 10px;
+  }
+  .rentals-car-display-card .car-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  overflow-y: none;
+  } 
+ .rentals-car-display-card .save-discard-buttons {
+    flex-direction: column;
+  }
+  .rentals-car-display-card .save-discard-buttons button {
+    margin: 5px 0;
   }
 }
