@@ -35,16 +35,17 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     try {
       return {
         providerId: getAccountId(),
-        extraFeatureIds: selectedFeatures,
         plateNumber: document.getElementById('plate-number').value,
         carBrand: document.getElementById('car-brand').value,
         modelName: document.getElementById('model-name').value,
-        carType: document.getElementById('car-type').value,
+        carType: selectedCarType,
         pricePerDay: document.getElementById('price-per-day').value,
         productionYear: document.getElementById('production-year').value,
         passengers: document.getElementById('passengers').value,
         transmission: document.querySelector('.create-car-button-wrapper .selectedTransmission')?.id.toUpperCase(),
         energySource: document.querySelector('.create-car-button-wrapper .selectedFuel')?.id.toUpperCase(),
+        location: selectedLocation,
+        extraFeatureIds: selectedFeatures,
       };
     } catch (error) {
       console.error('Error retrieving car details:', error);
@@ -144,7 +145,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
               <button type="button" id="enum-button" onClick={toggleLocationModal}>
                 Select Location
               </button>
-              <p id="car-type">{selectedLocation}</p>
+              <p>{selectedLocation}</p>
             </div>
             <div className="enum-text-container">
               <button type="button" id="enum-button" onClick={toggleCarTypeModal}>
