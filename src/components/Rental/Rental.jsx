@@ -377,9 +377,27 @@ useEffect(() => {
   };
 
 
-  const handleSearchFieldClick = () => {
-
+  const handleSearchFieldXCircleClick = () => {
+      const inputField = document.getElementById("search-cars-input-field");
+      inputField.value = "";
+      inputField.focus();
+      setSearchFieldValue("");
   }
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isSearchFieldSelected &&
+        searchFieldRef.current &&
+        !searchFieldRef.current.contains(event.target)
+      ) {
+        setIsSearchFieldSelected(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return() => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isSearchFieldSelected]);
 
   return (
     <div className="rental-page">
@@ -388,21 +406,20 @@ useEffect(() => {
           <nav className="sort-bar">
             <div className={`search-cars-field ${isSearchFieldSelected ? 'selected' : ''}`}
                  ref={searchFieldRef}
-                 onMouseEnter={() => {setIsSearchFieldHovered(true)
-                   console.log("lsdhbsjdfbsbfsdf")}}
-                 onMouseLeave={() => {setIsSearchFieldHovered(false)
-                 console.log("sdfhsidfhsdihfsdfh")}}
+                 onMouseEnter={() => setIsSearchFieldHovered(true)}
+                 onMouseLeave={() => setIsSearchFieldHovered(false)}
                  onClick={() => setIsSearchFieldSelected(true)}>
               <MagnifyingGlass size={24} weight="bold" className="search-icon" />
               <input type="text"
                      className="car-search-input-field"
+                     id="search-cars-input-field"
                      required={false}
                      placeholder="Search for the name of a car"
               onChange={(e) => setSearchFieldValue(e.target.value)}
               value={searchFieldValue}>
               </input>
               <button className="xCircleButton"
-                      onClick={handleSearchFieldClick}>
+                      onClick={handleSearchFieldXCircleClick}>
                 <XCircle className={`cross-icon ${isSearchFieldHovered && searchFieldValue !== "" ? 'visible' : ''}`}
                          size={24}
                          weight="bold"/>

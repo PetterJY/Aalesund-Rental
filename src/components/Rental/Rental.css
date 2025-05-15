@@ -39,17 +39,20 @@
 .rental-page .search-cars-field {
   display: flex;
   flex-direction: row;
-  border: 2px solid #C9C9CF;
-  max-width: 275px;
-  height: 37px;
-  padding: 6px 12px 6px 12px;
+  box-sizing: border-box;
+  border: 1px solid #C9C9CF;
+  max-width: 300px;
+  height: 40px;
+  padding: 6px 12px;
   border-radius: 12px;
   gap: 6px;
+  overflow: visible;
+  justify-content: space-around;
 }
 
 .rental-page .search-cars-field.selected {
   border: 3px solid #FF5F00;
-  padding: 0 12px 0 12px;
+  padding: 4px 10px;
 }
 
 .rental-page .car-search-input-field {
@@ -60,6 +63,7 @@
   font-weight: 600;
   caret-color: #FF5F00;
   line-height: 150%;
+  margin: 0 0 0 6px;
 }
 
   .car-search-input-field:focus {
