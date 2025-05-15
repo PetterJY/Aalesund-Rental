@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect, useContext} from 'react';
+import React, {useRef, useState, useEffect, useContext, useCallback} from 'react';
 import { MagnifyingGlass, XCircle, X } from "@phosphor-icons/react";
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import DropDownLocationSuggestions from './DropDownLocationSuggestions/DropDownLocationSuggestions';
@@ -40,7 +40,7 @@ const BookingForm = ({
 
   const [isPickupFieldValid, setIsPickupFieldValid] = useState(true);
 
-  async function fetchLocations() {
+  const fetchLocations = useCallback(async () => { {
     setIsLoadingLocations(true);
     try {
       const response = await fetch(`http://localhost:8080/cars/locations`, {
@@ -63,7 +63,7 @@ const BookingForm = ({
     } finally {
       setIsLoadingLocations(false);
     }
-  }
+  }});
   
   useEffect(() => {
     fetchLocations();
