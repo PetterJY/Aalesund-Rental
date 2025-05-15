@@ -19,6 +19,9 @@ const BookingForm = ({
   const pickupTextFieldRef = useRef(null);
   const dropoffTextFieldRef = useRef(null);
 
+  const pickupDestinationInputFieldRef = useRef(null);
+  const dropoffDestinationInputFieldRef = useRef(null);
+
   const [pickupLocationValue, setPickupLocationValue] = useState(bookingData.pickupLocation || "");
   const [dropoffLocationValue, setDropoffLocationValue] = useState(bookingData.dropoffLocation || "");
 
@@ -34,6 +37,8 @@ const BookingForm = ({
 
   const [dropoffLocations, setDropoffLocations] = useState([]);
   const [showDropoffLocationSuggestions, setShowDropoffLocationSuggestions] = useState(false);
+
+  const [isPickupFieldValid, setIsPickupFieldValid] = useState(true);
 
   async function fetchLocations() {
     setIsLoadingLocations(true);
@@ -144,17 +149,16 @@ const BookingForm = ({
   }
 
   function handlePickupXCircleClick() {
-    const inputField = document.getElementById("pickup-destination-input-field");
-    inputField.value = "";
-    inputField.focus();
+    pickupDestinationInputFieldRef.current.focus();
+    pickupDestinationInputFieldRef.current.value = "";
     setPickupLocationValue("");
     setShowPickupLocationSuggestions(true);
+    setIsPickupFieldValid(true);
   }
 
   function handleDropoffXCircleClick() {
-    const inputField = document.getElementById("dropoff-destination-input-field");
-    inputField.value = "";
-    inputField.focus();
+    dropoffDestinationInputFieldRef.current.focus();
+    dropoffDestinationInputFieldRef.current.value = "";
     setDropoffLocationValue("");
     setShowDropoffLocationSuggestions(true);
   }
@@ -189,6 +193,12 @@ const BookingForm = ({
   }, [isDropoffTextFieldSelected]);
 
   const handleSave = () => {
+    if (!pickupLocationValue.trim() || !pickupLocations.includes(pickupLocationValue)) {
+      setIsPickupFieldValid(false);
+      return;
+    }
+    setIsPickupFieldValid(true);
+
     onSave();
     setBookingData({
       ...bookingData,
@@ -230,7 +240,7 @@ const BookingForm = ({
       <div className="location-section">
         <div className="pickup-location-section">
           <label>Pickup</label>
-          <div className={`pickup-location ${isPickupTextFieldSelected ? 'selected' : ''}`}
+          <div className={`pickup-location ${isPickupTextFieldSelected ? 'selected' : ''} ${isPickupFieldValid && !isPickupTextFieldSelected? '' : 'error'} `}
                ref={pickupTextFieldRef}
                onMouseEnter={() => setIsPickupTextInputHovered(true)}
                onMouseLeave={() => setIsPickupTextInputHovered(false)}
@@ -240,6 +250,7 @@ const BookingForm = ({
               type="text"
               className="text-input"
               required={true}
+              ref={pickupDestinationInputFieldRef}
               id="pickup-destination-input-field"
               placeholder="Pickup location"
               value={pickupLocationValue}
@@ -262,6 +273,7 @@ const BookingForm = ({
                 setLocationSuggestions={setPickupLocations}
                 setLocationValue={setPickupLocationValue}
                 setShowSuggestions={setShowPickupLocationSuggestions}
+                setIsPickupFieldValid={setIsPickupFieldValid}
               />
             )}
 
@@ -272,6 +284,7 @@ const BookingForm = ({
                        weight="bold"/>
             </button>
           </div>
+          {!isPickupFieldValid && <p className="error-message">Pickup location is required.</p>}
         </div>
         <div className="dropoff-location-section">
           <label>Drop-off</label>
@@ -287,6 +300,7 @@ const BookingForm = ({
               id="dropoff-destination-input-field"
               placeholder="Dropoff location"
               value={dropoffLocationValue}
+              ref={dropoffDestinationInputFieldRef}
               onChange={(e) => {
                 setDropoffLocationValue(e.target.value);
                 if (e.target.value.length > 0) {
