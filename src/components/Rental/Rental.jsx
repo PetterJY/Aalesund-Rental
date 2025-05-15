@@ -399,6 +399,7 @@ useEffect(() => {
     return() => document.removeEventListener('mousedown', handleClickOutside);
   }, [isSearchFieldSelected]);
 
+
   return (
     <div className="rental-page">
       <section className="main-section">

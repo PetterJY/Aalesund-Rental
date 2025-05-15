@@ -155,7 +155,6 @@ const Header = () => {
   }, []);
 
 
-  const accountHeaderRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const toggleDropdownMenu = () => {
     setIsDropdownVisible((prev) => {
@@ -164,22 +163,7 @@ const Header = () => {
     });
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        isDropdownVisible &&
-        accountHeaderRef.current &&
-        !accountHeaderRef.current.contains(event.target)
-      ) {
-        toggleDropdownMenu();
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isDropdownVisible]);
-
   const handleUserClick = () => {
-    console.log("isAuthenticated value: " + isAuthenticated);
     if (isAuthenticated) {
       toggleDropdownMenu();
     } else {
@@ -234,18 +218,20 @@ const Header = () => {
             defaultMode="login"
           />
 
-          <button id="login-create" onClick={handleUserClick} ref={accountHeaderRef}>
+          <button id="login-create" onMouseDown={(event) => {
+            event.stopPropagation();
+            handleUserClick()
+          }}>
             {userIcon}
             {!isAuthenticated && <span className="login-register-text">Login | Register</span>}
             {isAuthenticated && <span id="logged-in-text" className="login-register-text">{userDisplayName}</span>}
           </button>
-          {isDropdownVisible && (
             <HeaderDropDownMenuMenu
+              toggleDropdownMenu={toggleDropdownMenu}
               isDropdownVisible={isDropdownVisible}
               navigate={navigate}
               handleLogout={handleLogout}
             />
-          )}
         </nav>
         {showMenu && mobileDisplaySize && <DateTimeMenu />}
       </div>
