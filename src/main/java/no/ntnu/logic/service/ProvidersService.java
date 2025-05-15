@@ -1,6 +1,7 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.ProviderNotFoundException;
 import no.ntnu.entity.models.Accounts;
+import no.ntnu.entity.models.Admins;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.repository.ProvidersRepository;
 
@@ -45,10 +47,9 @@ public class ProvidersService {
    */
   public List<Providers> findAll() {
     logger.info("Fetching all providers");
-    return StreamSupport.stream(
-        providersRepository.findAll().spliterator(), false)
+    return StreamSupport.stream(providersRepository.findAll().spliterator(), false)
         .filter(provider -> !provider.isDeleted())
-        .toList();
+        .collect(Collectors.toList());
   }
 
   /**
@@ -72,10 +73,6 @@ public class ProvidersService {
    * @return the saved provider
    */
   public Providers save(Providers provider) {
-    if (provider.isDeleted()) {
-      logger.warn("Attempted to save a deleted provider");
-      throw new IllegalArgumentException("Cannot save a deleted provider");
-    }
     logger.info("Saving provider with email: {}", provider.getEmail());
     provider.setPassword(passwordEncoder.encode(provider.getPassword()));
     return providersRepository.save(provider);

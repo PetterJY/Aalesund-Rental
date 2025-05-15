@@ -119,9 +119,14 @@ public class UsersController {
     return ResponseEntity.ok(updatedUser);
   }
 
-  // Add to UsersController or a dedicated FavouritesController
-
+  /**
+   * Deletes a user by its ID.
+   *
+   * @param id The ID of the user to delete.
+   * @return A response indicating the result of the operation.
+   */
   @PostMapping("/{userId}/favourites/{carId}")
+  @ApiOperation(value = "Adds a car to the user's favourites.")
   public ResponseEntity<?> addFavourite(@PathVariable Long userId, @PathVariable Long carId) {
     Users user = usersService.findById(userId);
     Cars car = carsService.findById(carId);
@@ -130,7 +135,14 @@ public class UsersController {
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * Deletes a user by its ID.
+   *
+   * @param id The ID of the user to delete.
+   * @return A response indicating the result of the operation.
+   */
   @DeleteMapping("/{userId}/favourites/{carId}")
+  @ApiOperation(value = "Removes a car from the user's favourites.")
   public ResponseEntity<?> removeFavourite(@PathVariable Long userId, @PathVariable Long carId) {
     Users user = usersService.findById(userId);
     Cars car = carsService.findById(carId);
@@ -139,7 +151,14 @@ public class UsersController {
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * Returns the user's favourite cars.
+   *
+   * @param userId The ID of the user.
+   * @return The user's favourite cars.
+   */
   @GetMapping("/{userId}/favourites")
+  @ApiOperation(value = "Returns the user's favourite cars.")
   public ResponseEntity<Set<Cars>> getFavourites(@PathVariable Long userId) {
     Users user = usersService.findById(userId);
     return ResponseEntity.ok(user.getFavouriteCars());

@@ -70,10 +70,6 @@ public class AccountsService implements UserDetailsService {
    * @return the saved account
    */
   public Accounts save(Accounts account) {
-    if (account.isDeleted()) {
-      logger.warn("Attempted to save a deleted account with id: {}", account.getId());
-      throw new IllegalArgumentException("Cannot save a deleted account");
-    }
     logger.info("Saving account with id: {}", account.getId());
     return accountsRepository.save(account);
   }

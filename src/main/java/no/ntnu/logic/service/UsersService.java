@@ -65,10 +65,6 @@ public class UsersService {
    * @return the saved user.
    */
   public Users save(Users user) {
-    if (user.isDeleted()) {
-      logger.warn("Attempted to save a deleted user with email: {}", user.getEmail());
-      throw new IllegalArgumentException("Cannot save a deleted user");
-    }
     logger.info("Saving user with email: {}", user.getEmail());
     String password = user.getPassword();
     if (!password.startsWith("$2a$")) { // Only encode if not already encoded
@@ -84,10 +80,6 @@ public class UsersService {
    * @return the saved user.
    */
   public Users saveWithoutEncoding(Users user) {
-    if (user.isDeleted()) {
-      logger.warn("Attempted to save a deleted user with email: {}", user.getEmail());
-      throw new IllegalArgumentException("Cannot save a deleted user");
-    }
     logger.info("Saving user without encoding password with email: {}", user.getEmail());
     return usersRepository.save(user);
   }

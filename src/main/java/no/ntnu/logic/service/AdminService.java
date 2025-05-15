@@ -79,10 +79,6 @@ public class AdminService {
    * @return the saved admin
    */
   public Admins save(Admins admin) {
-    if (admin.isDeleted()) {
-      logger.warn("Attempted to save a deleted admin with email: {}", admin.getEmail());
-      throw new IllegalArgumentException("Cannot save a deleted admin");
-    }
     logger.info("Saving admin with email: {}", admin.getEmail());
     admin.setPassword(passwordEncoder.encode(admin.getPassword()));
     return adminRepository.save(admin);
