@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getRole, getAccountId } from '../../utils/JwtUtility'; 
+import PaginationControls, { getPaginatedItems as getPaginatedItems } from '../../PaginationControls/PaginationControls';
 import OrdersCarDisplay from './OrdersCarDisplay/OrdersCarDisplay'; 
 import carImage from '../../../resources/images/logo.svg';
 import OrdersDropdown from './OrdersDropDown/OrdersDropDown';
@@ -56,6 +57,13 @@ const Orders = () => {
 
   const statusOptions = ['All', 'PENDING', 'ACTIVE', 'CANCELLED', 'COMPLETED'];
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  const totalPages = Math.ceil(filteredRentals.length / itemsPerPage);
+  const paginatedRentals = filteredRentals.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+
   return (
     <div className="orders">
       <section className="orders-section">
@@ -71,8 +79,8 @@ const Orders = () => {
           <div className="orders-list">
             {isLoading ? (
               <p>Loading...</p>
-            ) : filteredRentals.length > 0 ? (
-              filteredRentals.map((rental) => (
+            ) : paginatedRentals.length > 0 ? (
+              paginatedRentals.map((rental) => (
                 <OrdersCarDisplay
                   key={rental.rentalId}
                   rental={rental}
@@ -83,11 +91,17 @@ const Orders = () => {
                 <h3>No rentals match the selected filter.</h3>
                 <img src={carImage} alt="No rentals" className="no-rentals-image" />
                 <p>Try changing the filter or check back later.</p>
-              </div> // Message when no rentals match the filter
+              </div> 
             )}
           </div>
         </div>
       </section>
+
+      <PaginationControls 
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }
