@@ -93,6 +93,7 @@ public class CarsController {
       @RequestParam(required = false) Integer minPricePerDay,
       @RequestParam(required = false) Integer maxPricePerDay,
       @RequestParam(required = false) List<Cars.EnergySource> energySource,
+      @RequestParam(required = false) List<String> searchWords,
       @RequestParam Cars.Location pickupLocation,
       @RequestParam String pickupDate,
       @RequestParam String dropoffDate
@@ -127,6 +128,13 @@ public class CarsController {
     LocalDateTime pickupDateParam = LocalDateTime.parse(pickupDate);
     LocalDateTime dropoffDateParam = LocalDateTime.parse(dropoffDate);
 
+    String searchWordsString = searchWords != null ? String.join("", searchWords) : null;
+
+    if (searchWordsString == null) {
+      System.out.println("searchWordsString is null");
+    }
+
+    System.out.println("searchWordsString: " + searchWordsString);
 
     System.out.println("Executing query...");
     System.out.println("Searching cars with NEW parameters: " +
@@ -134,6 +142,7 @@ public class CarsController {
         ", transmission=" + transmissionParam +
         ", minPassengers=" + passengersParam +
         ", energySource=" + energySourceParam +
+        ", searchWords=" + searchWordsString +
         ", minPricePerDay=" + minPricePerDayParam +
         ", maxPricePerDay=" + maxPricePerDayParam +
         ", pickupLocation=" + pickupLocation);
@@ -148,6 +157,7 @@ public class CarsController {
               transmissionParam,
               passengersParam,
               energySourceParam,
+              searchWordsString,
               minPricePerDayParam,
               maxPricePerDayParam,
               pickupLocation,

@@ -166,6 +166,7 @@ const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     transmission: [],
     passengers: [],
     energySource: [],
+    searchWords: [],
     minPrice: null,
     maxPrice: null,
     pickupLocation: bookingData.pickupLocation,
@@ -263,6 +264,7 @@ useEffect(() => {
       filterParams.append("minPassengers", selectedFilterOptions.passengers[0] || "");
       filterParams.append("sortOption", selectedFilterOptions.sortBy[0] || "");
       filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
+      filterParams.append("searchWords", selectedFilterOptions.searchWords.join(",").toUpperCase());
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
       filterParams.append("pickupLocation", selectedFilterOptions.pickupLocation || "OSLO");
@@ -415,8 +417,26 @@ useEffect(() => {
                      className="car-search-input-field"
                      id="search-cars-input-field"
                      required={false}
-                     placeholder="Search for the name of a car"
-              onChange={(e) => setSearchFieldValue(e.target.value)}
+                     placeholder="Search for cars"
+                     onChange={(e) => setSearchFieldValue(e.target.value)}
+                     onKeyDown={(e) => {
+                       if (e.key === "Enter") {
+                         const searchWordsArray = searchFieldValue.trim().split(/\s+/);
+                         console.log("Search value saved on enter key-press:", searchWordsArray);
+                         setSelectedFilterOptions((prev) => ({
+                           ...prev,
+                           searchWords: searchWordsArray,
+                         }));
+                       }
+                     }}
+                     onBlur={() => {
+                       const searchWordsArray = searchFieldValue.trim().split(/\s+/);
+                       console.log("Search value saved on blur:", searchFieldValue);
+                       setSelectedFilterOptions((prev) => ({
+                         ...prev,
+                         searchWords: searchWordsArray,
+                       }));
+                     }}
               value={searchFieldValue}>
               </input>
               <button className="xCircleButton"

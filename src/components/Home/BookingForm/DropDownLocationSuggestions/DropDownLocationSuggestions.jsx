@@ -1,6 +1,5 @@
 import React from 'react';
 import './DropDownLocationSuggestions.css';
-import {tr} from "date-fns/locale";
 
 const DropDownLocationSuggestions = ({
   locations = [],
@@ -14,7 +13,7 @@ const DropDownLocationSuggestions = ({
   const handleSuggestionClick = (suggestion) => {
     setLocationValue(suggestion);
     if (setShowSuggestions) setShowSuggestions(false);
-    if (setIsPickupFieldValid) setIsPickupFieldValid(true); // Check if it exists
+    if (setIsPickupFieldValid) setIsPickupFieldValid(true);
   };
 
   return (
