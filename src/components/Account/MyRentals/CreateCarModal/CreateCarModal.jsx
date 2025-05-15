@@ -5,6 +5,7 @@ import LocationModal from './EnumModal/LocationModal';
 import ExtraFeaturesModal from './EnumModal/ExtraFeaturesModal'; 
 import './CreateCarModal.css';
 import '../../../App.css';
+import { set } from 'date-fns';
 
 const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -21,6 +22,14 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   const [isExtraFeaturesModalOpen, setIsExtraFeaturesModalOpen] = useState(false);
   const [isCarTypeModalOpen, setIsCarTypeModalOpen] = useState(false);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [plateNumber, setPlateNumber] = useState('');
+  const [carBrand, setCarBrand] = useState('');
+  const [modelName, setModelName] = useState('');
+  const [pricePerDay, setPricePerDay] = useState('');
+  const [productionYear, setProductionYear] = useState('');
+  const [passengers, setPassengers] = useState('');
+  const [selectedTransmission, setSelectedTransmission] = useState('');
+  const [selectedFuel, setSelectedFuel] = useState('');
   const toggleCarTypeModal = () => {
     setIsCarTypeModalOpen(!isCarTypeModalOpen);
   };
@@ -31,26 +40,28 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     setIsExtraFeaturesModalOpen(!isExtraFeaturesModalOpen);
   };
 
-  const retrieveCarDetails = () => {
-    try {
-      return {
-        providerId: getAccountId(),
-        extraFeatureIds: selectedFeatures,
-        plateNumber: document.getElementById('plate-number').value,
-        carBrand: document.getElementById('car-brand').value,
-        modelName: document.getElementById('model-name').value,
-        carType: document.getElementById('car-type').value,
-        pricePerDay: document.getElementById('price-per-day').value,
-        productionYear: document.getElementById('production-year').value,
-        passengers: document.getElementById('passengers').value,
-        transmission: document.querySelector('.create-car-button-wrapper .selectedTransmission')?.id.toUpperCase(),
-        energySource: document.querySelector('.create-car-button-wrapper .selectedFuel')?.id.toUpperCase(),
-      };
-    } catch (error) {
-      console.error('Error retrieving car details:', error);
-      return null; 
-    }
-  };
+const retrieveCarDetails = () => {
+  try {
+    return {
+      providerId: getAccountId(),
+      extraFeatureIds: selectedFeatures,
+      plateNumber: plateNumber,         // from useState
+      carBrand: carBrand,               // from useState
+      modelName: modelName,             // from useState
+      carType: selectedCarType,         // from useState
+      pricePerDay: pricePerDay,         // from useState
+      productionYear: productionYear,   // from useState
+      passengers: passengers,           // from useState
+      transmission: selectedTransmission, // from useState
+      energySource: selectedFuel,         // from useState
+      location: selectedLocation,         // from useState
+    };
+  } catch (error) {
+    console.error('Error retrieving car details:', error);
+    return null; 
+  }
+};
+  
 
   async function createCar(event) {
     event.preventDefault();
@@ -107,6 +118,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     const fuelButtons = document.querySelectorAll('.create-car-button-wrapper button');
     fuelButtons.forEach((button) => {
       if (button.id === selectedFuel) {
+        setSelectedFuel(selectedFuel.toUpperCase());
         button.classList.add('selectedFuel');
       } else {
         button.classList.remove('selectedFuel');
@@ -119,6 +131,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     const transmissionButtons = document.querySelectorAll('.create-car-button-wrapper button');
     transmissionButtons.forEach((button) => {
       if (button.id === selectedTransmission) {
+        setSelectedTransmission(selectedTransmission.toUpperCase());
         button.classList.add('selectedTransmission');
       } else {
         button.classList.remove('selectedTransmission');
@@ -132,12 +145,12 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
         <span className="close" onClick={onClose}>&times;</span>
         <h2>Create Car</h2>
         <form id="create-car-form" onSubmit={createCar}>
-          <input type="text" id="plate-number" placeholder="Plate Number" required />
-          <input type="text" id="car-brand" placeholder="Car Brand" required />
-          <input type="text" id="model-name" placeholder="Model Name" required />
-          <input type="number" id="price-per-day" placeholder="Price Per Day" required />
-          <input type="number" id="production-year" placeholder="Production Year" required />
-          <input type="number" id="passengers" placeholder="Number of Passengers" required />
+          <input type="text" value={plateNumber} onChange={e => setPlateNumber(e.target.value)} id="plate-number" placeholder="Plate Number" required />
+          <input type="text" value={carBrand} onChange={e => setCarBrand(e.target.value)} id="car-brand" placeholder="Car Brand" required />
+          <input type="text" value={modelName} onChange={e => setModelName(e.target.value)} id="model-name" placeholder="Model Name" required />
+          <input type="number" value={pricePerDay} onChange={e => setPricePerDay(e.target.value)} id="price-per-day" placeholder="Price Per Day" required />
+          <input type="number" value={productionYear} onChange={e => setProductionYear(e.target.value)} id="production-year" placeholder="Production Year" required />
+          <input type="number" value={passengers} onChange={e => setPassengers(e.target.value)} id="passengers" placeholder="Number of Passengers" required />
 
           <section id="select-car-type-location-container">
             <div className="enum-text-container">

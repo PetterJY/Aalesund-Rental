@@ -165,7 +165,7 @@
     display: none !important;
   }
   .rentals-car-display-card .car-details {
-    margin-left: 0;
+    margin-left: 10px;
     margin-top: 10px;
   }
 }
