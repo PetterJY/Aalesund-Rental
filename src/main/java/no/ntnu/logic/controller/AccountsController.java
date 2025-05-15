@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,6 @@ import no.ntnu.entity.dto.DeleteAccountRequest;
 import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.service.AccountsService;
 import no.ntnu.logic.service.AdminService;
-import no.ntnu.logic.service.AuthenticationService;
 import no.ntnu.logic.service.ProvidersService;
 import no.ntnu.logic.service.UsersService;
 
@@ -33,21 +34,21 @@ import no.ntnu.logic.service.UsersService;
 @RestController
 @RequestMapping("/accounts")
 public class AccountsController {
-  private final AuthenticationService authenticationService;
+    private static final Logger logger =
+        LoggerFactory.getLogger(AccountsController.class.getSimpleName());
 
   private final AccountsService accountsService;
 
-  private static final Logger logger =
-      LoggerFactory.getLogger(AccountsController.class.getSimpleName());
+  private AuthenticationManager authenticationManager;
 
   @Autowired
   public AccountsController(AccountsService accountsService,
-                            AuthenticationService authenticationService,
                             AdminService adminService,
                             ProvidersService providersService,
-                            UsersService usersService) {
+                            UsersService usersService,
+                            AuthenticationManager authenticationManager) {
     this.accountsService = accountsService;
-    this.authenticationService = authenticationService;
+    this.authenticationManager = authenticationManager;
   }
 
   /**
@@ -62,11 +63,12 @@ public class AccountsController {
     List<Accounts> accounts = accountsService.findAll();
 
     logger.debug("Fetched {} accounts", accounts.size());
-    accounts.removeIf(account -> account.isDeleted()); // Remove deleted accounts
-    logger.debug("Filtered out deleted accounts, remaining: {}", accounts.size());
+    List<Accounts> filteredAccounts = accounts.stream()
+        .filter(account -> !account.isDeleted())
+        .toList();
+    logger.debug("Filtered out deleted accounts, remaining: {}", filteredAccounts.size());
 
-    logger.debug("Fetched {} accounts", accounts.size());
-    return ResponseEntity.status(HttpStatus.OK).body(accounts);
+    return ResponseEntity.status(HttpStatus.OK).body(filteredAccounts);
   }
 
   /**
@@ -124,15 +126,28 @@ public class AccountsController {
     logger.info("Deleting account with identifier: {}", email);
     logger.debug("Account role: {}", role);
 
-    if (authenticationService.verifyPassword(email, request.getPassword())) {
-      Accounts account = accountsService.findByEmail(email);
-      account.setDeleted(true);
-      accountsService.save(account);
-      logger.info("Account with identifier: {} deleted successfully", email);
-      
-      return ResponseEntity.noContent().build();
-    } else {
+    try {
+      authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(email, request.getPassword()));
+    } catch (BadCredentialsException e) {
+      logger.warn("Password verification failed for account: {}", email);
       return ResponseEntity.status(401).build();
     }
+    logger.debug("Password verified for account: {}", email);
+    
+    Accounts account = accountsService.findByEmail(email);
+
+    if (account == null) {
+      logger.warn("Account with identifier: {} not found", email);
+      return ResponseEntity.status(404).build();
+    }
+
+    logger.debug("Account found: {}", account);
+
+    account.setDeleted(true);
+    accountsService.save(account);
+
+    logger.info("Account with identifier: {} deleted successfully", email);
+    return ResponseEntity.noContent().build();    
   }
 }
