@@ -81,6 +81,11 @@ public class JwtUtility {
         && !isTokenExpired(token);
   }
   
+  /**
+   * Retrieves the signing key for JWT.
+   *
+   * @return the signing key.
+   */
   private SecretKey getSigningKey() {
     logger.debug("Retrieving signing key for JWT.");
     byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
@@ -120,6 +125,12 @@ public class JwtUtility {
         .getExpiration();
   }
 
+  /**
+   * Checks if the token is expired.
+   *
+   * @param token the token to check.
+   * @return true if the token is expired, false otherwise.
+   */
   public boolean isTokenExpired(String token) {
     return getExpirationDateFromToken(token).before(new Date());
   }
