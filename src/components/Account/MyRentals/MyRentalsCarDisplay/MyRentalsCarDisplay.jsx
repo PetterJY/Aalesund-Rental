@@ -23,9 +23,17 @@ const MyRentalsCarDisplay = ({ car }) => {
     }
   };
   
-  const toggleExtraFeaturesModal = () => {
-    setIsExtraFeaturesModalOpen((prev) => !prev); // Toggle modal visibility
-  };
+const toggleExtraFeaturesModal = () => {
+  // Sync selectedFeatures with the current editedCar features before opening
+  if (!isExtraFeaturesModalOpen) {
+    setSelectedFeatures(
+      Array.isArray(editedCar.extraFeatures)
+        ? editedCar.extraFeatures.map((feature) => feature.id)
+        : []
+    );
+  }
+  setIsExtraFeaturesModalOpen((prev) => !prev);
+};
   
   const abortControllerRef = useRef(null);
 
