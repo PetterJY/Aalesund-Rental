@@ -11,8 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.ProviderNotFoundException;
-import no.ntnu.entity.models.Accounts;
-import no.ntnu.entity.models.Admins;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.repository.ProvidersRepository;
 
@@ -74,7 +72,24 @@ public class ProvidersService {
    */
   public Providers save(Providers provider) {
     logger.info("Saving provider with email: {}", provider.getEmail());
-    provider.setPassword(passwordEncoder.encode(provider.getPassword()));
+    String password = provider.getPassword();
+    provider.setPassword(passwordEncoder.encode(password));
+    return providersRepository.save(provider);
+  }
+
+  /**
+   * Saves a provider with the option to not encode the password.
+   *
+   * @param provider        the provider to save
+   * @param encodePassword  whether to encode the password
+   * @return the saved provider
+   */
+  public Providers save(Providers provider, boolean encodePassword) {
+    if (encodePassword) {
+      logger.debug("Encoding password for provider with email: {}", provider.getEmail());
+      return save(provider);
+    }
+    logger.info("Saving provider with email: {}", provider.getEmail());
     return providersRepository.save(provider);
   }
 }

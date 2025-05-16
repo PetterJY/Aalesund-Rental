@@ -71,7 +71,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/users/' + accountId, {
+      const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ const Account = () => {
 
       console.log('Updated user details:', userDetails);
 
-      const response = await fetch('http://localhost:8080/users/' + accountId, {
+      const response = await fetch(`http://localhost:8080/users/${accountId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

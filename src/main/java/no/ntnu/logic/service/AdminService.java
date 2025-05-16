@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.AdminNotFoundException;
-import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Admins;
 import no.ntnu.logic.repository.AdminRepository;
 
@@ -80,7 +79,24 @@ public class AdminService {
    */
   public Admins save(Admins admin) {
     logger.info("Saving admin with email: {}", admin.getEmail());
-    admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+    String password = admin.getPassword();
+    admin.setPassword(passwordEncoder.encode(password));
+    return adminRepository.save(admin);
+  }
+
+  /**
+   * Saves an admin with the option to not encode the password.
+   *
+   * @param admin the admin to save
+   * @param encodePassword whether to encode the password or not
+   * @return the saved admin
+   */
+  public Admins save(Admins admin, boolean encodePassword) {
+    if (encodePassword) {
+      logger.debug("Encoding password for admin with email: {}", admin.getEmail());
+      return save(admin);
+    }
+    logger.info("Saving admin with email: {}", admin.getEmail());
     return adminRepository.save(admin);
   }
 }

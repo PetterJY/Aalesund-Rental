@@ -22,8 +22,8 @@ import jakarta.validation.Valid;
 import no.ntnu.entity.dto.UserDetails;
 import no.ntnu.entity.models.Cars;
 import no.ntnu.entity.models.Users;
-import no.ntnu.logic.service.UsersService;
 import no.ntnu.logic.service.CarsService;
+import no.ntnu.logic.service.UsersService;
 
 /**
  * Controller for managing user-related operations.
@@ -55,23 +55,6 @@ public class UsersController {
     List<Users> users =  usersService.findAll();
     logger.debug("Fetched {} users", users.size());
     return ResponseEntity.ok(users);
-  }
-
-  /**
-   * Returns a user by its ID.
-   *
-   * @param id The ID of the user.
-   * @return The user with the specified ID.
-   */
-  @GetMapping("/{id}")
-  @ApiOperation(
-      value = "Returns a user by its ID.", 
-      notes = "If the user is not found, a 404 error is returned.")
-  public ResponseEntity<Users> getUserById(@PathVariable Long id) {
-    logger.info("Fetching user with id: {}", id);
-    Users user = usersService.findById(id);
-    logger.debug("Fetched user: {}", user);
-    return ResponseEntity.ok(user);
   }
 
   /**
@@ -114,7 +97,7 @@ public class UsersController {
     user.setLastName(userDetails.getLastName());
     user.setEmail(userDetails.getEmail());
     user.setPassword(userDetails.getPassword());
-    Users updatedUser = usersService.saveWithoutEncoding(user);
+    Users updatedUser = usersService.save(user, false);
     logger.debug("Updated user: {}", updatedUser);
     return ResponseEntity.ok(updatedUser);
   }

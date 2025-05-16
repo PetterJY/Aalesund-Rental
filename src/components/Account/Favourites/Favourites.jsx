@@ -16,15 +16,15 @@ const Favourites = () => {
     async function fetchFavourites() {
       setIsLoading(true);
       try {
-          const response = await fetch(
-            `http://localhost:8080/users/${getAccountId()}/favourites`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-              },
-            }
-          );
+
+        const response = await fetch(`http://localhost:8080/users/${getAccountId()}/favourites`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        
         if (!response.ok) {
           console.error("Failed to fetch favourites:", response.statusText);
           setFavouriteCars([]);
