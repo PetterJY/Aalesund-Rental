@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, useContext} from "react";
+import React, {useState, useRef, useEffect, useContext, useCallback} from "react";
 import {FunnelSimple, CaretDown, MagnifyingGlass, XCircle} from "@phosphor-icons/react";
 import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
@@ -248,15 +248,7 @@ useEffect(() => {
     return () => window.removeEventListener("resize", updateCarsPerRow);
   }, [cars]);
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchCarData();
-    };
-    fetchData();
-  }, [selectedFilterOptions]);
-
-  const fetchCarData = async () => {
+  const fetchCarData = useCallback(async () => {
     try {
       const filterParams = new URLSearchParams();
 
@@ -272,9 +264,6 @@ useEffect(() => {
       filterParams.append("pickupDate", selectedFilterOptions.pickupDate.toISOString().slice(0, -1));
       filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString().slice(0, -1));
 
-      console.log("Filter params:", filterParams.toString());
-
-      console.log("Request URL: ", `http://localhost:8080/cars/search?${filterParams.toString()}`)
       const response = await fetch(`http://localhost:8080/cars/search?${filterParams.toString()}`, {
         method: "GET",
         headers: {
@@ -294,7 +283,7 @@ useEffect(() => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [selectedFilterOptions, minPrice, maxPrice]);
 
   // Reassemble children with inserted menu for the selected car.
   const renderWithInsertedMenu = () => {

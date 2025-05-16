@@ -177,6 +177,23 @@
   
 }
 
+.my-rentals-car-display .availability-toggle-btn {
+  margin: 8px 0;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.my-rentals-car-display .availability-toggle-btn.enabled {
+  background: #EB5E28;
+  color: #fff;
+}
+.availability-toggle-btn.disabled {
+  background: #ccc;
+  color: #222;
+}
+
 @media screen and (max-width: 1148px) {
   .rentals-car-display-card {
     flex-direction: column;

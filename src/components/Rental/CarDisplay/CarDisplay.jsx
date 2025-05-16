@@ -35,12 +35,10 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
 
   const handleToggleFavourite = async (e) => {
     e.stopPropagation();
-    const userId = getAccountId();
-    const url = `http://localhost:8080/users/${userId}/favourites/${car.id}`;
-    const method = isFavourited ? "DELETE" : "POST";
+
     try {
-      const response = await fetch(url, {
-        method,
+      const response = await fetch(`http://localhost:8080/users/${getAccountId()}/favourites/${car.id}`, {
+        method : isFavourited ? "DELETE" : "POST",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -75,7 +73,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
           >
             <Star
               size={28}
-              color={isFavourited ? "#ee9922" : "#EEE"}
+              color={isFavourited ? "#eee" : "#EEE"}
               weight={isFavourited ? "fill" : "regular"}
             />
           </button>

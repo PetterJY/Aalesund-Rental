@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NotePencil } from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
+import { getRole } from '../../../utils/JwtUtility';
 import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
 import ExtraFeaturesModal from '../CreateCarModal/EnumModal/ExtraFeaturesModal';
 import LocationModal from '../CreateCarModal/EnumModal/LocationModal';
@@ -9,19 +10,29 @@ import { getAccountId, getToken } from '../../../utils/JwtUtility';
 import './MyRentalsCarDisplay.css';
 import '../../../App.css';
 
-const MyRentalsCarDisplay = ({ car }) => {
+const MyRentalsCarDisplay = ({ car, providerId }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [isEditing, setIsEditing] = useState(false);
+
   const [displayCar, setDisplayCar] = useState(car);
   const [editedCar, setEditedCar] = useState(car);
+
   const [rentalDetails, setRentalDetails] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [tableVisibility, setTableVisibility] = useState(false);
+  
   const [isExtraFeaturesModalOpen, setIsExtraFeaturesModalOpen] = useState(false);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
+
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(editedCar.location);
+
   const [isCarTypeModalOpen, setIsCarTypeModalOpen] = useState(false);
   const [selectedCarType, setSelectedCarType] = useState(editedCar.carType);
+
+  const [isAvailable, setIsAvailable] = useState(editedCar.available);
+
+  const role = getRole();
 
   const toggleDetails = () => {
     if (!isEditing) {
@@ -29,42 +40,43 @@ const MyRentalsCarDisplay = ({ car }) => {
     }
   };
   
-const toggleExtraFeaturesModal = () => {
-  // Sync selectedFeatures with the current editedCar features before opening
-  if (!isExtraFeaturesModalOpen) {
-    setSelectedFeatures(
-      Array.isArray(editedCar.extraFeatures)
-        ? editedCar.extraFeatures.map((feature) => feature.id)
-        : []
-    );
-  }
-  setIsExtraFeaturesModalOpen((prev) => !prev);
-};
+  const toggleExtraFeaturesModal = () => {
+    // Sync selectedFeatures with the current editedCar features before opening
+    if (!isExtraFeaturesModalOpen) {
+      setSelectedFeatures(
+        Array.isArray(editedCar.extraFeatures)
+          ? editedCar.extraFeatures.map((feature) => feature.id)
+          : []
+      );
+    }
+    setIsExtraFeaturesModalOpen((prev) => !prev);
+  };
 
-const toggleLocationModal = () => {
-  setIsLocationModalOpen((prev) => !prev);
-};
+  const toggleLocationModal = () => {
+    setIsLocationModalOpen((prev) => !prev);
+  };
 
-useEffect(() => {
-  if (selectedLocation && selectedLocation !== editedCar.location) {
-    setEditedCar((prev) => ({
-      ...prev,
-      location: selectedLocation,
-    }));
-  }
-}, [selectedLocation]);
+  useEffect(() => {
+    if (selectedLocation && selectedLocation !== editedCar.location) {
+      setEditedCar((prev) => ({
+        ...prev,
+        location: selectedLocation,
+      }));
+    }
+  }, [selectedLocation]);
+
   const toggleCarTypeModal = () => {
-  setIsCarTypeModalOpen((prev) => !prev);
-};
+    setIsCarTypeModalOpen((prev) => !prev);
+  };
 
-useEffect(() => {
-  if (selectedCarType && selectedCarType !== editedCar.carType) {
-    setEditedCar((prev) => ({
-      ...prev,
-      carType: selectedCarType,
-    }));
-  }
-}, [selectedCarType]);
+  useEffect(() => {
+    if (selectedCarType && selectedCarType !== editedCar.carType) {
+      setEditedCar((prev) => ({
+        ...prev,
+        carType: selectedCarType,
+      }));
+    }
+  }, [selectedCarType]);
 
   const abortControllerRef = useRef(null);
 
@@ -81,12 +93,13 @@ useEffect(() => {
       setIsLoading(true);
       try {
         const searchParams = new URLSearchParams();
-
-        searchParams.append("providerId", getAccountId());
+        // Use the providerId prop if present, otherwise fallback to getAccountId()
+        searchParams.append("providerId", providerId || getAccountId());
         searchParams.append("carId", car.id);
 
-        console.log("Request URL: ", `http://localhost:8080/rentals/my-rentals?${searchParams.toString()}`);
-        const response = await fetch(`http://localhost:8080/rentals/my-rentals?${searchParams.toString()}`, {
+        const url = `http://localhost:8080/rentals/my-rentals?${searchParams.toString()}`;
+        console.log("Request URL: ", url);
+        const response = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -116,12 +129,11 @@ useEffect(() => {
     fetchRentalDetails();
 
     return () => {
-      // Cleanup function to abort the fetch request if the component unmounts
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }
     };
-  }, [car.id]);
+  }, [car.id, providerId]);
 
   useEffect(() => {
     setDisplayCar(car);
@@ -147,6 +159,7 @@ useEffect(() => {
       energySource: rentalDetails.energySource,
       location: rentalDetails.location,
       extraFeatureIds: rentalDetails.extraFeatures.map(feature => feature.id),
+      available: rentalDetails.available,
     }
 
     console.log('Formatted rental details:', formattedDetails);
@@ -182,29 +195,34 @@ useEffect(() => {
     setIsEditing(false);
   };
 
-  const handleDelete = async () => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this car?');
-    if (!confirmDelete) return;
-
+  const handleDelete = async (e) => {
+    e.stopPropagation();
     try {
+      const payload = {
+        ...formatRentalDetails(displayCar),
+        available: !displayCar.available,
+      };
+
       const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
-        method: 'DELETE',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
         },
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        console.error('Failed to delete car:', response.statusText);
+        alert('Failed to update availability');
         return;
       }
-      if (response.status === 204) {
-        alert('Car deleted successfully!');
-        window.location.reload(); 
-      }
+
+      const updatedCar = await response.json();
+      setDisplayCar(updatedCar);
+      setEditedCar(updatedCar);
+      setIsAvailable(updatedCar.available);
     } catch (error) {
-      console.error('Error deleting car:', error);
+      alert('Error updating availability');
     }
   };
 
@@ -271,6 +289,8 @@ const fetchFeatureName = async (featureId) => {
     return `Unknown Feature (${featureId})`; 
   }
 };
+
+
 
   const carImage = mapCarImage(editedCar.carBrand, editedCar.modelName);
 
@@ -462,13 +482,19 @@ const fetchFeatureName = async (featureId) => {
               <div className="save-discard-buttons">
                 <button onClick={handleSave}>Save</button>
                 <button onClick={handleDiscard}>Discard</button>
-                <button onClick={handleDelete}>Delete</button>
               </div>
             ) : (
               <button className="edit-button" onClick={handleEditClick}>
                 <NotePencil size={32} color="#000" className="edit-icon" />
               </button>
             )}
+            {/* Always show the availability toggle button */}
+            <button
+            className={`availability-toggle-btn ${isAvailable ? "enabled" : "disabled"}`}
+            onClick={handleDelete}
+          >
+            {isAvailable ? "Available" : "Unavailable"}
+          </button>
           </div>
         </section>
       </button>

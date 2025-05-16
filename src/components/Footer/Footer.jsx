@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 import { CaretDown } from '@phosphor-icons/react';
 
@@ -49,7 +50,7 @@ const Footer = () => {
 					{(isContactExpanded || !isMobileDisplaySize) && (
 						<address>
 							<ul className="footer-item">
-								<li><a href="mailto:Ålesund@rental.com">Ålesund@rental.com</a></li>
+								<li><a href="mailto:contact@norwegianrental.com">contact@norwegianrental.com</a></li>
 							</ul>
 						</address>
 					)}
@@ -75,6 +76,12 @@ const Footer = () => {
 						<ul className="footer-item">
 							<li>
 								<a href="https://github.com/PetterJY/Aalesund-Rental">GitHub</a>
+							</li>
+							<li>
+								<a href="https://www.ntnu.edu/">NTNU</a>
+							</li>
+							<li>
+								<Link to="/about-us">About Us</Link>
 							</li>
 						</ul>
 					)}

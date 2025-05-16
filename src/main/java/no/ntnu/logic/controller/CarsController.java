@@ -308,6 +308,7 @@ public ResponseEntity<Set<ExtraFeatures>> getExtraFeaturesByCarId(@PathVariable 
     car.setTransmission(carDetails.getTransmission());
     car.setEnergySource(carDetails.getEnergySource());
     car.setLocation(carDetails.getLocation());
+    car.setAvailable(carDetails.isAvailable());
     
     Set<ExtraFeatures> extraFeatures = (carDetails.getExtraFeatureIds() != null ? carDetails.getExtraFeatureIds() : new HashSet<>())
       .stream()
@@ -319,6 +320,7 @@ public ResponseEntity<Set<ExtraFeatures>> getExtraFeaturesByCarId(@PathVariable 
     logger.debug("Updated car: {}", updatedCar);
     return ResponseEntity.status(HttpStatus.OK).body(updatedCar);
   }
+  
 
   /**
    * Deletes a car by its ID.

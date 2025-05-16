@@ -67,20 +67,23 @@ public class UsersService {
   public Users save(Users user) {
     logger.info("Saving user with email: {}", user.getEmail());
     String password = user.getPassword();
-    if (!password.startsWith("$2a$")) { // Only encode if not already encoded
-      user.setPassword(passwordEncoder.encode(password));
-    }
+    user.setPassword(passwordEncoder.encode(password));
     return usersRepository.save(user);
   }
 
   /**
-   * Saves a user to the database without encoding the password.
+   * Saves a user to the database with the option to not encode the password.
    *
    * @param user the user to save.
+   * @param encodePassword whether to encode the password or not.
    * @return the saved user.
    */
-  public Users saveWithoutEncoding(Users user) {
-    logger.info("Saving user without encoding password with email: {}", user.getEmail());
+  public Users save(Users user, boolean encodePassword) {
+    if (encodePassword) {
+      logger.debug("Encoding password for user with email: {}", user.getEmail());
+      return save(user);
+    }
+    logger.info("Saving user with email: {}", user.getEmail());
     return usersRepository.save(user);
   }
 }

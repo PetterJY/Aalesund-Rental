@@ -12,6 +12,8 @@ import Account from './Account/Account';
 import Orders from './Account/Orders/Orders';
 import MyRentals from './Account/MyRentals/MyRentals';
 import Favourites from './Account/Favourites/Favourites';
+import AdminRentals from './Account/AdminRentals/AdminRentals';
+import AboutUs from './AboutUs/AboutUs';
 import PageNotFound from './PageNotFound/PageNotFound';
 import SubmittedBooking from './Booking/SubmittedBooking/SubmittedBooking';
 import './App.css';
@@ -38,8 +40,10 @@ function App() {
               <Route path="orders" element={<Orders />} />
               <Route path="my-rentals" element={<MyRentals />} />
               <Route path="favourites" element={<Favourites />} />
+              <Route path="admin-rentals" element={<AdminRentals />} />
             </Route>
 
+            <Route path="about-us" element={<AboutUs />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
