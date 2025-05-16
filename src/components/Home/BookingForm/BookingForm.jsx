@@ -1,9 +1,9 @@
-import React, {useRef, useState, useEffect, useContext, useCallback} from 'react';
+import React, {useRef, useState, useEffect, useContext} from 'react';
 import { MagnifyingGlass, XCircle, X } from "@phosphor-icons/react";
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import DropDownLocationSuggestions from './DropDownLocationSuggestions/DropDownLocationSuggestions';
 import { BookingContext } from '../../utils/BookingContext'
-import './BookingForm.css'; 
+import './BookingForm.css';
 import '../../App.css';
 
 const BookingForm = ({
@@ -40,7 +40,7 @@ const BookingForm = ({
 
   const [isPickupFieldValid, setIsPickupFieldValid] = useState(true);
 
-  const fetchLocations = useCallback(async () => { {
+  async function fetchLocations() {
     setIsLoadingLocations(true);
     try {
       const response = await fetch(`http://localhost:8080/cars/locations`, {
@@ -63,8 +63,8 @@ const BookingForm = ({
     } finally {
       setIsLoadingLocations(false);
     }
-  }});
-  
+  }
+
   useEffect(() => {
     fetchLocations();
   }, []);
@@ -280,8 +280,8 @@ const BookingForm = ({
               <DropDownLocationSuggestions
                 locations={
                   pickupLocations.filter(loc =>
-                  loc.toLowerCase().includes(pickupLocationValue.toLowerCase())
-                )}
+                    loc.toLowerCase().includes(pickupLocationValue.toLowerCase())
+                  )}
                 setLocationSuggestions={setPickupLocations}
                 setLocationValue={setPickupLocationValue}
                 setShowSuggestions={setShowPickupLocationSuggestions}
@@ -301,10 +301,10 @@ const BookingForm = ({
         <div className="dropoff-location-section">
           <label>Drop-off</label>
           <div className={`dropoff-location ${isDropoffTextFieldSelected ? 'selected' : ''}`}
-              ref={dropoffTextFieldRef}
-              onMouseEnter={() => setIsDropoffTextInputHovered(true)}
-              onMouseLeave={() => setIsDropoffTextInputHovered(false)}
-              onClick={() => setIsDropoffTextFieldSelected(true)}>
+               ref={dropoffTextFieldRef}
+               onMouseEnter={() => setIsDropoffTextInputHovered(true)}
+               onMouseLeave={() => setIsDropoffTextInputHovered(false)}
+               onClick={() => setIsDropoffTextFieldSelected(true)}>
             <MagnifyingGlass size={24} weight="bold" className="search-icon" />
             <input
               type="text"
@@ -327,8 +327,8 @@ const BookingForm = ({
               <DropDownLocationSuggestions
                 locations={
                   dropoffLocations.filter(loc =>
-                  loc.toLowerCase().includes(dropoffLocationValue.toLowerCase())
-                )}
+                    loc.toLowerCase().includes(dropoffLocationValue.toLowerCase())
+                  )}
                 setLocationSuggestions={setDropoffLocations}
                 setLocationValue={setDropoffLocationValue}
                 setShowSuggestions={setShowDropoffLocationSuggestions}
