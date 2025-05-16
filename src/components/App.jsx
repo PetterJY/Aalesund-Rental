@@ -13,6 +13,7 @@ import Orders from './Account/Orders/Orders';
 import MyRentals from './Account/MyRentals/MyRentals';
 import Favourites from './Account/Favourites/Favourites';
 import PageNotFound from './PageNotFound/PageNotFound';
+import SubmittedBooking from './Booking/SubmittedBooking/SubmittedBooking';
 import './App.css';
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
 
             <Route path="booking/:carId" element={<Booking />} />
             <Route path="booking" element={<Navigate to={"/rental"} replace />} />
+            <Route path="submitted-booking" element={<SubmittedBooking />} />
+
 
             {/* Protected Routes */}
             <Route path="account" element={<ProtectedAccount />}>

@@ -12,11 +12,20 @@ import {formatDate} from "date-fns";
 const Booking = () => {
 	const { isAuthenticated, isAuthInitialized } = useAuth();
 
+	const navigate = useNavigate();
+
 	const role = getRole();
 
 	const { carId } = useParams();
 
 	const { bookingData : rentalDetails, setBookingData : setRentalDetails } = useContext(BookingContext);
+
+	useEffect(() => {
+		console.log("Updated rentalDetails:", rentalDetails);
+	}, [rentalDetails]);
+
+	const totalCost = Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24),
+		rentalDetails.pricePerDay)
 
 	const [accountDetails, setAccountDetails] = useState(null);
 
@@ -40,15 +49,16 @@ const Booking = () => {
 			const carDetails = await response.json();
 			console.log("Car details fetched:", carDetails);
 
-			setRentalDetails(
-				{
-					...rentalDetails,
-					carBrand: carDetails.carBrand,
-					modelName: carDetails.modelName,
-					companyName: carDetails.provider.companyName,
-					pricePerDay: carDetails.pricePerDay,
-				}
-			);
+			setRentalDetails({
+				...rentalDetails,
+				carId: carDetails.id,
+				providerId: carDetails.provider.id,
+				carBrand: carDetails.carBrand,
+				modelName: carDetails.modelName,
+				companyName: carDetails.provider.companyName,
+				pricePerDay: carDetails.pricePerDay,
+				totalCost: carDetails.totalCost || 0, // Ensure fallback
+			});
 
 			console.log("Rental details updated:", rentalDetails);
 		}
@@ -116,33 +126,92 @@ const Booking = () => {
 
 	const carImage = mapCarImage(rentalDetails.carBrand, rentalDetails.modelName);
 
+
+
+
+
+	const submitBooking = async (event) => {
+		event.preventDefault(); // Prevent default form submission
+
+		if (!isAuthenticated) {
+			console.warn("User is not authenticated. Can't submit booking.");
+			return;
+		}
+
+		if (role !== "ROLE_USER") {
+			console.warn("Account is not of role USER.");
+			return;
+		}
+
+		const userId = getAccountId();
+
+		const bookingData = {
+			renterId: userId,
+			providerId: rentalDetails.providerId,
+			carId: rentalDetails.carId,
+			startDate: rentalDetails.pickupDate,
+			endDate: rentalDetails.dropoffDate,
+			pickupLocation: rentalDetails.pickupLocation,
+			dropoffLocation: rentalDetails.dropoffLocation,
+			totalCost: totalCost,
+			status: "PENDING",
+		};
+
+		console.log("Booking data: ", bookingData);
+
+		try {
+			const response = await fetch("http://localhost:8080/rentals", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+				},
+				body: JSON.stringify(bookingData),
+			});
+
+			if (!response.ok) {
+				throw new Error('Failed to submit booking', response.statusText);
+			}
+
+			const booking = await response.json();
+			console.log("Booking submitted successfully:", booking);
+			navigate("/submitted-booking");
+
+			return booking;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+
+
   return (
 		<main className="booking-page">
-			<section className="driver-information-form">	
-				<form action="/submit-booking" method="post" className="grid-container">
-					<h2 className="driver-information">Driver Information</h2>   
+			<section className="driver-information-form">
+				<form className="grid-container">
+					<h2 className="driver-information">Driver Information</h2>
 					<div className="e-mail">
 						<label htmlFor="email">Email:</label>
 						<input type="email" id="email" name="email" value={accountDetails?.email || ""} readOnly required></input>
-					</div>  
+					</div>
 					<div className="first-name">
 						<label htmlFor="first-name">First Name:</label>
 						<input type="text" id="first-name" name="first-name" value={accountDetails?.firstName || ""} readOnly required></input>
 					</div>
 					<div className="last-name">
 						<label htmlFor="last-name">Last Name:</label>
-						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || ""} readOnly required></input>
+						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || "llokasldaklsjd"} readOnly required></input>
 					</div>
+					<br/>
 					<div className="phone-number">
 						<label htmlFor="phone-number">Phone Number:</label>
 						<input type="tel" id="phone-number" name="phone-number" value={accountDetails?.phoneNumber || ""} readOnly required></input>
 					</div>
 					<div className="submit-button-container">
 						<button
-							type="submit"
+							onClick={submitBooking}
 							className="book-now-button"
-							disabled={!isAuthenticated}
-						>
+							disabled={!isAuthenticated}>
 							Book Now
 						</button>
 						{!isAuthenticated && (
@@ -218,8 +287,7 @@ const Booking = () => {
 							<p>{`${(rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
 							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
 							<p>
-								{`${Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24), 
-								rentalDetails.pricePerDay)}`} in total
+								{totalCost} in total
 							</p>
 						</>
 					)}

@@ -266,11 +266,6 @@ useEffect(() => {
       filterParams.append("sortOption", selectedFilterOptions.sortBy[0] || "");
       filterParams.append("energySource", selectedFilterOptions.energySource.join(",").toUpperCase());
       filterParams.append("searchWord", selectedFilterOptions.search || "");
-      console.log("searchWord: ", selectedFilterOptions.search);
-      console.log("searchWord: ", selectedFilterOptions.search);
-      console.log("searchWord: ", selectedFilterOptions.search);
-      console.log("searchWord: ", selectedFilterOptions.search);
-      console.log("searchWord: ", selectedFilterOptions.search);
       filterParams.append("minPricePerDay", minPrice || 0);
       filterParams.append("maxPricePerDay", maxPrice || Number.MAX_SAFE_INTEGER);
       filterParams.append("pickupLocation", selectedFilterOptions.pickupLocation || "OSLO");

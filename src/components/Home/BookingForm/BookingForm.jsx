@@ -206,6 +206,9 @@ const BookingForm = ({
     setIsPickupFieldValid(true);
 
     onSave();
+
+    console.log("Pre Booking data:", bookingData);
+
     setBookingData({
       ...bookingData,
       pickupLocation: pickupLocationValue,
@@ -215,6 +218,8 @@ const BookingForm = ({
       pickupTime,
       dropoffTime
     });
+
+    console.log("Post Booking data:", bookingData);
   };
 
   useEffect(() => {
