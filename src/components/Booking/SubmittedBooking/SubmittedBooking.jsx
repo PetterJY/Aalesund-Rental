@@ -1,11 +1,12 @@
 import React from "react";
+import "./SubmittedBooking.css";
 
 const SubmittedBooking = () => {
   return (
     <main className="submitted-booking-page">
-      <h1>Booking Submitted Successfully!</h1>
+      <h1 className="completed-booking-message">Booking Submitted Successfully!</h1>
       <p>Thank you for your booking. We will process it shortly.</p>
-      <a href="/public">Go back to the homepage</a>
+      <a href="/account/orders">View your orders</a>
     </main>
   );
 };
