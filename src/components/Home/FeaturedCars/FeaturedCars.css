@@ -94,6 +94,13 @@
   padding: 40px 32px;
 }
 
+.featured-cars.next .featured-car {
+  animation: slideLeft 0.5s;
+}
+.featured-cars.prev .featured-car {
+  animation: slideRight 0.5s;
+}
+
 .featured-cars-controls {
   display: flex;
   flex-direction: row;
@@ -142,6 +149,4 @@
   width: 100%;
   height: 100%;
 }
-
-/* When width gets smaller, only shows one car in the middle */
 
