@@ -42,6 +42,9 @@ const DropDownMenuMenu = ({ toggleDropdownMenu, isDropdownVisible, navigate, han
         {role === 'ROLE_USER' && (
           <li onClick={() => navigate('/account/favourites')}>Favourites</li>
         )}
+        {role === 'ROLE_ADMIN' && (
+          <li onClick={() => navigate('/account/admin-rentals')}>Rentals</li>
+        )}
         <li onClick={handleLogout}>Logout</li>
       </ul>
     </div>
