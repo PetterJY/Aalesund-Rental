@@ -50,6 +50,7 @@ useEffect(() => {
   const handlePreviousClick = () => {
     if (isButtonDisabled) return;
 
+
     setCardOrder(prev => [prev[prev.length - 1], ...prev.slice(0, -1)]);
     setIsButtonDisabled(true);
     setTimeout(() => {
@@ -114,17 +115,16 @@ useEffect(() => {
         <h1>Our Featured Cars</h1>
         <div className="featured-cars-with-controls">
           <div className="featured-cars">
-            {cardOrder.map((orderIdx, idx) => {
-              const car = cars[orderIdx];
-              console.log(car);
+            {cardOrder.map((id) => {
+              const car = cars[id];
               if (!car) return null;
               return (
                 <div
                   key={car.id}
                   onMouseEnter={pauseAutoplay}
                   onMouseLeave={resumeAutoplay}
-                  className={`featured-car ${isCardActive(idx) ? 'active' : ''} ${getCardPosition(idx)}`}
-                  id={`featured-car-${idx + 1}`}
+                  className={`featured-car ${isCardActive(id) ? 'active' : ''} ${getCardPosition(id)}`}
+                  id={`featured-car-${id}`}
                 >
                   <img
                     src={mapCarImage(car.carBrand, car.modelName)}
