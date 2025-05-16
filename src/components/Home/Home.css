@@ -74,11 +74,12 @@ html, body {
   position: fixed;
   width: 90vw;
   max-width: 1600px;
-  z-index: -20; /* Changed to a neutral value instead of -2 */
+  z-index: -200000;
   margin: 70vh auto;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  pointer-events: none;
 }
 
 .hero-call-to-action h1 {
