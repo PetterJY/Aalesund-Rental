@@ -75,7 +75,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
           >
             <Star
               size={28}
-              color={isFavourited ? "#ee9922" : "#EEE"}
+              color={isFavourited ? "#eee" : "#EEE"}
               weight={isFavourited ? "fill" : "regular"}
             />
           </button>

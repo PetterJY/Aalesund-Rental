@@ -55,12 +55,14 @@ public class AddDummyObjectsToDatabase {
 		addUser("Sophia", "Anderson", "sophia.anderson@example.com", "password222", "66778899");
 		addUser("Michael", "Thomas", "michael.thomas@example.com", "password333", "77889900");
 		addUser("Olivia", "Martinez", "olivia.martinez@example.com", "password444", "99001122");
+		addUser("dave", "dave", "dave", "Dangerous2024", "12312312");
 
 		logger.info("Finished adding renters to the database.");
 
 		logger.info("Adding admins to the database.");
 
 		addAdmin("Admin", "admin@admin.com", "admin123");
+		addAdmin("chuck", "chuck", "Nunchucks2024");
 
 		logger.info("Finished adding admins to the database.");
 
@@ -99,6 +101,7 @@ public class AddDummyObjectsToDatabase {
 		addExtraFeature("Metallic Paint", "Metallic paint for a shiny finish.");
 		addExtraFeature("Five Doors", "Five doors for easy access.");
 		addExtraFeature("Economic", "Economic car for fuel efficiency.");
+		addExtraFeature("Solar Roof", "Solar roof for energy efficiency.");
 
 		logger.info("Finished adding extra features to the database.");
 

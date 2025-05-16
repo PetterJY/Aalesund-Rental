@@ -12,6 +12,7 @@ import Account from './Account/Account';
 import Orders from './Account/Orders/Orders';
 import MyRentals from './Account/MyRentals/MyRentals';
 import Favourites from './Account/Favourites/Favourites';
+import AboutUs from './AboutUs/AboutUs';
 import PageNotFound from './PageNotFound/PageNotFound';
 import './App.css';
 
@@ -37,6 +38,7 @@ function App() {
               <Route path="favourites" element={<Favourites />} />
             </Route>
 
+            <Route path="about-us" element={<AboutUs />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
