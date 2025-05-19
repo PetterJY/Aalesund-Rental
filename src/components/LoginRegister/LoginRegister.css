@@ -10,7 +10,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--neutral-color-hover);
 }
 
 .modal-content {
@@ -24,7 +24,7 @@
 
 #submit-button {
   padding: 20px;
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 15px;
@@ -43,7 +43,7 @@
 .toggle-login-register-button, .forgot-password-button {
   border-radius: 15px;
   background-color: transparent;
-  color: #252422;
+  color: var(--main-color);
   border: none;
   width: auto;
   height: fit-content;
@@ -51,12 +51,12 @@
 
 .toggle-login-register-button:hover, .forgot-password-button:hover {
   text-decoration: underline;
-  color: #FF5F00; /* Darker green on hover */
+  color:var(--secondary-color); /* Darker green on hover */
   background-color: transparent; /* Ensure no background color on hover */
 }
 
 #submit-button:hover {
-  background-color: #eb5f28c9;
+  background-color: var(--secondary-color-hover);
 }
 
 .title {
@@ -81,6 +81,6 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
   box-shadow: 0 0 0px 1000px white inset !important;
-  -webkit-text-fill-color: #000 !important;
+  -webkit-text-fill-color: black !important;
   transition: background-color 5000s ease-in-out 0s;
 }

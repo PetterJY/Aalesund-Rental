@@ -15,14 +15,14 @@
 }
 
 .car-display:hover {
-  outline: #252422 3px solid;
+  outline: var(--main-color) 3px solid;
   outline-offset: 3px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: 0.1s;
 }
 
 .car-display.selected {
-  outline: #EB5E28 3px solid;
+  outline: var(--secondary-color) 3px solid;
   outline-offset: 3px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: 0.1s;
@@ -41,7 +41,7 @@
 }
 
 .car-display .car-name {
-  color: #ffffff;
+  color: white;
   margin: 0 0 0 10px;
 }
 
@@ -69,7 +69,7 @@
 }
 
 .car-display .car-tag {
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,7 +104,7 @@
 }
 
 .car-display #price-total {
-  color: #CCC5B9;
+  color: var(--hover-color-darker);
   margin-left: 10px;
 }
 
@@ -121,14 +121,14 @@
 .car-display .favourite-btn {
     background: none;
   border: none;
-  color: #ccc;
+  color: var(--hover-color-darker);
   cursor: pointer;
   margin-top: 8px;
   transition: color 0.2s;
 }
 .car-display .favourite-btn.favourited,
 .car-display .favourite-btn:hover {
-  color: #EB5E28;
+  color: var(--secondary-color);
 }
 
 .selected-arrow {

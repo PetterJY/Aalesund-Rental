@@ -6,7 +6,7 @@
   max-width: 2560px;
   height: fit-content;
   /*box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.7);*/
-  background-color: #262627;
+  background-color: var(--main-color);
 
 }
 
@@ -65,7 +65,7 @@
 
 .quote-icon {
   color: white;
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   position: absolute;
   transform: translateY(-250%);
   border-radius: 24px 6px 24px 6px;
@@ -110,7 +110,7 @@
 }
 
 .prev-button, .next-button {
-  background-color: rgba(26, 26, 26, 1);
+  background-color: var(--main-color);
   display: flex;
   height: 36px;
   width: 36px;
@@ -145,7 +145,7 @@
   width: 275px;
   background-image: url("../../../resources/images/testimonial-wave.webp");
   background-repeat: no-repeat;
-  background-color: #F4F4F9;
+  background-color: var(--background-color);
   background-blend-mode: luminosity; /* Or 'multiply', 'screen', etc. */
   background-position: center -100px; /* Moves image 50px down from top */
   background-size: 300%; /* Zooms to 150% of original size */

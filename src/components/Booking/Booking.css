@@ -4,7 +4,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #252422;
+  background-color: var(--main-color);
 }
 
 /* Main Content Styles */
@@ -87,9 +87,9 @@ body {
 .booking-page form input, 
 .booking-page form select, 
 .booking-page form textarea {
-  background-color: #ffffff;
+  background-color: white;
   border: none;
-  border-bottom: 2px solid #FF5F00;
+  border-bottom: 2px solid var(--secondary-color);
   margin-bottom: 15px;
   padding: 10px;
 }
@@ -124,16 +124,16 @@ body {
 }
 
 .booking-page .book-now-button {
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   cursor: pointer;
 }
 
 .booking-page .book-now-button:hover {
-  background-color: #eb5f28c9;
+  background-color: var(--secondary-color-hover);
 }
 
 .booking-page .book-now-button:disabled {
-  background-color: grey;
+  background-color: var(--neutral-color);
   cursor: not-allowed;
 }
 
@@ -144,7 +144,7 @@ body {
 
 /* Car Information Styles */
 .booking-page p {
-  color: #252422;
+  color: var(--main-color);
 }
 
 .booking-page .car-information-form {
@@ -164,7 +164,7 @@ body {
 .booking-page .car-rental-details {
   grid-column: 2;
   grid-row: 1;
-  color: #252422;
+  color: var(--main-color);
   padding-left: 10px;
 }
 
@@ -226,7 +226,7 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
-  color: #252422;
+  color: var(--main-color);
   margin-top: auto;
   gap: 1px;
   padding-left: 25px;
@@ -243,15 +243,15 @@ body {
 }
 
 .booking-page h2 {
-  color: #252422;
+  color: var(--main-color);
 }
 
 .booking-page form h2 {
-  color: #252422;
+  color: var(--main-color);
 }
 
 .booking-page form label {
-  color: #252422;
+  color: var(--main-color);
 }
 
 .booking-page form div {

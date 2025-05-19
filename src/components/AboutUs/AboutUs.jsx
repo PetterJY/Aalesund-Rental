@@ -16,7 +16,7 @@ const AboutUs = () => (
 
     <section className="aboutus-section">
       <h2>
-        <RocketLaunch size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "#FF5F00" }} />
+        <RocketLaunch size={24} style={{ verticalAlign: "middle", marginRight: 8, color: " var(--secondary-color)" }} />
         Our Mission
       </h2>
       <p>
@@ -28,7 +28,7 @@ const AboutUs = () => (
 
     <section className="aboutus-section">
       <h2>
-        <PencilLine size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "#EB5E28" }} />
+        <PencilLine size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "var(--secondary-color)" }} />
         What We Do
       </h2>
       <p>
@@ -40,7 +40,7 @@ const AboutUs = () => (
 
     <section className="aboutus-section">
       <h2>
-        <CarProfile size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "#FF5F00" }} />
+        <CarProfile size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "var(--secondary-color)" }} />
         For Providers
       </h2>
       <p>
@@ -52,7 +52,7 @@ const AboutUs = () => (
 
     <section className="aboutus-section">
       <h2>
-        <Book size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "#EB5E28" }} />
+        <Book size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "var(--secondary-color)" }} />
         Our Story
       </h2>
       <p>
@@ -63,7 +63,7 @@ const AboutUs = () => (
 
     <section className="aboutus-section">
       <h2>
-        <UsersThree size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "#FF5F00" }} />
+        <UsersThree size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "var(--secondary-color)" }} />
         Meet the Team
       </h2>
       <ul className="aboutus-team-list">
@@ -75,7 +75,7 @@ const AboutUs = () => (
 
     <section className="aboutus-section">
       <h2>
-        <AddressBook size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "#EB5E28" }} />
+        <AddressBook size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "var(--secondary-color)" }} />
         Contact Us
       </h2>
       <p>

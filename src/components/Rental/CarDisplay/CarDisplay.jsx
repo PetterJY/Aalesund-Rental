@@ -88,7 +88,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
       />
       {isSelected && (
         <div className="selected-arrow">
-          <CaretDown size={24} color="#EB5E28" weight="fill" />
+          <CaretDown size={24} color="var(--secondary-color)" weight="fill" />
         </div>
       )}
       

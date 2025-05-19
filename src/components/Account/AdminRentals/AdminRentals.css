@@ -7,8 +7,8 @@
   width: 250px;
   border-right: 1px solid #eee;
   padding: 24px 16px;
-  background: #fafafa;
-  color: #252422;       
+  background: var(--background-color);
+  color: var(--main-color);       
 }
 
 .admin-rentals-layout .providers-list ul {
@@ -24,8 +24,8 @@
 }
 
 .admin-rentals-layout .providers-list li.selected {
-  background: #EB5E28;
-  color: #fff;
+  background: var(--secondary-color);
+  color: var(--background-color);
   border-radius: 6px;
   padding-left: 8px;
 }
@@ -37,7 +37,7 @@
 }
 
 .admin-rentals-layout .provider-cars-list p {
-  color: #252422;
+  color: var(--main-color);
 }
 
 .admin-rentals-layout .providers-list input[type="text"] {

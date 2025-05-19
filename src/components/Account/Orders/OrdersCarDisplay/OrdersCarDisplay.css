@@ -6,7 +6,7 @@
   margin-bottom: 10px;
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  border: #252422 2px solid;
+  border: var(--main-color) 2px solid;
 }
 
 .orders-car-display-card:hover {
@@ -50,7 +50,7 @@
 }
 
 .orders-car-display-card #provider-name {
-  color: #ffffff;
+  color: white;
   margin-left: 10px;
   margin-top: -20px;
 }
@@ -64,13 +64,13 @@
 .orders-car-display-card .car-details h3 {
   margin: 0;
   padding: 0;
-  color: #252422;
+  color: var(--main-color);
 }
 
 .orders-car-display-card .car-details p {
   margin: 3px 0;
   padding: 0;
-  color: #252422;
+  color: var(--main-color);
 }
 
 .orders-car-display-card .rental-schedule-container {
@@ -105,7 +105,7 @@
 .orders-car-display-card .cancel-order{
   display: flex;
   flex-direction: row;
-  background-color: #252422;
+  background-color: var(--main-color);
   border-radius: 10px;  
   color: white;
   border: none;
@@ -117,13 +117,13 @@
 }
 
 .orders-car-display-card .cancel-order:hover {
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   transition: 0.3s;
 }
 
 /*chenges color when pressed*/
 .orders-car-display-card .cancel-order:active {
-  background-color: #252422;
+  background-color: var(--main-color);
   transition: 0.1s;
 }
 
@@ -175,7 +175,7 @@
   .orders-car-display-card .cancel-order{
     display: flex;
     flex-direction: row;
-    background-color: #252422;
+    background-color: var(--main-color);
     border-radius: 10px;  
     color: white;
     border: none;

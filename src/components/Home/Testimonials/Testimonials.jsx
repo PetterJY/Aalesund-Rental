@@ -115,7 +115,7 @@ const Testimonials = () => {
             className={`testimonial ${isCardActive(2) ? 'active' : ''} ${getCardPosition(2)}`}
             id="testimonial-3">
             <Quotes weight="fill" className="quote-icon"/>
-            <p className="testimonial-quote">"Sometimes cars make me happy, other times Ålesund Rental makes me even happier!"</p>
+            <p className="testimonial-quote">"Sometimes cars make me happy, other times Norwegian Rental makes me even happier!"</p>
             <p className="testimonial-name">- John Doe</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>
@@ -136,7 +136,7 @@ const Testimonials = () => {
             id="testimonial-5">
             <Quotes weight="fill" className="quote-icon"/>
             <p className="testimonial-quote">"Car goes "Wrooooooom""</p>
-            <p className="testimonial-name">- John Doe</p>
+            <p className="testimonial-name">- Jon Flesk</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>
         </div>

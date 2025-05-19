@@ -36,7 +36,7 @@
 
 .slider-range {
   position: absolute;
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   height: 33%;
   top: 50%;
   transform: translateY(-50%);
@@ -59,7 +59,7 @@
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background: #FF5F00;
+  background: var(--secondary-color);
   top: 50%;
   transform: translate(-69%, -13%);
   cursor: pointer;
@@ -71,7 +71,7 @@
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background: #FF5F00;
+  background: var(--secondary-color);
   cursor: pointer;
   border: none;
   pointer-events: auto;

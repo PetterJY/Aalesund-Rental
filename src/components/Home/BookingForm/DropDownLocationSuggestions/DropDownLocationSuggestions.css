@@ -3,8 +3,8 @@
   top: 100%;           /* Place directly below the input */
   left: 0;
   z-index: 100;
-  background: #fff;
-  border: 1px solid #d1d5db;
+  background: white;
+  border: 1px solid var(--neutral-color);
   border-radius: 12px;
   margin-top: 6px;
   width: 100%;
@@ -22,7 +22,7 @@
 
 .dropdown-suggestion-item:hover,
 .dropdown-suggestion-item:focus {
-  background: #f3f4f6;
-  color: #FF5F00;
+  background: var(--hover-color);
+  color: var(--secondary-color);
   outline: none;
 }

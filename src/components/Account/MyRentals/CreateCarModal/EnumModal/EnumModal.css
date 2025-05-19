@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--neutral-color-hover);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,13 +12,13 @@
 }
 
 .enum-modal .modal-content {
-  background: #fff;
+  background: var(--background-color);
   padding: 20px;
   border-radius: 8px;
   width: 400px;
   max-height: 80%;
   overflow-y: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px var(--neutral-color-hover);
   position: relative;
 }
 
@@ -74,7 +74,7 @@
 }
 
 .enum-modal .enum-item input[type="radio"]:checked {
-  border-color: #FF5F00;
+  border-color: var(--secondary-color);
   background-color: white;
 }
 
@@ -82,7 +82,7 @@
   content: ""; /* Inner circle */
   width: 14px; /* Size of the inner circle */
   height: 14px;
-  background-color: #FF5F00; /* Inner circle color */
+  background-color: var(--secondary-color); /* Inner circle color */
   border-radius: 50%; /* Make it circular */
   position: absolute;
   top: 50%;
@@ -93,7 +93,7 @@
 
 
 .enum-modal .enum-item input[type="radio"]:hover {
-  border-color: #FF5F00;
+  border-color: var(--secondary-color);
 }
 
 .enum-modal .enum-item input[type="checkbox"] {
@@ -110,8 +110,8 @@
 }
 
 .enum-modal .enum-item input[type="checkbox"]:checked {
-  border-color: #FF5F00;
-  background-color: #FF5F00;
+  border-color: var(--secondary-color);
+  background-color: var(--secondary-color);
 }
 
 .enum-modal .enum-item input[type="checkbox"]:checked::after {
@@ -124,16 +124,16 @@
 }
 
 .enum-modal .enum-item input[type="checkbox"]:hover {
-  border-color: #FF5F00;
+  border-color: var(--secondary-color);
 }
 
 .enum-modal .enum-item input[type="checkbox"]:checked:hover {
-  background-color: #FF5F00bb;
-  border-color: #FF5F00bb;
+  background-color: var(--secondary-color-hover);
+  border-color: var(--secondary-color-hover);
 }
 
 .enum-modal .confirm-button {
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   color: white;
   border-radius: 5px;
   padding: 10px 15px;
@@ -144,11 +144,11 @@
 }
 
 .enum-modal .confirm-button:hover {
-  background-color: #E65500;
+  background-color: var(--secondary-color-hover);
   transform: scale(1.05);
 }
 
 .enum-modal .confirm-button:active {
-  background-color: #CC4A00;
+  background-color: var(--secondary-color-active);
   transform: scale(0.95);
 }

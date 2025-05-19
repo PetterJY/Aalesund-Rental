@@ -5,7 +5,7 @@
   max-width: 2560px;
   display: flex;
   flex-direction: column;
-  background-color: #262627;
+  background-color: var(--main-color);
   align-items: center;
 
 }

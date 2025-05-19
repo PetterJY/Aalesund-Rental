@@ -7,7 +7,7 @@
 }
 
 .pagination-controls button {
-  background-color: #FF5F00; 
+  background-color: var(--secondary-color); 
   color: white;
   border: none;
   border-radius: 5px;
@@ -17,14 +17,14 @@
 }
 
 .pagination-controls button:disabled {
-  background-color: #cccccc; 
+  background-color: var(--neutral-color); 
   cursor: not-allowed;
 }
 
 .pagination-controls button:not(:disabled):hover {
-  background-color: #E65500;
+  background-color: var(--secondary-color-hover);
 }
 
 .pagination-controls span {
-  color: #333; 
+  color: var(--main-color); 
 }

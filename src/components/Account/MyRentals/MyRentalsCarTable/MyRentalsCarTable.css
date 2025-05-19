@@ -1,13 +1,13 @@
 .rentals-details-table {
   margin: 10px 0 40px 0;
-  border: #252422 2px solid;
+  border: var(--main-color) 2px solid;
   border-radius: 10px 10px 0 0;
-  background-color: #252422;
+  background-color: var(--main-color);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .rentals-details-table thead {
-  background-color: #252422;
+  background-color: var(--main-color);
   color: white;
   padding: 10px;
   border-radius: 10px;
@@ -31,22 +31,22 @@
 
 .rentals-details-table tbody {
   background-color: white;
-  color: #252422;
+  color: var(--main-color);
   text-align: center;
   border-radius: 20px;
 }
 
 .rentals-details-table tbody tr {
-  border-bottom: 1px solid #252422;
+  border-bottom: 1px solid var(--main-color);
 }
 .rentals-details-table tbody tr:hover {
-  background-color: #f2f2f2;
+  background-color: var(--hover-color);
   cursor: pointer;
 }
 
 .rentals-details-table tbody td:hover{
-  outline: #EB5E28 2px solid;
-  background-color: #e8e8e8;
+  outline: var(--secondary-color) 2px solid;
+  background-color: var(--hover-color);
   outline-offset: -2px;
   cursor: pointer;
 }
@@ -88,7 +88,7 @@
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 10px;
-    border: #252422 2px solid;
+    border: var(--main-color) 2px solid;
 
   }
 
@@ -96,7 +96,7 @@
     display: block;
     width: 100%;
     text-align: left;
-    border-bottom: 1px solid #252422;
+    border-bottom: 1px solid var(--main-color);
   }
 
 }

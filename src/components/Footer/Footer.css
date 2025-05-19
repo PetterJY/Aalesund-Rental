@@ -5,7 +5,7 @@
 }
 
 .footer-container {
-  background-color: #252422;
+  background-color: var(--main-color);
   display: flex;
   flex-direction: row;
   justify-content: space-evenly; /* Space between sections */
@@ -197,6 +197,6 @@
 
   .footer-section .dropdown.visible {
     opacity: 1;
-    background-color: #252422;
+    background-color: var(--main-color);
   }
 }

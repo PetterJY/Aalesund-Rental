@@ -50,7 +50,7 @@
 }
 
 .aboutus-section a:hover {
-  color: #c94c1f;
+  color: var(--secondary-color);
   text-decoration: underline;
 }
 
@@ -86,19 +86,11 @@
   }
 }
 
-/* Accessibility Enhancements */
 :focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 3px;
 }
 
-.aboutus-section a:focus {
-  background-color: rgba(235, 94, 40, 0.1);
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-}
-
-/* Subtle Animations */
 .aboutus-section {
   opacity: 0;
   transform: translateY(20px);

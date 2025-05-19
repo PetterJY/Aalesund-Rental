@@ -128,7 +128,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
                       className="toggle-password-button"
                       onClick={togglePasswordVisibility}
                     >
-                      {passwordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                      {passwordVisible ? <EyeSlash color="var(--secondary-color)" /> : <Eye color="var(--secondary-color)" />}
                     </button>
                   </div>
 

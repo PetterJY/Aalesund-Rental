@@ -1,9 +1,3 @@
-
-:root {
-  --text-box-color: #F4F4F9;
-  --text-box-hover-color: #efeff4;
-}
-
 .rental-page {
   padding-left: 16px;
   padding-right: 16px;
@@ -53,7 +47,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #1A1A1A;
+  background-color: var(--main-color);
   opacity: 1;
   z-index: 0; /* Behind the logo but above the container background */
   border-radius: 12px;
@@ -87,7 +81,7 @@
 }
 
 .rental-page .search-cars-field.selected {
-  border: 3px solid #FF5F00;
+  border: 3px solid var(--secondary-color);
   padding: 4px 10px;
 }
 
@@ -95,14 +89,14 @@
   width: 100%;
   outline: none;
   border: none;
-  caret-color: #FF5F00;
+  caret-color: var(--secondary-color);
   line-height: 150%;
   margin: 0 0 0 6px;
 }
 
   .car-search-input-field:focus {
     outline: none;
-    caret-color: #FF5F00;
+    caret-color: var(--secondary-color);
   }
 
 
@@ -122,17 +116,17 @@
 
 .rental-page .sort-button {
   background-color: white;
-  color: #252422;
+  color: var(--main-color);
   position: relative;
   width: auto;
   height: auto;
   margin-right: 10px;
   border: none;
-  border-bottom: #252422 1px solid;
+  border-bottom: var(--main-color) 1px solid;
 }
 
 .rental-page .sort-button:hover {
-  border-bottom: #EB5E28 1px solid;
+  border-bottom: var(--secondary-color) 1px solid;
 }
 
 
@@ -175,16 +169,16 @@
 
 .rental-page .panel-sort-button {
   background-color: white;
-  color: #252422;
+  color: var(--main-color);
   width: 100%;
   margin: 10px 0;
   padding: 8px;
   border: none;
-  border-bottom: #252422 1px solid;
+  border-bottom: var(--main-color) 1px solid;
 }
 
 .rental-page .panel-sort-button:hover {
-  border-bottom: #EB5E28 1px solid;
+  border-bottom: var(--secondary-color) 1px solid;
 }
 
 .rental-page .close-button {
@@ -192,7 +186,7 @@
   width: 90vw;
   height: 50px;
   border-radius: 12px;
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   padding: 5px 24px;
@@ -204,13 +198,13 @@
   display: flex;
   align-items: center;
   margin: 0; /* Remove default margin to rely on gap for spacing */
-  color: #252422;
+  color: var(--main-color);
   cursor: pointer;
   border-radius: 6px;
 }
 
 .rental-page .checkbox-label span {
-  color: #252422;
+  color: var(--main-color);
   padding: 8px 12px;
   cursor: pointer;
   border-bottom: white 1px solid;
@@ -221,7 +215,7 @@
   background-color: var(--text-box-color);
   width: 90%;
   border-radius: 12px;
-  color: #252422;
+  color: var(--main-color);
   padding: 12px 24px;
   cursor: pointer;
   border-bottom: white 1px solid;
@@ -238,14 +232,14 @@
   display: flex;
   align-items: center;
   margin: 5px 0;
-  color: #252422;
+  color: var(--main-color);
   cursor: pointer;
   accent-color: white;
 }
 
 .rental-page .checkbox-label input {
   margin-right: 8px;
-  accent-color: #FF5F00;
+  accent-color: var(--secondary-color);
 }
 
 /* hides the checkbox visually but remains accessible to screen readers */
@@ -257,7 +251,7 @@
 .rental-page .checkbox-label span {
   background-color: var(--secondary-button-color);
   border-radius: 12px;
-  color: #252422;
+  color: var(--main-color);
   padding: 12px 24px;
   cursor: pointer;
 }
@@ -267,7 +261,7 @@
 }
 
 .rental-page .checkbox-label input:checked + span {
-  background-color: #252422;
+  background-color: var(--main-color);
   color:white;
 
 }
@@ -335,8 +329,8 @@
 }
 
 .rental-page .clear-button {
-  background-color: #efeff4;
-  color: #252422;
+  background-color: var(--hover-color);
+  color: var(--main-color);
   border: none;
   padding: 8px 12px;
   border-radius: 16px;
@@ -344,13 +338,13 @@
 }
 
 .rental-page .clear-button:hover {
-  background-color: #dedeec;
-  color: #252422;
+  background-color: var(--hover-color-darker);
+  color: var(--main-color);
 }
 
 .rental-page .clear-button-mobile{
-  background-color: #efeff4;
-  color: #252422;
+  background-color: var(--hover-color);
+  color: var(--main-color);
   border: none;
   padding: 8px 12px;
   border-radius: 16px;
@@ -358,8 +352,8 @@
 }
 
 .rental-page .clear-button-mobile:hover {
-  background-color: #dedeec;
-  color: #252422;
+  background-color: var(--hover-color-darker);
+  color: var(--main-color);
 }
 
 
@@ -427,13 +421,13 @@
     display: flex;
     align-items: center;
     margin: 0; /* Remove default margin to rely on gap for spacing */
-    color: #252422;
+    color: var(--main-color);
     cursor: pointer;
     border-radius: 6px;
   }
 
   .rental-page .checkbox-label span {
-    color: #252422;
+    color: var(--main-color);
     padding: 8px 12px;
     cursor: pointer;
     border-bottom: white 1px solid;

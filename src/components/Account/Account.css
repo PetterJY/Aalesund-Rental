@@ -20,13 +20,13 @@
 
 .account-section h1 {
   margin-bottom: 20px;
-  color: #252422;
+  color: var(--main-color);
 }
 
 .account-section h2 {
   margin-bottom: 20px;
-  color: #252422;
-  border-bottom: #EB5E28 1px solid;
+  color: var(--main-color);
+  border-bottom: var(--secondary-color) 1px solid;
 }
 
 .account-section h3 {
@@ -36,7 +36,7 @@
 .account-section input[type="text"] {
   background-color: white;
   border: none;
-  border-bottom: 1px solid #252422;
+  border-bottom: 1px solid var(--main-color);
   margin-bottom: 15px;
   margin-top: 10px;
   padding-left: 0px;
@@ -48,7 +48,7 @@
 }
 
 .account-section .save-button {
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   color: white;
   border-radius: 25px;
   border: none;
@@ -60,11 +60,11 @@
 
 .account-section .save-button:hover {
   transition: 0.3s;
-  background-color: #eb5f2899;
+  background-color: var(--secondary-color-hover);
 }
 
 .account-section .save-button:active {
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   transform: scale(0.95);
 }
 
@@ -78,7 +78,7 @@
 .account-section .bottom-button {
   background-color: transparent;
   border-radius: 0%;
-  color: #252422;
+  color: var(--main-color);
   padding: 10px 10px;
   border: none;
   cursor: pointer;
@@ -88,8 +88,8 @@
 
 .account-section .bottom-button:hover {
   background-color: transparent;
-  color: #EB5E28;
-  border-bottom: 1px solid #EB5E28;
+  color: var(--secondary-color);
+  border-bottom: 1px solid var(--secondary-color);
   border-radius: 0%;
   transition: 0.3s;
 }

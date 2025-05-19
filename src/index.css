@@ -3,19 +3,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
 
 :root {
-   /* Color variables */
   --main-color: #1A1A1A;
-  --secondary-color: #EB5E28;
+  --secondary-color: #FF5F00;
+  --secondary-color-hover: #FF5F00c9;
+  --secondary-color-active: #FF5F00e6;
   --background-color: #F4F4F9;
   --hover-color: #efeff4;
+  --hover-color-darker: #d6d6dc;
+  --neutral-color: #1a1a1aa0;
+  --neutral-color-hover: #1a1a1a70;
 
-  /* Button styles */
-
-  /* Main buttons*/
   --main-button-hover-color: var(--secondary-color);
   --main-button-text-color: white;
 
-  /* Secondary buttons*/
   --secondary-button-color: rgb(243, 243, 250);
   --secondary-button-hover-color: rgb(230, 230, 240);
   --secondary-button-checked-color: var(--main-color);
@@ -135,7 +135,7 @@ button {
 .input-field:focus {
   outline: none;
   background-color: white;
-  border-bottom: #FF5F00 solid 2px;
+  border-bottom: var(--secondary-color) solid 2px;
 }
 
 .toggle-password-button-container {
@@ -157,7 +157,7 @@ button {
 .password-input-field:focus {
   outline: none;
   background-color: white;
-  border-bottom: #FF5F00 solid 2px;
+  border-bottom: var(--secondary-color) solid 2px;
 }
 
 .toggle-password-button {
@@ -168,7 +168,7 @@ button {
   background: none;
   border: none;
   cursor: pointer;
-  color: #FF5F00;
+  color: var(--secondary-color);
 }
 
 .error-message {

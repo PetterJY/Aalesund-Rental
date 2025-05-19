@@ -22,7 +22,7 @@
 
 .cta-button {
   background-color: white;
-  color: #FF5733;
+  color: var(--secondary-color);
   font-weight: var(--font-weight-bold);
   padding: 12px 24px;
   border: none;
@@ -32,6 +32,6 @@
 }
 
 .cta-button:hover {
-  background-color: #f0f0f0;
+  background-color: var(--hover-color);
   transform: scale(1.05);
 }

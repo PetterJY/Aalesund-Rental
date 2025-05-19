@@ -10,8 +10,8 @@
   align-self: flex-end;
   height: fit-content;
   width: fit-content;
-  background-color: #EB5E28;
-  color: #fff;
+  background-color: var(--secondary-color);
+  color: white;
   border: none;
   padding: 10px 70px;
   margin: 10px 20px;
@@ -21,12 +21,12 @@
 }
 
 .car-selected .next-button:hover{
-  background-color: #eb5f28c9;
+  background-color: var(--secondary-color-hover);
   transition: 0.3s;
 }
 
 .car-selected .next-button:active {
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   transition: 0.3s;
   transform: scale(0.95);
 }
@@ -55,14 +55,14 @@
 
 .car-selected #car-background h2 {
   width: 350px;
-  color: #fffcf2;
+  color: var(--background-color);
   margin-bottom: 10px;
   margin-left: 20px;
 }
 
 .car-selected #car-background h3 {
   margin-left: 20px;
-  color: #fffcf2;
+  color: var(--background-color);
   margin-bottom: 10px;
 }
 
@@ -70,9 +70,9 @@
   margin-left: auto;
   height: 25px;
   width: 80px;
-  color: #fffcf2;
+  color: var(--background-color);
   margin-bottom: 5px;
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   border-radius: 25px;
   text-align: center;
   padding: 5px 10px 0px 10px;
@@ -87,7 +87,7 @@
 
 
 b {
-  color: #252422;
+  color: var(--main-color);
 }
 .car-selected #car-background footer {
   background-color: transparent;
@@ -113,7 +113,7 @@ b {
 
 .car-selected .car-rental-economics h4 {
   margin: 10px 0 0 0;
-  color: #252422;
+  color: var(--main-color);
 }
 
 .car-selected .car-info {
@@ -135,7 +135,7 @@ b {
 
 .car-selected #extra-features-button {
   background-color: transparent;
-  color: #252422;
+  color: var(--main-color);
   border: none;
   cursor: pointer;
   width: 200px;
@@ -152,7 +152,7 @@ b {
   margin-top: 0px;
   padding-left: 85px;
   list-style-type: disc;
-  color: #252422;
+  color: var(--main-color);
   border-radius: 5px; /* Optional: Add rounded corners */
   list-style-type: none;
   margin-bottom: 0px;
@@ -209,7 +209,7 @@ b {
     align-items: center;
     width: 89.5%;
     margin-top: -40px;
-    border: #252422 2px solid;
+    border: var(--main-color) 2px solid;
     border-top: none;
     box-shadow: none;
   }
