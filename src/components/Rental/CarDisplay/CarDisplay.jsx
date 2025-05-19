@@ -9,6 +9,8 @@ import { Car, Seatbelt, PlusCircle, CaretDown, Star } from "@phosphor-icons/reac
 const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
   const [isFavourited, setIsFavourited] = useState(false);
   const carImage = mapCarImage(car.carBrand, car.modelName);
+  const rentalDays = car.rentalDays || 1; // fallback to 1 if not present
+  const totalPrice = car.priceTotal || (car.pricePerDay * rentalDays);
 
   
   
@@ -97,7 +99,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
         </h2>
         <section className="price-section">
           <h2 id="price-day">{car.pricePerDay},-kr/dag</h2>
-          <h2 id="price-total">{car.priceTotal},-kr/total</h2>
+          <h2 id="price-total">{totalPrice},-kr/total</h2>      
         </section>
       </section>
     </button> 

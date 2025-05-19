@@ -6,6 +6,8 @@ import '../../App.css';
 
 const AccountHeader = () => {
   const location = useLocation(); 
+  const isAdmin = getRole() === 'ROLE_ADMIN';
+  const isAdminAccountPage = isAdmin && location.pathname === '/account/admin-rentals';
 
   const [role, setRole] = useState('');
 

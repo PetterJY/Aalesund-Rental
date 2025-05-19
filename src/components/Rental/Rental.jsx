@@ -50,22 +50,22 @@ export default function Rental() {
 
 
   const handleClearFilters = () => {
-    setSelectedFilterOptions({
-      sortBy: [],
-      carType: [],
-      transmission: [],
-      passengers: [],
-      energySource: [],
-      search: "",
-      minPrice: null,
-      maxPrice: null,
-      pickupLocation: bookingData.pickupLocation,
-      pickupDate: bookingData.pickupDate,
-      dropoffDate: bookingData.dropoffDate,
-    });
-    setMinPrice(0);
-    setMaxPrice(maxCarRentalPrice);
-  };
+  setSelectedFilterOptions({
+    sortBy: [],
+    carType: [],
+    transmission: [],
+    passengers: [],
+    energySource: [],
+    search: "",
+    minPrice: null,
+    maxPrice: null,
+    pickupLocation: bookingData.pickupLocation,
+    pickupDate: bookingData.pickupDate,
+    dropoffDate: bookingData.dropoffDate,
+  });
+  setMinPrice(0);
+  setMaxPrice(maxCarRentalPrice);
+};
 
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
 
@@ -162,7 +162,7 @@ export default function Rental() {
     ],
   };
 
-  const [selectedFilterOptions, setSelectedFilterOptions] = useState({
+const [selectedFilterOptions, setSelectedFilterOptions] = useState({
     sortBy: [],
     carType: [],
     transmission: [],
@@ -188,28 +188,28 @@ export default function Rental() {
     fetchCarData();
   }, [bookingData]);
 
-  useEffect(() => {
-    const handleClickOutsideFilterComponent = (event) => {
-      const selectedFilterComponentCopy = { ...selectedFilterComponent };
+useEffect(() => {
+  const handleClickOutsideFilterComponent = (event) => {
+    const selectedFilterComponentCopy = { ...selectedFilterComponent };
 
-      Object.keys(filterRefs).forEach((key) => {
-        if (
-          filterRefs[key].current &&
-          !filterRefs[key].current.contains(event.target) &&
-          !event.target.closest(`#${key}-checkbox`)
-        ) {
-          toggleDropdown(null); // Close the dropdown
-          selectedFilterComponentCopy[key] = false; // Mark the filter as closed
-        }
-      });
+    Object.keys(filterRefs).forEach((key) => {
+      if (
+        filterRefs[key].current &&
+        !filterRefs[key].current.contains(event.target) &&
+        !event.target.closest(`#${key}-checkbox`)
+      ) {
+        toggleDropdown(null); // Close the dropdown
+        selectedFilterComponentCopy[key] = false; // Mark the filter as closed
+      }
+    });
 
-      setSelectedFilterComponent(selectedFilterComponentCopy);
-    };
+    setSelectedFilterComponent(selectedFilterComponentCopy);
+  };
 
-    document.addEventListener("mousedown", handleClickOutsideFilterComponent);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutsideFilterComponent);
-  }, [selectedFilterComponent, minPrice, maxPrice]);
+  document.addEventListener("mousedown", handleClickOutsideFilterComponent);
+  return () =>
+    document.removeEventListener("mousedown", handleClickOutsideFilterComponent);
+}, [selectedFilterComponent, minPrice, maxPrice]);
 
   useEffect(() => {
     console.log("MinPrice or maxPrice changed: " + minPrice, " - " + maxPrice);
@@ -239,6 +239,7 @@ export default function Rental() {
     return Math.floor((containerWidth + 10) / (itemWidth + 10));
   };
 
+  // update carsPerRow on mount and resize
   useEffect(() => {
     const updateCarsPerRow = () => {
       setCarsPerRow(getCarsPerRow());
@@ -297,47 +298,53 @@ export default function Rental() {
   };
 
   // Reassemble children with inserted menu for the selected car.
-  const renderWithInsertedMenu = () => {
-    if (cars.length === 0) return null;
+const renderWithInsertedMenu = () => {
+  // Only show available cars
+  const availableCars = cars.filter(car => car.available);
 
-    // Find the index of the selected car
-    const selectedIndex = cars.findIndex((car) => car.id === selectedCarId);
+  if (availableCars.length === 0) return null;
 
-    let insertionIndex = -1;
-    if (selectedIndex >= 0) {
-      // Determine the end index of the row.
-      insertionIndex =
-        Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
-      insertionIndex = Math.min(insertionIndex, cars.length - 1);
-    }
+  // Find the index of the selected car
+  const selectedIndex = availableCars.findIndex((car) => car.id === selectedCarId);
 
-    // Build the final array of components
-    const combined = [];
-    cars.forEach((car, index) => {
+  let insertionIndex = -1;
+  if (selectedIndex >= 0) {
+    insertionIndex =
+      Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
+    insertionIndex = Math.min(insertionIndex, availableCars.length - 1);
+  }
+
+  // Build the final array of components
+  const combined = [];
+  availableCars.forEach((car, index) => {
+    combined.push(
+      <CarDisplay
+        key={car.id}
+        displayCar={car}
+        onClick={() => handleCarClick(car.id)}
+        isSelected={car.id === selectedCarId}
+      />
+    );
+    if (index === insertionIndex && selectedCarId) {
+      const selectedCar = availableCars.find((car) => car.id === selectedCarId);
       combined.push(
-        <CarDisplay
-          key={car.id}
-          displayCar={car}
-          onClick={() => handleCarClick(car.id)}
-          isSelected={car.id === selectedCarId}
-        />
+        <div key={`menu-${selectedCarId}`} className="car-selected-menu">
+          <CarSelected car={selectedCar}/>
+        </div>
       );
-      if (index === insertionIndex && selectedCarId) {
-        const selectedCar = cars.find((car) => car.id === selectedCarId); // Get the full car object
-        combined.push(
-          <div key={`menu-${selectedCarId}`} className="car-selected-menu">
-            <CarSelected car={selectedCar}/>
-          </div>
-        );
-      }
-    });
+    }
+  });
 
-    return combined;
-  };
-
+  return combined;
+};
 
   const handleFilterChange = (event) => {
     const { name, value, checked, type } = event.target;
+
+    console.log("name: " + name);
+    console.log("value: " + value);
+    console.log("checked: " + checked);
+    console.log("type: " + type);
 
     setSelectedFilterOptions((prev) => {
       if (type === "radio") {
@@ -369,15 +376,16 @@ export default function Rental() {
       energySource: Array.from(document.querySelectorAll('input[name="energySource"]:checked')).map(input => input.value),
     });
 
+    console.log("Selected filter options:", selectedFilterOptions);
     toggleFilter();
   };
 
 
   const handleSearchFieldXCircleClick = () => {
-    const inputField = document.getElementById("search-cars-input-field");
-    inputField.value = "";
-    inputField.focus();
-    setSearchFieldValue("");
+      const inputField = document.getElementById("search-cars-input-field");
+      inputField.value = "";
+      inputField.focus();
+      setSearchFieldValue("");
   }
 
 
@@ -429,7 +437,7 @@ export default function Rental() {
                          search: searchFieldValue,
                        }));
                      }}
-                     value={searchFieldValue}>
+              value={searchFieldValue}>
               </input>
               <button className="xCircleButton"
                       onClick={handleSearchFieldXCircleClick}>
@@ -439,24 +447,24 @@ export default function Rental() {
               </button>
             </div>
             <section className="sorting-inputs">
-              {renderDropdown("sortBy", "Sort by", filterOptions.sortBy)}
-              {renderDropdown("priceRange", "Price Range", null, (
-                <IntervalSlider
-                  minVal={minPrice}
-                  maxVal={maxPrice}
-                  setMinVal={setMinPrice}
-                  setMaxVal={setMaxPrice}
-                  maxCarRentalPrice={maxCarRentalPrice}/>))}
-              {renderDropdown("carType", "Car Type", filterOptions.carType)}
-              {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
-              {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
-              {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
-              <button className="clear-button" onClick={handleClearFilters} type="button">
-                Clear Filters
-              </button>
-              <button className="filter-button" onClick={toggleFilter}>
-                <FunnelSimple size={20} color="#252322" /> Sort and filter
-              </button>
+            {renderDropdown("sortBy", "Sort by", filterOptions.sortBy)}
+            {renderDropdown("priceRange", "Price Range", null, (
+              <IntervalSlider
+                minVal={minPrice}
+                maxVal={maxPrice}
+                setMinVal={setMinPrice}
+                setMaxVal={setMaxPrice}
+                maxCarRentalPrice={maxCarRentalPrice}/>))}
+            {renderDropdown("carType", "Car Type", filterOptions.carType)}
+            {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
+            {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
+            {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
+            <button className="clear-button" onClick={handleClearFilters} type="button">
+              Clear Filters
+            </button>
+            <button className="filter-button" onClick={toggleFilter}>
+              <FunnelSimple size={20} color="#252322" /> Sort and filter
+            </button>
             </section>
           </nav>
 
@@ -512,7 +520,7 @@ export default function Rental() {
                 <p className="no-cars-message-text">No cars available for the selected filters</p>
               </div>
             ) : (
-            renderWithInsertedMenu()
+              renderWithInsertedMenu()
             )}
           </main>
         </div>

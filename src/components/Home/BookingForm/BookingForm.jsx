@@ -64,7 +64,7 @@ const BookingForm = ({
       setIsLoadingLocations(false);
     }
   }
-
+  
   useEffect(() => {
     fetchLocations();
   }, []);
