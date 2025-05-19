@@ -297,45 +297,45 @@ useEffect(() => {
   };
 
   // Reassemble children with inserted menu for the selected car.
-  const renderWithInsertedMenu = () => {
-    if (cars.length === 0) return null;
+const renderWithInsertedMenu = () => {
+  // Only show available cars
+  const availableCars = cars.filter(car => car.available);
 
-    // Find the index of the selected car
-    const selectedIndex = cars.findIndex((car) => car.id === selectedCarId);
+  if (availableCars.length === 0) return null;
 
-    let insertionIndex = -1;
-    if (selectedIndex >= 0) {
-      // Determine the end index of the row.
-      insertionIndex =
-        Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
-      insertionIndex = Math.min(insertionIndex, cars.length - 1);
-    }
+  // Find the index of the selected car
+  const selectedIndex = availableCars.findIndex((car) => car.id === selectedCarId);
 
-    // Build the final array of components
-    const combined = [];
-    cars.forEach((car, index) => {
+  let insertionIndex = -1;
+  if (selectedIndex >= 0) {
+    insertionIndex =
+      Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
+    insertionIndex = Math.min(insertionIndex, availableCars.length - 1);
+  }
+
+  // Build the final array of components
+  const combined = [];
+  availableCars.forEach((car, index) => {
+    combined.push(
+      <CarDisplay
+        key={car.id}
+        displayCar={car}
+        onClick={() => handleCarClick(car.id)}
+        isSelected={car.id === selectedCarId}
+      />
+    );
+    if (index === insertionIndex && selectedCarId) {
+      const selectedCar = availableCars.find((car) => car.id === selectedCarId);
       combined.push(
-        <CarDisplay
-          key={car.id}
-          displayCar={car}
-          onClick={() => handleCarClick(car.id)}
-          isSelected={car.id === selectedCarId}
-        />
+        <div key={`menu-${selectedCarId}`} className="car-selected-menu">
+          <CarSelected car={selectedCar}/>
+        </div>
       );
-      if (index === insertionIndex && selectedCarId) {
-        const selectedCar = cars.find((car) => car.id === selectedCarId); // Get the full car object
-        combined.push(
-          <div key={`menu-${selectedCarId}`} className="car-selected-menu">
-            {/* Pass the full car object to CarSelected */}
-            <CarSelected car={selectedCar}/>
-          </div>
-        );
-      }
-    });
+    }
+  });
 
-    return combined;
-  };
-
+  return combined;
+};
 
   const handleFilterChange = (event) => {
     const { name, value, checked, type } = event.target;
