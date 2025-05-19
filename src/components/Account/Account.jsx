@@ -64,6 +64,9 @@ const Account = () => {
 
   //USER SECTION:
 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
   async function fetchUserData() {
     if (role !== 'ROLE_USER') {
       console.error('Unauthorized access: User role is not ROLE_USER');
@@ -85,18 +88,11 @@ const Account = () => {
       }
 
       const data = await response.json();
-      setFirstName(data.firstName);
-      document.getElementById('first-name').value = firstName;
-      setLastName(data.lastName);
-      document.getElementById('last-name').value = lastName;
       return data;
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
   }
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
 
   async function updateUserInformation() {    
     if (role !== 'ROLE_USER') {
@@ -125,17 +121,22 @@ const Account = () => {
 
     try {
       const userData = await fetchUserData();
+
       if (!userData) {
         setErrorMessage('Failed to fetch user data. Please try again.');
         setShowErrorMessage(true);
         return;
       }
 
+      const oldFirstName = firstName;
+      const oldLastName = lastName;
+
       const userDetails = {
         ...userData, // Include all existing fields
         firstName: updatedUserDetails.updatedFirstName,
         lastName: updatedUserDetails.updatedLastName,
       };
+
 
       console.log('Updated user details:', userDetails);
 
