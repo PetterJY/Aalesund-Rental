@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { User, X, PencilSimple } from '@phosphor-icons/react';
+import { User, X, PencilSimple, Car, UserCircleCheck } from '@phosphor-icons/react';
+import { getAccountId } from '../utils/JwtUtility';
+import { useAuth } from '../utils/AuthContext';
 import { format } from 'date-fns';
 import logo from '../../resources/images/logo.png';
 import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../Home/BookingForm/BookingForm';
-import DropDownMenu from './DropDownMenu/DropDownMenu';
+import HeaderDropDownMenuMenu from './HeaderDropDownMenu/HeaderDropDownMenuMenu';
 import './Header.css';
 import '../App.css';
+import {BookingContext} from "../utils/BookingContext";
 
 const Header = () => {
   const showMenu = useLocation().pathname === "/rental";
@@ -18,15 +21,11 @@ const Header = () => {
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const [bookingData, setBookingData] = useState({
-    pickupLocation: '',
-    dropoffLocation: '',
-    pickupDate: new Date(new Date().setDate(new Date().getDate() + 1)),
-    pickupTime: new Date(new Date().setHours(new Date().getHours() + 1, 0)),
-    dropoffDate: new Date(new Date().setDate(new Date().getDate() + 13)),
-    dropoffTime: new Date(),
-  });
+  const [userIcon, setUserIcon] = useState();
+  const [userDisplayName, setUserDisplayName] = useState();
 
+  const { bookingData } = useContext(BookingContext);
+  
   useEffect(() => {
     const handleWindowResize = () => {
       if (window.innerWidth >= 1500) {
@@ -55,8 +54,8 @@ const Header = () => {
         setIsMenuOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => document.removeEventListener('pointerdown', handleClickOutside);
   }, [isMenuOpen]);
 
   const navigateToHomePage = () => {
@@ -64,12 +63,8 @@ const Header = () => {
   };
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const showModal = () => setIsModalVisible(true);
-  const closeModal = () => setIsModalVisible(false);
-  const handleXClick = () => setIsMenuOpen(false);
 
-  const handleSaveBooking = (updatedBookingData) => {
-    setBookingData(updatedBookingData);
+  const handleSaveBooking = () => {
     toggleMenu();
   };
 
@@ -78,7 +73,7 @@ const Header = () => {
       <div className={mobileDisplaySize ? "date-time-menu-mobile" : "date-time-menu-desktop"}>
         <div className="date-range-display">
           <div className="location-display">
-            {bookingData.pickupLocation} Pickup-location <span className="separator"> - </span> {bookingData.dropoffLocation} Dropoff-location
+            {bookingData.pickupLocation || "OSLO"} <span className={`separator ${bookingData.dropoffLocation ? '' : 'hidden'}`}> - </span> {bookingData.dropoffLocation || ""}
           </div>
           <div className="time-display">
             {format(bookingData.pickupDate, 'd. MMM')} <span className="separator"> | </span> {format(bookingData.pickupTime, 'HH:mm')}
@@ -93,28 +88,83 @@ const Header = () => {
     );
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  async function fetchAccountDetails() {
+    
+    const accountId = getAccountId();
+    
+    if (!accountId) { 
+      return null;
+    }
+    
+    const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    return await response.json();
+  }
+
+  const { isAuthenticated, setIsAuthenticated, setIsAuthInitialized } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem('jwt');
+    const fetchDetails = async () => {
+      try {
+        const accountDetails = await fetchAccountDetails();
+        switch (accountDetails.role) {
+          case 'ROLE_ADMIN':
+            setUserIcon(<UserCircleCheck size={24} className="user-icon" />);
+            setUserDisplayName(`${accountDetails.name}`);            
+            break;
+          case 'ROLE_PROVIDER':
+            setUserIcon(<Car size={24} className="user-icon" />);
+            setUserDisplayName(accountDetails.companyName);            
+            break;
+          case 'ROLE_USER':
+            setUserIcon(<User size={24} className="user-icon" />);
+            setUserDisplayName(`${accountDetails.firstName} ${accountDetails.lastName}`);            
+            break;
+          default:
+            setUserIcon(<User size={24} className="user-icon" />);
+            setUserDisplayName('Guest');
+        }
+      } catch (error) {
+        setUserIcon(<User size={24} className="user-icon" />);
+        setUserDisplayName('Login | Register');
+      }
+    };
+  
+    fetchDetails(); 
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
     if (token) {
-      setIsLoggedIn(true);
+      setIsAuthenticated(true);
+      setIsAuthInitialized(true);
     } else {
-      setIsLoggedIn(false);
+      setIsAuthenticated(false);
+      setIsAuthInitialized(true);
     }
   }, []);
+
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const toggleDropdownMenu = () => {
     setIsDropdownVisible((prev) => {
-      console.log("Toggling dropdown menu, new state:", !prev);
-      return !prev;
+      const newState = !prev;
+      return newState;
     });
   };
-  
+
   const handleUserClick = () => {
-    console.log("HandleUserClick, isLoggedIn value: " + isLoggedIn);
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       toggleDropdownMenu();
     } else {
       setIsModalVisible(true);
@@ -122,12 +172,15 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    console.log("Logging out...");
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
+    console.log("Logging out");
+    localStorage.removeItem('accessToken');
+    setIsAuthenticated(false);
     setIsDropdownVisible(false);
     navigate('/home');
   }; 
+
+  const handleXClick = () => setIsMenuOpen(false);
+  const closeModal = () => setIsModalVisible(false);
 
   return (
     <header className="top-header">
@@ -137,6 +190,9 @@ const Header = () => {
         </button>
 
         {showMenu && !mobileDisplaySize && <DateTimeMenu />}
+        {isMenuOpen && (
+          <div className="backdrop" onClick={() => setIsMenuOpen(false)}></div>
+        )}
 
         <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
           <div className="menu-wrapper">
@@ -162,24 +218,24 @@ const Header = () => {
           <LoginButton
             closeModal={closeModal}
             isModalVisible={isModalVisible}
-            setIsLoggedIn={setIsLoggedIn}
             defaultMode="login"
           />
 
-          <button id="login-create" onClick={handleUserClick}>
-            <User size={24} className="user-icon"/>
-            {!isLoggedIn && <span className="login-register-text">Login | Register</span>}
-            {isLoggedIn && <span id="logged-in-text" className="login-register-text">My Account</span>}
+          <button id="login-create" onMouseDown={(event) => {
+            event.stopPropagation();
+            handleUserClick()
+          }}>
+            {userIcon}
+            {!isAuthenticated && <span className="login-register-text">Login | Register</span>}
+            {isAuthenticated && <span id="logged-in-text" className="login-register-text">{userDisplayName}</span>}
           </button>
-          {isDropdownVisible && (
-            <DropDownMenu
+            <HeaderDropDownMenuMenu
+              toggleDropdownMenu={toggleDropdownMenu}
               isDropdownVisible={isDropdownVisible}
               navigate={navigate}
               handleLogout={handleLogout}
             />
-          )}
         </nav>
-
         {showMenu && mobileDisplaySize && <DateTimeMenu />}
       </div>
     </header>

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.CustomUserDetails;
 import no.ntnu.entity.exceptions.AccountNotFoundException;
-import no.ntnu.entity.exceptions.RoleNotFoundException;
 import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.repository.AccountsRepository;
 
@@ -26,25 +25,15 @@ public class AccountsService implements UserDetailsService {
 
   private final AccountsRepository accountsRepository;
 
-  private final AdminService adminsService;
-  private final UsersService usersService;
-  private final ProvidersService providersService;
-
   /**
    * Constructor for AccountsService.
    *
    * @param accountsRepository the repository for accounts
    */
   @Autowired
-  public AccountsService(AccountsRepository accountsRepository, 
-                         AdminService adminsService,
-                         UsersService usersService,
-                         ProvidersService providersService) {
+  public AccountsService(AccountsRepository accountsRepository) {
     logger.info("AccountsService initialized");
     this.accountsRepository = accountsRepository;
-    this.adminsService = adminsService;
-    this.usersService = usersService;
-    this.providersService = providersService;
   }
 
   /**
@@ -56,6 +45,7 @@ public class AccountsService implements UserDetailsService {
     logger.info("Fetching all accounts");
     return StreamSupport.stream(
         accountsRepository.findAll().spliterator(), false)
+        .filter(account -> !account.isDeleted())
         .toList();
   }
 
@@ -69,6 +59,7 @@ public class AccountsService implements UserDetailsService {
   public Accounts findById(Long id) throws AccountNotFoundException {
     logger.info("Fetching account with id: {}", id);
     return accountsRepository.findById(id)
+      .filter(account -> !account.isDeleted())
       .orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + id));
   }
 
@@ -87,6 +78,10 @@ public class AccountsService implements UserDetailsService {
   public CustomUserDetails loadUserByUsername(String email) throws AccountNotFoundException {
     try {
       Accounts account = findByEmail(email);
+      if (account.isDeleted()) {
+        logger.warn("Attempted to load a deleted account with email: {}", email);
+        throw new AccountNotFoundException("Account is deleted with email: " + email);
+      }
       return new CustomUserDetails(account);
     } catch (AccountNotFoundException e) {
       throw new UsernameNotFoundException("Account not found with email: " + email);
@@ -103,35 +98,7 @@ public class AccountsService implements UserDetailsService {
   public Accounts findByEmail(String email) {
     logger.info("Fetching account with email: {}", email);
     return accountsRepository.findByEmail(email)
+      .filter(account -> !account.isDeleted())
       .orElseThrow(() -> new AccountNotFoundException("Account not found with email: " + email));
-  }
-
-  /**
-   * Deletes an account by its ID.
-   *
-   * @param id the ID of the account to delete
-   * @throws AccountNotFoundException if the account is not found
-   */
-  public void deleteById(Long id) throws AccountNotFoundException {
-    Accounts account = findById(id);
-    logger.info("Deleting user with id: {}", id);
-    switch (account.getRole()) {
-      case ROLE_ADMIN:
-        logger.info("Deleting admin account with id: {}", id);
-        adminsService.deleteById(id);
-        break;
-      case ROLE_USER:
-        logger.info("Deleting user account with id: {}", id);
-        usersService.deleteById(id);
-        break;
-      case ROLE_PROVIDER:
-        logger.info("Deleting provider account with id: {}", id);
-        providersService.deleteById(id);
-        break;
-      default:
-        logger.error("Account with id: {} has an unknown role: {}", id, account.getRole());
-        throw new RoleNotFoundException(
-          "Account with id: " + id + " has an unknown role: " + account.getRole());
-    }
-  }
+  } 
 }

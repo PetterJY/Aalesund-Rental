@@ -21,7 +21,11 @@
 .rentals-car-display-card .car-background{
   min-width: 480px;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
+  background-image: url('../../../../resources/images/car-background.webp');
+  background-size: 100% auto;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat; 
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   position: relative; 
   display: flex;
@@ -43,17 +47,27 @@
   flex-direction: row;
   align-self: flex-start;
   justify-content: space-between;
+  
 }
 .rentals-car-display-card .car-details {
   display: flex;
   flex-direction: column;
   margin-left: 50px;
+  overflow-y: auto;
+  scrollbar-width: thin; 
+  max-height: 350px;
+}
+
+.rentals-car-display-card .car-details::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 
 .rentals-car-display-card .car-details input {
   border-top: none;
   border-left: none;
   border-right: none;
+  border-bottom: 2px solid #252422;
   outline: none;
   font-size: 16px;
   color: #252422;
@@ -62,7 +76,6 @@
 
 .rentals-car-display-card .car-details input:focus {
   border-bottom: 2px solid #EB5E28;
-  transform: scale(1.05);
   transition: 0s;
 }
 
@@ -70,6 +83,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
+  border-bottom: 2px solid #252422;
   outline: none;
   font-size: 16px;
   color: #252422;
@@ -78,7 +92,6 @@
 
 .rentals-car-display-card .car-details select:focus {
   border-bottom: 2px solid #EB5E28;
-  transform: scale(1.05);
   transition: 0s;
 }
 
@@ -94,6 +107,20 @@
   padding: 0;
   font-size: 16px;
   color: #252422;
+}
+
+.rentals-car-display-card .car-details .enum-button{
+  background-color: transparent;
+  color: #252422;
+  border-bottom: 2px solid #252422;
+  border-radius: 0px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.rentals-car-display-card .car-details .enum-button:hover{
+  border-bottom: #EB5E28 2px solid;
+  cursor: pointer;
 }
 
 .rentals-car-display-card .my-rental-buttons {
@@ -138,7 +165,36 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 908px) {
+.my-rentals-car-display .no-rentals-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 20px;
+  color: #252422;
+  font-weight: 600;
+  
+}
+
+.my-rentals-car-display .availability-toggle-btn {
+  margin: 8px 0;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.my-rentals-car-display .availability-toggle-btn.enabled {
+  background: #EB5E28;
+  color: #fff;
+}
+.availability-toggle-btn.disabled {
+  background: #ccc;
+  color: #222;
+}
+
+@media screen and (max-width: 1148px) {
   .rentals-car-display-card {
     flex-direction: column;
     align-items: center;
@@ -147,7 +203,19 @@
     display: none !important;
   }
   .rentals-car-display-card .car-details {
-    margin-left: 0;
+    margin-left: 10px;
     margin-top: 10px;
+  }
+  .rentals-car-display-card .car-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  overflow-y: none;
+  } 
+ .rentals-car-display-card .save-discard-buttons {
+    flex-direction: column;
+  }
+  .rentals-car-display-card .save-discard-buttons button {
+    margin: 5px 0;
   }
 }

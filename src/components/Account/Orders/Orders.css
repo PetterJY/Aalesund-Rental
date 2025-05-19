@@ -19,6 +19,42 @@
   width: 100%;
 }
 
-@media screen and (max-width: 930px) {
-  
+.orders .orders-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
 }
+
+
+.orders .orders-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 5px 0 0;
+  padding: 0;
+  color: #252422;
+  text-align: center;
+  border-bottom: 2px solid white;
+}
+
+.orders .no-matching-status {
+  font-size: 20px;
+  color: #252422;
+  text-align: center;
+  margin-top: 20px;
+  max-width: 1200px;
+  min-width: 100%;
+}
+
+
+@media screen and (max-width: 950px) {
+  .orders-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+  }
+}
+  

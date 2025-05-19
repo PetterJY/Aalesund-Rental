@@ -40,10 +40,12 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
               "/auth/login", 
-              "/users/**", 
-              "/accounts/**", 
-              "/admins/**", 
-              "/providers/**"
+              "/users/register",
+              "/providers/register",
+              "/admins/register",
+              "/cars/search",
+              "/cars/locations",
+              "/cars/{id}"
               ).permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -51,6 +53,14 @@ public class SecurityConfig {
     return http.build();
   }
 
+  /**
+   * Configures the authentication manager for the application.
+   * This is used for authenticating users with their credentials.
+   *
+   * @param authConfig the AuthenticationConfiguration object
+   * @return the configured AuthenticationManager
+   * @throws Exception if an error occurs during configuration
+   */
   @Bean
   public AuthenticationManager authenticationManager(
       AuthenticationConfiguration authConfig) throws Exception {

@@ -4,7 +4,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +13,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import no.ntnu.entity.models.Cars;
-import no.ntnu.entity.models.ExtraFeatures;
-import no.ntnu.logic.service.AdminService;
 
 public class AddDummyObjectsToDatabase {
 	private static final Logger logger =
@@ -57,8 +55,16 @@ public class AddDummyObjectsToDatabase {
 		addUser("Sophia", "Anderson", "sophia.anderson@example.com", "password222", "66778899");
 		addUser("Michael", "Thomas", "michael.thomas@example.com", "password333", "77889900");
 		addUser("Olivia", "Martinez", "olivia.martinez@example.com", "password444", "99001122");
+		addUser("dave", "dave", "dave", "Dangerous2024", "12312312");
 
 		logger.info("Finished adding renters to the database.");
+
+		logger.info("Adding admins to the database.");
+
+		addAdmin("Admin", "admin@admin.com", "admin123");
+		addAdmin("chuck", "chuck", "Nunchucks2024");
+
+		logger.info("Finished adding admins to the database.");
 
 		logger.info("Logging in to get JWT token.");
 
@@ -95,52 +101,74 @@ public class AddDummyObjectsToDatabase {
 		addExtraFeature("Metallic Paint", "Metallic paint for a shiny finish.");
 		addExtraFeature("Five Doors", "Five doors for easy access.");
 		addExtraFeature("Economic", "Economic car for fuel efficiency.");
+		addExtraFeature("Solar Roof", "Solar roof for energy efficiency.");
 
 		logger.info("Finished adding extra features to the database.");
 
 		logger.info("Adding cars to the database.");
 
-		addCar("1", "AA 11111", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 600, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3");
-		addCar("2", "AA 22222", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3");
-		addCar("3", "AA 33333", "Tesla", "Model 3", Cars.CarType.SEDAN, 700, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3");
-		addCar("4", "AA 44444", "Tesla", "Model 3", Cars.CarType.SEDAN, 500, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3");
-		addCar("3", "AA 55555", "Tesla", "Model Y", Cars.CarType.SUV, 900, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4");
-		addCar("4", "AA 66666", "Tesla", "Model Y", Cars.CarType.SUV, 700, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4");
-		addCar("5", "AA 77777", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
-		addCar("6", "AA 88888", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "");
-		addCar("7", "AA 99999", "Mazda", "2", Cars.CarType.HATCHBACK, 400, 2017, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "2");
-		addCar("8", "AB 11111", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("9", "AB 22222", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("10", "AC 88888", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9");
-		addCar("11", "AB 33333", "BMW", "M3", Cars.CarType.SPORTS_CAR, 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("12", "AB 44444", "BMW", "M3", Cars.CarType.SPORTS_CAR, 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("13", "AC 77777", "BMW", "M3", Cars.CarType.SPORTS_CAR, 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11");
-		addCar("14", "AB 55555", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 300, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("15", "AB 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 299, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("16", "AC 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 700, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12");
-		addCar("17", "AB 77777", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 600, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13");
-		addCar("6", "AB 88888", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 550, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13");
-		addCar("17", "AB 99999", "Peugeot", "207", Cars.CarType.HATCHBACK, 500, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19");
-		addCar("6", "AC 11111", "Peugeot", "207", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19");
-		addCar("17", "AC 22222", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
-		addCar("6", "AC 33333", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22");
-		addCar("17", "AC 44444", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 200, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
-		addCar("6", "AC 55555", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 201, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24");
-	
+		addCar("1", "AA 11111", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 600, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3", Cars.Location.OSLO);
+		addCar("2", "AA 22222", "Volkswagen", "Golf", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "1, 2, 3", Cars.Location.OSLO);
+		addCar("3", "AA 33333", "Tesla", "Model 3", Cars.CarType.SEDAN, 700, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3", Cars.Location.BERGEN);
+		addCar("4", "AA 44444", "Tesla", "Model 3", Cars.CarType.SEDAN, 500, 2019, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "4, 5, 3", Cars.Location.BERGEN);
+		addCar("3", "AA 55555", "Tesla", "Model Y", Cars.CarType.SUV, 900, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4", Cars.Location.STAVANGER);
+		addCar("4", "AA 66666", "Tesla", "Model Y", Cars.CarType.SUV, 700, 2022, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "6, 7, 4", Cars.Location.STAVANGER);
+		addCar("5", "AA 77777", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "", Cars.Location.TRONDHEIM);
+		addCar("6", "AA 88888", "Nissan", "Leaf", Cars.CarType.SUV, 500, 2016, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "", Cars.Location.TRONDHEIM);
+		addCar("7", "AA 99999", "Mazda", "2", Cars.CarType.HATCHBACK, 400, 2017, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.GAS, true, "2", Cars.Location.DRAMMEN);
+		addCar("8", "AB 11111", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 200, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.ÅLESUND);
+		addCar("9", "AB 22222", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 70, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.ÅLESUND);
+		addCar("10", "AC 88888", "Volkswagen", "Transporter", Cars.CarType.MINIVAN, 180, 1978, 8, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "8, 9", Cars.Location.TROMSØ);
+		addCar("11", "AB 33333", "BMW", "M3", Cars.CarType.SPORTS, 400, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11", Cars.Location.OSLO);
+		addCar("12", "AB 44444", "BMW", "M3", Cars.CarType.SPORTS, 450, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11", Cars.Location.OSLO);
+		addCar("13", "AC 77777", "BMW", "M3", Cars.CarType.SPORTS, 449, 1988, 4, Cars.Transmission.MANUAL, Cars.EnergySource.GAS, true, "10, 11", Cars.Location.OSLO);
+		addCar("14", "AB 55555", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 300, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12", Cars.Location.BERGEN);
+		addCar("15", "AB 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 299, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12", Cars.Location.BERGEN);
+		addCar("16", "AC 66666", "Skoda", "Fabia", Cars.CarType.HATCHBACK, 700, 2011, 5, Cars.Transmission.AUTOMATIC, Cars.EnergySource.DIESEL, true, "12", Cars.Location.TROMSØ);
+		addCar("17", "AB 77777", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 600, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13", Cars.Location.DRAMMEN);
+		addCar("6", "AB 88888", "Peugeot", "307 SW", Cars.CarType.STATION_WAGON, 550, 2008, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "13", Cars.Location.ÅLESUND);
+		addCar("17", "AB 99999", "Peugeot", "207", Cars.CarType.HATCHBACK, 500, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19", Cars.Location.STAVANGER);
+		addCar("6", "AC 11111", "Peugeot", "207", Cars.CarType.HATCHBACK, 550, 2007, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "14, 3, 15, 16, 17, 18, 19", Cars.Location.TRONDHEIM);
+		addCar("17", "AC 22222", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22", Cars.Location.TRONDHEIM);
+		addCar("6", "AC 33333", "Peugeot", "3008", Cars.CarType.CROSSOVER, 600, 2010, 5, Cars.Transmission.MANUAL, Cars.EnergySource.DIESEL, true, "20, 21, 22", Cars.Location.ÅLESUND);
+		addCar("17", "AC 44444", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 200, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24", Cars.Location.STAVANGER);
+		addCar("6", "AC 55555", "Peugeot", "iOn", Cars.CarType.HATCHBACK, 201, 2015, 4, Cars.Transmission.AUTOMATIC, Cars.EnergySource.ELECTRIC, true, "23,24", Cars.Location.STAVANGER);
+
 		logger.info("Finished adding cars to the database.");
 
 		logger.info("Adding rentals to the database.");
 
-		addRental("18", "1", "1", "2023-10-01T00:00:00", "2023-10-05T00:00:00", "Oslo", "Bergen", 3000.0, "COMPLETED");
-		addRental("19", "2", "2", "2023-10-02T00:00:00", "2023-10-06T00:00:00", "Stavanger", "Kristiansand", 2500.0, "ACTIVE");
-		addRental("20", "3", "3", "2023-10-03T00:00:00", "2023-10-07T00:00:00", "Trondheim", "Ålesund", 3500.0, "PENDING");
-		addRental("21", "4", "4", "2023-10-04T00:00:00", "2023-10-08T00:00:00", "Bergen", "Stavanger", 2800.0, "CANCELLED");
-		addRental("22", "5", "5", "2023-10-05T00:00:00", "2023-10-09T00:00:00", "Oslo", "Trondheim", 3200.0, "COMPLETED");
-		addRental("23", "6", "6", "2023-10-06T00:00:00", "2023-10-10T00:00:00", "Stavanger", "Oslo", 2700.0, "ACTIVE");
-		addRental("24", "7", "7", "2023-10-07T00:00:00", "2023-10-11T00:00:00", "Kristiansand", "Bergen", 3300.0, "PENDING");
-		addRental("25", "8", "8", "2023-10-08T00:00:00", "2023-10-12T00:00:00", "Ålesund", "Stavanger", 2900.0, "CANCELLED");
-		addRental("26", "9", "9", "2023-10-09T00:00:00", "2023-10-13T00:00:00", "Oslo", "Kristiansand", 3100.0, "COMPLETED");
-		addRental("27", "10", "10", "2023-10-10T00:00:00", "2023-10-14T00:00:00", "Bergen", "Ålesund", 2600.0, "ACTIVE");
+		addRental("18", "1", "1", "2025-06-01T00:00:00", "2025-06-05T00:00:00", "Oslo", "Bergen", 3000.0, "COMPLETED");
+		addRental("18", "1", "1", "2024-10-01T00:00:00", "2024-10-05T00:00:00", "Bergen", "Oslo", 3000.0, "PENDING");
+		addRental("19", "2", "2", "2025-06-02T00:00:00", "2025-06-06T00:00:00", "Stavanger", "Kristiansand", 2500.0, "ACTIVE");
+		addRental("20", "3", "3", "2025-06-03T00:00:00", "2025-06-07T00:00:00", "Trondheim", "Ålesund", 3500.0, "PENDING");
+		addRental("21", "4", "4", "2025-06-04T00:00:00", "2025-06-08T00:00:00", "Bergen", "Stavanger", 2800.0, "CANCELLED");
+		addRental("22", "5", "5", "2025-06-05T00:00:00", "2025-06-09T00:00:00", "Oslo", "Trondheim", 3200.0, "COMPLETED");
+		addRental("23", "6", "6", "2025-06-06T00:00:00", "2025-06-10T00:00:00", "Stavanger", "Oslo", 2700.0, "ACTIVE");
+		addRental("24", "7", "7", "2025-06-07T00:00:00", "2025-06-11T00:00:00", "Kristiansand", "Bergen", 3300.0, "PENDING");
+		addRental("25", "8", "8", "2025-06-08T00:00:00", "2025-06-12T00:00:00", "Ålesund", "Stavanger", 2900.0, "CANCELLED");
+		addRental("26", "9", "9", "2025-06-09T00:00:00", "2025-06-13T00:00:00", "Oslo", "Kristiansand", 3100.0, "COMPLETED");
+		addRental("27", "10", "10", "2025-06-10T00:00:00", "2025-06-14T00:00:00", "Bergen", "Ålesund", 2600.0, "ACTIVE");
+
+		// June 2025 Rentals
+		addRental("18", "3", "3", "2025-06-01T00:00:00", "2025-06-07T00:00:00", "Bergen", "Oslo", 3200.0, "PENDING");
+		addRental("19", "5", "7", "2025-06-05T00:00:00", "2025-06-12T00:00:00", "Trondheim", "Stavanger", 2800.0, "ACTIVE");
+		addRental("20", "7", "9", "2025-06-10T00:00:00", "2025-06-18T00:00:00", "Drammen", "Bergen", 3000.0, "COMPLETED");
+		addRental("21", "12", "13", "2025-06-15T00:00:00", "2025-06-22T00:00:00", "Oslo", "Tromsø", 3500.0, "CANCELLED");
+		addRental("22", "17", "21", "2025-06-20T00:00:00", "2025-06-27T00:00:00", "Stavanger", "Kristiansand", 2900.0, "PENDING");
+
+		// July 2025 Rentals
+		addRental("23", "1", "1", "2025-07-01T00:00:00", "2025-07-09T00:00:00", "Oslo", "Ålesund", 3400.0, "ACTIVE");
+		addRental("24", "4", "6", "2025-07-05T00:00:00", "2025-07-12T00:00:00", "Stavanger", "Bergen", 2700.0, "COMPLETED");
+		addRental("25", "6", "22", "2025-07-10T00:00:00", "2025-07-17T00:00:00", "Trondheim", "Oslo", 3100.0, "CANCELLED");
+		addRental("26", "8", "10", "2025-07-15T00:00:00", "2025-07-23T00:00:00", "Ålesund", "Stavanger", 3300.0, "PENDING");
+		addRental("27", "14", "16", "2025-07-20T00:00:00", "2025-07-28T00:00:00", "Bergen", "Drammen", 3000.0, "ACTIVE");
+
+		// August 2025 Rentals
+		addRental("18", "9", "11", "2025-08-01T00:00:00", "2025-08-08T00:00:00", "Ålesund", "Trondheim", 2800.0, "COMPLETED");
+		addRental("19", "10", "12", "2025-08-05T00:00:00", "2025-08-13T00:00:00", "Tromsø", "Oslo", 3600.0, "PENDING");
+		addRental("20", "13", "15", "2025-08-10T00:00:00", "2025-08-17T00:00:00", "Oslo", "Bergen", 3200.0, "ACTIVE");
+		addRental("21", "15", "18", "2025-08-15T00:00:00", "2025-08-22T00:00:00", "Tromsø", "Stavanger", 2900.0, "CANCELLED");
 
 		logger.info("Finished adding rentals to the database.");
 	}
@@ -153,6 +181,7 @@ public class AddDummyObjectsToDatabase {
 				+ "\"email\": \"" + email + "\","
 				+ "\"password\": \"" + password + "\""
 				+ "}";
+				
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("http://localhost:8080/auth/login"))
 				.header("Content-Type", "application/json")
@@ -187,8 +216,8 @@ public class AddDummyObjectsToDatabase {
 			// Parse the JSON response
 			JsonNode rootNode = objectMapper.readTree(jsonResponse);
 
-			// Extract the "jwt" field
-			return rootNode.get("jwt").asText();
+			// Extract the "accessToken" field
+			return rootNode.get("accessToken").asText();
 		} catch (Exception e) {
 			System.err.println("Failed to parse JWT token: " + e.getMessage());
 			return null; // Return null if parsing fails
@@ -208,7 +237,8 @@ public class AddDummyObjectsToDatabase {
 			Cars.Transmission transmission,
 			Cars.EnergySource energySource,
 			boolean available,
-			String extraFeatures) {
+			String extraFeatures,
+			Cars.Location location) {
 		HttpClient client = HttpClient.newHttpClient();
 
 		String json = "{"
@@ -223,6 +253,7 @@ public class AddDummyObjectsToDatabase {
 				+ "\"transmission\": \"" + transmission.name() + "\","
 				+ "\"energySource\": \"" + energySource.name() + "\","
 				+ "\"available\": " + available + ","
+				+ "\"location\": \"" + location.name() + "\","
 				+ "\"extraFeatureIds\": " + (extraFeatures == null ? "null" : "[" + extraFeatures + "]")
 				+ "}";
 
@@ -244,6 +275,37 @@ public class AddDummyObjectsToDatabase {
 				.join();
 	}
 
+	// Add more admins.
+	public static void addAdmin(
+			String name,
+			String email,
+			String password) {
+		HttpClient client = HttpClient.newHttpClient();
+
+		String json = "{"
+				+ "\"name\": \"" + name + "\","
+				+ "\"email\": \"" + email + "\","
+				+ "\"password\": \"" + password + "\""
+				+ "}";
+
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("http://localhost:8080/admins/register"))
+				.header("Content-Type", "application/json")
+				.header("Authorization", "Bearer " + jwt_token)
+				.POST(HttpRequest.BodyPublishers.ofString(json))
+				.build();
+
+		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+				.thenAccept(response -> {
+					if (response.statusCode() == 200 || response.statusCode() == 201) {
+						System.out.println("Successfully added admin with name " + name);
+					} else {
+						System.out.println("Failed to add admin with name " + name + ". HTTP status: " + response.statusCode());
+					}
+				})
+				.join();
+	}
+
 	// Add more rentals.
 	public static void addRental(
 			String renterId,
@@ -255,14 +317,19 @@ public class AddDummyObjectsToDatabase {
 			String dropoffLocation,
 			Double totalCost,
 			String status) {
+
 		HttpClient client = HttpClient.newHttpClient();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+		String formattedStartDate = startDate.formatted(formatter);
+		String formattedEndDate = endDate.formatted(formatter);
 
 		String json = "{"
 				+ "\"renterId\": " + renterId + ","
 				+ "\"providerId\": " + providerId + ","
 				+ "\"carId\": " + carId + ","
-				+ "\"startDate\": \"" + startDate + "\","
-				+ "\"endDate\": \"" + endDate + "\","
+				+ "\"startDate\": \"" + formattedStartDate + "\","
+				+ "\"endDate\": \"" + formattedEndDate + "\","
 				+ "\"pickupLocation\": \"" + pickupLocation + "\","
 				+ "\"dropoffLocation\": \"" + dropoffLocation + "\","
 				+ "\"totalCost\": " + totalCost + ","
@@ -332,7 +399,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/providers"))
+				.uri(URI.create("http://localhost:8080/providers/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))

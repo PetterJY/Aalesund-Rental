@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import RegisterButton from '../Register/Register';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
+import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
-import '../../App.css';
 import '../LoginRegister.css';
+import '../../App.css';
 
-const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode }) => {
+const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
+
+  const { setIsAuthenticated, setIsAuthInitialized } = useAuth();
   
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -70,13 +73,19 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode })
       }
 
       const data = await response.json();
-      const token = data.jwt;
+    
+      const accessToken = data.accessToken;
+      const refreshToken = data.refreshToken;
 
-      console.log("User has been logged in. Token: ", token);
-      localStorage.setItem('jwt', token); 
-      setIsLoggedIn(true);
+      console.log("Refresh Token: ", refreshToken);
+      console.log("Access Token: ", accessToken);
+
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('accessToken', accessToken); 
+
+      setIsAuthenticated(true);
+      setIsAuthInitialized(true);
       closeModal();
-
     } catch(error) {
       console.error(error);
       setErrorMessage("The username and/or password you specified are not correct.");
@@ -93,7 +102,6 @@ const LoginButton = ({ closeModal, isModalVisible, setIsLoggedIn, defaultMode })
               <RegisterButton 
                 closeModal={closeModal} 
                 isModalVisible={isModalVisible}
-                setIsLoggedIn={setIsLoggedIn} 
                 toggleMode={() => toggleMode('login')} 
               />
             ) : mode === 'forgotPassword' ? (

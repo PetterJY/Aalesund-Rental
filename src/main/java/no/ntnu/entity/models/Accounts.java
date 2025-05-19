@@ -53,7 +53,19 @@ public class Accounts {
   @Column(nullable = false)
   @ApiModelProperty("The creation time of the account")
   private LocalDateTime createdAt;
+
+  @Column(nullable = false)
+  @ApiModelProperty("Boolean indicating if the account is deleted")
+  private boolean isDeleted = false;
   
+  /**
+   * Default constructor for the Accounts class.
+   * Initializes the role to ROLE_USER.
+   */
+  public Accounts() {
+    this.role = Role.ROLE_USER;
+  }
+
   @PrePersist
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();
@@ -98,5 +110,13 @@ public class Accounts {
 
   public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public boolean isDeleted() {
+    return this.isDeleted;
+  }
+
+  public void setDeleted(boolean isDeleted) {
+    this.isDeleted = isDeleted;
   }
 }

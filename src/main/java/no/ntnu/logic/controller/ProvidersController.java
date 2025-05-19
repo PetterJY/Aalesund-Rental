@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,10 +72,10 @@ public class ProvidersController {
    * @param providerRegisterRequest The provider registration request.
    * @return The created provider.
    */
-  @PostMapping
+  @PostMapping("/register")
   @ApiOperation(value = "Creates a new provider.", 
       notes = "The newly created provider is returned.")
-  public ResponseEntity<Providers> createProvider(
+  public ResponseEntity<Providers> register(
       @RequestBody ProviderDetails providerRegisterRequest) {
     Providers provider = new Providers();
     provider.setCompanyName(providerRegisterRequest.getCompanyName());
@@ -108,24 +107,8 @@ public class ProvidersController {
     provider.setEmail(providerDetails.getEmail());
     provider.setPassword(providerDetails.getPassword());
     provider.setPhoneNumber(providerDetails.getPhoneNumber());
-    Providers updatedProvider = providersService.save(provider);
+    Providers updatedProvider = providersService.save(provider, false);
     logger.debug("Updated provider: {}", updatedProvider);
     return ResponseEntity.status(HttpStatus.OK).body(updatedProvider);
-  }
-
-  /**
-   * Deletes a provider by its ID.
-   *
-   * @param id The ID of the provider to delete.
-   * @return A response entity with no content.
-   */
-  @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes a provider by its ID.", 
-      notes = "If the provider is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteProvider(@PathVariable Long id) {
-    logger.info("Deleting provider with id: {}", id);
-    providersService.deleteById(id);
-    logger.debug("Deleted provider with id: {}", id);
-    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 }

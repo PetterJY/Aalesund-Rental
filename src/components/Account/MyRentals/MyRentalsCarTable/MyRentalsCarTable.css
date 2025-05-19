@@ -18,6 +18,16 @@
 .rentals-details-table thead th {
   border-radius: 20px;
   width: 10%;
+  cursor: pointer;
+}
+
+.rentals-details-table thead th .caret-icon {
+  margin-left: 5px;
+  color: white; /* Make the caret white */
+  transition: transform 0.3s ease; /* Smooth rotation */
+}
+.rentals-details-table thead th .caret-icon.rotated {
+  transform: rotate(180deg); /* Rotate the caret upwards */
 }
 
 .rentals-details-table tbody {

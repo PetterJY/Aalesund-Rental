@@ -1,26 +1,24 @@
 .car-selected {
   display: flex;
   width: 100%;
-  max-width: 1300px;
   background-color: transparent;
   border-radius: 15px;
   box-shadow: inset 0 0 0 2px #252422;
-  margin-bottom: 10px;
 }
 
 .car-selected .next-button {
   align-self: flex-end;
-  margin-left: auto;
   height: fit-content;
   width: fit-content;
   background-color: #EB5E28;
   color: #fff;
   border: none;
-  padding: 10px 100px;
+  padding: 10px 70px;
   margin: 10px 20px;
   border-radius: 15px;
   cursor: pointer;
   transition: background-color 1s ease;
+  font-size: 20px;
 }
 
 .car-selected .next-button:hover{
@@ -37,7 +35,11 @@
 .car-selected #car-background {
   width: 50%;
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, #fffcf2, #252422);
+  background-image: url('../../../resources/images/car-background.webp');
+  background-size: 100% auto;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat; 
   position: relative; 
   display: flex;
   flex-direction: column;
@@ -81,6 +83,11 @@
   align-self: center;
 }
 
+
+b {
+  font-weight: 200;
+  color: #252422;
+}
 .car-selected #car-background footer {
   background-color: transparent;
   display: flex;
@@ -138,13 +145,39 @@
   align-items: center;
 }
 
+.car-selected .extra-features-list {
+  max-height: 138px; /* Set a maximum height for the list */
+  overflow-y: auto; /* Enable vertical scrolling */
+  margin-top: 0px;
+  padding-left: 85px;
+  list-style-type: disc;
+  color: #252422;
+  border-radius: 5px; /* Optional: Add rounded corners */
+  list-style-type: none;
+  margin-bottom: 0px;
+  margin-right: 10px;
+}
+
+.car-selected .caret-icon {
+  transition: transform 0.3s ease; /* Smooth rotation */
+  transform: rotate(180deg); /* Rotate the caret upwards */
+}
+
+.car-selected .caret-icon.rotated {
+  transform: rotate(0deg); /* Rotate the caret upwards */
+}
+
+.car-selected .extra-features-list li {
+  margin-bottom: 5px;
+}
+
 .car-selected h3 {
-  font-weight: 200;
+  font-weight: 550;;
   margin: 0px;
 }
 
 .car-selected h4 {
-  font-weight: 200;
+  font-weight: 550;
   margin-bottom: 0px;
 }
 
@@ -164,9 +197,10 @@
   }
 
   .car-selected .next-button {
-    width: 50%;
+    width: 15%;
     padding: 10px;
     margin: -50px 10px 10px 10px;
+    justify-content: center;
   }
 }
 

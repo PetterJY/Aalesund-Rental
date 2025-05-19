@@ -38,6 +38,15 @@ public class JwtFilter extends OncePerRequestFilter {
   @Autowired
   private UserDetailsService userDetailsService;
   
+  /**
+   * This method is called for every HTTP request.
+   * It checks for the presence of a JWT token in the request header,
+   * validates it, and sets the authentication in the security context if valid.
+   *
+   * @param request The HTTP request
+   * @param response The HTTP response
+   * @param filterChain The filter chain
+   */
   @Override
   protected void doFilterInternal(
       @NonNull HttpServletRequest request, 
@@ -64,7 +73,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
     filterChain.doFilter(request, response);
   }
-
+  
+  /**
+   * Returns the user details from the database using the username.
+   *
+   * @param username The username of the user
+   * @return The user details object, or null if not found
+   */
   private CustomUserDetails getUserDetailsFromDatabase(String username) {
     try {
       return (CustomUserDetails) userDetailsService.loadUserByUsername(username);

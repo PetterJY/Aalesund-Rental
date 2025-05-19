@@ -30,19 +30,38 @@ public class JwtUtility {
   private static final String ROLE_KEY = "roles";
 
   /**
-   * Generates a JWT token for the given user details.
+   * Generates a JWT access-token for the given user details.
    *
    * @param userDetails the user details to include in the token.
    * @return the generated JWT token.
    */
-  public String generateToken(CustomUserDetails userDetails) {
+  public String generateAccessToken(CustomUserDetails userDetails) {
     logger.info("Generating JWT token for username: {}", userDetails.getUsername());
     return Jwts.builder()
         .setSubject(userDetails.getUsername())
-        .claim(ROLE_KEY, userDetails.getAuthorities())
+        .claim("type", "access")
         .claim("id", userDetails.getId())
+        .claim(ROLE_KEY, userDetails.getAuthorities())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
+        .signWith(getSigningKey())
+        .compact();
+  }
+
+  /**
+   * Generates a JWT refres-token for the given user details.
+   *
+   * @param userDetails the user details to include in the refresh token.
+   * @return the generated refresh token.
+   */
+  public String generateRefreshToken(CustomUserDetails userDetails) {
+    logger.info("Generating refresh token for username: {}", userDetails.getUsername());
+    return Jwts.builder()
+        .setSubject(userDetails.getUsername())
+        .claim("type", "refresh")
+        .claim("id", userDetails.getId())
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 30)) // 30 days
         .signWith(getSigningKey())
         .compact();
   }
@@ -62,6 +81,11 @@ public class JwtUtility {
         && !isTokenExpired(token);
   }
   
+  /**
+   * Retrieves the signing key for JWT.
+   *
+   * @return the signing key.
+   */
   private SecretKey getSigningKey() {
     logger.debug("Retrieving signing key for JWT.");
     byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
@@ -101,6 +125,12 @@ public class JwtUtility {
         .getExpiration();
   }
 
+  /**
+   * Checks if the token is expired.
+   *
+   * @param token the token to check.
+   * @return true if the token is expired, false otherwise.
+   */
   public boolean isTokenExpired(String token) {
     return getExpirationDateFromToken(token).before(new Date());
   }

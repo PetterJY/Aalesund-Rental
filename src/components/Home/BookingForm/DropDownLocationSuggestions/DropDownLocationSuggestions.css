@@ -1,0 +1,29 @@
+.dropdown-suggestions {
+  position: absolute;
+  top: 100%;           /* Place directly below the input */
+  left: 0;
+  z-index: 100;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  margin-top: 6px;
+  width: 100%;
+  overflow-y: auto;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 0;
+  list-style: none;
+}
+
+.dropdown-suggestion-item {
+  padding: 16px 0;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 1.33rem;
+}
+
+.dropdown-suggestion-item:hover,
+.dropdown-suggestion-item:focus {
+  background: #f3f4f6;
+  color: #FF5F00;
+  outline: none;
+}

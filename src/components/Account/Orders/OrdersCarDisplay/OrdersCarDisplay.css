@@ -16,8 +16,12 @@
 
 .orders-car-display-card .car-background {
   min-width: 480px;
-  border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
+  border-radius: 18px;
+  background-image: url('../../../../resources/images/car-background.webp');
+  background-size: 100% auto;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat; 
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   position: relative; 
   display: flex;
@@ -106,10 +110,103 @@
   margin-bottom: 30px;
 }
 
-@media screen and (max-width: 850px) {
+.orders-car-display-card .cancel-order{
+  display: flex;
+  flex-direction: row;
+  background-color: #252422;
+  border-radius: 10px;  
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 5px 5px auto auto;
+  align-items: center;
+  padding: 0px 10px;
+  margin-bottom: auto;
+}
+
+.orders-car-display-card .cancel-order:hover {
+  background-color: #FF5F00;
+  transition: 0.3s;
+}
+
+/*chenges color when pressed*/
+.orders-car-display-card .cancel-order:active {
+  background-color: #252422;
+  transition: 0.1s;
+}
+
+.orders-car-display-card .order-status-container {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 350px;
+}
+
+
+.orders-car-display-card .order-status-container p {
+  color: black;
+}
+
+.orders-car-display-card .cancel-order p {
+  color: white;
+}
+
+@media screen and (max-width: 950px) {
   .orders-car-display-card {
     flex-direction: column;
+    align-items: flex-start;
+    width: 48%;
+  }
+
+  .orders-car-display-card .car-background {
+    width: 100%;
+    height: auto;
+    min-width: 100px;
+    min-height: none;
+  }
+
+  .orders-car-display-card .car-image {
+    width: 50% ;
+    height: auto;
+    min-height: none;
+  }
+
+  .orders-car-display-card .car-details {
+    margin-left: 30px;
+    align-items: left;
+    text-align: left;
+    flex-direction: column;
+  }
+
+  .orders-car-display-card .cancel-order{
+    display: flex;
+    flex-direction: row;
+    background-color: #252422;
+    border-radius: 10px;  
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: auto;
     align-items: center;
+    padding: 0px 10px;
+    margin-left: 0px;
+  }
+
+  .orders-car-display-card .order-status-container {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+    justify-content: space-between;
+    height:100%;
+  }
+  
+}
+
+@media screen and (max-width: 650px) {
+  .orders-car-display-card {
     width: 100%;
   }
 
@@ -127,9 +224,10 @@
   }
 
   .orders-car-display-card .car-details {
-    margin-left: 0;
+    margin-left: 30px;
     align-items: left;
     text-align: left;
+    flex-direction: column;
   }
   
 }

@@ -3,8 +3,10 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 0 10vh 0 10vh;
-  
+  max-width: 1600px;
   border-bottom: #252422 1px solid;
+  justify-self: center;
+  width: 100%;
 }
 
 .account-menu-list {

@@ -1,6 +1,7 @@
 package no.ntnu.logic.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import jakarta.validation.Valid;
 import no.ntnu.entity.dto.UserDetails;
+import no.ntnu.entity.models.Cars;
 import no.ntnu.entity.models.Users;
+import no.ntnu.logic.service.CarsService;
 import no.ntnu.logic.service.UsersService;
 
 /**
@@ -32,10 +35,12 @@ public class UsersController {
       LoggerFactory.getLogger(UsersController.class.getSimpleName());
   
   private final UsersService usersService;
+  private final CarsService carsService;
 
   @Autowired
-  public UsersController(UsersService usersService) {
+  public UsersController(UsersService usersService, CarsService carsService) {
     this.usersService = usersService;
+    this.carsService = carsService;
   }
 
   /**
@@ -50,23 +55,6 @@ public class UsersController {
     List<Users> users =  usersService.findAll();
     logger.debug("Fetched {} users", users.size());
     return ResponseEntity.ok(users);
-  }
-
-  /**
-   * Returns a user by its ID.
-   *
-   * @param id The ID of the user.
-   * @return The user with the specified ID.
-   */
-  @GetMapping("/{id}")
-  @ApiOperation(
-      value = "Returns a user by its ID.", 
-      notes = "If the user is not found, a 404 error is returned.")
-  public ResponseEntity<Users> getUserById(@PathVariable Long id) {
-    logger.info("Fetching user with id: {}", id);
-    Users user = usersService.findById(id);
-    logger.debug("Fetched user: {}", user);
-    return ResponseEntity.ok(user);
   }
 
   /**
@@ -109,26 +97,53 @@ public class UsersController {
     user.setLastName(userDetails.getLastName());
     user.setEmail(userDetails.getEmail());
     user.setPassword(userDetails.getPassword());
-    Users updatedUser = usersService.saveWithoutEncoding(user);
+    Users updatedUser = usersService.save(user, false);
     logger.debug("Updated user: {}", updatedUser);
     return ResponseEntity.ok(updatedUser);
   }
 
   /**
    * Deletes a user by its ID.
-   * If the user is not found, a 404 error is returned.
-   * This method is 'role-sensitive'.
-   * Only accounts with role 'ROLE_USER' will be deleted.
    *
-   * @param id The ID of the user.
-   * @return A response indicating the deletion status.
+   * @param id The ID of the user to delete.
+   * @return A response indicating the result of the operation.
    */
-  @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes a user by its ID.", 
-      notes = "If the user is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-    usersService.deleteById(id);
-    logger.info("Deleting user with id: {}", id);
-    return ResponseEntity.noContent().build();
+  @PostMapping("/{userId}/favourites/{carId}")
+  @ApiOperation(value = "Adds a car to the user's favourites.")
+  public ResponseEntity<?> addFavourite(@PathVariable Long userId, @PathVariable Long carId) {
+    Users user = usersService.findById(userId);
+    Cars car = carsService.findById(carId);
+    user.getFavouriteCars().add(car);
+    usersService.save(user);
+    return ResponseEntity.ok().build();
+  }
+
+  /**
+   * Deletes a user by its ID.
+   *
+   * @param id The ID of the user to delete.
+   * @return A response indicating the result of the operation.
+   */
+  @DeleteMapping("/{userId}/favourites/{carId}")
+  @ApiOperation(value = "Removes a car from the user's favourites.")
+  public ResponseEntity<?> removeFavourite(@PathVariable Long userId, @PathVariable Long carId) {
+    Users user = usersService.findById(userId);
+    Cars car = carsService.findById(carId);
+    user.getFavouriteCars().remove(car);
+    usersService.save(user);
+    return ResponseEntity.ok().build();
+  }
+
+  /**
+   * Returns the user's favourite cars.
+   *
+   * @param userId The ID of the user.
+   * @return The user's favourite cars.
+   */
+  @GetMapping("/{userId}/favourites")
+  @ApiOperation(value = "Returns the user's favourite cars.")
+  public ResponseEntity<Set<Cars>> getFavourites(@PathVariable Long userId) {
+    Users user = usersService.findById(userId);
+    return ResponseEntity.ok(user.getFavouriteCars());
   }
 }

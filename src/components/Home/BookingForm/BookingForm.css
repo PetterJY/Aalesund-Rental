@@ -11,12 +11,6 @@
   color: #000 !important;
 }
 
-@font-face {
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   --center-element-height: 50px;
   font-size: 12px;
@@ -108,7 +102,6 @@ body, html {
   transition: transform 0.1s ease-in-out;
   width: 1px;
   height: 1px;
-  visibility: hidden;
 }
 
 .cross-icon.visible {
@@ -116,7 +109,12 @@ body, html {
   transform: scale(24);
 }
 
+#pickup-destination-input-field {
+  background-color: transparent;
+}
+
 .text-input {
+  background-color: transparent;
   width: 100%;
   border: none;
   font-size: 16px;
@@ -130,6 +128,15 @@ body, html {
 .text-input:focus {
   outline: none;
   caret-color: #FF5F00;
+}
+
+.error-message {
+  position: absolute;
+  color: red;
+  font-weight: bold;
+  font-size: 12px;
+  top: 100%;
+  transform: translate(-5%, -50%);
 }
 
 #showMenuButton {
@@ -404,11 +411,18 @@ p {
 }
 
 .dropoff-location-section, .pickup-location-section {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
+.pickup-location.error {
+  box-sizing: border-box;
+  background-color: rgba(255, 0, 0, 0.2); /* Semi-transparent red */
+  outline: 2px solid red;
+  padding: 2px 14px 2px 14px;
+}
 
 .pickup-location, .dropoff-location {
   box-sizing: border-box;
@@ -435,12 +449,14 @@ p {
 }
 
 .separator {
-margin-right: 10px;
-margin-left: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  visibility: visible;
 }
 
-
-
+.separator.hidden {
+  visibility: hidden;
+}
 
 .save-button:hover {
 background: #e94100; /* Darker shade of #FF5F00 */
@@ -469,22 +485,28 @@ background: #e94100; /* Darker shade of #FF5F00 */
   display: none !important; /* Hide the arrow */
 }
 
+.react-datepicker__input-container input:focus {
+  outline: none; /* Removes the blue border */
+  box-shadow: none; /* Removes any additional focus shadow */
+}
+
 /* Style the main date picker popup container */
 .date-picker-popper .react-datepicker {
   background: #ffffff; /* White background */
   display: flex; /* Display months side by side */
-  gap: 20px; /* Space between months */
-  padding: 10px;
+  gap: 0px; /* Space between months */
+  padding: 0px;
   font-family: "Arial", sans-serif; /* Clean sans-serif font */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  font-size: 1.25rem;
+  font-size: 1rem;
   border-radius: 12px;
-
+  margin-top: -40px;
 }
 
 /* Style each month container */
 .date-picker-popper .react-datepicker__month-container {
-  width: 400px; /* Fixed width for each month */
+  width: 300px; /* Fixed width for each month */
+  max-width: fit-content;
   padding: 12px;
 }
 
@@ -508,8 +530,8 @@ background: #e94100; /* Darker shade of #FF5F00 */
 /* Style the day names (MA, TI, ON, TO, FR, LØ, SØ) */
 .date-picker-popper .react-datepicker__day-name {
   color: #999999; /* Light gray for day names */
-  width: 50px;
-  line-height: 50px;
+  width: 40px;
+  line-height: 30px;
   text-align: center;
   margin: 2px;
   font-weight: normal;
@@ -519,8 +541,8 @@ background: #e94100; /* Darker shade of #FF5F00 */
 /* Style the days */
 .date-picker-popper .react-datepicker__day {
   color: #000000; /* Black text for active dates */
-  width: 50px;
-  line-height: 50px;
+  width: 40px;
+  line-height: 40px;
   text-align: center;
   margin: 2px;
   cursor: pointer;
@@ -704,5 +726,33 @@ background: #e94100; /* Darker shade of #FF5F00 */
 
   .date-input {
     flex-direction: column;
+  }
+
+  .location-section {
+    margin-top: 200px;
+    margin-bottom: 0px;
+    padding-right: 30px;
+    border-radius: 15px 0px 0px 0px;
+
+  }
+
+  .hero-section {
+    border-radius: 0px;
+  }
+
+  .schedule-and-save-container {
+    background-color: white;
+    padding: 15px 60px 20px 20px;
+    border-radius: 0px 0px 15px 15px;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+  .menu-wrapper {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }

@@ -1,13 +1,20 @@
 .car-display {
-  width: 400px;
+  background-size: cover;
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../../../resources/images/car-background.webp");
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+  width: 32.5%; /* Use percentage for width */
   border-radius: 15px;
-  background: radial-gradient(50% 50% at 50% 50%, white, #252422);
-  position: relative; 
   display: flex;
   flex-direction: column;
-  height: 400px;
-  align-self: flex-start; 
+  height: 512px; /* Allow height to adjust based on content */
+  align-self: flex-start;
+  margin: 0;
 }
+
+
 .car-display h2, h1, h3, h4, p {
   font-weight: 200;
 }
@@ -48,12 +55,12 @@
   background-color: rgba(217, 217, 217, 0.2);
   flex-direction: row;
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   width: 60px;
   height: 30px;
   border-radius: 25px;
-  
+
 }
 
 .car-display .passenger-count {
@@ -69,10 +76,10 @@
 }
 
 .car-display .car-tag {
-  background-color: #EB5E28; 
+  background-color: #EB5E28;
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
 
   width: 100px;
@@ -83,7 +90,7 @@
 }
 
 .car-display .bottom-section {
-  margin-top: -65px;
+  margin-top: auto;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
@@ -113,15 +120,27 @@
 }
 
 .car-display .car-image {
-  width: 380px;
-  height: auto;
+  width: 100%; /* Full width of the parent */
+  height: 275px; /* Set the desired height for cropping */
+  object-fit: cover; /* Crops the image to fit the dimensions */
+  justify-self: center;
   align-self: center;
-  margin-top: -50px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-.car-display #car-image img {
-  width: fit-content;
-  height: fit-content;
+.car-display .favourite-btn {
+    background: none;
+  border: none;
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: color 0.2s;
+}
+.car-display .favourite-btn.favourited,
+.car-display .favourite-btn:hover {
+  color: #EB5E28;
 }
 
 .selected-arrow {
@@ -131,15 +150,43 @@
   transform: translateX(-100%);
 }
 
-@media screen and (max-width: 860px) {
+@media screen and (max-width: 1300px) {
+  .car-display {
+    width: 49%;
+  }
+
+
+  .car-display .car-image {
+    height: 70%; /* Set the desired height for cropping */
+  }
+}
+
+@media screen and (max-width: 1000px) {
   .car-display.selected {
     outline: 0 solid;
   }
+
+  .car-display {
+    width: 90%;
+    height: 90vw;
+  }
+
+
+  .car-display .car-image {
+    width: 100%; /* Full width of the parent */
+    height: 60vw; /* Set the desired height for cropping */
+    object-fit: cover; /* Crops the image to fit the dimensions */
+    justify-self: center;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
 
   .selected-arrow {
     bottom: -20px; /* adjust as needed */
     left: 50%;
     transform: translateX(-100%);
   }
-  
+
 }

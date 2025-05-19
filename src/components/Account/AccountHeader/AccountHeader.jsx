@@ -29,6 +29,16 @@ const AccountHeader = () => {
             <a href="/account/my-rentals">My Rentals</a>
           </li>
         )}
+        {role === 'ROLE_USER' && (
+          <li id="favourites-link" className={location.pathname === '/account/favourites' ? 'active' : ''}>
+            <a href="/account/favourites">Favourites</a>
+          </li>
+        )}
+        {role === 'ROLE_ADMIN' && (
+          <li id="admin-rentals-link" className={location.pathname === '/account/admin-rentals' ? 'active' : ''}>
+            <a href="/account/admin-rentals">Rentals</a>
+          </li>
+        )}
       </ul>
     </header>
   );

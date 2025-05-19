@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,9 +73,9 @@ public class AdminsController {
    * @param adminRegisterRequest The request body containing admin details.
    * @return The created admin.
    */
-  @PostMapping
+  @PostMapping("/register")
   @ApiOperation(value = "Creates a new admin.", notes = "The newly created admin is returned.")
-  public ResponseEntity<Admins> createAdmin(
+  public ResponseEntity<Admins> register(
       @RequestBody AdminDetails adminRegisterRequest) {
     Admins admin = new Admins();
     admin.setName(adminRegisterRequest.getName());
@@ -106,24 +105,8 @@ public class AdminsController {
     admin.setName(adminDetails.getName());
     admin.setPassword(adminDetails.getPassword());
     admin.setEmail(adminDetails.getEmail());
-    Admins updatedAdmin = adminService.save(admin);
+    Admins updatedAdmin = adminService.save(admin, false);
     logger.debug("Updated admin: {}", updatedAdmin);
     return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);
-  }
-
-  /**
-   * Deletes an admin by its ID.
-   *
-   * @param id The ID of the admin to delete.
-   * @return A response entity with status NO_CONTENT.
-   */
-  @DeleteMapping("/{id}")
-  @ApiOperation(value = "Deletes an admin by its ID.", 
-      notes = "If the admin is not found, a 404 error is returned.")
-  public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
-    logger.info("Deleting admin with id: {}", id);
-    adminService.deleteById(id);
-    logger.debug("Deleted admin with id: {}", id);
-    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 }

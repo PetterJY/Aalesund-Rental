@@ -1,0 +1,51 @@
+.admin-rentals-layout {
+  display: flex;
+  min-height: 80vh;
+}
+
+.admin-rentals-layout .providers-list {
+  width: 250px;
+  border-right: 1px solid #eee;
+  padding: 24px 16px;
+  background: #fafafa;
+  color: #252422;       
+}
+
+.admin-rentals-layout .providers-list ul {
+  list-style: none;
+  padding: 0;
+  max-height: 80vh;         
+  overflow-y: auto;
+}
+
+.admin-rentals-layout .providers-list li {
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.admin-rentals-layout .providers-list li.selected {
+  background: #EB5E28;
+  color: #fff;
+  border-radius: 6px;
+  padding-left: 8px;
+}
+
+.admin-rentals-layout .provider-cars-list {
+  flex: 1;
+  padding: 32px;
+  
+}
+
+.admin-rentals-layout .provider-cars-list p {
+  color: #252422;
+}
+
+.admin-rentals-layout .providers-list input[type="text"] {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}

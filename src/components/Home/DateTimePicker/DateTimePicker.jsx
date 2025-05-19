@@ -1,12 +1,13 @@
-import React, {useEffect, useRef, useState, memo} from 'react';
+import React, {useEffect, useRef, useState, memo, useContext} from 'react';
 import DatePicker from "react-datepicker";
 import {CalendarBlank} from "@phosphor-icons/react";
 import {enGB} from "date-fns/locale/en-GB";
-import {addDays, subDays, differenceInDays} from 'date-fns';
+import {addDays, subDays, differenceInDays, formatDate} from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
-import "./DateTimePicker.css"; // Copy relevant CSS from Header.css
+import "./DateTimePicker.css";
+import {BookingContext} from "../../utils/BookingContext"; // Copy relevant CSS from Header.css
 
-const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDateChange, onTimeChange, pickupDate, dropoffDate }) {
+const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate, onDateChange, onTimeChange, pickupDate, dropoffDate }) {
   const datePickerRef = useRef(null);
   const timePickerRef = useRef(null);
   const selectedTimeRef = useRef(null);
@@ -17,17 +18,19 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
   const unavailableDays = [];
   const today = new Date();
 
+  const {bookingData} = useContext(BookingContext);
+
   for (let i = 1; i < today.getDate() + 7; i++) {
     unavailableDays.push(subDays(today, i));
   }
 
   const nrOfDaysOfRental = differenceInDays(dropoffDate, pickupDate);
-  if (format === "pickup" && dropoffDate !== null && pickupDate !== null) {
+  if (type === "pickup" && dropoffDate !== null && pickupDate !== null) {
     for (let i = 1; i <= nrOfDaysOfRental; i++) {
       daysOfRental.push(addDays(pickupDate, i));
     }
-  } else if (format === "dropoff" && dropoffDate !== null && pickupDate !== null) {
-    for (let i = 1; i < nrOfDaysOfRental; i++) {
+  } else if (type === "dropoff" && dropoffDate !== null && pickupDate !== null) {
+    for (let i = 1; i <= nrOfDaysOfRental; i++) {
       daysOfRental.push(subDays(dropoffDate, i));
     }
   }
@@ -105,16 +108,16 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        isTimePickerSelected &&
         timePickerRef.current &&
-        !timePickerRef.current.contains(event.target)
+        !timePickerRef.current.contains(event.target) &&
+        event.target.id !== `${type}-picker`
       ) {
         setIsTimePickerSelected(false);
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => document.removeEventListener('pointerdown', handleClickOutside);
   }, [isTimePickerSelected]);
 
 
@@ -123,14 +126,13 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
       if (window.innerWidth >= 1500) {
         setMonthsToShow(3);
       } else if (window.innerWidth > 900) {
+        //TODO: turn these into constants?
         setMonthsToShow(2);
       } else {
         setMonthsToShow(1);
       }
     }
-
     handleWindowResize();
-
     window.addEventListener('resize', handleWindowResize);
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
@@ -154,17 +156,23 @@ const DateTimePicker = memo(function DateTimePicker({ format, selectedDate, onDa
           popperClassName="date-picker-popper"
           minDate={today}
           startDate={new Date()}
-          openToDate={new Date()}
           shouldCloseOnSelect={false}
           locale={enGB}
+          showDisabledMonthNavigation={false}
+          disabledKeyboardNavigation={false}
         />
       </div>
       <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
-        <button className="time-picker-button" onClick={() => setIsTimePickerSelected(true)}></button>
-        <span className="selected-time-option-text" ref={selectedTimeRef}>11:00</span>
+        <button className="time-picker-button"
+                id={`${type}-time`}
+                onMouseDown={() => setIsTimePickerSelected(true)}>
+        </button>
+        <span className="selected-time-option-text" ref={selectedTimeRef}>
+          {`${type === "pickup" ? formatDate(new Date(bookingData.pickupTime), "HH:mm") : formatDate(new Date(bookingData.dropoffTime), "HH:mm")}`}
+        </span>
         {isTimePickerSelected && (
           <div className="time-picker-radio" ref={timePickerRef}>
-            {renderRadioButtons(format, timeOptions[format])}
+            {renderRadioButtons(type, timeOptions[type])}
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 package no.ntnu.logic.controller;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -88,14 +89,15 @@ public class CarsController {
       @RequestParam(required = false) List<Cars.CarType> carType,
       @RequestParam(required = false) List<Cars.Transmission> transmission,
       @RequestParam(required = false) Integer minPassengers,
-      @RequestParam(required = false) String sortOption
-  ) {
-
-    System.out.println("Searching cars with parameters: " +
-        "carType=" + carType +
-        ", transmission=" + transmission +
-        ", minPassengers=" + minPassengers +
-        ", sortOption=" + sortOption);
+      @RequestParam(required = false) String sortOption,
+      @RequestParam(required = false) Integer minPricePerDay,
+      @RequestParam(required = false) Integer maxPricePerDay,
+      @RequestParam(required = false) List<Cars.EnergySource> energySource,
+      @RequestParam(required = false) String searchWord,
+      @RequestParam Cars.Location pickupLocation,
+      @RequestParam String pickupDate,
+      @RequestParam String dropoffDate
+      ) {
 
     Sort sortOrder = Sort.unsorted();
     if (sortOption != null) {
@@ -119,20 +121,48 @@ public class CarsController {
     List<Cars.Transmission> transmissionParam = (transmission != null && !transmission.isEmpty()) ?
         transmission : List.of(Cars.Transmission.values());
     int passengersParam = (minPassengers != null) ? minPassengers : 2;
-    System.out.println("Executing query...");
+    List<Cars.EnergySource> energySourceParam = (energySource != null && !energySource.isEmpty()) ?
+        energySource : List.of(Cars.EnergySource.values());
+    int minPricePerDayParam = (minPricePerDay != null) ? minPricePerDay : 0;
+    int maxPricePerDayParam = (maxPricePerDay != null) ? maxPricePerDay : Integer.MAX_VALUE;
+    LocalDateTime pickupDateParam = LocalDateTime.parse(pickupDate);
+    LocalDateTime dropoffDateParam = LocalDateTime.parse(dropoffDate);
 
+
+    if (searchWord == null) {
+      System.out.println("searchWord is null");
+      searchWord = "";
+    }
+
+    System.out.println("searchWord: " + searchWord);
+
+    System.out.println("Executing query...");
     System.out.println("Searching cars with NEW parameters: " +
         "carType=" + carTypeParam +
         ", transmission=" + transmissionParam +
-        ", minPassengers=" + passengersParam);
+        ", minPassengers=" + passengersParam +
+        ", energySource=" + energySourceParam +
+        ", searchWords=" + searchWord +
+        ", minPricePerDay=" + minPricePerDayParam +
+        ", maxPricePerDay=" + maxPricePerDayParam +
+        ", pickupLocation=" + pickupLocation);
+
+    System.out.println("pickupDate=" + pickupDateParam + ", dropoffDate=" + dropoffDateParam);
 
     List<Cars> cars;
     try {
       cars = carsRepository
-          .findByCarTypeInAndTransmissionInAndPassengersGreaterThanEqual(
+          .findFilteredCars(
               carTypeParam,
               transmissionParam,
               passengersParam,
+              energySourceParam,
+              searchWord,
+              minPricePerDayParam,
+              maxPricePerDayParam,
+              pickupLocation,
+              pickupDateParam,
+              dropoffDateParam,
               pageable
           );
       System.out.println("Query executed successfully. Result: " + cars);
@@ -159,6 +189,61 @@ public class CarsController {
     return ResponseEntity.status(HttpStatus.OK).body(cars);
   }
 
+
+  /**
+   * Returns all car types.
+   *
+   * @return List of all car types.
+   */
+
+@GetMapping("/car-types")
+@ApiOperation(value = "Returns all car types.")
+public ResponseEntity<List<Cars.CarType>> getCarTypes() {
+  try {
+    logger.info("Fetching all car types");
+    List<Cars.CarType> carTypes = List.of(Cars.CarType.values());
+    logger.debug("Fetched car types: {}", carTypes);
+    return ResponseEntity.status(HttpStatus.OK).body(carTypes);
+  } catch (Exception e) {
+    logger.error("Error fetching car types: {}", e.getMessage());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+  }
+}
+
+  /**
+   * Returns all car locations.
+   * 
+   * @return List of all car locations.
+   */
+  @GetMapping("/locations")
+  @ApiOperation(value = "Returns all car locations.")
+  public ResponseEntity<List<Cars.Location>> getCarLocations() {
+    try {
+      logger.info("Fetching all car locations");
+      List<Cars.Location> carLocations = List.of(Cars.Location.values());
+      logger.debug("Fetched car locations: {}", carLocations);
+      return ResponseEntity.status(HttpStatus.OK).body(carLocations);
+    } catch (Exception e) {
+      logger.error("Error fetching car locations: {}", e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+  /**
+   * Returns all extra features for a specific car.
+   * 
+   * @return Set of all extra features.
+   */
+  @GetMapping("/{id}/extra-features")
+  @ApiOperation(value = "Returns all extra features for a specific car.")
+public ResponseEntity<Set<ExtraFeatures>> getExtraFeaturesByCarId(@PathVariable Long id) {
+    logger.info("Fetching extra features for car with id: {}", id);
+    Cars car = carsService.findById(id);
+    Set<ExtraFeatures> extraFeatures = car.getExtraFeatures();
+    logger.debug("Fetched extra features: {}", extraFeatures);
+    return ResponseEntity.status(HttpStatus.OK).body(extraFeatures);
+  }
+  
   /**
    * Creates a new car.
    *
@@ -188,12 +273,15 @@ public class CarsController {
     car.setPassengers(carRequest.getPassengers());
     car.setTransmission(carRequest.getTransmission());
     car.setEnergySource(carRequest.getEnergySource());
+    car.setLocation(carRequest.getLocation());
+    car.setPricePerDay(carRequest.getPricePerDay());
+
     if (carRequest.isAvailable() != null) {
       car.setAvailable(carRequest.isAvailable());
     }
-    car.setPricePerDay(carRequest.getPricePerDay());
+
     Cars createdCar = carsService.save(car);
-    logger.debug("Created car: {}", createdCar);
+    logger.debug("Created car: {}", createdCar.getId());
     return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
   }
 
@@ -219,6 +307,8 @@ public class CarsController {
     car.setPassengers(carDetails.getPassengers());
     car.setTransmission(carDetails.getTransmission());
     car.setEnergySource(carDetails.getEnergySource());
+    car.setLocation(carDetails.getLocation());
+    car.setAvailable(carDetails.isAvailable());
     
     Set<ExtraFeatures> extraFeatures = (carDetails.getExtraFeatureIds() != null ? carDetails.getExtraFeatureIds() : new HashSet<>())
       .stream()
@@ -230,6 +320,7 @@ public class CarsController {
     logger.debug("Updated car: {}", updatedCar);
     return ResponseEntity.status(HttpStatus.OK).body(updatedCar);
   }
+  
 
   /**
    * Deletes a car by its ID.

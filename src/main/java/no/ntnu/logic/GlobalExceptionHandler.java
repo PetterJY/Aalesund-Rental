@@ -45,18 +45,39 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
   }
 
+  /**
+   * Handles AccountNotFoundException thrown by the application.
+   * Returns a 404 Not Found response with the error message.
+   *
+   * @param ex the AccountNotFoundException thrown by the application
+   * @return ResponseEntity with status 404 and error message
+   */
   @ExceptionHandler(AccountNotFoundException.class)
   public ResponseEntity<String> handleAccountNotFoundException(AccountNotFoundException ex) {
     logger.error("Account not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
+  /**
+   * Handles UserNotFoundException thrown by the application.
+   * Returns a 404 Not Found response with the error message.
+   *
+   * @param ex the UserNotFoundException thrown by the application
+   * @return ResponseEntity with status 404 and error message
+   */
   @ExceptionHandler(UserNotFoundException.class)
   public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
     logger.error("User not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
+  /**
+   * Handles AdminNotFoundException thrown by the application.
+   * Returns a 404 Not Found response with the error message.
+   *
+   * @param ex the AdminNotFoundException thrown by the application
+   * @return ResponseEntity with status 404 and error message
+   */
   @ExceptionHandler(AdminNotFoundException.class)
   public ResponseEntity<String> handleAdminNotFoundException(AdminNotFoundException ex) {
     logger.error("User not found exception: ", ex);
@@ -77,6 +98,13 @@ public class GlobalExceptionHandler {
     .body("Data access error occurred");
   }
 
+  /**
+   * Handles DataIntegrityViolationException thrown by the application.
+   * Returns a 409 Conflict response with a generic error message.
+   *
+   * @param ex the DataIntegrityViolationException thrown by the application
+   * @return ResponseEntity with status 409 and error message
+   */
   @ExceptionHandler(DataIntegrityViolationException.class)
   public ResponseEntity<String> handleDataIntegrityViolationException(
       DataIntegrityViolationException ex) {
@@ -84,12 +112,26 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.CONFLICT).body("Data integrity violation occurred");
   }
 
+  /**
+   * Handles CarNotFoundException thrown by the application.
+   * Returns a 404 Not Found response with the error message.
+   *
+   * @param ex the CarNotFoundException thrown by the application
+   * @return ResponseEntity with status 404 and error message
+   */
   @ExceptionHandler(CarNotFoundException.class)
   public ResponseEntity<String> handleCarNotFoundException(CarNotFoundException ex) {
     logger.error("Car not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
+  /**
+   * Handles ExtraFeatureNotFoundException thrown by the application.
+   * Returns a 404 Not Found response with the error message.
+   *
+   * @param ex the ExtraFeatureNotFoundException thrown by the application
+   * @return ResponseEntity with status 404 and error message
+   */
   @ExceptionHandler(ExtraFeatureNotFoundException.class)
   public ResponseEntity<String> handleExtraFeatureNotFoundException(
       ExtraFeatureNotFoundException ex) {
@@ -97,7 +139,13 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
-
+  /**
+   * Handles ProviderNotFoundException thrown by the application.
+   * Returns a 404 Not Found response with the error message.
+   *
+   * @param ex the ProviderNotFoundException thrown by the application
+   * @return ResponseEntity with status 404 and error message
+   */
   @ExceptionHandler(ProviderNotFoundException.class)
   public ResponseEntity<String> handleProviderNotFoundException(ProviderNotFoundException ex) {
     logger.error("Provider not found exception: ", ex);

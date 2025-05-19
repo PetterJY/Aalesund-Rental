@@ -1,6 +1,7 @@
 package no.ntnu.logic.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
@@ -10,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.exceptions.ProviderNotFoundException;
-import no.ntnu.entity.models.Accounts;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.repository.ProvidersRepository;
 
@@ -45,10 +45,9 @@ public class ProvidersService {
    */
   public List<Providers> findAll() {
     logger.info("Fetching all providers");
-    return StreamSupport.stream(
-        providersRepository.findAll().spliterator(), false)
-        .filter(user -> user.getRole() == Accounts.Role.ROLE_PROVIDER)
-        .toList();
+    return StreamSupport.stream(providersRepository.findAll().spliterator(), false)
+        .filter(provider -> !provider.isDeleted())
+        .collect(Collectors.toList());
   }
 
   /**
@@ -61,6 +60,7 @@ public class ProvidersService {
   public Providers findById(Long id) throws ProviderNotFoundException {
     logger.info("Fetching provider with id: {}", id);
     return providersRepository.findById(id)
+      .filter(provider -> !provider.isDeleted())  
       .orElseThrow(() -> new ProviderNotFoundException("Provider not found with id: " + id));
   }
 
@@ -72,21 +72,24 @@ public class ProvidersService {
    */
   public Providers save(Providers provider) {
     logger.info("Saving provider with email: {}", provider.getEmail());
-    provider.setPassword(passwordEncoder.encode(provider.getPassword()));
+    String password = provider.getPassword();
+    provider.setPassword(passwordEncoder.encode(password));
     return providersRepository.save(provider);
   }
 
   /**
-   * Deletes a provider by its ID.
+   * Saves a provider with the option to not encode the password.
    *
-   * @param id the ID of the provider to delete
-   * @throws ProviderNotFoundException if the provider is not found
+   * @param provider        the provider to save
+   * @param encodePassword  whether to encode the password
+   * @return the saved provider
    */
-  public void deleteById(Long id) throws ProviderNotFoundException {
-    logger.info("Deleting provider with id: {}", id);
-    if (!providersRepository.existsById(id)) {
-      throw new ProviderNotFoundException("Provider not found with id: " + id);
+  public Providers save(Providers provider, boolean encodePassword) {
+    if (encodePassword) {
+      logger.debug("Encoding password for provider with email: {}", provider.getEmail());
+      return save(provider);
     }
-    providersRepository.deleteById(id);
+    logger.info("Saving provider with email: {}", provider.getEmail());
+    return providersRepository.save(provider);
   }
 }
