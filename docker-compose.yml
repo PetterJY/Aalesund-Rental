@@ -11,16 +11,19 @@ services:
       - "6000:3306"
     networks:
       - rental-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   app:
     image: ntnu/docker-demo:1.0
     container_name: my-spring-app
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - rental-network
-volumes:
-  mysql-data:
-networks:
-  rental-network:
