@@ -29,9 +29,7 @@
 }
 
 
-.orders .orders-header h2 {
-  font-size: 24px;
-  font-weight: bold;
+.orders .orders-header h1 {
   margin: 0 5px 0 0;
   padding: 0;
   color: #252422;
@@ -40,7 +38,6 @@
 }
 
 .orders .no-matching-status {
-  font-size: 20px;
   color: #252422;
   text-align: center;
   margin-top: 20px;

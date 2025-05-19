@@ -35,8 +35,6 @@
   border-radius: 6px; 
   padding: 6px 16px; 
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease;
   width: 125px; 
 }
@@ -53,7 +51,6 @@
 
 #add-car-button .add-car-text {
   margin-left: 8px;
-  font-size: 1rem;
 }
 
 #add-car-button svg {

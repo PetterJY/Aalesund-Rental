@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { getToken } from '../../utils/JwtUtility'; 
 import { Warning, Eye, EyeSlash } from '@phosphor-icons/react';
 import './DeleteAccount.css';
-import '../../App.css';
 
 const DeleteAccount = ({ closeModal, isModalVisible }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);

@@ -1,4 +1,3 @@
-import "../../App.css";
 import "./CarDisplay.css";
 import React, { useState, useEffect } from "react";
 import { getAccountId } from "../../utils/JwtUtility";
@@ -63,7 +62,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
           <h2 className="car-name">{car.carBrand} {car.modelName}</h2>
           <aside className="passenger-tag">
             <Seatbelt size={24} color="#ffffff" weight="fill"/>
-            <h2 className="passenger-count">{car.passengers}</h2>
+            <h3 className="passenger-count">{car.passengers}</h3>
           </aside>
         </section>
         <section className="top-right-section">
@@ -94,12 +93,12 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
       )}
       
       <section className="bottom-section">
-      <h2 className="rental-place">
+      <h3 className="rental-place">
           {car.provider.companyName}
-        </h2>
+        </h3>
         <section className="price-section">
-          <h2 id="price-day">{car.pricePerDay},-kr/dag</h2>
-          <h2 id="price-total">{totalPrice},-kr/total</h2>      
+          <h4 id="price-day">{car.pricePerDay},-kr/dag</h4>
+          <h4 id="price-total">{totalPrice},-kr/total</h4>      
         </section>
       </section>
     </button> 

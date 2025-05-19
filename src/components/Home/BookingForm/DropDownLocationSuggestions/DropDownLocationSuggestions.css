@@ -18,7 +18,6 @@
   padding: 16px 0;
   cursor: pointer;
   transition: background 0.15s;
-  font-size: 1.33rem;
 }
 
 .dropdown-suggestion-item:hover,

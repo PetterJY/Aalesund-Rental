@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom'; 
 import { getRole } from '../../utils/JwtUtility'; 
 import './AccountHeader.css';
-import '../../App.css';
 
 const AccountHeader = () => {
   const location = useLocation(); 

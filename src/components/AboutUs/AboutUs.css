@@ -17,15 +17,12 @@
 
 .aboutus-header h1 {
   color: var(--primary-color);
-  font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }
 
 .aboutus-intro {
-  font-size: 1.3rem;
-  font-weight: 400;
   color: var(--muted-color);
   max-width: 700px;
   margin: 0 auto;
@@ -37,14 +34,12 @@
 
 .aboutus-section h2 {
   color: var(--secondary-color);
-  font-size: 1.6rem;
-  font-weight: 600;
+  
+  font-weight: var(--font-weight-bold);
   margin-bottom: 0.75rem;
 }
 
 .aboutus-section p {
-  font-size: 1.3rem;
-  font-weight: 400;
   color: var(--text-color);
 }
 
@@ -62,7 +57,6 @@
 .aboutus-team-list {
   list-style: disc inside;
   padding-left: 1rem;
-  font-size: 1.1rem;
   color: var(--text-color);
 }
 
@@ -71,7 +65,6 @@
 }
 
 .aboutus-disclaimer {
-  font-size: 0.95rem;
   color: var(--muted-color);
   margin-top: 2.5rem;
   border-top: 1px solid var(--border-color);
@@ -85,35 +78,11 @@
     padding: 24px 16px;
     margin: 40px auto 20px;
   }
-
-  .aboutus-header h1 {
-    font-size: 2.2rem;
-  }
-
-  .aboutus-intro {
-    font-size: 1.1rem;
-  }
-
-  .aboutus-section h2 {
-    font-size: 1.4rem;
-  }
-
-  .aboutus-section p {
-    font-size: 1rem;
-  }
 }
 
 @media (max-width: 480px) {
   .aboutus-container {
     padding: 20px 12px;
-  }
-
-  .aboutus-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .aboutus-section h2 {
-    font-size: 1.3rem;
   }
 }
 

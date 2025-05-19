@@ -50,11 +50,9 @@
 }
 
 .orders-car-display-card #provider-name {
-  font-size: 20px;
   color: #ffffff;
   margin-left: 10px;
   margin-top: -20px;
-  font-weight: 200;
 }
 
 .orders-car-display-card .car-details {
@@ -66,19 +64,13 @@
 .orders-car-display-card .car-details h3 {
   margin: 0;
   padding: 0;
-  font-size: 20px;
   color: #252422;
 }
 
 .orders-car-display-card .car-details p {
   margin: 3px 0;
   padding: 0;
-  font-size: 16px;
   color: #252422;
-}
-
-.orders-car-display-card .car-details b {
-  font-weight: 500;
 }
 
 .orders-car-display-card .rental-schedule-container {

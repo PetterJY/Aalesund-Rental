@@ -71,7 +71,7 @@
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background: #007bff;
+  background: #FF5F00;
   cursor: pointer;
   border: none;
   pointer-events: auto;
@@ -79,7 +79,6 @@
 
 .price-range-input {
   text-align: center;
-  font-weight: 700;
   border: none;
 }
 

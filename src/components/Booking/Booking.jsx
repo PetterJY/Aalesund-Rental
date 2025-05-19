@@ -5,7 +5,6 @@ import { getRole, getAccountId } from "../utils/JwtUtility";
 import { useAuth } from "../utils/AuthContext";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
-import "../App.css";
 import {BookingContext} from "../utils/BookingContext";
 import {formatDate} from "date-fns";
 

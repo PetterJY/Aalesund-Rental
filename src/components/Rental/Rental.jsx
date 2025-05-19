@@ -4,7 +4,6 @@ import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
 import IntervalSlider from "./IntervalSlider/IntervalSlider";
 import "./Rental.css";
-import "../App.css";
 import {BookingContext} from "../utils/BookingContext";
 // import '../Home/BookingForm/BookingForm.css';
 

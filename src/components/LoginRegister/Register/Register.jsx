@@ -2,7 +2,6 @@ import React from 'react';
 import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../LoginRegister.css';
-import '../../App.css';
 
 const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
   const { setIsAuthenticated, setIsAuthInitialized } = useAuth();

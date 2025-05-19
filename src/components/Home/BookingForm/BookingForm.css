@@ -11,17 +11,6 @@
   color: #000 !important;
 }
 
-:root {
-  --center-element-height: 50px;
-  font-size: 12px;
-  line-height: 18px;
-}
-
-body, html {
-  overflow-x: hidden; /* Prevents horizontal scrolling */
-  width: 100%;
-}
-
 .nav-bar svg {
   color: #ffffff;
 }
@@ -117,9 +106,7 @@ body, html {
   background-color: transparent;
   width: 100%;
   border: none;
-  font-size: 16px;
   opacity: 0.75;
-  font-weight: 600;
   margin: 0 0 0 12px;
   caret-color: #FF5F00;
   line-height: 150%;
@@ -133,8 +120,7 @@ body, html {
 .error-message {
   position: absolute;
   color: red;
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: var(--font-weight-bold);
   top: 100%;
   transform: translate(-5%, -50%);
 }
@@ -165,15 +151,6 @@ p {
   color: white;
   justify-content: left;
   align-items: flex-start;
-}
-
-.location-display {
-  font-size: 14px;
-}
-
-.time-display {
-  font-size: 12px;
-  font-weight: 500;
 }
 
 .schedule-and-save-container {
@@ -254,7 +231,6 @@ p {
   background-color: transparent;
   color: #000;
   text-align: center;
-  font-size: 16px;
   line-height: normal;
 }
 
@@ -267,7 +243,6 @@ p {
   background: transparent;
   color: #000;
   text-align: center;
-  font-size: 16px;
   line-height: normal;
 }
 
@@ -323,7 +298,6 @@ p {
   align-items: center;
   justify-content: center;
   height: 100%;
-  font-size: 14px;
 }
 
 .time-options-label:hover {
@@ -366,7 +340,6 @@ p {
 
 .selected-time-option-text {
   opacity: 1;
-  font-size: 1.25rem;
 }
 
 
@@ -378,7 +351,6 @@ p {
   background: #FF5F00;
   color: white;
   margin-top: auto;
-  font-size: 1em;
   justify-content: center;
   align-items: center;
   height: 50px;
@@ -388,7 +360,6 @@ p {
   border-radius: 10px;
   text-align: center;
   align-self: center;
-  font-weight: 700;
 }
 
 .schedule-and-save-container {
@@ -498,7 +469,6 @@ background: #e94100; /* Darker shade of #FF5F00 */
   padding: 0px;
   font-family: "Arial", sans-serif; /* Clean sans-serif font */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  font-size: 1rem;
   border-radius: 12px;
   margin-top: -40px;
 }
@@ -519,8 +489,6 @@ background: #e94100; /* Darker shade of #FF5F00 */
 
 /* Style the month and year text */
 .date-picker-popper .react-datepicker__current-month {
-  font-size: 16px;
-  font-weight: bold;
   color: #000000; /* Black text */
   text-transform: uppercase; /* Uppercase like "MARS 2025" */
   text-align: center;
@@ -534,7 +502,6 @@ background: #e94100; /* Darker shade of #FF5F00 */
   line-height: 30px;
   text-align: center;
   margin: 2px;
-  font-weight: normal;
   text-transform: uppercase; /* Uppercase for consistency */
 }
 
@@ -709,7 +676,7 @@ background: #e94100; /* Darker shade of #FF5F00 */
     overflow: visible;
   }
 
-  .save-button {
+  .schedule-and-save-container .save-button {
     max-width: 100%;
     width: 100%;
   }

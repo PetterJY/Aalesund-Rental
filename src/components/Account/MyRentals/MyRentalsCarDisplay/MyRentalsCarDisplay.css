@@ -69,7 +69,6 @@
   border-right: none;
   border-bottom: 2px solid #252422;
   outline: none;
-  font-size: 16px;
   color: #252422;
   width: fit-content;
 }
@@ -85,7 +84,6 @@
   border-right: none;
   border-bottom: 2px solid #252422;
   outline: none;
-  font-size: 16px;
   color: #252422;
   width: fit-content;
 }
@@ -98,14 +96,12 @@
 .rentals-car-display-card .car-details h3 {
   margin: 10px 0 15px 0;
   padding: 0;
-  font-size: 25px;
   color: #252422;
 }
 
 .rentals-car-display-card .car-details p {
   margin: 6px 0;
   padding: 0;
-  font-size: 16px;
   color: #252422;
 }
 
@@ -114,7 +110,6 @@
   color: #252422;
   border-bottom: 2px solid #252422;
   border-radius: 0px;
-  font-size: 16px;
   transition: 0.3s;
 }
 
@@ -171,19 +166,13 @@
   justify-content: center;
   align-items: center;
   margin: 20px 0;
-  font-size: 20px;
   color: #252422;
-  font-weight: 600;
-  
 }
 
 .my-rentals-car-display .availability-toggle-btn {
   margin: 8px 0;
   padding: 6px 16px;
   border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
 }
 .my-rentals-car-display .availability-toggle-btn.enabled {
   background: #EB5E28;

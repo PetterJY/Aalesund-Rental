@@ -4,7 +4,6 @@ import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../LoginRegister.css';
-import '../../App.css';
 
 const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);

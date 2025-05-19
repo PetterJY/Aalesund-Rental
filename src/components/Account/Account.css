@@ -30,7 +30,6 @@
 }
 
 .account-section h3 {
-  font-weight: 400;
   margin-bottom: 0px;
 }
 
@@ -41,8 +40,7 @@
   margin-bottom: 15px;
   margin-top: 10px;
   padding-left: 0px;
-  font-size: 20px;
-  font-weight: 400;
+  font-size: var(--font-size-xl);
 }
 
 .account-section input[type="text"]:focus {
@@ -94,4 +92,12 @@
   border-bottom: 1px solid #EB5E28;
   border-radius: 0%;
   transition: 0.3s;
+}
+
+@media screen and (max-width: 768px) {
+  .account-section {
+    margin-left: 0px;
+    padding: 20px;
+  }
+  
 }

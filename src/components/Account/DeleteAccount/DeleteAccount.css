@@ -25,15 +25,8 @@
   text-align: center;
 }
 
-/* Title (same as .title in LoginRegister.css) */
-.modal-content .title {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
 /* Paragraph text */
 .modal-content p {
-  font-size: 16px;
   color: #252422;
   margin: 0.5em 0;
 }
@@ -54,8 +47,7 @@
 
 .modal-content #bottom-section label {
   margin-bottom: 8px;
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
   color: #252422;
 }
 
@@ -65,7 +57,6 @@
   border: none;
   border-bottom: 2px solid gray;
   border-radius: 4px;
-  font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
 }
@@ -78,7 +69,6 @@
 .modal-content #bottom-section input[type="text"],
 .modal-content #bottom-section input[type="password"] {
   border-radius: 0;
-  font-size: 1rem;
   color: #252422;
 }
 
@@ -88,7 +78,6 @@
   padding: 10px;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
   cursor: pointer;
   margin-bottom: 10px;
 }
@@ -103,7 +92,6 @@
   padding: 10px;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
   cursor: pointer;
 }
 
@@ -113,5 +101,4 @@
 
 .modal-content #bottom-section #verification-keyword {
   color: #FF5F00;
-  font-weight: bold;
 }

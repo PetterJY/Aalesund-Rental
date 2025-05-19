@@ -14,8 +14,7 @@
   text-align: left;
   align-items: center;
   border-radius: 0px;
-  font-size: 24px;
-  font-weight: 550;
+  font-size: var(--font-size-xxl);
 }
 
 .orders-dropdown-selected:hover {

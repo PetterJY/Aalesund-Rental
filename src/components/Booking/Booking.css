@@ -26,24 +26,6 @@ body {
   margin: 0 10vh 0 10vh;
 }
 
-.booking-page .pickup-dropoff-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.booking-page .booking-details-title {
-  font-weight: 700;
-}
-
-.booking-page .pickup-dropoff-time {
-  font-weight: 700;
-}
-
-.booking-page h4 {
-  font-style: italic;
-  font-weight: 400;
-}
-
 .booking-page .driver-information-form {
   overflow: hidden;
   padding: 20px;
@@ -71,7 +53,7 @@ body {
   max-height: 900px;
   width: 30%;
   max-width: 600px;
-  min-width: 20em;
+  min-width: 25em;
   margin: 20px;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -100,12 +82,6 @@ body {
   height: auto;
   object-fit: contain;
   display: block;
-}
-
-/* Form Styles */
-.booking-page form label {
-  font-size: 26px;
-  font-weight: 500;
 }
 
 .booking-page form input, 
@@ -138,7 +114,7 @@ body {
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 15px;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   width: 50%;
 }
 
@@ -267,25 +243,15 @@ body {
 }
 
 .booking-page h2 {
-  font-size: 26px;
-  font-weight: 500;
   color: #252422;
 }
 
 .booking-page form h2 {
-  font-size: 26px;
   color: #252422;
 }
 
 .booking-page form label {
-  font-size: 18px;
   color: #252422;
-}
-
-.booking-page form input, 
-.booking-page form select, 
-.booking-page form textarea {
-  font-size: 18px;
 }
 
 .booking-page form div {
@@ -386,8 +352,13 @@ body {
     grid-row: 4
   }
 
-  .booking-page .book-car {
+  .booking-page .phone-number {
     grid-column: 1;
     grid-row: 5
+  }
+
+  .booking-page .submit-button-container {
+    grid-column: 1;
+    grid-row: 6
   }
 }

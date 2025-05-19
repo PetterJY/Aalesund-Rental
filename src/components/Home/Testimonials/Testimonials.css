@@ -211,24 +211,16 @@
 }
 
 .testimonial-name {
-  font-weight: 900;
+
+  font-weight: var(--font-weight-bold);
   font-style: italic;
-  font-size: 2.2rem;
 }
 
-.testimonial-quote {
-  font-size: 1.7rem;
-
-}
 
 /* Media queries for responsive design */
 @media screen and (max-width: 1500px) {
   .hero-section {
     padding: 16px;
-  }
-
-  .testimonials-slideshow h1 {
-    font-size: 2.25rem;
   }
 
   .testimonials-slideshow {
@@ -277,14 +269,5 @@
 
   .testimonial {
     width: 450px !important;
-  }
-
-
-  .testimonial-quote {
-    font-size: 1.2rem; /* Smaller text */
-  }
-
-  .testimonial-name {
-    font-size: 1.6rem;
   }
 }

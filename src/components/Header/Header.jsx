@@ -9,7 +9,6 @@ import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../Home/BookingForm/BookingForm';
 import HeaderDropDownMenuMenu from './HeaderDropDownMenu/HeaderDropDownMenuMenu';
 import './Header.css';
-import '../App.css';
 import {BookingContext} from "../utils/BookingContext";
 
 const Header = () => {

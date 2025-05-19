@@ -22,13 +22,12 @@
 }
 
 .not-found-container h2 {
-  font-size: 30px;
+  font-size: var(--font-size-xxxl);
   color: #252422;
   margin: 10px 0;
 }
 
 .not-found-container p {
-  font-size: 16px;
   color: #252422;
   margin: 20px 0;
 }
@@ -39,7 +38,6 @@
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 25px;
-  font-size: 16px;
   transition: 0.3s;
 }
 
