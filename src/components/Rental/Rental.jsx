@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect, useContext} from "react";
 import {FunnelSimple, CaretDown, MagnifyingGlass, XCircle} from "@phosphor-icons/react";
+import logo from "../../resources/images/logo.png";
 import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
 import IntervalSlider from "./IntervalSlider/IntervalSlider";
@@ -512,7 +513,14 @@ const renderWithInsertedMenu = () => {
           )}
 
           <main className="main-body" ref={containerRef}>
-            {renderWithInsertedMenu()}
+            {cars.length === 0 ? (
+              <div className="no-cars-message">
+                <img src={logo} alt="no-cars-image" className="no-cars-image" />
+                <p className="no-cars-message-text">No cars available for the selected filters</p>
+              </div>
+            ) : (
+              renderWithInsertedMenu()
+            )}
           </main>
         </div>
       </section>
