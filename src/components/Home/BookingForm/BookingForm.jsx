@@ -4,7 +4,6 @@ import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import DropDownLocationSuggestions from './DropDownLocationSuggestions/DropDownLocationSuggestions';
 import { BookingContext } from '../../utils/BookingContext'
 import './BookingForm.css';
-import '../../App.css';
 
 const BookingForm = ({
                        initialData,

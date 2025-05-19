@@ -5,7 +5,6 @@ import Testimonials from "./Testimonials/Testimonials";
 import Reputation from "./Reputation/Reputation";
 import FeaturedCars from "./FeaturedCars/FeaturedCars";
 import CallToAction from "./CallToAction/CallToAction";
-import '../App.css';
 import './Home.css';
 import {BookingContext} from "../utils/BookingContext";
 import callToAction from "./CallToAction/CallToAction";

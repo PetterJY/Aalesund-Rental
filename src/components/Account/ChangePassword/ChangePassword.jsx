@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import './ChangePassword.css';
-import '../../App.css';
 
 const ChangePassword = ({ closeModal, isModalVisible }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);

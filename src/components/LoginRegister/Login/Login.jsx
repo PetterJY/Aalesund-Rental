@@ -4,7 +4,6 @@ import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../LoginRegister.css';
-import '../../App.css';
 
 const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
@@ -129,7 +128,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
                       className="toggle-password-button"
                       onClick={togglePasswordVisibility}
                     >
-                      {passwordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                      {passwordVisible ? <EyeSlash color="var(--secondary-color)" /> : <Eye color="var(--secondary-color)" />}
                     </button>
                   </div>
 

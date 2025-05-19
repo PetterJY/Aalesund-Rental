@@ -1,6 +1,5 @@
 import React from 'react';
 import './PaginationControls.css';
-import '../App.css';
 
 const PaginationControls = ({ currentPage, totalPages, onPageChange }) => {
   const handleNextPage = () => {

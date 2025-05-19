@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { mapCarImage } from '../../utils/CarImageMapper';
 import { Car, Seatbelt, PlusCircle, Calendar, CaretDown } from "@phosphor-icons/react";
 import './CarSelected.css';
-import '../../App.css';
 
 const CarSelected = ({car}) => {
   const navigate = useNavigate();
@@ -25,14 +24,14 @@ const CarSelected = ({car}) => {
       <div id ="car-background">
         <header>
           <h2>{car.carBrand} {car.modelName}</h2>
-          <h3>{car.energySource}</h3>
+          <h4>{car.energySource}</h4>
         </header>
         <img 
           src={carImage}
           alt={`${car.carBrand} ${car.modelName}`}
           className="car-image" 
           />
-        <footer><h2>{car.provider.companyName}</h2></footer>
+        <footer><h3>{car.provider.companyName}</h3></footer>
       </div>
       <section className="car-details">
         <div className="car-info">

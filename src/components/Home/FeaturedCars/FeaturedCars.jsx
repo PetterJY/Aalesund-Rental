@@ -131,9 +131,6 @@ useEffect(() => {
                     alt={`${car.carBrand} ${car.modelName}`}
                     className="featured-car-image"
                   />
-                  <div className="featured-car-info">
-                    <h2>{car.carBrand} {car.modelName} {car.id}</h2>
-                  </div>
                 </div>
               );
             })}

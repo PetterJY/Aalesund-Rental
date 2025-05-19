@@ -6,7 +6,6 @@ import PaginationControls, { getPaginatedItems } from '../../PaginationControls/
 import MyRentalsCarDisplay from './MyRentalsCarDisplay/MyRentalsCarDisplay';
 import CreateCarModal from './CreateCarModal/CreateCarModal';
 import './MyRentals.css';
-import '../../App.css';
 
 const MyRentals = () => {
   const navigate = useNavigate();

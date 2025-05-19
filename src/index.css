@@ -1,19 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Manrope:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
 
 :root {
-  /*--font-family: 'Montserrat', 'Roboto', sans-serif;*/
-  --font-family: "DM Sans", sans-serif;;
-  --font-smoothing: antialiased;
-  --font-size-base: 16px;
-  --line-height-base: 1.5;
-  --color-text: #252422;
-  --font-weight: 550;
+  --main-color: #1A1A1A;
+  --secondary-color: #FF5F00;
+  --secondary-color-hover: #FF5F00c9;
+  --secondary-color-active: #FF5F00e6;
+  --background-color: #F4F4F9;
+  --hover-color: #efeff4;
+  --hover-color-darker: #d6d6dc;
+  --neutral-color: #1a1a1aa0;
+  --neutral-color-hover: #1a1a1a70;
+
+  --main-button-hover-color: var(--secondary-color);
+  --main-button-text-color: white;
+
+  --secondary-button-color: rgb(243, 243, 250);
+  --secondary-button-hover-color: rgb(230, 230, 240);
+  --secondary-button-checked-color: var(--main-color);
+
+  font-size: 14px;
+
+  /* Typography Scale (based on the provided type scale) */
+  --font-size-xxxl: 2.5rem; 
+  --font-size-xxl: 1.8rem;
+  --font-size-xl: 1.5rem;
+  --font-size-l: 1rem;
+  --font-size-m: 0.85rem;
+  --font-size-s: 0.75rem;
+
+  /* Font Weights and Lightness */
+  --font-weight-bold: 700;
+  --font-weight-regular: 400;
+  --lightness-100: 100%;
+  --lightness-65: 65%;
+
+  /* Spacing Scale (based on the provided margins) */
+  --spacing-xxs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-s: 0.75rem;
+  --spacing-m: 1rem;
+  --spacing-l: 1.25rem;
+  --spacing-xl: 1.75rem;
+  --spacing-xxl: 2.5rem;
+
 }
+
 
 body {
   margin: 0;
-  font-family: var(--font-family), serif;
+  font-family: var(--font-family);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
   color: var(--color-text);
@@ -30,4 +67,113 @@ body {
 html, body {
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+*:hover {
+  transition: 0.1s ease-in-out;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, button, input, textarea, select , label , span , div, li {
+  font-family: 'Poppins';
+}
+
+h1 { font-size: var(--font-size-xxxl); font-weight: var(--font-weight-regular); color: hsl(0 , 0%, var(--lightness-0));}
+h2 { font-size: var(--font-size-xxl); font-weight: var(--font-weight-regular); color: hsl(0, 0%, var(--lightness-0));}
+h3 { font-size: var(--font-size-xl); font-weight: var(--font-weight-regular); color: hsl(0, 0%, var(--lightness-0));}
+h4 { font-size: var(--font-size-l); font-weight: var(--font-weight-regular); color: hsl(0, 0%, var(--lightness-0));}
+h5 { font-size: var(--font-size-m); font-weight: var(--font-weight-regular); color: hsl(0, 0%, var(--lightness-0));}
+h6 { font-size: var(--font-size-m); font-weight: var(--font-weight-regular); color: hsl(0, 0%, var(--lightness-35));}
+
+p {
+  font-size: var(--font-size-l); /* Default size */
+  font-weight: var(--font-weight-regular);
+  color: hsl(0, 0%, var(--lightness-100));
+  margin: var(--spacing-m) 0; /* Default margin */
+}
+
+.p-large {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-regular);
+}
+
+.p-small {
+  font-size: var(--font-size-m);
+  color: hsl(0, 0%, var(--lightness-65));
+}
+
+.p-spaced {
+  margin: var(--spacing-l) 0;
+}
+
+a {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-regular);
+  color: hsl(0, 0%, var(--lightness-100));
+  text-decoration: none;
+}
+
+li {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-regular);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.input-field {
+  background-color: white;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: gray solid 2px;
+}
+
+.input-field:focus {
+  outline: none;
+  background-color: white;
+  border-bottom: var(--secondary-color) solid 2px;
+}
+
+.toggle-password-button-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-field {
+  background-color: white;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: gray solid 2px;
+  padding-right: 40px; 
+}
+
+.password-input-field:focus {
+  outline: none;
+  background-color: white;
+  border-bottom: var(--secondary-color) solid 2px;
+}
+
+.toggle-password-button {
+  position: absolute;
+  top: 50%; 
+  right: 10px;
+  transform: translateY(-50%); 
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary-color);
+}
+
+.error-message {
+  color: red;
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-regular);
+  margin-top: 10px;
 }

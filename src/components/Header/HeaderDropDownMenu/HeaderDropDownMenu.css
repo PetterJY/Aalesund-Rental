@@ -57,7 +57,7 @@
 }
 
 .dropdown-menu-list li:hover {
-  color: #FF5F00;
+  color: var(--secondary-color);
   border-radius: 0;
 }
 
