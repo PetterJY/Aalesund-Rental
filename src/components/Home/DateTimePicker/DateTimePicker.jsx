@@ -5,7 +5,7 @@ import {enGB} from "date-fns/locale/en-GB";
 import {addDays, subDays, differenceInDays, formatDate} from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import "./DateTimePicker.css";
-import {BookingContext} from "../../utils/BookingContext"; // Copy relevant CSS from Header.css
+import {BookingContext} from "../../utils/BookingContext";
 
 const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate, onDateChange, onTimeChange, pickupDate, dropoffDate }) {
   const datePickerRef = useRef(null);
@@ -37,16 +37,16 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
 
   const highlightWithRanges = [
     {
-      "react-datepicker__day--highlighted-custom-1": daysOfRental, // highlight days between pickup and dropoff
+      "react-datepicker__day--highlighted-custom-1": daysOfRental,
     },
     {
       "react-datepicker__day--highlighted-custom-2": [
-        today // highlight today's date
+        today
       ],
     }, {
-      "react-datepicker__day--highlighted-custom-3": [pickupDate], // highlight pickup-date with uniquely rounded corners
+      "react-datepicker__day--highlighted-custom-3": [pickupDate],
     }, {
-      "react-datepicker__day--highlighted-custom-4": [dropoffDate], // highlight dropoff-date with uniquely rounded corners
+      "react-datepicker__day--highlighted-custom-4": [dropoffDate],
     }, {
       "react-datepicker__day--highlighted-custom-5": unavailableDays,
     },

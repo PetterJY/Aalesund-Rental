@@ -61,10 +61,9 @@
 
 .rental-page .no-cars-image {
   position: relative;
-  z-index: 1; /* Ensure the logo is above the shadow */
   width: 100%;
   height: auto;
-  max-width: 400px;
+  max-width: 685px;
 }
 
 .rental-page .no-cars-message-text {

@@ -57,8 +57,8 @@ export default function Rental() {
     passengers: [],
     energySource: [],
     search: "",
-    minPrice: null,
-    maxPrice: null,
+    minPrice: 0,
+    maxPrice: 1000,
     pickupLocation: bookingData.pickupLocation,
     pickupDate: bookingData.pickupDate,
     dropoffDate: bookingData.dropoffDate,
@@ -369,11 +369,15 @@ const renderWithInsertedMenu = () => {
 
   const handleSaveFilters = () => {
     setSelectedFilterOptions({
+      ...selectedFilterOptions,
       sortBy: Array.from(document.querySelectorAll('input[name="sortBy"]:checked')).map(input => input.value),
       carType: Array.from(document.querySelectorAll('input[name="carType"]:checked')).map(input => input.value),
       transmission: Array.from(document.querySelectorAll('input[name="transmission"]:checked')).map(input => input.value),
       passengers: Array.from(document.querySelectorAll('input[name="passengers"]:checked')).map(input => input.value),
       energySource: Array.from(document.querySelectorAll('input[name="energySource"]:checked')).map(input => input.value),
+      search: document.getElementById("search-cars-input-field").value,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
     });
 
     console.log("Selected filter options:", selectedFilterOptions);

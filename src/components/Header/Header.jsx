@@ -196,14 +196,14 @@ const Header = () => {
 
         <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
           <div className="menu-wrapper">
-            {mobileDisplaySize && (
-              <div className="mobile-display-top-menu">
-                <button className="x-button">
-                  <X className="x-icon" size={24} weight="bold" onClick={handleXClick}/>
-                </button>
-                <h2 className="booking-details-title">Your booking details</h2>
-              </div>
-            )}
+            {/*{mobileDisplaySize && (*/}
+            {/*  <div className="mobile-display-top-menu">*/}
+            {/*    <button className="x-button">*/}
+            {/*      <X className="x-icon" size={24} weight="bold" onClick={handleXClick}/>*/}
+            {/*    </button>*/}
+            {/*    <h2 className="booking-details-title">Your booking details</h2>*/}
+            {/*  </div>*/}
+            {/*)}*/}
 
             <BookingForm
               initialData={bookingData}
