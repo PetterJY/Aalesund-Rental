@@ -307,7 +307,7 @@ const BookingForm = ({
 
   const mobileDisplayForm = () => {
     return (
-    <div>
+    <div className="mobile-display-form">
       {showFullScreenForm && mobileEntireBookingForm()}
       {pickupLocationSection()}
       <button className="save-button" onClick={handleShowMenu}>
@@ -382,6 +382,7 @@ const BookingForm = ({
               </button>
             </div>
           </div>
+          {mobileDisplaySize && (<div className="mobile-display-divider"></div>)}
         </div>
         <div className="schedule-and-save-container">
           <div className="schedule-container">
