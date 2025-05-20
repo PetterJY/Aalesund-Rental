@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -175,37 +177,32 @@ public class AddDummyObjectsToDatabase {
 
 	// Login to get JWT token.
 	public static String login(String email, String password) {
-		HttpClient client = HttpClient.newHttpClient();
+    HttpClient client = HttpClient.newHttpClient();
 
-		String json = "{"
+    String json = "{"
 				+ "\"email\": \"" + email + "\","
 				+ "\"password\": \"" + password + "\""
 				+ "}";
-				
-		HttpRequest request = HttpRequest.newBuilder()
+
+    HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("http://localhost:8080/auth/login"))
 				.header("Content-Type", "application/json")
 				.POST(HttpRequest.BodyPublishers.ofString(json))
 				.build();
 
-		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-				.thenAccept(response -> {
-					if (response.statusCode() == 200) {
-						System.out.println("Successfully logged in. Token: " + response.body());
-					} else {
-						System.out.println("Failed to log in. HTTP status: " + response.statusCode());
-					}
-				})
+    HttpResponse<String> response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 				.join();
 
-		String jsonResponse = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-				.thenApply(HttpResponse::body)
-				.join();
-
-		jwt_token = extractJwtToken(jsonResponse);
-
-		return jwt_token;
-	}
+    if (response.statusCode() == 200) {
+			logger.info("Successfully logged in. Token: " + response.body());
+			jwt_token = extractJwtToken(response.body());
+			logger.debug("JWT token: " + jwt_token);
+			return jwt_token;
+    } else {
+			logger.error("Failed to log in. HTTP status: " + response.statusCode() + ". Response: " + response.body());
+			return null;
+    }
+}
 
 	// Extract JWT token from the response.
 	public static String extractJwtToken(String jsonResponse) {
@@ -218,9 +215,12 @@ public class AddDummyObjectsToDatabase {
 
 			// Extract the "accessToken" field
 			return rootNode.get("accessToken").asText();
-		} catch (Exception e) {
-			System.err.println("Failed to parse JWT token: " + e.getMessage());
-			return null; // Return null if parsing fails
+		} catch (JsonMappingException e) {
+			System.err.println("Threw JsonMappingException: " + e.getMessage());
+			return null;
+		} catch (JsonProcessingException e) {
+			System.err.println("Threw JsonProcessingException: " + e.getMessage());
+			return null; 
 		}
 	}
 
