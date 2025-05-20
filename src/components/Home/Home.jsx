@@ -30,25 +30,6 @@ const Home = () => {
     navigate('/rental');
   };
 
-  useEffect(() => {
-    const callToAction = callToActionRef.current;
-    const triggerPoint = 500;
-
-    const handleScroll = () => {
-      if (window.scroll > triggerPoint) {
-        callToAction.style.position = 'absolute';
-        callToAction.style.top = `${triggerPoint}px`;
-      } else {
-        callToAction.style.position = 'fixed';
-        callToAction.style.top = '0';
-
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const HeroCallToAction = () => {
     const [isRendered, setIsRendered] = useState(false);
 

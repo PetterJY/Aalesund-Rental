@@ -137,13 +137,18 @@
 }
 
 
-.orders-car-display-card .order-status-container p {
+ .orders-car-display-card .order-status-label {
   color: black;
-}
+  margin: auto 12px 12px auto
+ }
+
 
 .orders-car-display-card .cancel-order p {
   color: white;
 }
+
+
+
 
 @media screen and (max-width: 950px) {
   .orders-car-display-card {
@@ -195,6 +200,7 @@
     height:100%;
   }
   
+
 }
 
 @media screen and (max-width: 650px) {

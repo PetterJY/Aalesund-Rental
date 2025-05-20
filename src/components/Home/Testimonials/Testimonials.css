@@ -15,7 +15,6 @@
   flex-direction: column;
   height: fit-content;
   width: calc(3 * 350px + 12px); /* 3 cards + spacing (adjust as needed) */
-  /*border: 2px solid green;*/
   justify-content: center;
   overflow: hidden;
   max-width: 100%;
@@ -28,7 +27,6 @@
   box-sizing: border-box;
   justify-content: center;
   align-items: center; /* Center vertically */
-  /*border: 5px solid lightblue;*/
   width: 100vw;
   max-width: 1600px;
   height: fit-content;
@@ -50,7 +48,6 @@
   flex-direction: column;
   position: relative;
   box-sizing: border-box;
-  /*border: 2px solid purple;*/
   width: 100%;
   height: 40vw;
   max-height: 500px;
@@ -82,7 +79,6 @@
 .indicators {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  /*border: 2px solid blue;*/
   justify-items: center;
   grid-column-gap: 6px;
   align-content: center;
@@ -102,7 +98,6 @@
 
 .buttons {
   position: relative;
-  /*border: 2px solid violet;*/
   display: flex;
   flex-direction: row;
   margin-left: auto;
@@ -138,7 +133,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: transform 0.5s ;
+  transition: transform 0.5s;
   overflow: visible;
   height: auto;
   min-height: 250px;
@@ -152,7 +147,7 @@
 }
 
 .testimonial p {
-  color: black !important;
+  color: black
 }
 
 .testimonial.active {
@@ -161,7 +156,7 @@
 
 .hidden-card-left {
   transform: translate(-350%, -50%);
-  transition: transform 0.5s , opacity 0s 0.5s;
+  transition: transform 0.5s, opacity 0s 0.5s;
   opacity: 0;
   pointer-events: none;
   z-index: 1;
@@ -222,14 +217,20 @@
   .hero-section {
     padding: 16px;
   }
-
+  
   .testimonials-slideshow {
     width: 95vw;
+    padding: 100px 0 0 0;
+    height: fit-content;
+  }
+
+  .testimonials {
+    height: 700px;
+    width: 100%;
   }
 
   .testimonial {
-    height: 100px;
-    width: 275px !important; /* Smaller cards on mobile */
+    width: 25%;
   }
 
   .center-card {
@@ -237,20 +238,12 @@
   }
 }
 
-@media screen and (max-width: 1200px) {
-  .testimonial {
-    height: 100px;
-    width: 250px !important;
-  }
-}
 
-@media screen and (max-width: 1000px) {
-  .hero-section {
-    min-width: 100vw;
-    min-height: 500px;
-    flex-direction: column;
+@media screen and (max-width: 800px) {
+  .testimonials-wrapper {
+    height: fit-content;
   }
-
+  
   .booking-form-container .menu-wrapper {
     width: 100vw;
   }
@@ -261,6 +254,8 @@
 
   .testimonials-slideshow {
     width: 95vw; /* Full width on mobile */
+    height: 700px;
+    padding: 100px 100px 0 100px;
   }
 
   .testimonials {
@@ -268,6 +263,18 @@
   }
 
   .testimonial {
-    width: 450px !important;
+    width: 80%;
+    max-height: 200px;
+  }
+  
+  .testimonial-quote {
+    font-size: var(--font-size-m);
+    text-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .testimonials-slideshow {
+    padding: 100px 20px 20px 20px;
   }
 }

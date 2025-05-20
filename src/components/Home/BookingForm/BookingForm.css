@@ -28,7 +28,7 @@
   flex-direction: row;
   align-items: center;
   align-self: center;
-  background-color: var(--main-color);
+  background-color: var(--neutral-color-background);
   height: 44px;
   width: 500px;
   border-radius: 16px;
@@ -401,6 +401,7 @@ p {
   position: relative;
   height: var(--center-element-height);
   border: 1px solid #C9C9CF;
+  height: 50px;
   display: flex;
   flex-direction: row;
   gap: 0;

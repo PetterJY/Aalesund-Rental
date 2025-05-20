@@ -44,3 +44,18 @@
   color: white;
   margin-bottom: 12px;
 }
+
+@media screen and (max-width: 768px) {
+  .reputation-container {
+    height: fit-content;  }
+  .reputation-section {
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .wide-range, .affordable-rates, .hand-coins, .support, .easy-booking {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+  
+}
