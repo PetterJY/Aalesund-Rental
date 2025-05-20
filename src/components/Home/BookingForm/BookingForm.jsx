@@ -293,7 +293,8 @@ const BookingForm = ({
           )}
 
           <button className="xCircleButton"
-                  onClick={handlePickupXCircleClick}>
+                  onClick={handlePickupXCircleClick}
+                  aria-label="Clear pickup location">
             <XCircle
               className={`cross-icon ${isPickupTextInputHovered && pickupLocationValue !== "" ? 'visible' : ''}`}
               size={24}
@@ -310,7 +311,7 @@ const BookingForm = ({
     <div className="mobile-display-form">
       {showFullScreenForm && mobileEntireBookingForm()}
       {pickupLocationSection()}
-      <button className="save-button" onClick={handleShowMenu}>
+      <button className="save-button" onClick={handleShowMenu} aria-label="Select Pickup Location">
         Select Pickup Location
       </button>
     </div>
@@ -321,7 +322,7 @@ const BookingForm = ({
     return (
       <div className="mobile-menu-wrapper">
         <div className="mobile-display-top-menu">
-          <button className="x-button" onClick={closeFullScreenForm}>
+          <button className="x-button" onClick={closeFullScreenForm} aria-label="Close booking form">
             <X className="x-icon" id="mobile-datepicker-closing-button" size={24} weight="bold"/>
           </button>
           <h2 className="booking-details-title">Your booking details</h2>
@@ -380,7 +381,7 @@ const BookingForm = ({
                 />
               )}
 
-              <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
+              <button className="xCircleButton" onClick={handleDropoffXCircleClick} aria-label="Clear dropoff location">
                 <XCircle
                   className={`cross-icon ${isDropoffTextInputHovered && dropoffLocationValue !== "" ? 'visible' : ''}`}
                   size={24}

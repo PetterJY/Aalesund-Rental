@@ -4,7 +4,7 @@
 
 :root {
   --main-color: #1A1A1A;
-  --secondary-color: #FF5F00;
+  --secondary-color: #FF5000; 
   --secondary-color-hover: #FF5F00c9;
   --secondary-color-active: #FF5F00e6;
   --background-color: #F4F4F9;
@@ -45,9 +45,6 @@
   --spacing-xl: 1.75rem;
   --spacing-xxl: 2.5rem;
 
-
-  --header-height: 60px;
-
 }
 
 
@@ -77,7 +74,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6, p, a, button, input, textarea, select , label , span , div, li {
-  font-family: 'Poppins';
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1 { font-size: var(--font-size-xxxl); font-weight: var(--font-weight-regular); color: hsl(0 , 0%, var(--lightness-0));}

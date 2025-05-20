@@ -144,14 +144,20 @@ useEffect(() => {
               <div className={`indicator ${shouldIndicatorBeActive(4) ? 'active' : ''}`}/>
             </div>
             <div className="buttons">
-              <button className={`prev-button ${isButtonDisabled ? 'disabled' : ''}`}
-                      onClick={handlePreviousClick}
-                      disabled={isButtonDisabled}>
+              <button
+                className={`prev-button ${isButtonDisabled ? 'disabled' : ''}`}
+                onClick={handlePreviousClick}
+                disabled={isButtonDisabled}
+                aria-label="Show previous featured car"
+              >
                 <CaretLeft size={18} weight="bold" className="caret-icon" id="caret-previous"/>
               </button>
-              <button className={`next-button ${isButtonDisabled ? 'disabled' : ''}`}
-                      onClick={handleNextClick}
-                      disabled={isButtonDisabled}>
+              <button
+                className={`next-button ${isButtonDisabled ? 'disabled' : ''}`}
+                onClick={handleNextClick}
+                disabled={isButtonDisabled}
+                aria-label="Show next featured car"
+              >
                 <CaretRight size={18} weight="bold" className="caret-icon" id="caret-next"/>
               </button>
             </div>

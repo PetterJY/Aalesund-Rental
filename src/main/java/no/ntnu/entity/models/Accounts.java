@@ -58,6 +58,14 @@ public class Accounts {
   @ApiModelProperty("Boolean indicating if the account is deleted")
   private boolean isDeleted = false;
   
+  /**
+   * Default constructor for the Accounts class.
+   * Initializes the role to ROLE_USER.
+   */
+  public Accounts() {
+    this.role = Role.ROLE_USER;
+  }
+
   @PrePersist
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();

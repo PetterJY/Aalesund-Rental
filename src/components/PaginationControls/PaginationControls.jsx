@@ -14,9 +14,21 @@ const PaginationControls = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <div className="pagination-controls">
-      <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
+      <button
+        onClick={handlePreviousPage}
+        disabled={currentPage === 1}
+        aria-label="Go to previous page"
+      >
+        Previous
+      </button>
       <span>Page {currentPage} of {totalPages}</span>
-      <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+      <button
+        onClick={handleNextPage}
+        disabled={currentPage === totalPages}
+        aria-label="Go to next page"
+      >
+        Next
+      </button>
     </div>
   );
 };

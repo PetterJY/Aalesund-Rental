@@ -45,7 +45,7 @@ const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, s
   return (
     <div className="enum-modal">
       <div className="modal-content">
-        <span className="close" onClick={toggleModal}>&times;</span>
+        <span className="close" onClick={toggleModal} aria-label="close Modal">&times;</span>
         <h2>Select Car Type</h2>
         <input
           type="text"
@@ -75,7 +75,7 @@ const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, s
               ))}
           </div>
         )}
-        <button className="confirm-button" onClick={toggleModal}>Confirm</button>
+        <button className="confirm-button" onClick={toggleModal} aria-label="Confirm car type selection">Confirm</button>
       </div>
     </div>
   );

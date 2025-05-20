@@ -210,7 +210,9 @@ const Booking = () => {
 						<button
 							onClick={submitBooking}
 							className="book-now-button"
-							disabled={!isAuthenticated}>
+							disabled={!isAuthenticated}
+							aria-label="Book Now"
+						>
 							Book Now
 						</button>
 						{!isAuthenticated && (
@@ -286,7 +288,7 @@ const Booking = () => {
 							<p>{`${(rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
 							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
 							<p>
-								{totalCost} in total
+								{totalCost} kr/total
 							</p>
 						</>
 					)}
