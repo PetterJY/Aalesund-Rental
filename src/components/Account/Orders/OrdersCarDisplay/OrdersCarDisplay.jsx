@@ -103,12 +103,17 @@ const OrdersCarDisplay = ({rental}) => {
         <p><b>Renting costs: {dailyPrice}kr/day</b></p>
         <p><b>Total: {rental.totalCost}kr</b></p>
       </div>
-			<div className="order-status-container">
-				<button className="cancel-order" onClick={handleCancelOrder}> <XCircle size={18} color="white" weight="fill" />
-					<p>Cancel Order</p>
-				</button>
-				<p>{status}</p>
-			</div>
+            <div className="order-status-container">
+                <button
+                    className="cancel-order"
+                    onClick={handleCancelOrder}
+                    aria-label="Cancel order"
+                >
+                    <XCircle size={18} color="white" weight="fill" />
+                    <p>Cancel Order</p>
+                </button>
+                <p>{status}</p>
+            </div>
     </div>
   );
 };

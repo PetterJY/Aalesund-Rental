@@ -5,20 +5,26 @@ import { mapCarImage } from '../../utils/CarImageMapper';
 import passengerImage from "../../../resources/images/passenger.png";
 import { Car, Seatbelt, PlusCircle, CaretDown, Star } from "@phosphor-icons/react";
 
-const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
+const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
   const [isFavourited, setIsFavourited] = useState(false);
   const carImage = mapCarImage(car.carBrand, car.modelName);
   const rentalDays = car.rentalDays || 1; // fallback to 1 if not present
   const totalPrice = car.priceTotal || (car.pricePerDay * rentalDays);
 
-  
+  const visibileStar = role === "ROLE_USER" ? true : false;
   
   useEffect(() => {
+    if (role !== "ROLE_USER") {
+      console.warn("Account is not of ROLE_USER.");
+      return;
+    }
+
     if (!car) return;
+
     const fetchIsFavourited = async () => {
       try {
-        const userId = getAccountId();
-        const response = await fetch(`http://localhost:8080/users/${userId}/favourites`, {
+        const accountId = getAccountId();
+        const response = await fetch(`http://localhost:8080/users/${accountId}/favourites`, {
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
           },
@@ -36,6 +42,11 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
 
   const handleToggleFavourite = async (e) => {
     e.stopPropagation();
+
+    if (role !== "ROLE_USER") {
+      console.warn("Account is not of ROLE_USER.");
+      return;
+    }
 
     try {
       const response = await fetch(`http://localhost:8080/users/${getAccountId()}/favourites/${car.id}`, {
@@ -67,17 +78,19 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
         </section>
         <section className="top-right-section">
           <article className="car-tag">{car.energySource}</article>
-          <button
-            className={`favourite-btn${isFavourited ? " favourited" : ""}`}
-            onClick={handleToggleFavourite}
-            aria-label={isFavourited ? "Remove from favourites" : "Add to favourites"}
-          >
-            <Star
-              size={28}
-              color={isFavourited ? "#eee" : "#EEE"}
-              weight={isFavourited ? "fill" : "regular"}
-            />
-          </button>
+          {visibileStar && (
+            <button
+              className={`favourite-btn${isFavourited ? " favourited" : ""}`}
+              onClick={handleToggleFavourite}
+              aria-label={isFavourited ? "Remove from favourites" : "Add to favourites"}
+            >
+              <Star
+                size={28}
+                color={isFavourited ? "#eee" : "#EEE"}
+                weight={isFavourited ? "fill" : "regular"}
+              />
+            </button>
+          )}
         </section>
       </section>
 

@@ -86,52 +86,55 @@ const ChangePassword = ({ closeModal, isModalVisible }) => {
             required 
           />
           <button
-            type="button"
-            className="toggle-password-button"
-            onClick={toggleOldPasswordVisibility}
-          >
-            {oldPasswordVisible ? <EyeSlash/> : <Eye/> }
-          </button>
-        </div>
-        <label htmlFor='new-password-field'>New Password</label>
-        <div className='toggle-password-button-container'>
-          <input 
-            id='new-password-field'
-            className='password-input-field' 
-            type={newPasswordVisible ? 'text' : 'password' }
-            required 
-          />
-          <button
-            type="button"
-            className="toggle-password-button"
-            onClick={toggleNewPasswordVisibility}
-          >
-            {newPasswordVisible ? <EyeSlash/> : <Eye/> }
-          </button>
-        </div>
-        <label htmlFor='confirm-password-field'>Confirm New Password</label>
-        <div className='toggle-password-button-container'>
-          <input 
-            id='confirm-password-field'
-            className='password-input-field' 
-            type={confirmPasswordVisible ? 'text' : 'password' }
-            required 
-          />
-          <button
-            type="button"
-            className="toggle-password-button"
-            onClick={toggleConfirmPasswordVisibility}
-          >
-            {confirmPasswordVisible ? <EyeSlash/> : <Eye/> }
-          </button>
-        </div>
-        {showErrorMessage && (
-          <p className="error-message">
-            {errorMessage}
-          </p>
-        )}
-        <button className='submit-button' type='submit'>Change Password</button>
-        <button className='cancel-button' type='button' onClick={closeModal}>Cancel</button>
+          type="button"
+          className="toggle-password-button"
+          onClick={toggleOldPasswordVisibility}
+          aria-label={oldPasswordVisible ? "Hide old password" : "Show old password"}
+        >
+          {oldPasswordVisible ? <EyeSlash/> : <Eye/> }
+        </button>
+      </div>
+      <label htmlFor='new-password-field'>New Password</label>
+      <div className='toggle-password-button-container'>
+        <input 
+          id='new-password-field'
+          className='password-input-field' 
+          type={newPasswordVisible ? 'text' : 'password' }
+          required 
+        />
+        <button
+          type="button"
+          className="toggle-password-button"
+          onClick={toggleNewPasswordVisibility}
+          aria-label={newPasswordVisible ? "Hide new password" : "Show new password"}
+        >
+          {newPasswordVisible ? <EyeSlash/> : <Eye/> }
+        </button>
+      </div>
+      <label htmlFor='confirm-password-field'>Confirm New Password</label>
+      <div className='toggle-password-button-container'>
+        <input 
+          id='confirm-password-field'
+          className='password-input-field' 
+          type={confirmPasswordVisible ? 'text' : 'password' }
+          required 
+        />
+        <button
+          type="button"
+          className="toggle-password-button"
+          onClick={toggleConfirmPasswordVisibility}
+          aria-label={confirmPasswordVisible ? "Hide confirm password" : "Show confirm password"}
+        >
+          {confirmPasswordVisible ? <EyeSlash/> : <Eye/> }
+        </button>
+      </div>
+      {showErrorMessage && (
+        <p className="error-message">
+          {errorMessage}
+        </p>
+      )}
+      <button className='submit-button' type='submit' aria-label="Change Password">Change Password</button>
+      <button className='cancel-button' type='button' onClick={closeModal} aria-label="Cancel">Cancel</button>
       </form>
     </main>
   );

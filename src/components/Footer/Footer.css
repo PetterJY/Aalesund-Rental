@@ -1,7 +1,7 @@
 .footer-section {
   position: relative;
   z-index: 100;
-  
+  line-height: 35px;
 }
 
 .footer-container {

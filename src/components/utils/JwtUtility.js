@@ -55,7 +55,6 @@ export const getToken = () => {
 }
 
 export const getRole = () => {
-  console.log("Retrieving role from token");
   const token = localStorage.getItem("accessToken");
   if (!token || token === "undefined") {
     console.warn("Token not found in localStorage or is undefined");

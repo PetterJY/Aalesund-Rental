@@ -127,6 +127,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
                       type="button"
                       className="toggle-password-button"
                       onClick={togglePasswordVisibility}
+                      aria-label={passwordVisible ? "Hide password" : "Show password"}
                     >
                       {passwordVisible ? <EyeSlash color="var(--secondary-color)" /> : <Eye color="var(--secondary-color)" />}
                     </button>
@@ -138,11 +139,11 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
                     </p>
                   )}
 
-                  <button id="submit-button" type="submit">Login</button>
+                  <button id="submit-button" type="submit" aria-label="Login">Login</button>
                 </form>
                 <section id="register-forgot-wrapper">
-                  <button className="toggle-login-register-button" onClick={() => toggleMode('register')}>Create account</button>
-                  <button className="forgot-password-button" onClick={() => toggleMode('forgotPassword')}>Forgot password</button>
+                  <button className="toggle-login-register-button" onClick={() => toggleMode('register')} aria-label="Create account">Create account</button>
+                  <button className="forgot-password-button" onClick={() => toggleMode('forgotPassword')} aria-label="Forgot password">Forgot password</button>
                 </section>
               </>
             )}

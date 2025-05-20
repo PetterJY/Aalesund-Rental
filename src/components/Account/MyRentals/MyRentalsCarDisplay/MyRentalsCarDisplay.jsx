@@ -295,7 +295,7 @@ const fetchFeatureName = async (featureId) => {
 
   return (
     <div className="my-rentals-car-display">
-      <button className="rentals-car-display-card" onClick={toggleDetails}>
+      <button className="rentals-car-display-card" onClick={toggleDetails} aria-label="Toggle car details">
         <div className="car-background">
           <img
             src={carImage}
@@ -344,6 +344,7 @@ const fetchFeatureName = async (featureId) => {
                     className="enum-button"
                     onClick={toggleCarTypeModal}
                     style={{ cursor: 'pointer' }}
+                    aria-label="Edit car type"
                   >
                     {editedCar.carType ? editedCar.carType : "Choose car type"}
                   </button>
@@ -416,28 +417,29 @@ const fetchFeatureName = async (featureId) => {
             </p>
             <p>
               Location:{' '}
-            {isEditing ? (
-              <>
-                <button
-                  type="button"
-                  className="enum-button"
-                  onClick={toggleLocationModal}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {editedCar.location ? editedCar.location : "Choose location"}
-                </button>
-                {isLocationModalOpen && (
-                  <LocationModal
-                    toggleModal={toggleLocationModal}
-                    isCreateCarModalOpen={isLocationModalOpen}
-                    setSelectedLocation={setSelectedLocation}
-                    selectedLocation={editedCar.location}
-                  />
-                )}
-              </>
-            ) : (
-              displayCar.location
-            )}
+              {isEditing ? (
+                <>
+                  <button
+                    type="button"
+                    className="enum-button"
+                    onClick={toggleLocationModal}
+                    style={{ cursor: 'pointer' }}
+                    aria-label="Edit location"
+                  >
+                    {editedCar.location ? editedCar.location : "Choose location"}
+                  </button>
+                  {isLocationModalOpen && (
+                    <LocationModal
+                      toggleModal={toggleLocationModal}
+                      isCreateCarModalOpen={isLocationModalOpen}
+                      setSelectedLocation={setSelectedLocation}
+                      selectedLocation={editedCar.location}
+                    />
+                  )}
+                </>
+              ) : (
+                displayCar.location
+              )}
             </p>
             <p>
               Renting costs:{' '}
@@ -470,6 +472,7 @@ const fetchFeatureName = async (featureId) => {
                     e.stopPropagation(); 
                     toggleExtraFeaturesModal();
                   }}
+                  aria-label="Edit extra features"
                 >
                   Edit Features
                 </button>
@@ -479,21 +482,22 @@ const fetchFeatureName = async (featureId) => {
           <div className="my-rental-buttons">
             {isEditing ? (
               <div className="save-discard-buttons">
-                <button onClick={handleSave}>Save</button>
-                <button onClick={handleDiscard}>Discard</button>
+                <button onClick={handleSave} aria-label="Save changes">Save</button>
+                <button onClick={handleDiscard} aria-label="Discard changes">Discard</button>
               </div>
             ) : (
-              <button className="edit-button" onClick={handleEditClick}>
+              <button className="edit-button" onClick={handleEditClick} aria-label="Edit car">
                 <NotePencil size={32} color="#000" className="edit-icon" />
               </button>
             )}
             {/* Always show the availability toggle button */}
             <button
-            className={`availability-toggle-btn ${isAvailable ? "enabled" : "disabled"}`}
-            onClick={handleDelete}
-          >
-            {isAvailable ? "Available" : "Unavailable"}
-          </button>
+              className={`availability-toggle-btn ${isAvailable ? "enabled" : "disabled"}`}
+              onClick={handleDelete}
+              aria-label={isAvailable ? "Mark car as unavailable" : "Mark car as available"}
+            >
+              {isAvailable ? "Available" : "Unavailable"}
+            </button>
           </div>
         </section>
       </button>

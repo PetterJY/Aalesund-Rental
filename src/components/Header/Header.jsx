@@ -80,7 +80,7 @@ const Header = () => {
             {format(bookingData.dropoffDate, 'd. MMM')} <span className="separator"> | </span> {format(bookingData.dropoffTime, 'HH:mm')}
           </div>
         </div>
-        <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu}>
+        <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu} aria-label="Edit booking details">
           <PencilSimple size={24} weight="fill" className="edit-icon" />
         </button>
       </div>
@@ -184,7 +184,7 @@ const Header = () => {
   return (
     <header className="top-header">
       <div className={mobileDisplaySize ? "mobile-header" : "desktop-header"}>
-        <button onClick={navigateToHomePage} className="home-button">
+        <button onClick={navigateToHomePage} className="home-button" aria-label="Go to home page">
           <img src={logo} id="logo-image" alt="Logo" />
         </button>
 
@@ -220,10 +220,13 @@ const Header = () => {
             defaultMode="login"
           />
 
-          <button id="login-create" onMouseDown={(event) => {
-            event.stopPropagation();
-            handleUserClick()
-          }}>
+          <button id="login-create" 
+            onMouseDown={(event) => {
+              event.stopPropagation();
+              handleUserClick()
+            }}
+            aria-label={isAuthenticated ? "Open user menu" : "Login or register"}
+          >
             {userIcon}
             {!isAuthenticated && <span className="login-register-text">Login | Register</span>}
             {isAuthenticated && <span id="logged-in-text" className="login-register-text">{userDisplayName}</span>}

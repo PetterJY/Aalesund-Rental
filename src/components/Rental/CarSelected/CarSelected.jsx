@@ -49,7 +49,11 @@ const CarSelected = ({car}) => {
           </figure>
           <figure id='car-info-figure'>
             <PlusCircle id='logo' size={30} color="#252422" weight="fill" />
-            <button id='extra-features-button' onClick={showExtraFeatures}>
+            <button
+              id='extra-features-button'
+              onClick={showExtraFeatures}
+              aria-label={showFeatures ? "Hide extra features" : "Show extra features"}
+            >
               <h3>Extra features |</h3>
               <CaretDown
                 size={25}
@@ -76,7 +80,7 @@ const CarSelected = ({car}) => {
           <h4>{car.pricePerDay},- kr / day - {car.priceTotal},- kr in total</h4>
         </div>
       </section>
-      <button className='next-button' onClick={handleRentCar}>Rent</button>
+      <button className='next-button' onClick={handleRentCar} aria-label="Rent this car">Rent</button>
     </div>
   );
 }  

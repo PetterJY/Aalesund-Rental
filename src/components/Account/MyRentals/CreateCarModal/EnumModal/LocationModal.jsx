@@ -74,7 +74,7 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
               ))}
           </div>
         )}
-        <button className="confirm-button" onClick={toggleModal}>Confirm</button>
+      <button className="confirm-button" onClick={toggleModal} aria-label="Confirm location selection">Confirm</button>
       </div>
     </div>
   );

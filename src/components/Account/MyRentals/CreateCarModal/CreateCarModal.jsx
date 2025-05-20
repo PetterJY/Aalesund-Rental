@@ -140,7 +140,9 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   return (
     <div className={`create-car-modal ${isCreateCarModalOpen ? 'open' : ''}`}>
       <div className="modal-content">
-        <span className="close" onClick={onClose}><h3>&times;</h3></span>
+        <span className="close" onClick={onClose} aria-label="Close modal" tabIndex={0} role="button">
+          <h3>&times;</h3>
+        </span>
         <h2>Create Car</h2>
         <form id="create-car-form" onSubmit={createCar}>
           <input type="text" value={plateNumber} onChange={e => setPlateNumber(e.target.value)} id="plate-number" placeholder="Plate Number" required />
@@ -152,20 +154,34 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
 
           <section id="select-car-type-location-container">
             <div className="enum-text-container">
-              <button type="button" id="enum-button" onClick={toggleLocationModal}>
+              <button
+                type="button"
+                id="enum-button"
+                onClick={toggleLocationModal}
+                aria-label="Select Location"
+              >
                 Select Location
               </button>
               <p>{selectedLocation}</p>
             </div>
             <div className="enum-text-container">
-              <button type="button" id="enum-button" onClick={toggleCarTypeModal}>
+              <button
+                type="button"
+                id="enum-button"
+                onClick={toggleCarTypeModal}
+                aria-label="Select Car Type"
+              >
                 Select Car Type
               </button>
               <p>{selectedCarType}</p>
             </div>
           </section>
-          
-          <button id='add-extra-feature-button' type="button" onClick={toggleExtraFeaturesModal}>
+          <button
+            id='add-extra-feature-button'
+            type="button"
+            onClick={toggleExtraFeaturesModal}
+            aria-label="Add Extra Features"
+          >
             Add Extra Features
           </button>
           {isCarTypeModalOpen && (
@@ -194,15 +210,15 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
           )}
 
           <section className="create-car-button-wrapper">
-            <button id="gas" type="button" onClick={handleSelectFuel}>Gas</button>
-            <button id="diesel" type="button" onClick={handleSelectFuel}>Diesel</button>
-            <button id="hybrid" type="button" onClick={handleSelectFuel}>Hybrid</button>
-            <button id="electric" type="button" onClick={handleSelectFuel}>Electric</button>
+            <button id="gas" type="button" onClick={handleSelectFuel} aria-label="Select Gas Fuel">Gas</button>
+            <button id="diesel" type="button" onClick={handleSelectFuel} aria-label="Select Diesel Fuel">Diesel</button>
+            <button id="hybrid" type="button" onClick={handleSelectFuel} aria-label="Select Hybrid Fuel">Hybrid</button>
+            <button id="electric" type="button" onClick={handleSelectFuel} aria-label="Select Electric Fuel">Electric</button>
           </section>
 
           <section className="create-car-button-wrapper">
-            <button id="automatic" type="button" onClick={handleSelectTransmission}>Automatic</button>
-            <button id="manual" type="button" onClick={handleSelectTransmission}>Manual</button>
+            <button id="automatic" type="button" onClick={handleSelectTransmission} aria-label="Select Automatic Transmission">Automatic</button>
+            <button id="manual" type="button" onClick={handleSelectTransmission} aria-label="Select Manual Transmission">Manual</button>
           </section>
 
           {showErrorMessage && (
@@ -211,7 +227,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
             </p>
           )}
 
-          <button type="submit">Create Car</button>
+          <button type="submit" aria-label="Create Car">Create Car</button>
         </form>
       </div>
     </div>

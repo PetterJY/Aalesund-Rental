@@ -102,6 +102,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
               type="button"
               className="toggle-password-button"
               onClick={togglePasswordVisibility}
+              aria-label={passwordVisible ? "Hide password" : "Show password"}
             >
               {passwordVisible ? <EyeSlash/> : <Eye/> }
             </button>
@@ -113,8 +114,8 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
               {errorMessage}
             </p>
           )}
-          <button className='submit-button' type='submit'>Delete Account</button>
-          <button className='cancel-button' type='button' onClick={closeModal}>Cancel</button>
+          <button className='submit-button' type='submit' aria-label="Delete Account">Delete Account</button>
+          <button className='cancel-button' type='button' onClick={closeModal} aria-label="Cancel">Cancel</button>
         </form>
       </div>
     </main>

@@ -29,8 +29,10 @@
   border-bottom: var(--secondary-color) 1px solid;
 }
 
-.account-section h3 {
-  margin-bottom: 0px;
+.account-section label {
+  color: var(--main-color);
+  font-size: var(--font-size-xl);
+  margin-bottom: 5px;
 }
 
 .account-section input[type="text"] {

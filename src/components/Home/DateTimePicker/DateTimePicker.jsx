@@ -140,7 +140,11 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
   return (
     <div className="date-time">
       <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
-        <button className="date-picker-button" onClick={openDatePicker}>
+        <button
+          className="date-picker-button"
+          onClick={openDatePicker}
+          aria-label="Select date"
+        >
         </button>
         <CalendarBlank weight="bold" className="calendar-icon"/>
         <DatePicker
@@ -163,9 +167,12 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
         />
       </div>
       <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
-        <button className="time-picker-button"
-                id={`${type}-time`}
-                onMouseDown={() => setIsTimePickerSelected(true)}>
+        <button
+          className="time-picker-button"
+          id={`${type}-time`}
+          onMouseDown={() => setIsTimePickerSelected(true)}
+          aria-label="Select time"
+        >
         </button>
         <span className="selected-time-option-text" ref={selectedTimeRef}>
           {`${type === "pickup" ? formatDate(new Date(bookingData.pickupTime), "HH:mm") : formatDate(new Date(bookingData.dropoffTime), "HH:mm")}`}

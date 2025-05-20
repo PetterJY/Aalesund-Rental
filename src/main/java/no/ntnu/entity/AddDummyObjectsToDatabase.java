@@ -138,17 +138,17 @@ public class AddDummyObjectsToDatabase {
 
 		logger.info("Adding rentals to the database.");
 
-		addRental("18", "1", "1", "2025-06-01T00:00:00", "2025-06-05T00:00:00", "Oslo", "Bergen", 3000.0, "COMPLETED");
-		addRental("18", "1", "1", "2024-10-01T00:00:00", "2024-10-05T00:00:00", "Bergen", "Oslo", 3000.0, "PENDING");
-		addRental("19", "2", "2", "2025-06-02T00:00:00", "2025-06-06T00:00:00", "Stavanger", "Kristiansand", 2500.0, "ACTIVE");
-		addRental("20", "3", "3", "2025-06-03T00:00:00", "2025-06-07T00:00:00", "Trondheim", "Ålesund", 3500.0, "PENDING");
+		addRental("18", "1", "1", "2025-06-01T00:00:00", "2025-06-05T00:00:00", "Oslo", "Bergen", 2800.0, "COMPLETED");
+		addRental("18", "1", "1", "2024-10-01T00:00:00", "2024-10-05T00:00:00", "Bergen", "Oslo", 2800.0, "PENDING");
+		addRental("19", "2", "2", "2025-06-02T00:00:00", "2025-06-06T00:00:00", "Stavanger", "Kristiansand", 2800.0, "ACTIVE");
+		addRental("20", "3", "3", "2025-06-03T00:00:00", "2025-06-07T00:00:00", "Trondheim", "Ålesund", 2800.0, "PENDING");
 		addRental("21", "4", "4", "2025-06-04T00:00:00", "2025-06-08T00:00:00", "Bergen", "Stavanger", 2800.0, "CANCELLED");
-		addRental("22", "5", "5", "2025-06-05T00:00:00", "2025-06-09T00:00:00", "Oslo", "Trondheim", 3200.0, "COMPLETED");
-		addRental("23", "6", "6", "2025-06-06T00:00:00", "2025-06-10T00:00:00", "Stavanger", "Oslo", 2700.0, "ACTIVE");
-		addRental("24", "7", "7", "2025-06-07T00:00:00", "2025-06-11T00:00:00", "Kristiansand", "Bergen", 3300.0, "PENDING");
-		addRental("25", "8", "8", "2025-06-08T00:00:00", "2025-06-12T00:00:00", "Ålesund", "Stavanger", 2900.0, "CANCELLED");
-		addRental("26", "9", "9", "2025-06-09T00:00:00", "2025-06-13T00:00:00", "Oslo", "Kristiansand", 3100.0, "COMPLETED");
-		addRental("27", "10", "10", "2025-06-10T00:00:00", "2025-06-14T00:00:00", "Bergen", "Ålesund", 2600.0, "ACTIVE");
+		addRental("22", "5", "5", "2025-06-05T00:00:00", "2025-06-09T00:00:00", "Oslo", "Trondheim", 2800.0, "COMPLETED");
+		addRental("23", "6", "6", "2025-06-06T00:00:00", "2025-06-10T00:00:00", "Stavanger", "Oslo", 2800.0, "ACTIVE");
+		addRental("24", "7", "7", "2025-06-07T00:00:00", "2025-06-11T00:00:00", "Kristiansand", "Bergen", 2800.0, "PENDING");
+		addRental("25", "8", "8", "2025-06-08T00:00:00", "2025-06-12T00:00:00", "Ålesund", "Stavanger", 2800.0, "CANCELLED");
+		addRental("26", "9", "9", "2025-06-09T00:00:00", "2025-06-13T00:00:00", "Oslo", "Kristiansand", 2800.0, "COMPLETED");
+		addRental("27", "10", "10", "2025-06-10T00:00:00", "2025-06-14T00:00:00", "Bergen", "Ålesund", 2800.0, "ACTIVE");
 
 		// June 2025 Rentals
 		addRental("18", "3", "3", "2025-06-01T00:00:00", "2025-06-07T00:00:00", "Bergen", "Oslo", 3200.0, "PENDING");

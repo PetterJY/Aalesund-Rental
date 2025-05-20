@@ -110,16 +110,15 @@ const Footer = () => {
 };
 
 const DropdownMenu = ({isExpanded, onClick, isMobileDisplaySize}) => {
-	return (
-		<button
-				 className={`dropdown ${isExpanded ? 'expanded' : 'not-expanded'} ${isMobileDisplaySize ? 'visible' : 'not-visible'}`}
-				 onClick={onClick}
-				 alt="dropdown-menu-icon"
-				 color="white"
-				 style={isExpanded ? { transform: 'rotate(180deg)' } : {}}>
-				<CaretDown size={25} color='white'/>
-				 </button>
-	)
+    return (
+        <button
+            className={`dropdown ${isExpanded ? 'expanded' : 'not-expanded'} ${isMobileDisplaySize ? 'visible' : 'not-visible'}`}
+            onClick={onClick}
+            aria-label={isExpanded ? "Collapse section" : "Expand section"} 
+            style={isExpanded ? { transform: 'rotate(180deg)' } : {}}>
+            <CaretDown size={25} color='white'/>
+        </button>
+    )
 }
 
 

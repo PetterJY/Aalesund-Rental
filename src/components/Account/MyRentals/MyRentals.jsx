@@ -66,7 +66,7 @@ const MyRentals = () => {
       <div id='my-rentals-header'>
         <h2 className="title">My Rentals</h2>
         {isCreateCarModalOpen && <CreateCarModal onClose={toggleCreateCarModal} isCreateCarModalOpen={isCreateCarModalOpen} />}
-        <button id="add-car-button" onClick={toggleCreateCarModal}>
+        <button id="add-car-button" onClick={toggleCreateCarModal} aria-label="Add Car">
           <PlusCircle size={32} />
           <span className="add-car-text">Add Car</span>
         </button>
