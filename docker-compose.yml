@@ -9,7 +9,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
-      - "6000:3306"
+      - "127.0.0.1:6000:3306"
     networks:
       - rental-network
     healthcheck:
@@ -22,7 +22,8 @@ services:
     image: ntnu/docker-demo:1.0
     container_name: my-spring-app
     ports:
-      - "8080:8081"  # Maps host port 8080 to container port 8081 (per application.properties)
+      - "[::]:8080:8081"  # IPv6
+      - "0.0.0.0:8080:8081"  # IPv4
     depends_on:
       db:
         condition: service_healthy
