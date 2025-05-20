@@ -9,7 +9,6 @@ const BookingForm = ({
                        initialData,
                        onSave,
                        mobileDisplaySize = false,
-                       onClose = null,
                        showCloseButton = false
                      }) => {
 
@@ -40,6 +39,7 @@ const BookingForm = ({
   const [isPickupFieldValid, setIsPickupFieldValid] = useState(true);
 
   const [showFullScreenForm, setShowFullScreenForm] = useState(false);
+  const [showDatePickerOnMobile, setShowDatePickerOnMobile] = useState(false);
 
 
   async function fetchLocations() {
@@ -322,13 +322,19 @@ const BookingForm = ({
       <div className="mobile-menu-wrapper">
         <div className="mobile-display-top-menu">
           <button className="x-button" onClick={closeFullScreenForm}>
-            <X className="x-icon" size={24} weight="bold" onClick={onClose}/>
+            <X className="x-icon" id="mobile-datepicker-closing-button" size={24} weight="bold"/>
           </button>
           <h2 className="booking-details-title">Your booking details</h2>
         </div>
         {entireBookingForm()}
       </div>
     )
+  }
+
+  const handleCalendarOpen = () => {
+    if (mobileDisplaySize) {
+      setShowDatePickerOnMobile(true);
+    }
   }
 
 
@@ -390,6 +396,7 @@ const BookingForm = ({
               <label>Pickup Date</label>
               <DateTimePicker
                 format={"pickup"}
+                onOpen={handleCalendarOpen}
                 selectedDate={pickupDate}
                 onDateChange={handlePickupDateChange}
                 selectedTime={pickupTime}
@@ -399,12 +406,30 @@ const BookingForm = ({
                 pickupTime={pickupTime}
                 dropoffTime={dropoffTime}
               />
+              {showDatePickerOnMobile && (
+                <div
+                  className="mobile-date-picker-top-menu" id="mobile-date-picker-top-menu"
+                  onClick={(event) => event.stopPropagation()} // Prevent click propagation
+                >
+                  <button
+                    className="x-button"
+                    onClick={(event) => {
+                      event.stopPropagation(); // Prevent closing the picker
+                      setShowDatePickerOnMobile(false); // Close the menu
+                    }}
+                  >
+                    <X className="x-icon" size={24} weight="bold" />
+                  </button>
+                  <h2 className="booking-details-title">Your Traveling Dates</h2>
+                </div>
+              )}
             </div>
             <div className="dropoff-date-section">
               <label>Drop-off Date</label>
               <DateTimePicker
                 format={"dropoff"}
                 selectedDate={dropoffDate}
+                onOpen={handleCalendarOpen}
                 onDateChange={handleDropoffDateChange}
                 selectedTime={dropoffTime}
                 onTimeChange={handleDropoffTimeChange}

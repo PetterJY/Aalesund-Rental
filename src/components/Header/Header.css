@@ -1,6 +1,5 @@
 .top-header {
   position: relative;
-  z-index: 100;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -147,7 +146,7 @@
     width: 100vw;
     transition: none;
   }
-  
+
   .menu-wrapper {
     box-sizing: border-box;
     margin-bottom: auto;

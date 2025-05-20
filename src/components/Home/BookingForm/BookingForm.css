@@ -468,7 +468,6 @@ background: var(--secondary-color-hover);
   padding: 0px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  margin-top: -40px;
 }
 
 .date-picker-popper .react-datepicker__month-container {
@@ -537,7 +536,6 @@ background: var(--secondary-color-hover);
 /* Style the navigation arrows */
 .date-picker-popper .react-datepicker__navigation {
   top: 10px;
-  line-height: 30px;
 }
 
 .date-picker-popper .react-datepicker__navigation-icon::before {
@@ -651,6 +649,54 @@ background: var(--secondary-color-hover);
 @media screen and (max-width: 1000px) {
 
 
+  .mobile-date-picker-top-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    background-color: white;
+    padding: 12px;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999999;
+  }
+
+  .react-datepicker {
+    position: fixed;
+    padding: 50px !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-height: 100vh;
+    height: calc(100vh - 125px);
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    border-radius: 0;
+    flex-direction: column; /* Stack months vertically */
+    background-color: white; /* Ensure a visible background */
+    z-index: 100; /* Ensure it appears above other elements */
+    transform: translate(-50%, -50%); /* Center it vertically */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    overflow-x: auto;
+
+  }
+
+  .react-datepicker__month-container {
+    width: 100%; /* Full width for each month */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .date-picker-popper .react-datepicker__navigation {
+    display: none;
+  }
+
+  .date-picker-popper .react-datepicker__navigation:hover {
+    transform: rotate(90deg) scale(1.125); /* Increase size by 20% on hover */
+  }
 
   .mobile-display-form {
     display: flex;
@@ -727,16 +773,13 @@ background: var(--secondary-color-hover);
     margin-top: 0;
   }
 
-
-
-
   .mobile-menu-wrapper {
     position: fixed; /* Ensures it covers the entire screen */
     display: flex;
     flex-direction: column;
     z-index: 20000;
     padding: 12px;
-    top: var(--header-height); /* Aligns to the top of the viewport */
+    top: 0; /* Aligns to the top of the viewport */
     left: 0; /* Aligns to the left of the viewport */
     background-color: white;
     align-items: center;
@@ -800,8 +843,7 @@ background: var(--secondary-color-hover);
   }
 
   .mobile-display-top-menu {
-    margin-bottom: 48px;
-    margin-top: 48px;
+    margin-bottom: 32px;
   }
 
 

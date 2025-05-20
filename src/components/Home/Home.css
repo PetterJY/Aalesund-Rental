@@ -37,7 +37,7 @@ html, body {
   gap: 12px;
   margin: 0 auto;
   border-radius: 12px;
-  box-shadow: 0 -2400px 100px 2400px rgba(0, 0, 0, 0.25);
+  box-shadow: 200px 0 200px 24px rgba(0, 0, 0, 0.35), -200px 0 200px 24px rgba(0, 0, 0, 0.35);
   min-height: 200px;
 }
 
