@@ -110,21 +110,14 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
       if (
         timePickerRef.current &&
         !timePickerRef.current.contains(event.target) &&
-        event.target.id !== `${type}-picker` && event.target.id !== "mobile-date-picker-top-menu"
+        event.target.id !== `${type}-picker`
       ) {
         setIsTimePickerSelected(false);
-      } else if (
-        datePickerRef.current &&
-        datePickerRef.current.input && // Access the DOM element
-        !datePickerRef.current.input.contains(event.target) &&
-        event.target.id !== `${type}-picker` && event.target.id !== "mobile-date-picker-top-menu"
-      ) {
-        setIsDatePickerSelected(false);
       }
     }
 
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => document.removeEventListener('pointerdown', handleClickOutside);
   }, [isTimePickerSelected]);
 
 

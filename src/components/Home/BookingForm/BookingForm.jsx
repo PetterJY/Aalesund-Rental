@@ -409,18 +409,21 @@ const BookingForm = ({
               {showDatePickerOnMobile && (
                 <div
                   className="mobile-date-picker-top-menu" id="mobile-date-picker-top-menu"
-                  onClick={(event) => event.stopPropagation()} // Prevent click propagation
+                  onClick={(event) => event.stopPropagation()}
                 >
-                  <button
-                    className="x-button"
-                    onClick={(event) => {
-                      event.stopPropagation(); // Prevent closing the picker
-                      setShowDatePickerOnMobile(false); // Close the menu
-                    }}
-                  >
-                    <X className="x-icon" size={24} weight="bold" />
+                  {/*<button*/}
+                  {/*  className="x-button"*/}
+                  {/*  onClick={(event) => {*/}
+                  {/*    event.stopPropagation(); // Prevent closing the picker*/}
+                  {/*    setShowDatePickerOnMobile(false); // Close the menu*/}
+                  {/*  }}*/}
+                  {/*>*/}
+                  {/*  <X className="x-icon" size={24} weight="bold" />*/}
+                  {/*</button>*/}
+                  {/*<h2 className="booking-details-title">Your Traveling Dates</h2>*/}
+                  <button className={`confirm-button ${showDatePickerOnMobile ? 'visible' : 'hidden'}`} onMouseDown={((prev) => {setShowDatePickerOnMobile(!prev)})}>
+                    Confirm Date Selection
                   </button>
-                  <h2 className="booking-details-title">Your Traveling Dates</h2>
                 </div>
               )}
             </div>

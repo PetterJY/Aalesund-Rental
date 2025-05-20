@@ -255,7 +255,7 @@ p {
   top: 120%; /* Position below the picker */
   width: 374px;
   height: auto;
-  max-height: calc(70vh - 135px);
+  max-height: calc(50vh - 135px);
   overflow-y: auto; /* Add scroll for vertical overflow */
   border-radius: 12px;
   padding-top: 16px;
@@ -656,7 +656,6 @@ background: var(--secondary-color-hover);
     width: 100vw;
     display: flex;
     flex-direction: row;
-    height: 50px;
     background-color: white;
     padding: 12px;
     justify-content: space-between;
@@ -666,15 +665,14 @@ background: var(--secondary-color-hover);
 
   .react-datepicker {
     position: fixed;
-    padding: 50px !important;
     top: 0;
     left: 0;
     width: 100vw;
     max-height: 100vh;
-    height: calc(100vh - 125px);
     display: flex;
     align-items: center;
     gap: 48px;
+    margin-top: 8px;
     border-radius: 0;
     flex-direction: column; /* Stack months vertically */
     background-color: white; /* Ensure a visible background */
@@ -846,7 +844,27 @@ background: var(--secondary-color-hover);
     margin-bottom: 32px;
   }
 
+  .confirm-button {
+    background-color: var(--secondary-color);
+    visibility: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: white;
+    margin-top: auto;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    padding: 0;
+    border-radius: 12px;
+    text-align: center;
+  }
 
 
+  .confirm-button.visible {
+    visibility: visible;
+  }
 
 }
