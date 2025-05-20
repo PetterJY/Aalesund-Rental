@@ -6,7 +6,7 @@
   max-width: 2560px;
   height: fit-content;
   /*box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.7);*/
-  background-color: #262627;
+  background-color: var(--main-color);
   margin-top: 921px;
 }
 
@@ -54,7 +54,7 @@
   width: 100%;
   max-height: 474px;
   max-width: 45%;
-  background-color: #F4F4F9;
+  background-color: var(--background-color);
   background-blend-mode: luminosity; /* Or \`multiply\`, \`screen\`, etc. */
 }
 

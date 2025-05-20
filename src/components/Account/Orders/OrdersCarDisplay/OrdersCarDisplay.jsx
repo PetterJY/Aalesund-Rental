@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Warehouse, XCircle} from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
 import './OrdersCarDisplay.css';
-import '../../../App.css';
 import { tr } from 'date-fns/locale';
 
 const OrdersCarDisplay = ({rental}) => {

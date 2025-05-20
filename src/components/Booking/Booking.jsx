@@ -5,7 +5,6 @@ import { getRole, getAccountId } from "../utils/JwtUtility";
 import { useAuth } from "../utils/AuthContext";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
-import "../App.css";
 import {BookingContext} from "../utils/BookingContext";
 import {formatDate} from "date-fns";
 
@@ -200,7 +199,7 @@ const Booking = () => {
 					</div>
 					<div className="last-name">
 						<label htmlFor="last-name">Last Name:</label>
-						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || "llokasldaklsjd"} readOnly required></input>
+						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || ""} readOnly required></input>
 					</div>
 					<br/>
 					<div className="phone-number">

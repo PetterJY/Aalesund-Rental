@@ -2,7 +2,6 @@ import React, {useState, useEffect, useRef} from 'react';
 import { getRole } from '../../utils/JwtUtility';
 import PropTypes from 'prop-types';
 import './HeaderDropDownMenu.css';
-import '../../App.css';
 
 const DropDownMenuMenu = ({ toggleDropdownMenu, isDropdownVisible, navigate, handleLogout }) => {
   const [role, setRole] = useState('');

@@ -4,7 +4,6 @@ import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import DropDownLocationSuggestions from './DropDownLocationSuggestions/DropDownLocationSuggestions';
 import { BookingContext } from '../../utils/BookingContext'
 import './BookingForm.css';
-import '../../App.css';
 
 const BookingForm = ({
                        initialData,
@@ -40,6 +39,9 @@ const BookingForm = ({
 
   const [isPickupFieldValid, setIsPickupFieldValid] = useState(true);
 
+  const [showFullScreenForm, setShowFullScreenForm] = useState(false);
+
+
   async function fetchLocations() {
     setIsLoadingLocations(true);
     try {
@@ -64,33 +66,33 @@ const BookingForm = ({
       setIsLoadingLocations(false);
     }
   }
-  
+
   useEffect(() => {
     fetchLocations();
   }, []);
 
   const [pickupDate, setPickupDate] = useState(() => {
     const time = new Date();
-    time.setDate(time.getDate()+1)
+    time.setDate(time.getDate() + 1)
     return initialData.pickupDate || time;
   });
 
   const [dropoffDate, setDropoffDate] = useState(() => {
     const time = new Date();
-    time.setDate(time.getDate()+13);
+    time.setDate(time.getDate() + 13);
     return initialData.dropoffDate || time;
   });
 
   const [pickupTime, setPickUpTime] = useState(() => {
     const time = new Date();
-    time.setHours(time.getHours()+1);
+    time.setHours(time.getHours() + 1);
     time.setMinutes(0);
     return initialData.pickupTime || time;
   });
 
   const [dropoffTime, setDropoffTime] = useState(() => {
     const time = new Date();
-    time.setHours(time.getHours()+1);
+    time.setHours(time.getHours() + 1);
     time.setMinutes(0);
     return initialData.dropoffTime || time;
   });
@@ -175,7 +177,7 @@ const BookingForm = ({
     }
 
     document.addEventListener('mousedown', handleClickOutside);
-    return() => document.removeEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isPickupTextFieldSelected]);
 
   useEffect(() => {
@@ -189,7 +191,7 @@ const BookingForm = ({
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
-    return() => document.removeEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isDropoffTextFieldSelected]);
 
   useEffect(() => {
@@ -238,154 +240,198 @@ const BookingForm = ({
     }
   }, [isDropoffTextFieldSelected]);
 
-  return (
-    <div className="menu-wrapper">
-      {showCloseButton && mobileDisplaySize && (
+
+
+  const handleShowMenu = () => {
+    setShowFullScreenForm(true);
+  };
+
+  const closeFullScreenForm = () => {
+    setShowFullScreenForm(false);
+  };
+
+  const pickupLocationSection = () => {
+    return (
+      <div className="pickup-location-section">
+        <label>Pickup</label>
+        <div className={`pickup-location ${isPickupTextFieldSelected ? 'selected' : ''} 
+              ${(!isPickupFieldValid && !isPickupTextFieldSelected) ? 'error' : ''} `}
+             ref={pickupTextFieldRef}
+             onMouseEnter={() => setIsPickupTextInputHovered(true)}
+             onMouseLeave={() => setIsPickupTextInputHovered(false)}
+             onClick={() => setIsPickupTextFieldSelected(true)}>
+          <MagnifyingGlass size={24} weight="bold" className="search-icon"/>
+          <input
+            type="text"
+            className="text-input"
+            required={true}
+            ref={pickupDestinationInputFieldRef}
+            id="pickup-destination-input-field"
+            placeholder="Pickup location"
+            value={pickupLocationValue}
+            onChange={(e) => {
+              setPickupLocationValue(e.target.value)
+              if (isPickupTextFieldSelected) {
+                setShowPickupLocationSuggestions(true);
+              } else {
+                setShowPickupLocationSuggestions(false);
+              }
+            }}
+          />
+
+          {showPickupLocationSuggestions && !isLoadingLocations && (
+            <DropDownLocationSuggestions
+              locations={
+                pickupLocations.filter(loc =>
+                  loc.toLowerCase().includes(pickupLocationValue.toLowerCase())
+                )}
+              setLocationSuggestions={setPickupLocations}
+              setLocationValue={setPickupLocationValue}
+              setShowSuggestions={setShowPickupLocationSuggestions}
+              setIsPickupFieldValid={setIsPickupFieldValid}
+            />
+          )}
+
+          <button className="xCircleButton"
+                  onClick={handlePickupXCircleClick}>
+            <XCircle
+              className={`cross-icon ${isPickupTextInputHovered && pickupLocationValue !== "" ? 'visible' : ''}`}
+              size={24}
+              weight="bold"/>
+          </button>
+        </div>
+        {!isPickupFieldValid && <p className="error-message">Pickup location is required.</p>}
+      </div>
+    )
+  }
+
+  const mobileDisplayForm = () => {
+    return (
+    <div className="mobile-display-form">
+      {showFullScreenForm && mobileEntireBookingForm()}
+      {pickupLocationSection()}
+      <button className="save-button" onClick={handleShowMenu}>
+        Select Pickup Location
+      </button>
+    </div>
+    )
+  }
+
+  const mobileEntireBookingForm = () => {
+    return (
+      <div className="mobile-menu-wrapper">
         <div className="mobile-display-top-menu">
-          <button className="x-button">
+          <button className="x-button" onClick={closeFullScreenForm}>
             <X className="x-icon" size={24} weight="bold" onClick={onClose}/>
           </button>
           <h2 className="booking-details-title">Your booking details</h2>
         </div>
-      )}
-      <div className="location-section">
-        <div className="pickup-location-section">
-          <label>Pickup</label>
-          <div className={`pickup-location ${isPickupTextFieldSelected ? 'selected' : ''} 
-              ${(!isPickupFieldValid && !isPickupTextFieldSelected) ? 'error' : ''} `}
-               ref={pickupTextFieldRef}
-               onMouseEnter={() => setIsPickupTextInputHovered(true)}
-               onMouseLeave={() => setIsPickupTextInputHovered(false)}
-               onClick={() => setIsPickupTextFieldSelected(true)}>
-            <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-            <input
-              type="text"
-              className="text-input"
-              required={true}
-              ref={pickupDestinationInputFieldRef}
-              id="pickup-destination-input-field"
-              placeholder="Pickup location"
-              value={pickupLocationValue}
-              onChange={(e) => {
-                setPickupLocationValue(e.target.value)
-                if (isPickupTextFieldSelected) {
-                  setShowPickupLocationSuggestions(true);
-                } else {
-                  setShowPickupLocationSuggestions(false);
-                }
-              }}
-            />
+        {entireBookingForm()}
+      </div>
+    )
+  }
 
-            {showPickupLocationSuggestions && !isLoadingLocations && (
-              <DropDownLocationSuggestions
-                locations={
-                  pickupLocations.filter(loc =>
-                    loc.toLowerCase().includes(pickupLocationValue.toLowerCase())
-                  )}
-                setLocationSuggestions={setPickupLocations}
-                setLocationValue={setPickupLocationValue}
-                setShowSuggestions={setShowPickupLocationSuggestions}
-                setIsPickupFieldValid={setIsPickupFieldValid}
+
+  const entireBookingForm = () => {
+    return (
+      <div className="menu-wrapper">
+        <div className="location-section">
+          {pickupLocationSection()}
+          <div className="dropoff-location-section">
+            <label>Drop-off</label>
+            <div className={`dropoff-location ${isDropoffTextFieldSelected ? 'selected' : ''}`}
+                 ref={dropoffTextFieldRef}
+                 onMouseEnter={() => setIsDropoffTextInputHovered(true)}
+                 onMouseLeave={() => setIsDropoffTextInputHovered(false)}
+                 onClick={() => setIsDropoffTextFieldSelected(true)}>
+              <MagnifyingGlass size={24} weight="bold" className="search-icon"/>
+              <input
+                type="text"
+                className="text-input"
+                id="dropoff-destination-input-field"
+                placeholder="Dropoff location"
+                value={dropoffLocationValue}
+                ref={dropoffDestinationInputFieldRef}
+                onChange={(e) => {
+                  setDropoffLocationValue(e.target.value);
+                  if (e.target.value.length > 0) {
+                    setShowDropoffLocationSuggestions(true);
+                  } else {
+                    setShowDropoffLocationSuggestions(false);
+                  }
+                }}
               />
-            )}
 
-            <button className="xCircleButton"
-                    onClick={handlePickupXCircleClick}>
-              <XCircle className={`cross-icon ${isPickupTextInputHovered && pickupLocationValue !== "" ? 'visible' : ''}`}
-                       size={24}
-                       weight="bold"/>
-            </button>
+              {showDropoffLocationSuggestions && !isLoadingLocations && (
+                <DropDownLocationSuggestions
+                  locations={
+                    dropoffLocations.filter(loc =>
+                      loc.toLowerCase().includes(dropoffLocationValue.toLowerCase())
+                    )}
+                  setLocationSuggestions={setDropoffLocations}
+                  setLocationValue={setDropoffLocationValue}
+                  setShowSuggestions={setShowDropoffLocationSuggestions}
+                />
+              )}
+
+              <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
+                <XCircle
+                  className={`cross-icon ${isDropoffTextInputHovered && dropoffLocationValue !== "" ? 'visible' : ''}`}
+                  size={24}
+                  weight="bold"/>
+              </button>
+            </div>
           </div>
-          {!isPickupFieldValid && <p className="error-message">Pickup location is required.</p>}
+          {mobileDisplaySize && (<div className="mobile-display-divider"></div>)}
         </div>
-        <div className="dropoff-location-section">
-          <label>Drop-off</label>
-          <div className={`dropoff-location ${isDropoffTextFieldSelected ? 'selected' : ''}`}
-               ref={dropoffTextFieldRef}
-               onMouseEnter={() => setIsDropoffTextInputHovered(true)}
-               onMouseLeave={() => setIsDropoffTextInputHovered(false)}
-               onClick={() => setIsDropoffTextFieldSelected(true)}>
-            <MagnifyingGlass size={24} weight="bold" className="search-icon" />
-            <input
-              type="text"
-              className="text-input"
-              id="dropoff-destination-input-field"
-              placeholder="Dropoff location"
-              value={dropoffLocationValue}
-              ref={dropoffDestinationInputFieldRef}
-              onChange={(e) => {
-                setDropoffLocationValue(e.target.value);
-                if (e.target.value.length > 0) {
-                  setShowDropoffLocationSuggestions(true);
-                } else {
-                  setShowDropoffLocationSuggestions(false);
-                }
-              }}
-            />
-
-            {showDropoffLocationSuggestions && !isLoadingLocations && (
-              <DropDownLocationSuggestions
-                locations={
-                  dropoffLocations.filter(loc =>
-                    loc.toLowerCase().includes(dropoffLocationValue.toLowerCase())
-                  )}
-                setLocationSuggestions={setDropoffLocations}
-                setLocationValue={setDropoffLocationValue}
-                setShowSuggestions={setShowDropoffLocationSuggestions}
+        <div className="schedule-and-save-container">
+          <div className="schedule-container">
+            <div className="pickup-date-section">
+              <label>Pickup Date</label>
+              <DateTimePicker
+                format={"pickup"}
+                selectedDate={pickupDate}
+                onDateChange={handlePickupDateChange}
+                selectedTime={pickupTime}
+                onTimeChange={handlePickupTimeChange}
+                pickupDate={pickupDate}
+                dropoffDate={dropoffDate}
+                pickupTime={pickupTime}
+                dropoffTime={dropoffTime}
               />
-            )}
-
-            <button className="xCircleButton" onClick={handleDropoffXCircleClick}>
-              <XCircle className={`cross-icon ${isDropoffTextInputHovered && dropoffLocationValue !== "" ? 'visible' : ''}`}
-                       size={24}
-                       weight="bold"/>
-            </button>
+            </div>
+            <div className="dropoff-date-section">
+              <label>Drop-off Date</label>
+              <DateTimePicker
+                format={"dropoff"}
+                selectedDate={dropoffDate}
+                onDateChange={handleDropoffDateChange}
+                selectedTime={dropoffTime}
+                onTimeChange={handleDropoffTimeChange}
+                pickupDate={pickupDate}
+                dropoffDate={dropoffDate}
+                pickupTime={pickupTime}
+                dropoffTime={dropoffTime}
+              />
+            </div>
           </div>
+          {mobileDisplaySize && (
+            <hr className="mobile-display-divider"></hr>
+          )}
+          <button className="save-button" onClick={handleSave}>
+            Search Cars
+          </button>
         </div>
       </div>
-      {mobileDisplaySize && (
-        <hr className="mobile-display-divider"></hr>
-      )}
-      <div className="schedule-and-save-container">
-        <div className="schedule-container">
-          <div className="pickup-date-section">
-            <label>Pickup Date</label>
-            <DateTimePicker
-              format={"pickup"}
-              selectedDate={pickupDate}
-              onDateChange={handlePickupDateChange}
-              selectedTime={pickupTime}
-              onTimeChange={handlePickupTimeChange}
-              pickupDate={pickupDate}
-              dropoffDate={dropoffDate}
-              pickupTime={pickupTime}
-              dropoffTime={dropoffTime}
-            />
-          </div>
-          <div className="dropoff-date-section">
-            <label>Drop-off Date</label>
-            <DateTimePicker
-              format={"dropoff"}
-              selectedDate={dropoffDate}
-              onDateChange={handleDropoffDateChange}
-              selectedTime={dropoffTime}
-              onTimeChange={handleDropoffTimeChange}
-              pickupDate={pickupDate}
-              dropoffDate={dropoffDate}
-              pickupTime={pickupTime}
-              dropoffTime={dropoffTime}
-            />
-          </div>
-        </div>
-        {mobileDisplaySize && (
-          <hr className="mobile-display-divider"></hr>
-        )}
-        <button className="save-button" onClick={handleSave}>
-          Search Cars
-        </button>
-      </div>
-    </div>
-  );
-};
+    );
+  };
+
+
+  if (mobileDisplaySize) {
+    return (mobileDisplayForm())
+  }
+
+  return entireBookingForm();
+}
 
 export default BookingForm;

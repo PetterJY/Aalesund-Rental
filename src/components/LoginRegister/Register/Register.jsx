@@ -2,7 +2,6 @@ import React from 'react';
 import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../LoginRegister.css';
-import '../../App.css';
 
 const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
   const { setIsAuthenticated, setIsAuthInitialized } = useAuth();
@@ -170,7 +169,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
                     className="toggle-password-button"
                     onClick={togglePasswordVisibility}
                   >
-                    {passwordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                    {passwordVisible ? <EyeSlash color="var(--secondary-color)" /> : <Eye color="var(--secondary-color)" />}
                   </button>
                 </div>
                   <div className="toggle-password-button-container">
@@ -186,7 +185,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
                       className="toggle-password-button"
                       onClick={toggleConfirmPasswordVisibility}
                     >
-                      {confirmPasswordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                      {confirmPasswordVisible ? <EyeSlash color="var(--secondary-color)" /> : <Eye color="var(--secondary-color)" />}
                     </button>
                   </div>              </div>
               {showErrorMessage && (

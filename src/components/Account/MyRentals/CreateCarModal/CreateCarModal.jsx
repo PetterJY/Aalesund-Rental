@@ -4,7 +4,6 @@ import CarTypeModal from './EnumModal/CarTypeModal';
 import LocationModal from './EnumModal/LocationModal';
 import ExtraFeaturesModal from './EnumModal/ExtraFeaturesModal'; 
 import './CreateCarModal.css';
-import '../../../App.css';
 import { set } from 'date-fns';
 
 const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
@@ -141,7 +140,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   return (
     <div className={`create-car-modal ${isCreateCarModalOpen ? 'open' : ''}`}>
       <div className="modal-content">
-        <span className="close" onClick={onClose}>&times;</span>
+        <span className="close" onClick={onClose}><h3>&times;</h3></span>
         <h2>Create Car</h2>
         <form id="create-car-form" onSubmit={createCar}>
           <input type="text" value={plateNumber} onChange={e => setPlateNumber(e.target.value)} id="plate-number" placeholder="Plate Number" required />

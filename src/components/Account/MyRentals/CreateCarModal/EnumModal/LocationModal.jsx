@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getToken } from '../../../../utils/JwtUtility';
 import './EnumModal.css'
-import '../../../../App.css';
 
 const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation, selectedLocation }) => {
   const [isLoading, setIsLoading] = useState(false);

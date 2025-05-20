@@ -1,10 +1,10 @@
 import React, {useState, useRef, useEffect, useContext} from "react";
 import {FunnelSimple, CaretDown, MagnifyingGlass, XCircle} from "@phosphor-icons/react";
+import logo from "../../resources/images/logo.png";
 import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
 import IntervalSlider from "./IntervalSlider/IntervalSlider";
 import "./Rental.css";
-import "../App.css";
 import {BookingContext} from "../utils/BookingContext";
 // import '../Home/BookingForm/BookingForm.css';
 
@@ -56,8 +56,8 @@ export default function Rental() {
     passengers: [],
     energySource: [],
     search: "",
-    minPrice: null,
-    maxPrice: null,
+    minPrice: 0,
+    maxPrice: 1000,
     pickupLocation: bookingData.pickupLocation,
     pickupDate: bookingData.pickupDate,
     dropoffDate: bookingData.dropoffDate,
@@ -297,45 +297,45 @@ useEffect(() => {
   };
 
   // Reassemble children with inserted menu for the selected car.
-  const renderWithInsertedMenu = () => {
-    if (cars.length === 0) return null;
+const renderWithInsertedMenu = () => {
+  // Only show available cars
+  const availableCars = cars.filter(car => car.available);
 
-    // Find the index of the selected car
-    const selectedIndex = cars.findIndex((car) => car.id === selectedCarId);
+  if (availableCars.length === 0) return null;
 
-    let insertionIndex = -1;
-    if (selectedIndex >= 0) {
-      // Determine the end index of the row.
-      insertionIndex =
-        Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
-      insertionIndex = Math.min(insertionIndex, cars.length - 1);
-    }
+  // Find the index of the selected car
+  const selectedIndex = availableCars.findIndex((car) => car.id === selectedCarId);
 
-    // Build the final array of components
-    const combined = [];
-    cars.forEach((car, index) => {
+  let insertionIndex = -1;
+  if (selectedIndex >= 0) {
+    insertionIndex =
+      Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
+    insertionIndex = Math.min(insertionIndex, availableCars.length - 1);
+  }
+
+  // Build the final array of components
+  const combined = [];
+  availableCars.forEach((car, index) => {
+    combined.push(
+      <CarDisplay
+        key={car.id}
+        displayCar={car}
+        onClick={() => handleCarClick(car.id)}
+        isSelected={car.id === selectedCarId}
+      />
+    );
+    if (index === insertionIndex && selectedCarId) {
+      const selectedCar = availableCars.find((car) => car.id === selectedCarId);
       combined.push(
-        <CarDisplay
-          key={car.id}
-          displayCar={car}
-          onClick={() => handleCarClick(car.id)}
-          isSelected={car.id === selectedCarId}
-        />
+        <div key={`menu-${selectedCarId}`} className="car-selected-menu">
+          <CarSelected car={selectedCar}/>
+        </div>
       );
-      if (index === insertionIndex && selectedCarId) {
-        const selectedCar = cars.find((car) => car.id === selectedCarId); // Get the full car object
-        combined.push(
-          <div key={`menu-${selectedCarId}`} className="car-selected-menu">
-            {/* Pass the full car object to CarSelected */}
-            <CarSelected car={selectedCar}/>
-          </div>
-        );
-      }
-    });
+    }
+  });
 
-    return combined;
-  };
-
+  return combined;
+};
 
   const handleFilterChange = (event) => {
     const { name, value, checked, type } = event.target;
@@ -368,11 +368,15 @@ useEffect(() => {
 
   const handleSaveFilters = () => {
     setSelectedFilterOptions({
+      ...selectedFilterOptions,
       sortBy: Array.from(document.querySelectorAll('input[name="sortBy"]:checked')).map(input => input.value),
       carType: Array.from(document.querySelectorAll('input[name="carType"]:checked')).map(input => input.value),
       transmission: Array.from(document.querySelectorAll('input[name="transmission"]:checked')).map(input => input.value),
       passengers: Array.from(document.querySelectorAll('input[name="passengers"]:checked')).map(input => input.value),
       energySource: Array.from(document.querySelectorAll('input[name="energySource"]:checked')).map(input => input.value),
+      search: document.getElementById("search-cars-input-field").value,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
     });
 
     console.log("Selected filter options:", selectedFilterOptions);
@@ -513,7 +517,14 @@ useEffect(() => {
           )}
 
           <main className="main-body" ref={containerRef}>
-            {renderWithInsertedMenu()}
+            {cars.length === 0 ? (
+              <div className="no-cars-message">
+                <img src={logo} alt="no-cars-image" className="no-cars-image" />
+                <p className="no-cars-message-text">No cars available for the selected filters</p>
+              </div>
+            ) : (
+              renderWithInsertedMenu()
+            )}
           </main>
         </div>
       </section>

@@ -8,7 +8,6 @@ import LocationModal from '../CreateCarModal/EnumModal/LocationModal';
 import CarTypeModal from '../CreateCarModal/EnumModal/CarTypeModal';
 import { getAccountId, getToken } from '../../../utils/JwtUtility';
 import './MyRentalsCarDisplay.css';
-import '../../../App.css';
 
 const MyRentalsCarDisplay = ({ car, providerId }) => {
   const [isLoading, setIsLoading] = useState(false);

@@ -3,7 +3,6 @@ import { getAccountId, getRole } from '../utils/JwtUtility';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
 import './Account.css';
-import '../App.css';
 
 const Account = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);

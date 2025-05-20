@@ -6,7 +6,6 @@ import OrdersCarDisplay from './OrdersCarDisplay/OrdersCarDisplay';
 import carImage from '../../../resources/images/logo.svg';
 import OrdersDropdown from './OrdersDropDown/OrdersDropDown';
 import '../Orders/Orders.css';
-import '../../App.css';
 
 const Orders = () => { 
   const navigate = useNavigate();
@@ -69,7 +68,7 @@ const Orders = () => {
       <section className="orders-section">
         <div orders-header>
         <div className="orders-header">
-            <h2 className="title">My Bookings - </h2> 
+            <h1 className="title">My Bookings - </h1> 
             <OrdersDropdown
               options={statusOptions}
               selectedOption={selectedStatus}

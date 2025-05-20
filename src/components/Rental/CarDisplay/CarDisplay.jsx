@@ -1,4 +1,3 @@
-import "../../App.css";
 import "./CarDisplay.css";
 import React, { useState, useEffect } from "react";
 import { getAccountId } from "../../utils/JwtUtility";
@@ -9,6 +8,8 @@ import { Car, Seatbelt, PlusCircle, CaretDown, Star } from "@phosphor-icons/reac
 const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
   const [isFavourited, setIsFavourited] = useState(false);
   const carImage = mapCarImage(car.carBrand, car.modelName);
+  const rentalDays = car.rentalDays || 1; // fallback to 1 if not present
+  const totalPrice = car.priceTotal || (car.pricePerDay * rentalDays);
 
   
   
@@ -61,7 +62,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
           <h2 className="car-name">{car.carBrand} {car.modelName}</h2>
           <aside className="passenger-tag">
             <Seatbelt size={24} color="#ffffff" weight="fill"/>
-            <h2 className="passenger-count">{car.passengers}</h2>
+            <h3 className="passenger-count">{car.passengers}</h3>
           </aside>
         </section>
         <section className="top-right-section">
@@ -87,17 +88,17 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
       />
       {isSelected && (
         <div className="selected-arrow">
-          <CaretDown size={24} color="#EB5E28" weight="fill" />
+          <CaretDown size={24} color="var(--secondary-color)" weight="fill" />
         </div>
       )}
       
       <section className="bottom-section">
-      <h2 className="rental-place">
+      <h3 className="rental-place">
           {car.provider.companyName}
-        </h2>
+        </h3>
         <section className="price-section">
-          <h2 id="price-day">{car.pricePerDay},-kr/dag</h2>
-          <h2 id="price-total">{car.priceTotal},-kr/total</h2>
+          <h4 id="price-day">{car.pricePerDay},-kr/dag</h4>
+          <h4 id="price-total">{totalPrice},-kr/total</h4>      
         </section>
       </section>
     </button> 

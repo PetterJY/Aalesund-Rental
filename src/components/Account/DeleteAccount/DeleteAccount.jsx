@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { getToken } from '../../utils/JwtUtility'; 
 import { Warning, Eye, EyeSlash } from '@phosphor-icons/react';
 import './DeleteAccount.css';
-import '../../App.css';
 
 const DeleteAccount = ({ closeModal, isModalVisible }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -85,7 +84,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
     <main id='deleteAccountModal' className='modal' onMouseDown={closeModal}>
       <div className='modal-content' onMouseDown={(e) => e.stopPropagation()}>
         <h1 id='title'>Delete Account</h1>
-        <Warning size={32} color="#FF0000" weight="fill" />
+        <Warning size={32} color="red" weight="fill" />
         <p>Are you sure you want to delete your account?</p>
         <p>You will not be able to recover your account after deletion.</p>
         <p>All your data will be permanently removed.</p>
