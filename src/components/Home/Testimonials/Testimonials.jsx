@@ -11,28 +11,61 @@ const Testimonials = () => {
   const handleNextClick = () => {
     if (isButtonDisabled) return;
 
-    if (autoPlayInterval) clearInterval(autoPlayInterval);
-    const interval = setInterval(() => {
-      handlePreviousClick();
-    }, 5000);
-    setAutoPlayInterval(interval);
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      setAutoPlayInterval(null);
+      console.log("calling start autoplay from next click");
+      startAutoplay();
+    }
 
     setCardOrder(prev => [...prev.slice(1), prev[0]]);
     setIsButtonDisabled(true);
+
     setTimeout(() => {
       setIsButtonDisabled(false);
     }, 500);
   };
+
 
   const handlePreviousClick = () => {
     if (isButtonDisabled) return;
 
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      setAutoPlayInterval(null);
+      startAutoplay();
+      console.log("calling start autoplay from previous click");
+    }
+
     setCardOrder(prev => [prev[prev.length - 1], ...prev.slice(0, -1)]);
     setIsButtonDisabled(true);
+
     setTimeout(() => {
       setIsButtonDisabled(false);
     }, 500);
   };
+
+  const startAutoplay = () => {
+    if (autoPlayInterval) {
+      console.log("Autoplay already running, not starting again.");
+      return;
+    } // Prevent multiple intervals
+
+    const interval = setInterval(() => {
+      console.log("Autoplay interval running...");
+      handleNextClick();
+    }, 7500);
+    setAutoPlayInterval(interval);
+  };
+
+  useEffect(() => {
+    startAutoplay(); // Start auto-play on mount
+    console.log("calling start autoplay from useEffect");
+
+    return () => {
+      if (autoPlayInterval) clearInterval(autoPlayInterval); // Cleanup on unmount
+    };
+  }, []);
 
   const pauseAutoplay = () => {
     console.log("paused autoplay!")
@@ -71,17 +104,7 @@ const Testimonials = () => {
     return position === 2;
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handlePreviousClick();
-    }, 5000);
 
-    setAutoPlayInterval(interval);
-
-    return () => {
-      clearInterval(interval);
-    }
-  }, []);
 
 
   return (
