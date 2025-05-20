@@ -21,9 +21,16 @@ services:
     image: ntnu/docker-demo:1.0
     container_name: my-spring-app
     ports:
-      - "8080:8080"
+      - "8080:8081"
     depends_on:
       db:
         condition: service_healthy
     networks:
       - rental-network
+
+networks:
+  rental-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
