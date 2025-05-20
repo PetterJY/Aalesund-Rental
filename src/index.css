@@ -12,6 +12,7 @@
   --hover-color-darker: #d6d6dc;
   --neutral-color: #1a1a1aa0;
   --neutral-color-hover: #1a1a1a70;
+  --neutral-color-background: #272829;
 
   --main-button-hover-color: var(--secondary-color);
   --main-button-text-color: white;

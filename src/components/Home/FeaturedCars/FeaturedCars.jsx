@@ -87,7 +87,6 @@ useEffect(() => {
     if (position === 1) return 'car-left-card';
     if (position === 2) return 'car-right-card';
     if (position === 3) return 'hidden-card-right';
-    if (position === 4) return 'hidden-card-right';
   }
 
   const shouldIndicatorBeActive = (cardId) => {
@@ -115,7 +114,7 @@ useEffect(() => {
         <h1>Our Featured Cars</h1>
         <div className="featured-cars-with-controls">
           <div className="featured-cars">
-            {cardOrder.map((id) => {
+            {cardOrder.slice(0, 4).map((id) => {
               const car = cars[id];
               if (!car) return null;
               return (
@@ -141,7 +140,6 @@ useEffect(() => {
               <div className={`indicator ${shouldIndicatorBeActive(1) ? 'active' : ''}`}/>
               <div className={`indicator ${shouldIndicatorBeActive(2) ? 'active' : ''}`}/>
               <div className={`indicator ${shouldIndicatorBeActive(3) ? 'active' : ''}`}/>
-              <div className={`indicator ${shouldIndicatorBeActive(4) ? 'active' : ''}`}/>
             </div>
             <div className="buttons">
               <button
