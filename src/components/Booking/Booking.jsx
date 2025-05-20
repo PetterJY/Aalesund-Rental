@@ -243,9 +243,9 @@ const Booking = () => {
 				</header>
 				<section className="rental-schedule-container">
 					<div className="rental-schedule-logos">
-							<img src={storageLogo} className="pickup-logo"></img>
+							<img src={storageLogo} className="pickup-logo" alt="pickup-logo"></img>
 							<div className="vertical-line"></div>
-							<img src={storageLogo} className="dropoff-logo"></img>
+							<img src={storageLogo} className="dropoff-logo" alt="dropoff-logo"></img>
 					</div>
 					<div className="rental-schedule-text">
 						<div className="pickup-info">

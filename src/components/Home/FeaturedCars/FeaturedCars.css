@@ -150,3 +150,23 @@
   height: 100%;
 }
 
+@media screen and (max-width: 1000px) {
+
+  .featured-cars-slideshow {
+    padding: 20px;
+    height: 700px;
+  }
+
+  .featured-cars {
+    width: 100%;
+    max-height: none;
+  }
+
+  .featured-car {
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    padding: 20px;
+  }
+  
+}

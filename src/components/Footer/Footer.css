@@ -2,6 +2,7 @@
   position: relative;
   z-index: 100;
   line-height: 35px;
+  background-color: var(--main-color);
 }
 
 .footer-container {
@@ -140,6 +141,7 @@
   margin-left: 10%;
   max-width: 80%;
 }
+
 
 @media screen and (max-width: 1000px) {
   .footer-container {
