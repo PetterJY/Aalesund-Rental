@@ -409,8 +409,7 @@ const renderWithInsertedMenu = () => {
 
 
   return (
-    <div className="rental-page">
-      <section className="main-section">
+
         <div className ="rental-page">
           <nav className="sort-bar">
             <div className={`search-cars-field ${isSearchFieldSelected ? 'selected' : ''}`}
@@ -529,7 +528,6 @@ const renderWithInsertedMenu = () => {
             )}
           </main>
         </div>
-      </section>
-    </div>
+
   );
 }
