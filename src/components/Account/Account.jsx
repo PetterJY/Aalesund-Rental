@@ -201,7 +201,8 @@ const Account = () => {
       }
       const data = await response.json();
       setCompanyName(data.companyName);
-      document.getElementById('company-name').value = companyName;
+      // USE DATA FROM RESPONSE, not the state variable
+      document.getElementById('company-name').value = data.companyName;
       return data;
     } catch (error) {
       console.error('Error fetching provider data:', error);
@@ -299,8 +300,11 @@ const Account = () => {
       }
 
       const data = await response.json();
-      setUsername(data.name);
-      document.getElementById('username').value = data.username;
+      console.log('Admin data:', data);
+
+      const usernameValue = data.name;
+      setUsername(usernameValue);
+      document.getElementById('username').value = data.name;
       return data;
     } catch (error) {
       console.error('Error fetching admin data:', error);
@@ -341,7 +345,7 @@ const Account = () => {
 
       const adminDetails = {
         ...adminData, 
-        username: updatedUsername,
+        name: updatedUsername,
       };
 
       console.log('Updated admin details:', adminDetails);
@@ -365,7 +369,7 @@ const Account = () => {
       if (response.ok) {
         const data = await response.json();
         setUsername(data.username);
-        document.getElementById('username').value = username;
+        document.getElementById('username').value = data.name;
 
         setErrorMessage("Admin profile updated successfully!");
         setMessageType('success');
