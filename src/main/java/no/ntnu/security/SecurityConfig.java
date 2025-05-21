@@ -24,7 +24,7 @@ public class SecurityConfig {
 
   @Autowired
   private JwtFilter jwtFilter;
-
+  
   /**
    * Configures the security filter chain for the application.
    * Sets up CSRF protection (disables it), request authorization, and JWT filter.
@@ -39,6 +39,19 @@ public class SecurityConfig {
     http.csrf(csrfCustomizer -> csrfCustomizer.disable())
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
+              "/",
+              "/home",
+              "/rental",
+              "/booking",
+              "/submitted-booking",
+              "/about-us",
+              "/account",
+              "/account/account",
+              "/account/orders",
+              "/account/my-rentals",
+              "/account/favourites",
+              "/account/admin-rentals",
+
               "/auth/login", 
               "/auth/refresh-token",
               "/users/register",
