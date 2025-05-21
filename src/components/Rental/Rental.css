@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: hidden;
 }
 
 .car-search-input-field {
@@ -394,14 +395,15 @@
   .rental-page .filter-panel {
     display: block;
     position: fixed;
-    top: 65px;
+    top: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh - 65px);
+    height: 100vh;
     background: white;
     z-index: 10;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto; 
   }
 
   .rental-page .filter-content {
@@ -409,6 +411,7 @@
     flex-direction: column;
     gap: 10px;
     height: auto;
+    max-height: calc(100vh - 120px); /* Ensure content fits with padding */
     overflow-y: auto;
   }
 
