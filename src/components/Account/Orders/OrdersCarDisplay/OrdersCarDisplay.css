@@ -105,7 +105,7 @@
 .orders-car-display-card .cancel-order{
   display: flex;
   flex-direction: row;
-  background-color: var(--main-color);
+  background-color: var(--secondary-color);
   border-radius: 10px;  
   color: white;
   border: none;
@@ -117,7 +117,7 @@
 }
 
 .orders-car-display-card .cancel-order:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color-hover);
   transition: 0.3s;
 }
 

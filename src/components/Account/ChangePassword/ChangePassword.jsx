@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import './ChangePassword.css';
+import { getAccountId } from '../../utils/JwtUtility';
 
 const ChangePassword = ({ closeModal, isModalVisible }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -31,44 +32,64 @@ const ChangePassword = ({ closeModal, isModalVisible }) => {
   };
 
 
-  async function changePassword(event) {
-    event.preventDefault();
+async function changePassword(event) {
+  event.preventDefault();
 
-    const data = retrieveData();
+  const formData = retrieveData();
 
-    if (data.newPassword !== data.confirmPassword) {
-      console.log("Passwords do not match.");
-      setErrorMessage("New password and confirmation do not match.");
+  if (formData.newPassword !== formData.confirmPassword) {
+    console.log("Passwords do not match.");
+    setErrorMessage("New password and confirmation do not match.");
+    setShowErrorMessage(true);
+    return; 
+  }
+
+  const userId = getAccountId();
+
+  if (!userId) {
+    console.error("Could not get account ID from token");
+    setErrorMessage("Authentication error. Please log in again.");
+    setShowErrorMessage(true);
+    return;
+  }
+  
+  const requestBody = {
+    id: userId,  // Change userId to id
+    oldPassword: formData.oldPassword,
+    newPassword: formData.newPassword
+  };
+
+  try {
+    const response = await fetch(`http://localhost:8080/accounts/change-password`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify(requestBody),
+    });
+    
+    if (!response.ok) {
+      console.log("Error changing password: " + response.statusText);
+      
+      if (response.status === 401) {
+        setErrorMessage("Current password is incorrect.");
+      } else {
+        setErrorMessage("Failed to change password. Please try again.");
+      }
+      
       setShowErrorMessage(true);
       return; 
     }
-
-    try {
-      const response = await fetch('http://localhost:8080/users/change-password', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        console.log("Error changing password." + response.statusText);
-        setErrorMessage("Failed to change password. Please try again.");
-        setShowErrorMessage(true);
-        return; 
-      }
-      const data = await response.json();
-        
-      console.log("Password has been changed successfully.");
-      closeModal();
-      return data;
-
-    } catch(error) {
-      console.error("An error occurred:", error);
-      setErrorMessage("An unexpected error occurred.");
-      setShowErrorMessage(true);
-    };
+    
+    console.log("Password has been changed successfully.");
+    closeModal();
+  } catch(error) {
+    console.error("An error occurred:", error);
+    setErrorMessage("An unexpected error occurred.");
+    setShowErrorMessage(true);
   }
+}
 
   if (!isModalVisible) {
     return null; 

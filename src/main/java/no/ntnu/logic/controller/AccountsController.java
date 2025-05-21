@@ -11,9 +11,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import jakarta.validation.Valid;
 import no.ntnu.entity.dto.DeleteAccountRequest;
+import no.ntnu.entity.dto.PasswordChangeRequest;
 import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.service.AccountsService;
 import no.ntnu.logic.service.AdminService;
@@ -40,15 +43,18 @@ public class AccountsController {
   private final AccountsService accountsService;
 
   private AuthenticationManager authenticationManager;
+  private final PasswordEncoder passwordEncoder;
 
   @Autowired
   public AccountsController(AccountsService accountsService,
                             AdminService adminService,
                             ProvidersService providersService,
                             UsersService usersService,
-                            AuthenticationManager authenticationManager) {
+                            AuthenticationManager authenticationManager,
+                            PasswordEncoder passwordEncoder) {
     this.accountsService = accountsService;
     this.authenticationManager = authenticationManager;
+    this.passwordEncoder = passwordEncoder;
   }
 
   /**
@@ -108,6 +114,54 @@ public class AccountsController {
     logger.debug("Fetched account: {}", account);
     return ResponseEntity.status(HttpStatus.OK).body(account);
   }
+
+    /**
+ * Changes an account's password.
+ *
+ * @param passwordChangeRequest Request containing old and new passwords
+ * @return Status indicating success or failure
+ */
+@PutMapping("/change-password")
+@ApiOperation(value = "Changes an account's password", notes = "Requires the old password for verification")
+public ResponseEntity<?> changePassword(
+        @Valid @RequestBody PasswordChangeRequest passwordChangeRequest,
+        Authentication authentication) {
+    Long id = passwordChangeRequest.getId();
+    try {
+        // Find the account
+        Accounts account = accountsService.findById(id);
+        if (account == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        // Check permissions (user can only change their own password or admin can change any)
+        String email = authentication.getName();
+        boolean isNormalAccountOrAdmin = account.getEmail().equals(email) || 
+                               authentication.getAuthorities().stream()
+                                   .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        
+        if (!isNormalAccountOrAdmin) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        
+        // Verify old password
+        if (!passwordEncoder.matches(passwordChangeRequest.getOldPassword(), account.getPassword())) {
+            logger.warn("Invalid old password provided for account ID: {}", id);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        account.setPassword(passwordChangeRequest.getNewPassword());
+        
+        accountsService.save(account);
+        logger.info("Password changed successfully for account ID: {}", id);
+        logger.info("password is: {}", passwordChangeRequest.getNewPassword());
+        
+        return ResponseEntity.ok().build();
+    } catch (Exception e) {
+        logger.error("Error changing password: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+}
 
   /**
    * Deletes an account by its ID.

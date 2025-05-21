@@ -49,7 +49,7 @@ const Account = () => {
     } else if (role === 'ROLE_ADMIN') {
       fetchAdminData();
     }
-  });
+  }, [role, accountId]); // Add dependencies
 
   async function updateAccountInformation() {
     if (role === 'ROLE_USER') {
@@ -60,8 +60,6 @@ const Account = () => {
       await updateAdminInformation();
     }
   }
-
-  //USER SECTION:
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -87,6 +85,17 @@ const Account = () => {
       }
 
       const data = await response.json();
+
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      
+      if (document.getElementById('first-name')) {
+        document.getElementById('first-name').value = data.firstName;
+      }
+      if (document.getElementById('last-name')) {
+        document.getElementById('last-name').value = data.lastName;
+      }
+      
       return data;
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -131,7 +140,7 @@ const Account = () => {
       const oldLastName = lastName;
 
       const userDetails = {
-        ...userData, // Include all existing fields
+        ...userData, 
         firstName: updatedUserDetails.updatedFirstName,
         lastName: updatedUserDetails.updatedLastName,
       };
@@ -166,8 +175,6 @@ const Account = () => {
       setShowErrorMessage(true);
     }
   }
-
-  // PROVIDER SECTION:
 
   async function fetchProviderData() {
     if (role !== 'ROLE_PROVIDER') {
@@ -229,7 +236,7 @@ const Account = () => {
       }
 
       const providerDetails = {
-        ...providerData, // Include all existing fields
+        ...providerData, 
         companyName: updatedCompanyName,
       };
 
@@ -260,8 +267,6 @@ const Account = () => {
       setShowErrorMessage(true);
     }
   }
-
-  //ADMIN SECTION:
 
   async function fetchAdminData() {
     if (role !== 'ROLE_ADMIN') {
@@ -325,7 +330,7 @@ const Account = () => {
       }
 
       const adminDetails = {
-        ...adminData, // Include all existing fields
+        ...adminData, 
         username: updatedUsername,
       };
 

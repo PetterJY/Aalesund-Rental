@@ -328,7 +328,7 @@
 }
 
 .rental-page .clear-button {
-  background-color: var(--hover-color);
+  background-color: var(--secondary-button-color);
   color: var(--main-color);
   border: none;
   padding: 8px 12px;
@@ -337,12 +337,12 @@
 }
 
 .rental-page .clear-button:hover {
-  background-color: var(--hover-color-darker);
+  background-color: var(--secondary-button-hover-color);
   color: var(--main-color);
 }
 
 .rental-page .clear-button-mobile{
-  background-color: var(--hover-color);
+  background-color: var(--secondary-button-color);
   color: var(--main-color);
   border: none;
   padding: 8px 12px;
@@ -351,7 +351,7 @@
 }
 
 .rental-page .clear-button-mobile:hover {
-  background-color: var(--hover-color-darker);
+  background-color: var(--secondary-button-hover-color);
   color: var(--main-color);
 }
 
