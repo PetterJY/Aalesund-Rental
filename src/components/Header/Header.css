@@ -141,9 +141,9 @@
 
 #login-create {
   margin-left: 12px;
-  min-width: 136px;
   display: flex;
   align-items: center;
+  text-wrap: nowrap;
   color: white;
   background: none;
   border: none;
@@ -230,29 +230,5 @@
   }
 }
 
-@media screen and (max-width: 600px) {
-  .top-header {
-    padding: 12px 16px 12px 16px;
-  }
 
-  .menu-wrapper {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .mobile-display-top-menu {
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-  }
-
-  .booking-details-title {
-    margin-left: auto;
-    margin-right: auto;
-  }
   
-}

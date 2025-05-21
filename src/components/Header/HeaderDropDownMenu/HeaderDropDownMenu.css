@@ -15,6 +15,8 @@
   transform: translateY(0px); 
   transition: opacity 0.3s ease, transform 0.3s ease;
   animation: fadeIn 0.3s ease;
+
+  z-index: 2; /* Ensure it appears above other elements */
 }
 
 @keyframes fadeIn {
@@ -61,14 +63,3 @@
   border-radius: 0;
 }
 
-@media (max-width: 768px) {
-  .dropdown-menu {
-    width: 100%;
-    left: 0;
-    right: 0;
-  }
-
-  .dropdown-menu-list li {
-    text-align: center; 
-  }
-}
