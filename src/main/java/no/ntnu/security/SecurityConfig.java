@@ -40,6 +40,9 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
               "/",
+              "/index.html",
+              "/static/**",
+
               "/home",
               "/rental",
               "/booking",
