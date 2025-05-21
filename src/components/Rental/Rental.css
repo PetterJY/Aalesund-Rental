@@ -6,18 +6,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: hidden;
 }
 
 .car-search-input-field {
   justify-self: flex-start;
-}
-
-.rental-page .main-section {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px;
 }
 
 .rental-page .main-body {
@@ -28,6 +21,7 @@
   align-items: flex-start;
   gap: 12px;
   max-width: 1600px;
+  margin-bottom: var(--spacing-xl);
 }
 
 
@@ -41,6 +35,7 @@
   align-items: center;
   margin: 1rem auto 1rem auto;
   text-align: center;
+  z-index: 0;
 }
 
 .rental-page .no-cars-message::before {
@@ -116,6 +111,7 @@
 .rental-page .sorting-inputs {
   display: flex;
   flex-direction: row;
+  z-index: 0;
 }
 
 .rental-page .sort-button {
@@ -158,8 +154,7 @@
   margin-bottom: -2px;
 }
 
-.rental-page .filter-button:hover svg {
-}
+
 
 /* Filter panel styles */
 .rental-page .filter-panel {
@@ -368,12 +363,18 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .rental-page {
-    max-width: 999999px;
-    min-width: 1px;
+
+
+  .rental-page .main-body {
+    max-width: 100%;
     width: 100%;
+    min-width: 100%;
     align-items: center;
     justify-content: center;
+  }
+
+  .rental-page .sort-bar {
+    width: 90%;
   }
 
   .rental-page .sort-button {
@@ -394,14 +395,15 @@
   .rental-page .filter-panel {
     display: block;
     position: fixed;
-    top: 65px;
+    top: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh - 65px);
+    height: 100vh;
     background: white;
     z-index: 10;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto; 
   }
 
   .rental-page .filter-content {
@@ -409,6 +411,7 @@
     flex-direction: column;
     gap: 10px;
     height: auto;
+    max-height: calc(100vh - 120px); /* Ensure content fits with padding */
     overflow-y: auto;
   }
 

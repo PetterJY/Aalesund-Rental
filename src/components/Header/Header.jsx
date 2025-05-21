@@ -29,7 +29,7 @@ const Header = () => {
     const handleWindowResize = () => {
       if (window.innerWidth >= 1500) {
         setMobileDisplaySize(false);
-      } else if (window.innerWidth > 1000) {
+      } else if (window.innerWidth > 700) {
         setMobileDisplaySize(false);
       } else {
         setMobileDisplaySize(true);

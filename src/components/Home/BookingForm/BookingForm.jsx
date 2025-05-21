@@ -41,6 +41,7 @@ const BookingForm = ({
   const [showFullScreenForm, setShowFullScreenForm] = useState(false);
   const [showDatePickerOnMobile, setShowDatePickerOnMobile] = useState(false);
 
+  const [formZIndex, setFormZIndex] = useState(0);
 
   async function fetchLocations() {
     setIsLoadingLocations(true);
@@ -244,10 +245,12 @@ const BookingForm = ({
 
   const handleShowMenu = () => {
     setShowFullScreenForm(true);
+    setFormZIndex(1000);
   };
 
   const closeFullScreenForm = () => {
     setShowFullScreenForm(false);
+    setFormZIndex(0);
   };
 
   const pickupLocationSection = () => {
@@ -308,7 +311,7 @@ const BookingForm = ({
 
   const mobileDisplayForm = () => {
     return (
-    <div className="mobile-display-form">
+    <div className="mobile-display-form" style={{ zIndex: formZIndex }}>
       {showFullScreenForm && mobileEntireBookingForm()}
       {pickupLocationSection()}
       <button className="save-button" onClick={handleShowMenu} aria-label="Select Pickup Location">
@@ -341,7 +344,7 @@ const BookingForm = ({
 
   const entireBookingForm = () => {
     return (
-      <div className="menu-wrapper">
+    <div className="menu-wrapper" style={{ zIndex: formZIndex }}>
         <div className="location-section">
           {pickupLocationSection()}
           <div className="dropoff-location-section">

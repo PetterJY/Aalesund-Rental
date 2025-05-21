@@ -116,7 +116,7 @@ public class RefreshTokenService {
    * @param refreshToken The refresh token to validate.
    * @return True if the token is valid, false otherwise.
    */
-  public boolean validateRefreshToken(String refreshToken) {
+  public boolean isValidRefreshToken(String refreshToken) {
     RefreshTokens token = refreshTokenRepository.findByToken(refreshToken);
     
     if (token == null) {
