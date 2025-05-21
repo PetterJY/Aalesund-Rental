@@ -19,7 +19,6 @@ import io.swagger.annotations.ApiResponses;
 @Controller
 @Api(value = "Root Controller", tags = {"Routing"})
 public class RootController {
-
     /**
      * Handles HTTP GET requests for frontend routes, forwarding them to the React application's
      * index.html for client-side routing.
