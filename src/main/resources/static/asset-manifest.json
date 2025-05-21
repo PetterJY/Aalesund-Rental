@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5ba9d17f.css",
+    "main.js": "/static/js/main.0a3fd726.js",
+    "static/media/scenic-ride-forest.jpg": "/static/media/scenic-ride-forest.002c6f34b3316e6d853a.jpg",
+    "static/media/van-nature.jpg": "/static/media/van-nature.03bf6a6a91d77dcd09ba.jpg",
+    "static/media/scenic-ride-winter.jpg": "/static/media/scenic-ride-winter.7c3d5177df4539cdc2fd.jpg",
+    "static/media/logo.png": "/static/media/logo.1cd509af5f3c9ccb314d.png",
+    "static/media/NissanLeaf.png": "/static/media/NissanLeaf.86accff727ec28d692e1.png",
+    "static/media/VolkswagenGolf.png": "/static/media/VolkswagenGolf.3eda94771cb2db46621e.png",
+    "static/media/car.png": "/static/media/car.cf166172864de443998a.png",
+    "static/media/BMWM3.png": "/static/media/BMWM3.865f3dd1dc9c408567b6.png",
+    "static/media/Peugeot3008.png": "/static/media/Peugeot3008.2d49829762cb650eb34e.png",
+    "static/media/SkodaFabia.png": "/static/media/SkodaFabia.fef642fc4bcc425f1661.png",
+    "static/media/Mazda2.png": "/static/media/Mazda2.1e5f9a00dc2b9aa74630.png",
+    "static/media/TeslaModelY.png": "/static/media/TeslaModelY.1fffed52f5582562df69.png",
+    "static/media/Peugeot307SW.png": "/static/media/Peugeot307SW.309cac7435220af4bf46.png",
+    "static/media/PeugeotiOn.png": "/static/media/PeugeotiOn.00bf5d4731d0530efb19.png",
+    "static/media/Peugeot207.png": "/static/media/Peugeot207.7220f3544486eb517f32.png",
+    "static/media/TeslaModel3.webp": "/static/media/TeslaModel3.0306cefefe59354ca77a.webp",
+    "static/media/VolkswagenTransporter.webp": "/static/media/VolkswagenTransporter.5a1b958b69ee2f80dbfd.webp",
+    "static/media/testimonialPerson.png": "/static/media/testimonialPerson.996a92ae9cce7ced0ae6.png",
+    "static/media/testimonial-wave.webp": "/static/media/testimonial-wave.ccb7e94230087126da39.webp",
+    "static/media/car-background.webp": "/static/media/car-background.1b9451c74ad891fb79ca.webp",
+    "static/media/logo.svg": "/static/media/logo.cfc2ecffbb4c189d392cdf880d14c35e.svg",
+    "index.html": "/index.html",
+    "main.5ba9d17f.css.map": "/static/css/main.5ba9d17f.css.map",
+    "main.0a3fd726.js.map": "/static/js/main.0a3fd726.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5ba9d17f.css",
+    "static/js/main.0a3fd726.js"
+  ]
+}
