@@ -10,7 +10,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
   const [isFavourited, setIsFavourited] = useState(false);
   const carImage = mapCarImage(car.carBrand, car.modelName);
 
-  const visibileStar = role === "ROLE_USER" ? true : false;
+  const visibileStar = role === "ROLE_USER";
 
   const { bookingData : rentalDetails } = useContext(BookingContext);
 
