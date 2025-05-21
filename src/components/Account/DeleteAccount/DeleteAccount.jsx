@@ -131,46 +131,60 @@ async function deleteAccount(event) {
   }
 }
 
-  const modalContent = (
-    <main id='deleteAccountModal' className='modal' onMouseDown={closeModal}>
-      <div className='modal-content' onMouseDown={(e) => e.stopPropagation()}>
-        <h1 id='title'>Delete Account</h1>
-        <Warning size={32} color="red" weight="fill" />
-        <p>Are you sure you want to delete your account?</p>
-        <p>You will not be able to recover your account after deletion.</p>
-        <p>All your data will be permanently removed.</p>
-        <p>Do you want to proceed?</p>
-        <form id='bottom-section' onSubmit={(e) => deleteAccount(e)}>
-          <label htmlFor='password-field'>Password</label>
-          <div className='toggle-password-button-container'>
-            <input 
-              id='delete-account-password-field'
-              className='password-input-field' 
-              type={passwordVisible ? 'text' : 'password' }
-              required 
-            />
-            <button
-              type="button"
-              className="toggle-password-button"
-              onClick={togglePasswordVisibility}
-              aria-label={passwordVisible ? "Hide password" : "Show password"}
-            >
-              {passwordVisible ? <EyeSlash/> : <Eye/> }
-            </button>
-          </div>
-          <label htmlFor='verify-field'>Type <i id='verification-keyword'>delete</i> to confirm</label>
-          <input id='verify-field' type='text' required />
-          {showErrorMessage && (
-            <p className="error-message">
-              {errorMessage}
-            </p>
-          )}
-          <button className='submit-button' type='submit' aria-label="Delete Account">Delete Account</button>
-          <button className='cancel-button' type='button' onClick={closeModal} aria-label="Cancel">Cancel</button>
-        </form>
-      </div>
-    </main>
-  );
+const modalContent = (
+  <dialog 
+    id='deleteAccountModal' 
+    className='modal' 
+    onMouseDown={closeModal}
+    aria-labelledby="delete-account-title"
+    aria-modal="true"
+    open={isModalVisible}
+  >
+    <div className='modal-content' onMouseDown={(e) => e.stopPropagation()}>
+      <h2 id='delete-account-title'>Delete Account</h2>
+      <Warning size={32} color="red" weight="fill" aria-hidden="true" />
+      <p>Are you sure you want to delete your account?</p>
+      <p>You will not be able to recover your account after deletion.</p>
+      <p>All your data will be permanently removed.</p>
+      <p>Do you want to proceed?</p>
+      <form id='bottom-section' onSubmit={(e) => deleteAccount(e)}>
+        <label htmlFor='delete-account-password-field'>Password</label>
+        <div className='toggle-password-button-container'>
+          <input 
+            id='delete-account-password-field'
+            className='password-input-field' 
+            type={passwordVisible ? 'text' : 'password' }
+            required
+            aria-required="true"
+          />
+          <button
+            type="button"
+            className="toggle-password-button"
+            onClick={togglePasswordVisibility}
+            aria-label={passwordVisible ? "Hide password" : "Show password"}
+            aria-pressed={passwordVisible}
+          >
+            {passwordVisible ? <EyeSlash/> : <Eye/> }
+          </button>
+        </div>
+        <label htmlFor='verify-field'>Type <i id='verification-keyword'>delete</i> to confirm</label>
+        <input 
+          id='verify-field' 
+          type='text' 
+          required 
+          aria-required="true"
+        />
+        {showErrorMessage && (
+          <p className="error-message" role="alert">
+            {errorMessage}
+          </p>
+        )}
+        <button className='submit-button' type='submit' aria-label="Delete Account">Delete Account</button>
+        <button className='cancel-button' type='button' onClick={closeModal} aria-label="Cancel">Cancel</button>
+      </form>
+    </div>
+  </dialog>
+);
 
   if (!isModalVisible) return null;
 

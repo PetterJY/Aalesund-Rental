@@ -70,54 +70,62 @@ const handleCancelOrder = () => {
 }
 
   return (
-    <div className="orders-car-display-card">
-      <div className='car-background'>
-				<img 
-					src={carImage}
-					alt={`${rental.car.carBrand} ${rental.car.modelName}`}
-					className="car-image" 
-				/>
-				<h3 id='provider-name'>{rental.provider.companyName}</h3>
-      </div>
-      <div className="car-details">
-        <h3>{rental.car.carBrand} {rental.car.modelName}</h3>
-        <p>{rentingTime} days renting</p>
-        <section className="rental-schedule-container">
-					<div className="rental-schedule-logos">
-              <Warehouse size={32} className="pickup-logo" color="#000000" weight="fill" />
-							<div className="vertical-line"></div>
-							<Warehouse size={32} className="pickup-logo" color="#000000" weight="fill" />
-					</div>
-					<div className="rental-schedule-text">
-						<div className="pickup-info">
-							<p className="pickup">Pickup</p>
-							<p>{rental.pickupLocation}</p>
-							<p className="pickup-time">{formattedStartDate}</p>
-						</div>
-						<div className="dropoff-info">
-							<p className="dropoff">Dropoff</p>
-							<p>{rental.dropoffLocation}</p>
-							<p className="dropoff-time">{formattedEndDate}</p>
-						</div>
-					</div>
-				</section>
-        <p><b>Renting costs: {dailyPrice}kr/day</b></p>
-        <p><b>Total: {rental.totalCost}kr</b></p>
-      </div>
-      <div className="order-status-container">
-        {status === "PENDING" && (
-          <button
-            className="cancel-order"
-            onClick={handleCancelOrder}
-            aria-label="Cancel order"
-          >
-            <XCircle size={18} color="white" weight="fill" />
-            <p>Cancel Order</p>
-          </button>
-        )}
-        <label className='order-status-label'>{status}</label>
-      </div>
+  <article className="orders-car-display-card">
+    <div className='car-background'>
+      <img 
+        src={carImage}
+        alt={`${rental.car.carBrand} ${rental.car.modelName}`}
+        className="car-image" 
+      />
+      <h3 id='provider-name'>{rental.provider.companyName}</h3>
     </div>
+    <div className="car-details">
+      <h3>{rental.car.carBrand} {rental.car.modelName}</h3>
+      <p>{rentingTime} days renting</p>
+      <section className="rental-schedule-container">
+        <div className="rental-schedule-logos">
+          <Warehouse size={32} className="pickup-logo" color="#000000" weight="fill" aria-hidden="true" />
+          <div className="vertical-line" aria-hidden="true"></div>
+          <Warehouse size={32} className="pickup-logo" color="#000000" weight="fill" aria-hidden="true" />
+        </div>
+        <div className="rental-schedule-text">
+          <dl className="pickup-info">
+            <dt className="pickup">Pickup</dt>
+            <dd>{rental.pickupLocation}</dd>
+            <dd className="pickup-time">
+              <time dateTime={startDate.toISOString()}>{formattedStartDate}</time>
+            </dd>
+          </dl>
+          <dl className="dropoff-info">
+            <dt className="dropoff">Dropoff</dt>
+            <dd>{rental.dropoffLocation}</dd>
+            <dd className="dropoff-time">
+              <time dateTime={endDate.toISOString()}>{formattedEndDate}</time>
+            </dd>
+          </dl>
+        </div>
+      </section>
+      <dl className="price-info">
+        <dt>Renting costs:</dt>
+        <dd><strong>{dailyPrice}kr/day</strong></dd>
+        <dt>Total:</dt>
+        <dd><strong>{rental.totalCost}kr</strong></dd>
+      </dl>
+    </div>
+    <div className="order-status-container">
+      {status === "PENDING" && (
+        <button
+          className="cancel-order"
+          onClick={handleCancelOrder}
+          aria-label="Cancel order"
+        >
+          <XCircle size={18} color="white" weight="fill" aria-hidden="true" />
+          <span>Cancel Order</span>
+        </button>
+      )}
+      <span className='order-status-label' role="status">{status}</span>
+    </div>
+  </article>
   );
 };
 

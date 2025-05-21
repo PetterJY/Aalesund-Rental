@@ -138,13 +138,24 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
   };
 
   return (
-    <div className={`create-car-modal ${isCreateCarModalOpen ? 'open' : ''}`}>
-      <div className="modal-content">
-        <span className="close" onClick={onClose} aria-label="Close modal" tabIndex={0} role="button">
-          <h3>&times;</h3>
-        </span>
-        <h2>Create Car</h2>
-        <form id="create-car-form" onSubmit={createCar}>
+  <dialog 
+    className="create-car-modal"
+    open={isCreateCarModalOpen}
+    aria-labelledby="create-car-title"
+    aria-modal="true"
+  >
+    <div className="modal-content">
+      <button 
+        className="close" 
+        onClick={onClose} 
+        aria-label="Close modal"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      
+      <h2 id="create-car-title">Create Car</h2>
+      
+      <form id="create-car-form" onSubmit={createCar}>
           <input type="text" value={plateNumber} onChange={e => setPlateNumber(e.target.value)} id="plate-number" placeholder="Plate Number" required />
           <input type="text" value={carBrand} onChange={e => setCarBrand(e.target.value)} id="car-brand" placeholder="Car Brand" required />
           <input type="text" value={modelName} onChange={e => setModelName(e.target.value)} id="model-name" placeholder="Model Name" required />
@@ -152,38 +163,43 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
           <input type="number" value={productionYear} onChange={e => setProductionYear(e.target.value)} id="production-year" placeholder="Production Year" required />
           <input type="number" value={passengers} onChange={e => setPassengers(e.target.value)} id="passengers" placeholder="Number of Passengers" required />
 
-          <section id="select-car-type-location-container">
-            <div className="enum-text-container">
-              <button
-                type="button"
-                id="enum-button"
-                onClick={toggleLocationModal}
-                aria-label="Select Location"
-              >
-                Select Location
-              </button>
-              <p>{selectedLocation}</p>
-            </div>
-            <div className="enum-text-container">
-              <button
-                type="button"
-                id="enum-button"
-                onClick={toggleCarTypeModal}
-                aria-label="Select Car Type"
-              >
-                Select Car Type
-              </button>
-              <p>{selectedCarType}</p>
-            </div>
-          </section>
-          <button
-            id='add-extra-feature-button'
-            type="button"
-            onClick={toggleExtraFeaturesModal}
-            aria-label="Add Extra Features"
-          >
-            Add Extra Features
-          </button>
+        <section id="select-car-type-location-container">
+          <div className="enum-text-container">
+            <button
+              type="button"
+              id="enum-button"
+              onClick={toggleLocationModal}
+              aria-label="Select Location"
+              aria-haspopup="dialog"
+            >
+              Select Location
+            </button>
+            <p id="selected-location" aria-live="polite">{selectedLocation}</p>
+          </div>
+          
+          <div className="enum-text-container">
+            <button
+              type="button"
+              id="enum-button"
+              onClick={toggleCarTypeModal}
+              aria-label="Select Car Type"
+              aria-haspopup="dialog"
+            >
+              Select Car Type
+            </button>
+            <p id="selected-car-type" aria-live="polite">{selectedCarType}</p>
+          </div>
+        </section>
+        
+        <button
+          id="add-extra-feature-button"
+          type="button"
+          onClick={toggleExtraFeaturesModal}
+          aria-label="Add Extra Features"
+          aria-haspopup="dialog"
+        >
+          Add Extra Features
+        </button>
           {isCarTypeModalOpen && (
             <CarTypeModal
               toggleModal={toggleCarTypeModal}
@@ -209,28 +225,32 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
             />
           )}
 
-          <section className="create-car-button-wrapper">
-            <button id="gas" type="button" onClick={handleSelectFuel} aria-label="Select Gas Fuel">Gas</button>
-            <button id="diesel" type="button" onClick={handleSelectFuel} aria-label="Select Diesel Fuel">Diesel</button>
-            <button id="hybrid" type="button" onClick={handleSelectFuel} aria-label="Select Hybrid Fuel">Hybrid</button>
-            <button id="electric" type="button" onClick={handleSelectFuel} aria-label="Select Electric Fuel">Electric</button>
-          </section>
+        <fieldset className="create-car-button-wrapper">
+          <legend className="visually-hidden">Fuel Type</legend>
+          <button id="gas" type="button" onClick={handleSelectFuel} aria-pressed={selectedFuel === "GAS"} aria-label="Select Gas Fuel">Gas</button>
+          <button id="diesel" type="button" onClick={handleSelectFuel} aria-pressed={selectedFuel === "DIESEL"} aria-label="Select Diesel Fuel">Diesel</button>
+          <button id="hybrid" type="button" onClick={handleSelectFuel} aria-pressed={selectedFuel === "HYBRID"} aria-label="Select Hybrid Fuel">Hybrid</button>
+          <button id="electric" type="button" onClick={handleSelectFuel} aria-pressed={selectedFuel === "ELECTRIC"} aria-label="Select Electric Fuel">Electric</button>
+        </fieldset>
 
-          <section className="create-car-button-wrapper">
-            <button id="automatic" type="button" onClick={handleSelectTransmission} aria-label="Select Automatic Transmission">Automatic</button>
-            <button id="manual" type="button" onClick={handleSelectTransmission} aria-label="Select Manual Transmission">Manual</button>
-          </section>
+        <fieldset className="create-car-button-wrapper">
+          <legend className="visually-hidden">Transmission Type</legend>
+          <button id="automatic" type="button" onClick={handleSelectTransmission} aria-pressed={selectedTransmission === "AUTOMATIC"} aria-label="Select Automatic Transmission">Automatic</button>
+          <button id="manual" type="button" onClick={handleSelectTransmission} aria-pressed={selectedTransmission === "MANUAL"} aria-label="Select Manual Transmission">Manual</button>
+        </fieldset>
 
-          {showErrorMessage && (
+        {showErrorMessage && (
+          <div className="error-container" role="alert" aria-live="assertive">
             <p className="error-message" id="register-error-message">
               {errorMessage}
             </p>
-          )}
+          </div>
+        )}
 
-          <button type="submit" aria-label="Create Car">Create Car</button>
-        </form>
-      </div>
+        <button type="submit" aria-label="Create Car">Create Car</button>
+      </form>
     </div>
+  </dialog>
   );
 };
 

@@ -306,6 +306,36 @@ body {
   grid-row: 4
 }
 
+.booking-page dl {
+  margin: 0;
+}
+
+.booking-page dt, .booking-page dd {
+  margin: 10px 0;
+  padding: 0;
+}
+
+.booking-page .booking-details-title {
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.booking-page .cost-breakdown {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px;
+}
+
+.booking-page .cost-breakdown dt {
+  margin: 5px 0;
+}
+
+.booking-page .cost-breakdown dd {
+  margin: 5px 0;
+}
+
 @media (max-width: 1000px) {
   .booking-page button {
     width: 100%;

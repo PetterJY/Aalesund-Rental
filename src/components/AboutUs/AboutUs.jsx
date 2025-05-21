@@ -3,7 +3,7 @@ import { RocketLaunch, PencilLine, CarProfile, Book, UsersThree, AddressBook } f
 import "./AboutUs.css";
 
 const AboutUs = () => (
-  <div className="aboutus-container">
+  <main className="aboutus-container">  
     <header className="aboutus-header">
       <h1>
         About Us
@@ -45,9 +45,11 @@ const AboutUs = () => (
       </h2>
       <p>
         Are you a car rental company looking to reach more customers? Join Norwegian Rental to showcase your vehicles to our growing user base. 
-        To list your rentals on our platform, please contact us to set up a provider account. 
-        Reach out at <a href="mailto:providers@norwegianrental.com">providers@norwegianrental.com</a> to get started.
+        To list your rentals on our platform, please contact us to set up a provider account.
       </p>
+      <address>
+        Reach out at <a href="mailto:providers@norwegianrental.com">providers@norwegianrental.com</a> to get started.
+      </address>
     </section>
 
     <section className="aboutus-section">
@@ -78,11 +80,12 @@ const AboutUs = () => (
         <AddressBook size={24} style={{ verticalAlign: "middle", marginRight: 8, color: "var(--secondary-color)" }} />
         Contact Us
       </h2>
-      <p>
-        Have questions or feedback? We’d love to hear from you! Reach out at <a href="mailto:contact@norwegianrental.com">contact@norwegianrental.com</a>.
-      </p>
+      <address>
+        Have questions or feedback? We'd love to hear from you!<br />
+        Email: <a href="mailto:contact@norwegianrental.com">contact@norwegianrental.com</a>
+      </address>
     </section>
-  </div>
+  </main>
 );
 
 export default AboutUs;

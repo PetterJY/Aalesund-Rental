@@ -295,47 +295,51 @@ const fetchFeatureName = async (featureId) => {
   return (
     <div className="my-rentals-car-display">
       <button className="rentals-car-display-card" onClick={toggleDetails} aria-label="Toggle car details">
-        <div className="car-background">
-          <img
-            src={carImage}
-            alt={`${displayCar.carBrand} ${displayCar.modelName}`}
-            className="car-image"
-          />
-        </div>
-        <section className="car-display-info">
-          <div className="car-details">
-            <h3>
-              {isEditing ? (
-                <>
-                  <input
-                    placeholder="Brand name"
-                    type="text"
-                    name="carBrand"
-                    value={editedCar.carBrand}
-                    onChange={handleChange}
-                  />{' '}
-                  <input
-                    placeholder="Model name"
-                    type="text"
-                    name="modelName"
-                    value={editedCar.modelName}
-                    onChange={handleChange}
-                  />{' '}
-                  ~{' '}
-                  <input
-                    placeholder="Plate number"
-                    type="text"
-                    name="plateNumber"
-                    value={editedCar.plateNumber}
-                    onChange={handleChange}
-                  />
-                </>
-              ) : (
-                `${displayCar.carBrand} ${displayCar.modelName} ~ ${displayCar.plateNumber}`
-              )}
-            </h3>
-            <p>
-              Car type:{' '}
+     <div className="car-background">
+        <img
+          src={carImage}
+          alt={`${displayCar.carBrand} ${displayCar.modelName}`}
+          className="car-image"
+        />
+      </div>
+      <section className="car-display-info">
+        <div className="car-details">
+          <h3>
+            {isEditing ? (
+              <>
+                <input
+                  placeholder="Brand name"
+                  type="text"
+                  name="carBrand"
+                  value={editedCar.carBrand}
+                  onChange={handleChange}
+                  aria-label="Car brand"
+                />{' '}
+                <input
+                  placeholder="Model name"
+                  type="text"
+                  name="modelName"
+                  value={editedCar.modelName}
+                  onChange={handleChange}
+                  aria-label="Model name"
+                />{' '}
+                ~{' '}
+                <input
+                  placeholder="Plate number"
+                  type="text"
+                  name="plateNumber"
+                  value={editedCar.plateNumber}
+                  onChange={handleChange}
+                  aria-label="Plate number"
+                />
+              </>
+            ) : (
+              `${displayCar.carBrand} ${displayCar.modelName} ~ ${displayCar.plateNumber}`
+            )}
+          </h3>
+          <dl>
+            <dt>Car type:</dt>
+            <dd>
               {isEditing ? (
                 <>
                   <button
@@ -344,6 +348,7 @@ const fetchFeatureName = async (featureId) => {
                     onClick={toggleCarTypeModal}
                     style={{ cursor: 'pointer' }}
                     aria-label="Edit car type"
+                    aria-haspopup="dialog"
                   >
                     {editedCar.carType ? editedCar.carType : "Choose car type"}
                   </button>
@@ -359,8 +364,8 @@ const fetchFeatureName = async (featureId) => {
               ) : (
                 displayCar.carType
               )}
-            </p>
-            <p>
+            </dd>
+            <dd>
               Year:{' '}
               {isEditing ? (
                 <input
@@ -372,8 +377,8 @@ const fetchFeatureName = async (featureId) => {
               ) : (
                 displayCar.productionYear
               )}
-            </p>
-            <p>
+            </dd>
+            <dd>
               Fuel:{' '}
               {isEditing ? (
                 <input
@@ -385,8 +390,8 @@ const fetchFeatureName = async (featureId) => {
               ) : (
                 displayCar.energySource
               )}
-            </p>
-            <p>
+            </dd>
+            <dd>
               Transmission:{' '}
               {isEditing ? (
                 <select
@@ -400,8 +405,8 @@ const fetchFeatureName = async (featureId) => {
               ) : (
                 displayCar.automatic ? 'Automatic' : 'Manual'
               )}
-            </p>
-            <p>
+            </dd>
+            <dd>
               Passengers:{' '}
               {isEditing ? (
                 <input
@@ -413,8 +418,8 @@ const fetchFeatureName = async (featureId) => {
               ) : (
                 displayCar.passengers
               )}
-            </p>
-            <p>
+            </dd>
+            <dd>
               Location:{' '}
               {isEditing ? (
                 <>
@@ -439,8 +444,8 @@ const fetchFeatureName = async (featureId) => {
               ) : (
                 displayCar.location
               )}
-            </p>
-            <p>
+            </dd>
+            <dd>
               Renting costs:{' '}
               {isEditing ? (
                 <input
@@ -452,8 +457,8 @@ const fetchFeatureName = async (featureId) => {
               ) : (
                 `${displayCar.pricePerDay}kr/day`
               )}
-            </p>
-            <p>
+            </dd>
+            <dd>
               Extra Features:{' '}
               {editedCar.extraFeatures && editedCar.extraFeatures.length > 0 ? (
                 editedCar.extraFeatures.map((feature) => (
@@ -476,51 +481,55 @@ const fetchFeatureName = async (featureId) => {
                   Edit Features
                 </button>
               )}
-            </p>
-          </div>
-          <div className="my-rental-buttons">
-            {isEditing ? (
-              <div className="save-discard-buttons">
-                <button onClick={handleSave} aria-label="Save changes">Save</button>
-                <button onClick={handleDiscard} aria-label="Discard changes">Discard</button>
-              </div>
-            ) : (
-              <button className="edit-button" onClick={handleEditClick} aria-label="Edit car">
-                <NotePencil size={32} color="#000" className="edit-icon" />
-              </button>
-            )}
-            {/* Always show the availability toggle button */}
-            <button
-              className={`availability-toggle-btn ${isAvailable ? "enabled" : "disabled"}`}
-              onClick={handleDelete}
-              aria-label={isAvailable ? "Mark car as unavailable" : "Mark car as available"}
-            >
-              {isAvailable ? "Available" : "Unavailable"}
+            </dd>
+          </dl>
+        </div>
+        <div className="my-rental-buttons">
+          {isEditing ? (
+            <div className="save-discard-buttons">
+              <button onClick={handleSave} aria-label="Save changes">Save</button>
+              <button onClick={handleDiscard} aria-label="Discard changes">Discard</button>
+            </div>
+          ) : (
+            <button className="edit-button" onClick={handleEditClick} aria-label="Edit car">
+              <NotePencil size={32} color="#000" className="edit-icon" aria-hidden="true" />
             </button>
-          </div>
-        </section>
-      </button>
-        {tableVisibility &&
-          (isLoading ? (
-            <div>Loading rentals...</div>
+          )}
+          <button
+            className={`availability-toggle-btn ${isAvailable ? "enabled" : "disabled"}`}
+            onClick={handleDelete}
+            aria-label={isAvailable ? "Mark car as unavailable" : "Mark car as available"}
+            aria-pressed={!isAvailable}
+          >
+            {isAvailable ? "Available" : "Unavailable"}
+          </button>
+        </div>
+      </section>
+    </button> 
+      {tableVisibility && (
+        <section className="rentals-table-section" aria-label="Car rental history">
+          {isLoading ? (
+            <div role="status" aria-live="polite">Loading rentals...</div>
           ) : rentalDetails && rentalDetails.length > 0 ? (
             <MyRentalsCarTable rentals={rentalDetails} />
           ) : (
-            <div className="no-rentals-message">No rentals for this car.</div>
-          ))
-        }
-        {isExtraFeaturesModalOpen && (
-          <ExtraFeaturesModal
-            toggleModal={toggleExtraFeaturesModal}
-            isCreateCarModalOpen={isExtraFeaturesModalOpen}
-            setSelectedFeatures={setSelectedFeatures}
-            selectedFeatures={
-              Array.isArray(editedCar.extraFeatures)
-                ? editedCar.extraFeatures.map((feature) => feature.id)
-                : []
-            }
-          />
-        )}
+            <div className="no-rentals-message" role="status">No rentals for this car.</div>
+          )}
+        </section>
+      )}
+      
+      {isExtraFeaturesModalOpen && (
+        <ExtraFeaturesModal
+          toggleModal={toggleExtraFeaturesModal}
+          isCreateCarModalOpen={isExtraFeaturesModalOpen}
+          setSelectedFeatures={setSelectedFeatures}
+          selectedFeatures={
+            Array.isArray(editedCar.extraFeatures)
+              ? editedCar.extraFeatures.map((feature) => feature.id)
+              : []
+          }
+        />
+      )}
     </div>
   );
 };

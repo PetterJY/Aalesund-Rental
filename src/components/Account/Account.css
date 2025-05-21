@@ -49,23 +49,24 @@
   outline: none;
 }
 
-.account-section .save-button {
+.account-section .save {
   background-color: var(--secondary-color);
   color: white;
   border-radius: 25px;
   border: none;
   cursor: pointer;
-  max-width: 1000px;
   margin: 15px 0;
   align-self: start;
+  width: 200px;
+  height: 50px;
 }
 
-.account-section .save-button:hover {
+.account-section .save:hover {
   transition: 0.3s;
   background-color: var(--secondary-color-hover);
 }
 
-.account-section .save-button:active {
+.account-section .save:active {
   background-color: var(--secondary-color);
   transform: scale(0.95);
 }
@@ -96,6 +97,8 @@
   transition: 0.3s;
 }
 
+
+
 .account-section .success-message {
   color: var(--main-color);
   background-color: #4CAF5022;
@@ -111,5 +114,4 @@
     margin-left: 0px;
     padding: 20px;
   }
-  
 }

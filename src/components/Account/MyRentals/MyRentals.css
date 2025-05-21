@@ -59,6 +59,31 @@
   flex-shrink: 0; 
 }
 
+.rental-list-item {
+  margin: 0;
+  padding: 0;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-message {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+header#my-rentals-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  padding: 0 20px;
+}
+
 @media screen and (max-width: 850px) {
   .my-rentals {
     width: 100%;

@@ -68,6 +68,15 @@
 }
 
 .orders-car-display-card .car-details p {
+  color: var(--main-color);
+}
+
+.orders-car-display-card .car-details dl {
+  margin: 0;
+  padding: 0;
+}
+
+.orders-car-display-card .car-details dd {
   margin: 3px 0;
   padding: 0;
   color: var(--main-color);
@@ -114,6 +123,7 @@
   align-items: center;
   padding: 0px 10px;
   margin-bottom: auto;
+  height: 40px;
 }
 
 .orders-car-display-card .cancel-order:hover {

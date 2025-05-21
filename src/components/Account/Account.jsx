@@ -383,7 +383,7 @@ const Account = () => {
   }
     
   return (
-    <div className="account">
+    <main className="account">
       <section className="account-section">
         <h1>Account</h1>
         <h2>Personal Information</h2>
@@ -418,7 +418,7 @@ const Account = () => {
         )}
 
         <button
-          className="save-button"
+          className="save"
           onClick={updateAccountInformation}
           aria-label="Save account information"
         >
@@ -453,7 +453,7 @@ const Account = () => {
         isModalVisible={isChangePasswordModalVisible}
         closeModal={closeChangePasswordModal}
       />
-    </div>
+    </main>
   );
 };
 

@@ -17,3 +17,10 @@
   color: var(--secondary-color);
   margin-bottom: -0.5rem;
 }
+
+.view-orders-link {
+  color: var(--main-color);
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
+}

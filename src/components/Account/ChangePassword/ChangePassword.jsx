@@ -95,26 +95,37 @@ async function changePassword(event) {
     return null; 
   }
 
-  const modalContent = (
-    <main id='changePasswordModal' className='modal' onMouseDown={closeModal}>
-      <form id='bottom-section' onMouseDown={(e) => e.stopPropagation()} onSubmit={changePassword}>
-        <label htmlFor='old-password-field'>Old Password</label>
-        <div className='toggle-password-button-container'>
-          <input 
-            id='old-password-field'
-            className='password-input-field' 
-            type={oldPasswordVisible ? 'text' : 'password' }
-            required 
-          />
-          <button
+const modalContent = (
+  <dialog 
+    id='changePasswordModal' 
+    className='modal' 
+    onMouseDown={closeModal}
+    aria-labelledby="change-password-heading"
+    open={isModalVisible}
+  >
+    <form id='bottom-section' onMouseDown={(e) => e.stopPropagation()} onSubmit={changePassword}>
+      <h2 id="change-password-heading" className="visually-hidden">Change Password</h2>
+      
+      <label htmlFor='old-password-field'>Old Password</label>
+      <div className='toggle-password-button-container'>
+        <input 
+          id='old-password-field'
+          className='password-input-field' 
+          type={oldPasswordVisible ? 'text' : 'password' }
+          required 
+          aria-required="true"
+        />
+        <button
           type="button"
           className="toggle-password-button"
           onClick={toggleOldPasswordVisibility}
           aria-label={oldPasswordVisible ? "Hide old password" : "Show old password"}
+          aria-pressed={oldPasswordVisible}
         >
           {oldPasswordVisible ? <EyeSlash/> : <Eye/> }
         </button>
       </div>
+      
       <label htmlFor='new-password-field'>New Password</label>
       <div className='toggle-password-button-container'>
         <input 
@@ -122,16 +133,19 @@ async function changePassword(event) {
           className='password-input-field' 
           type={newPasswordVisible ? 'text' : 'password' }
           required 
+          aria-required="true"
         />
         <button
           type="button"
           className="toggle-password-button"
           onClick={toggleNewPasswordVisibility}
           aria-label={newPasswordVisible ? "Hide new password" : "Show new password"}
+          aria-pressed={newPasswordVisible}
         >
           {newPasswordVisible ? <EyeSlash/> : <Eye/> }
         </button>
       </div>
+      
       <label htmlFor='confirm-password-field'>Confirm New Password</label>
       <div className='toggle-password-button-container'>
         <input 
@@ -139,26 +153,30 @@ async function changePassword(event) {
           className='password-input-field' 
           type={confirmPasswordVisible ? 'text' : 'password' }
           required 
+          aria-required="true"
         />
         <button
           type="button"
           className="toggle-password-button"
           onClick={toggleConfirmPasswordVisibility}
           aria-label={confirmPasswordVisible ? "Hide confirm password" : "Show confirm password"}
+          aria-pressed={confirmPasswordVisible}
         >
           {confirmPasswordVisible ? <EyeSlash/> : <Eye/> }
         </button>
       </div>
+      
       {showErrorMessage && (
-        <p className="error-message">
+        <p className="error-message" role="alert">
           {errorMessage}
         </p>
       )}
+      
       <button className='submit-button' type='submit' aria-label="Change Password">Change Password</button>
       <button className='cancel-button' type='button' onClick={closeModal} aria-label="Cancel">Cancel</button>
-      </form>
-    </main>
-  );
+    </form>
+  </dialog>
+);
 
   return ReactDOM.createPortal(
     modalContent,

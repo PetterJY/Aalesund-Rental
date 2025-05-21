@@ -65,3 +65,16 @@
   border-radius: 0;
 }
 
+.dropdown-menu a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+  outline: none;
+}
