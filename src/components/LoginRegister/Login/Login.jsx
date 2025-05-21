@@ -45,7 +45,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
     const loginDetails = retrieveData();
 
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
+      const response = await fetch('https://norwegian-rental.online/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

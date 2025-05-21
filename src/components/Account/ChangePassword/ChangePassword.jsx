@@ -44,7 +44,7 @@ const ChangePassword = ({ closeModal, isModalVisible }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/users/change-password', {
+      const response = await fetch('https://norwegian-rental.online/users/change-password', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

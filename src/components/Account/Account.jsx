@@ -73,7 +73,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+      const response = await fetch(`https://norwegian-rental.online/accounts/${accountId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ const Account = () => {
 
       console.log('Updated user details:', userDetails);
 
-      const response = await fetch(`http://localhost:8080/users/${accountId}`, {
+      const response = await fetch(`https://norwegian-rental.online/users/${accountId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/providers/' + accountId, {
+      const response = await fetch('https://norwegian-rental.online/providers/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -235,7 +235,7 @@ const Account = () => {
 
       console.log('Updated provider details:', providerDetails);
 
-      const response = await fetch('http://localhost:8080/providers/' + accountId, {
+      const response = await fetch('https://norwegian-rental.online/providers/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -270,7 +270,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/admins/' + accountId, {
+      const response = await fetch('https://norwegian-rental.online/admins/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -331,7 +331,7 @@ const Account = () => {
 
       console.log('Updated admin details:', adminDetails);
 
-      const response = await fetch('http://localhost:8080/admins/' + accountId, {
+      const response = await fetch('https://norwegian-rental.online/admins/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

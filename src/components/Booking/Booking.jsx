@@ -33,7 +33,7 @@ const Booking = () => {
 	async function fetchCarDetails() {
 		setIsLoading(true);
 		try {
-			const response = await fetch(`http://localhost:8080/cars/${carId}`, {
+			const response = await fetch(`https://norwegian-rental.online/cars/${carId}`, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
@@ -92,7 +92,7 @@ const Booking = () => {
 
 			const accountId = getAccountId();
       try {
-        const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+        const response = await fetch(`https://norwegian-rental.online/accounts/${accountId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -159,7 +159,7 @@ const Booking = () => {
 		console.log("Booking data: ", bookingData);
 
 		try {
-			const response = await fetch("http://localhost:8080/rentals", {
+			const response = await fetch("https://norwegian-rental.online/rentals", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

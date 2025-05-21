@@ -76,7 +76,7 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     console.log('Car Details being sent:', carDetails);
   
     try {
-      const response = await fetch('http://localhost:8080/cars', {
+      const response = await fetch('https://norwegian-rental.online/cars', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

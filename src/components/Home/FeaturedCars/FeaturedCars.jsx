@@ -13,7 +13,7 @@ const FeaturedCars = () => {
 useEffect(() => {
   async function fetchCars() {
     try {
-      const response = await fetch('http://localhost:8080/cars', {
+      const response = await fetch('https://norwegian-rental.online/cars', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

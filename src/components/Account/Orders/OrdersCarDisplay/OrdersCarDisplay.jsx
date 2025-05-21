@@ -35,7 +35,7 @@ const OrdersCarDisplay = ({rental}) => {
 	}
 
 	async function cancelOrder() {
-		const response = await fetch(`http://localhost:8080/rentals/${rental.rentalId}`, {
+		const response = await fetch(`https://norwegian-rental.online/rentals/${rental.rentalId}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',

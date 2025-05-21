@@ -31,7 +31,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
   //   }
 
   //   try {
-  //     const response = await fetch('http://localhost:8080/accounts', {
+  //     const response = await fetch('https://norwegian-rental.online/accounts', {
   //       method: 'DELETE',
   //       headers: {
   //         'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
     };
 
     try {
-      await makeApiRequest("http://localhost:8080/accounts", {
+      await makeApiRequest("https://norwegian-rental.online/accounts", {
         method: "DELETE",
         body: JSON.stringify(passwordField),
       });

@@ -24,7 +24,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
     const fetchIsFavourited = async () => {
       try {
         const accountId = getAccountId();
-        const response = await fetch(`http://localhost:8080/users/${accountId}/favourites`, {
+        const response = await fetch(`https://norwegian-rental.online/users/${accountId}/favourites`, {
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
           },
@@ -49,7 +49,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/users/${getAccountId()}/favourites/${car.id}`, {
+      const response = await fetch(`https://norwegian-rental.online/users/${getAccountId()}/favourites/${car.id}`, {
         method : isFavourited ? "DELETE" : "POST",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
