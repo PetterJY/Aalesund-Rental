@@ -22,7 +22,6 @@ import jakarta.validation.Valid;
 import no.ntnu.entity.CustomUserDetails;
 import no.ntnu.entity.dto.LoginDetails;
 import no.ntnu.entity.dto.RefreshTokenDetails;
-import no.ntnu.entity.models.Accounts;
 import no.ntnu.logic.service.RefreshTokenService;
 import no.ntnu.security.JwtUtility;
 
@@ -98,7 +97,7 @@ public class RefreshTokenController {
           .body("Refresh token is required.");
     }
 
-    if (!refreshTokenService.validateRefreshToken(refreshToken)) {
+    if (!refreshTokenService.isValidRefreshToken(refreshToken)) {
       logger.error("Invalid refresh token.");
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
           .body("Invalid refresh token.");
