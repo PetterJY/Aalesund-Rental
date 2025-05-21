@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: var(--neutral-color-hover); /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +25,7 @@
   padding: 20px;
   width: 400px;
   max-width: 90%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px var(--neutral-color-hover);
   position: relative;
   animation: slide-down 0.3s ease-out;
   margin: 20px;
@@ -47,8 +47,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 1.5rem;
-  color: #FF5F00;
+  color: var(--secondary-color);
   cursor: pointer;
   border: none;
   background: none;
@@ -56,8 +55,7 @@
 
 .create-car-modal h2 {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
-  color: #252422;
+  color: var(--main-color);
   margin-bottom: 20px;
   text-align: center;
 }
@@ -73,14 +71,13 @@
   padding: 10px;
   border: 2px solid #ccc;
   border-radius: 5px;
-  font-size: 1rem;
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
 }
 
 .create-car-modal input:focus, textarea:focus {
   outline: none;
-  border-color: #FF5F00;
+  border-color: var(--secondary-color);
   box-shadow: 0 0 5px rgba(255, 95, 0, 0.5);
 }
 
@@ -90,24 +87,22 @@
 }
 
 .create-car-modal button[type="submit"] {
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 15px;
-  font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .create-car-modal button[type="submit"]:hover {
-  background-color: #E65500;
+  background-color: var(--secondary-color-hover);
   transform: scale(1.05);
 }
 
 .create-car-modal button[type="submit"]:active {
-  background-color: #CC4A00;
+  background-color: var(--secondary-color-active);
   transform: scale(0.95);
 }
 
@@ -119,15 +114,13 @@
 .create-car-modal .create-car-button-wrapper button {
   margin: 0 5px;
   padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .create-car-modal .selectedTransmission, .create-car-modal .selectedFuel {
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
 }
@@ -148,53 +141,47 @@
 }
 
 .create-car-modal #enum-button{
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 15px;
-  font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .create-car-modal #enum-button:hover {
-  background-color: #E65500;
+  background-color: var(--secondary-color-hover);
   transform: scale(1.05);
 }
 
 .create-car-modal #enum-button:active {
-  background-color: #CC4A00;
+  background-color: var(--secondary-color-active);
   transform: scale(0.95);
 }
 
 .create-car-modal .enum-text-container p {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #252422;
-  border-bottom: #FF5F00 solid 2px;
+  color: var(--main-color);
+  border-bottom: var(--secondary-color) solid 2px;
 }
 
 #add-extra-feature-button {
-  background-color: #FF5F00;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 15px;
-  font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   gap: 10px;
 }
 
 #add-extra-feature-button:hover {
-  background-color: #E65500;
+  background-color: var(--secondary-color-hover);
   transform: scale(1.05);
 }
 
 #add-extra-feature-button:active {
-  background-color: #CC4A00;
+  background-color: var(--secondary-color-active);
   transform: scale(0.95);
 }

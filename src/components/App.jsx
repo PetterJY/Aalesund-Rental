@@ -16,7 +16,7 @@ import AdminRentals from './Account/AdminRentals/AdminRentals';
 import AboutUs from './AboutUs/AboutUs';
 import PageNotFound from './PageNotFound/PageNotFound';
 import SubmittedBooking from './Booking/SubmittedBooking/SubmittedBooking';
-import './App.css';
+import '../index.css';
 
 function App() {
   return (

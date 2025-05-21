@@ -12,43 +12,41 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 40px;
   border-radius: 20px;
-  border: #252422 2px solid;
+  border: var(--main-color) 2px solid;
 }
 
 .not-found-container h1 {
   font-size: 100px;
-  color: #EB5E28;
+  color: var(--secondary-color);
   margin: 0;
 }
 
 .not-found-container h2 {
-  font-size: 30px;
-  color: #252422;
+  font-size: var(--font-size-xxxl);
+  color: var(--main-color);
   margin: 10px 0;
 }
 
 .not-found-container p {
-  font-size: 16px;
-  color: #252422;
+  color: var(--main-color);
   margin: 20px 0;
 }
 
 .not-found-container .home-button {
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   color: white;
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 25px;
-  font-size: 16px;
   transition: 0.3s;
 }
 
 .not-found-container .home-button:hover {
-  background-color: #eb5f2899;
+  background-color: var(--secondary-color-hover);
   transition: 0.3s;
 }
 
 .not-found-container .home-button:active {
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   transform: scale(0.95);
 }

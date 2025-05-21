@@ -101,25 +101,24 @@ const Footer = () => {
 					)}
 				</nav>
 			</div>
-		<br/>
-			<p>* This website is a result of a university group project, performed in the course IDATA2301 Web
-	technologies, at NTNU. All the information provided here is a result of imagination. Any
-	resemblance with real companies or products is a coincidence.</p>
+			<p className="footer-text">Copyright © 2025 Norwegian Rental</p>
+			<p className="footer-text">* This website is a result of a university group project, performed in the course IDATA2301 Web
+					technologies, at NTNU. All the information provided here is a result of imagination. Any
+					resemblance with real companies or products is a coincidence.</p>
 		</footer>
   );
 };
 
 const DropdownMenu = ({isExpanded, onClick, isMobileDisplaySize}) => {
-	return (
-		<button
-				 className={`dropdown ${isExpanded ? 'expanded' : 'not-expanded'} ${isMobileDisplaySize ? 'visible' : 'not-visible'}`}
-				 onClick={onClick}
-				 alt="dropdown-menu-icon"
-				 color="white"
-				 style={isExpanded ? { transform: 'rotate(180deg)' } : {}}>
-				<CaretDown size={25} color='white'/>
-				 </button>
-	)
+    return (
+        <button
+            className={`dropdown ${isExpanded ? 'expanded' : 'not-expanded'} ${isMobileDisplaySize ? 'visible' : 'not-visible'}`}
+            onClick={onClick}
+            aria-label={isExpanded ? "Collapse section" : "Expand section"} 
+            style={isExpanded ? { transform: 'rotate(180deg)' } : {}}>
+            <CaretDown size={25} color='white'/>
+        </button>
+    )
 }
 
 

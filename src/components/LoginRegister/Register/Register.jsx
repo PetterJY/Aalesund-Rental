@@ -2,7 +2,6 @@ import React from 'react';
 import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../LoginRegister.css';
-import '../../App.css';
 
 const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
   const { setIsAuthenticated, setIsAuthInitialized } = useAuth();
@@ -169,35 +168,38 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
                     type="button"
                     className="toggle-password-button"
                     onClick={togglePasswordVisibility}
+                    aria-label={passwordVisible ? "Hide password" : "Show password"}
                   >
-                    {passwordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                    {passwordVisible ? <EyeSlash color="var(--secondary-color)" /> : <Eye color="var(--secondary-color)" />}
                   </button>
                 </div>
-                  <div className="toggle-password-button-container">
-                    <input
-                      id="confirm-password-field"
-                      className="password-input-field"
-                      type={confirmPasswordVisible ? 'text' : 'password'} 
-                      placeholder="Confirm Password"
-                      required
-                    />
-                    <button
-                      type="button"
-                      className="toggle-password-button"
-                      onClick={toggleConfirmPasswordVisibility}
-                    >
-                      {confirmPasswordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
-                    </button>
-                  </div>              </div>
+                <div className="toggle-password-button-container">
+                  <input
+                    id="confirm-password-field"
+                    className="password-input-field"
+                    type={confirmPasswordVisible ? 'text' : 'password'} 
+                    placeholder="Confirm Password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="toggle-password-button"
+                    onClick={toggleConfirmPasswordVisibility}
+                    aria-label={confirmPasswordVisible ? "Hide confirm password" : "Show confirm password"}
+                  >
+                    {confirmPasswordVisible ? <EyeSlash color="var(--secondary-color)" /> : <Eye color="var(--secondary-color)" />}
+                  </button>
+                </div>              
+              </div>
               {showErrorMessage && (
                 <p className="error-message" id="register-error-message">
                   {errorMessage}
                 </p>
               )}
-              <button id="submit-button" type="submit" onClick={handleRegister} className="submit-button">
+              <button id="submit-button" type="submit" onClick={handleRegister} className="submit-button" aria-label="Register">
                 Register
               </button>
-              <button className="toggle-login-register-button" onClick={toggleMode}>
+              <button className="toggle-login-register-button" onClick={toggleMode} aria-label="Already have an account? Login">
                 Already have an account? Login
               </button>
             </form>

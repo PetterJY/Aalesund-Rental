@@ -56,6 +56,7 @@ public class JwtFilter extends OncePerRequestFilter {
     logger.info("Starting JWT filter for request: {}", request.getRequestURI());
     
     String jwtToken = getJwtToken(request);
+    
     if (jwtToken == null) {
       logger.warn("No JWT token found in request: {}", request.getRequestURI());
       filterChain.doFilter(request, response);

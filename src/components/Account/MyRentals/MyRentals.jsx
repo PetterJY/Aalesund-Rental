@@ -6,7 +6,6 @@ import PaginationControls, { getPaginatedItems } from '../../PaginationControls/
 import MyRentalsCarDisplay from './MyRentalsCarDisplay/MyRentalsCarDisplay';
 import CreateCarModal from './CreateCarModal/CreateCarModal';
 import './MyRentals.css';
-import '../../App.css';
 
 const MyRentals = () => {
   const navigate = useNavigate();
@@ -67,12 +66,11 @@ const MyRentals = () => {
       <div id='my-rentals-header'>
         <h2 className="title">My Rentals</h2>
         {isCreateCarModalOpen && <CreateCarModal onClose={toggleCreateCarModal} isCreateCarModalOpen={isCreateCarModalOpen} />}
-        <button id="add-car-button" onClick={toggleCreateCarModal}>
+        <button id="add-car-button" onClick={toggleCreateCarModal} aria-label="Add Car">
           <PlusCircle size={32} />
           <span className="add-car-text">Add Car</span>
         </button>
       </div>
-
       {isLoading ? (
         <h1>
           Loading your rentals... 
@@ -87,7 +85,6 @@ const MyRentals = () => {
           ))}
         </div>
       )}
-
       <PaginationControls 
         currentPage={currentPage}
         totalPages={totalPages}

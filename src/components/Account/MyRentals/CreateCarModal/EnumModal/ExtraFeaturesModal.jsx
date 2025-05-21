@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { getToken } from '../../../../utils/JwtUtility';
 import './EnumModal.css';
-import '../../../../App.css';
 
 const ExtraFeaturesModal = ({
   toggleModal,
@@ -60,7 +59,7 @@ const handleFeatureSelection = (featureId) => {
   return (
     <div className="enum-modal">
       <div className="modal-content">
-        <span className="close" onClick={toggleModal}>
+        <span className="close" onClick={toggleModal} aria-label="Close modal" tabIndex={0} role="button">
           &times;
         </span>
         <h2>Select Extra Features</h2>
@@ -91,7 +90,7 @@ const handleFeatureSelection = (featureId) => {
               ))}
           </div>
         )}
-        <button className="confirm-button" onClick={toggleModal}>
+        <button className="confirm-button" onClick={toggleModal} aria-label="Confirm extra features selection">
           Confirm
         </button>
       </div>

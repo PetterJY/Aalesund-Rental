@@ -5,9 +5,9 @@ import {enGB} from "date-fns/locale/en-GB";
 import {addDays, subDays, differenceInDays, formatDate} from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import "./DateTimePicker.css";
-import {BookingContext} from "../../utils/BookingContext"; // Copy relevant CSS from Header.css
+import {BookingContext} from "../../utils/BookingContext";
 
-const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate, onDateChange, onTimeChange, pickupDate, dropoffDate }) {
+const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate, onDateChange, onTimeChange, pickupDate, dropoffDate, onOpen }) {
   const datePickerRef = useRef(null);
   const timePickerRef = useRef(null);
   const selectedTimeRef = useRef(null);
@@ -37,16 +37,16 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
 
   const highlightWithRanges = [
     {
-      "react-datepicker__day--highlighted-custom-1": daysOfRental, // highlight days between pickup and dropoff
+      "react-datepicker__day--highlighted-custom-1": daysOfRental,
     },
     {
       "react-datepicker__day--highlighted-custom-2": [
-        today // highlight today's date
+        today
       ],
     }, {
-      "react-datepicker__day--highlighted-custom-3": [pickupDate], // highlight pickup-date with uniquely rounded corners
+      "react-datepicker__day--highlighted-custom-3": [pickupDate],
     }, {
-      "react-datepicker__day--highlighted-custom-4": [dropoffDate], // highlight dropoff-date with uniquely rounded corners
+      "react-datepicker__day--highlighted-custom-4": [dropoffDate],
     }, {
       "react-datepicker__day--highlighted-custom-5": unavailableDays,
     },
@@ -126,10 +126,10 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
       if (window.innerWidth >= 1500) {
         setMonthsToShow(3);
       } else if (window.innerWidth > 900) {
-        //TODO: turn these into constants?
+        // TODO: turn these into constants?
         setMonthsToShow(2);
       } else {
-        setMonthsToShow(1);
+        setMonthsToShow(12);
       }
     }
     handleWindowResize();
@@ -137,15 +137,31 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
 
+  const handleCalendarOpen = () => {
+    if (datePickerRef.current) {
+      const calendarContainer = datePickerRef.current.setOpen(true);
+      if (calendarContainer) {
+        calendarContainer.scrollTop = 100; // Scroll to the top
+      }
+    }
+  };
+
   return (
     <div className="date-time">
       <div className={`date-picker ${isDatePickerSelected ? 'selected' : ''}`}>
-        <button className="date-picker-button" onClick={openDatePicker}>
+        <button
+          className="date-picker-button"
+          onClick={openDatePicker}
+          aria-label="Select date"
+        >
         </button>
         <CalendarBlank weight="bold" className="calendar-icon"/>
         <DatePicker
           ref={datePickerRef}
-          onCalendarOpen={() => setIsDatePickerSelected(true)}
+          onCalendarOpen={() => {
+            setIsDatePickerSelected(true)
+            handleCalendarOpen()
+            onOpen()}}
           onCalendarClose={() => setIsDatePickerSelected(false)}
           selected={selectedDate}
           onChange={onDateChange}
@@ -154,18 +170,21 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
           dateFormat="d. MMM"
           className="date-input"
           popperClassName="date-picker-popper"
-          minDate={today}
+          minDate={new Date()}
+          showDisabledMonthNavigation
+          disabledKeyboardNavigation
           startDate={new Date()}
           shouldCloseOnSelect={false}
           locale={enGB}
-          showDisabledMonthNavigation={false}
-          disabledKeyboardNavigation={false}
         />
       </div>
       <div className={`time-picker ${isTimePickerSelected ? 'selected' : ''}`}>
-        <button className="time-picker-button"
-                id={`${type}-time`}
-                onMouseDown={() => setIsTimePickerSelected(true)}>
+        <button
+          className="time-picker-button"
+          id={`${type}-time`}
+          onMouseDown={() => setIsTimePickerSelected(true)}
+          aria-label="Select time"
+        >
         </button>
         <span className="selected-time-option-text" ref={selectedTimeRef}>
           {`${type === "pickup" ? formatDate(new Date(bookingData.pickupTime), "HH:mm") : formatDate(new Date(bookingData.dropoffTime), "HH:mm")}`}

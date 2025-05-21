@@ -5,7 +5,6 @@ import { getRole, getAccountId } from "../utils/JwtUtility";
 import { useAuth } from "../utils/AuthContext";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
-import "../App.css";
 import {BookingContext} from "../utils/BookingContext";
 import {formatDate} from "date-fns";
 
@@ -200,7 +199,7 @@ const Booking = () => {
 					</div>
 					<div className="last-name">
 						<label htmlFor="last-name">Last Name:</label>
-						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || "llokasldaklsjd"} readOnly required></input>
+						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || ""} readOnly required></input>
 					</div>
 					<br/>
 					<div className="phone-number">
@@ -211,7 +210,9 @@ const Booking = () => {
 						<button
 							onClick={submitBooking}
 							className="book-now-button"
-							disabled={!isAuthenticated}>
+							disabled={!isAuthenticated}
+							aria-label="Book Now"
+						>
 							Book Now
 						</button>
 						{!isAuthenticated && (
@@ -242,9 +243,9 @@ const Booking = () => {
 				</header>
 				<section className="rental-schedule-container">
 					<div className="rental-schedule-logos">
-							<img src={storageLogo} className="pickup-logo"></img>
+							<img src={storageLogo} className="pickup-logo" alt="pickup-logo"></img>
 							<div className="vertical-line"></div>
-							<img src={storageLogo} className="dropoff-logo"></img>
+							<img src={storageLogo} className="dropoff-logo" alt="dropoff-logo"></img>
 					</div>
 					<div className="rental-schedule-text">
 						<div className="pickup-info">
@@ -287,7 +288,7 @@ const Booking = () => {
 							<p>{`${(rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
 							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
 							<p>
-								{totalCost} in total
+								{totalCost} kr/total
 							</p>
 						</>
 					)}

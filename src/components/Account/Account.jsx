@@ -3,7 +3,6 @@ import { getAccountId, getRole } from '../utils/JwtUtility';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
 import './Account.css';
-import '../App.css';
 
 const Account = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -368,38 +367,52 @@ const Account = () => {
 
         {role === 'ROLE_USER' && (
           <>
-            <h3>First name</h3>
+            <label htmlFor="first-name">First name</label>
             <input type="text" id="first-name" name="first-name" required />
-            <h3>Last name</h3>
+            <label htmlFor="last-name">Last name</label>
             <input type="text" id="last-name" name="last-name" required />
           </>
         )}
 
         {role === 'ROLE_PROVIDER' && (
           <>
-            <h3>Company name</h3>
+            <label htmlFor="company-name">Company name</label>
             <input type="text" id="company-name" name="company-name" required />    
           </>  
         )}
 
         {role === 'ROLE_ADMIN' && (
           <>
-            <h3>Username</h3>
+            <label htmlFor="username">Username</label>
             <input type="text" id="username" name="name" required />
           </>
         )}
 
         {showErrorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <button className="save-button" onClick={updateAccountInformation}>Save</button>
+        <button
+          className="save-button"
+          onClick={updateAccountInformation}
+          aria-label="Save account information"
+        >
+          Save
+        </button>
         <ul className="bottom-button-list">
           <li>
-            <button className="bottom-button" onClick={openDeleteModal}>
+            <button
+              className="bottom-button"
+              onClick={openDeleteModal}
+              aria-label="Delete Account"
+            >
               Delete Account
             </button>
           </li>
           <li>
-            <button className="bottom-button" onClick={openChangePasswordModal}>
+            <button
+              className="bottom-button"
+              onClick={openChangePasswordModal}
+              aria-label="Change Password"
+            >
               Change Password
             </button>
           </li>

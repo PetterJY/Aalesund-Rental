@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -138,17 +140,17 @@ public class AddDummyObjectsToDatabase {
 
 		logger.info("Adding rentals to the database.");
 
-		addRental("18", "1", "1", "2025-06-01T00:00:00", "2025-06-05T00:00:00", "Oslo", "Bergen", 3000.0, "COMPLETED");
-		addRental("18", "1", "1", "2024-10-01T00:00:00", "2024-10-05T00:00:00", "Bergen", "Oslo", 3000.0, "PENDING");
-		addRental("19", "2", "2", "2025-06-02T00:00:00", "2025-06-06T00:00:00", "Stavanger", "Kristiansand", 2500.0, "ACTIVE");
-		addRental("20", "3", "3", "2025-06-03T00:00:00", "2025-06-07T00:00:00", "Trondheim", "Ålesund", 3500.0, "PENDING");
+		addRental("18", "1", "1", "2025-06-01T00:00:00", "2025-06-05T00:00:00", "Oslo", "Bergen", 2800.0, "COMPLETED");
+		addRental("18", "1", "1", "2024-10-01T00:00:00", "2024-10-05T00:00:00", "Bergen", "Oslo", 2800.0, "PENDING");
+		addRental("19", "2", "2", "2025-06-02T00:00:00", "2025-06-06T00:00:00", "Stavanger", "Kristiansand", 2800.0, "ACTIVE");
+		addRental("20", "3", "3", "2025-06-03T00:00:00", "2025-06-07T00:00:00", "Trondheim", "Ålesund", 2800.0, "PENDING");
 		addRental("21", "4", "4", "2025-06-04T00:00:00", "2025-06-08T00:00:00", "Bergen", "Stavanger", 2800.0, "CANCELLED");
-		addRental("22", "5", "5", "2025-06-05T00:00:00", "2025-06-09T00:00:00", "Oslo", "Trondheim", 3200.0, "COMPLETED");
-		addRental("23", "6", "6", "2025-06-06T00:00:00", "2025-06-10T00:00:00", "Stavanger", "Oslo", 2700.0, "ACTIVE");
-		addRental("24", "7", "7", "2025-06-07T00:00:00", "2025-06-11T00:00:00", "Kristiansand", "Bergen", 3300.0, "PENDING");
-		addRental("25", "8", "8", "2025-06-08T00:00:00", "2025-06-12T00:00:00", "Ålesund", "Stavanger", 2900.0, "CANCELLED");
-		addRental("26", "9", "9", "2025-06-09T00:00:00", "2025-06-13T00:00:00", "Oslo", "Kristiansand", 3100.0, "COMPLETED");
-		addRental("27", "10", "10", "2025-06-10T00:00:00", "2025-06-14T00:00:00", "Bergen", "Ålesund", 2600.0, "ACTIVE");
+		addRental("22", "5", "5", "2025-06-05T00:00:00", "2025-06-09T00:00:00", "Oslo", "Trondheim", 2800.0, "COMPLETED");
+		addRental("23", "6", "6", "2025-06-06T00:00:00", "2025-06-10T00:00:00", "Stavanger", "Oslo", 2800.0, "ACTIVE");
+		addRental("24", "7", "7", "2025-06-07T00:00:00", "2025-06-11T00:00:00", "Kristiansand", "Bergen", 2800.0, "PENDING");
+		addRental("25", "8", "8", "2025-06-08T00:00:00", "2025-06-12T00:00:00", "Ålesund", "Stavanger", 2800.0, "CANCELLED");
+		addRental("26", "9", "9", "2025-06-09T00:00:00", "2025-06-13T00:00:00", "Oslo", "Kristiansand", 2800.0, "COMPLETED");
+		addRental("27", "10", "10", "2025-06-10T00:00:00", "2025-06-14T00:00:00", "Bergen", "Ålesund", 2800.0, "ACTIVE");
 
 		// June 2025 Rentals
 		addRental("18", "3", "3", "2025-06-01T00:00:00", "2025-06-07T00:00:00", "Bergen", "Oslo", 3200.0, "PENDING");
@@ -175,37 +177,32 @@ public class AddDummyObjectsToDatabase {
 
 	// Login to get JWT token.
 	public static String login(String email, String password) {
-		HttpClient client = HttpClient.newHttpClient();
+    HttpClient client = HttpClient.newHttpClient();
 
-		String json = "{"
+    String json = "{"
 				+ "\"email\": \"" + email + "\","
 				+ "\"password\": \"" + password + "\""
 				+ "}";
-				
-		HttpRequest request = HttpRequest.newBuilder()
+
+    HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("http://localhost:8080/auth/login"))
 				.header("Content-Type", "application/json")
 				.POST(HttpRequest.BodyPublishers.ofString(json))
 				.build();
 
-		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-				.thenAccept(response -> {
-					if (response.statusCode() == 200) {
-						System.out.println("Successfully logged in. Token: " + response.body());
-					} else {
-						System.out.println("Failed to log in. HTTP status: " + response.statusCode());
-					}
-				})
+    HttpResponse<String> response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 				.join();
 
-		String jsonResponse = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-				.thenApply(HttpResponse::body)
-				.join();
-
-		jwt_token = extractJwtToken(jsonResponse);
-
-		return jwt_token;
-	}
+    if (response.statusCode() == 200) {
+			logger.info("Successfully logged in. Token: " + response.body());
+			jwt_token = extractJwtToken(response.body());
+			logger.debug("JWT token: " + jwt_token);
+			return jwt_token;
+    } else {
+			logger.error("Failed to log in. HTTP status: " + response.statusCode() + ". Response: " + response.body());
+			return null;
+    }
+}
 
 	// Extract JWT token from the response.
 	public static String extractJwtToken(String jsonResponse) {
@@ -218,9 +215,12 @@ public class AddDummyObjectsToDatabase {
 
 			// Extract the "accessToken" field
 			return rootNode.get("accessToken").asText();
-		} catch (Exception e) {
-			System.err.println("Failed to parse JWT token: " + e.getMessage());
-			return null; // Return null if parsing fails
+		} catch (JsonMappingException e) {
+			System.err.println("Threw JsonMappingException: " + e.getMessage());
+			return null;
+		} catch (JsonProcessingException e) {
+			System.err.println("Threw JsonProcessingException: " + e.getMessage());
+			return null; 
 		}
 	}
 

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { getToken } from '../../utils/JwtUtility'; 
+import { getToken, makeApiRequest } from '../../utils/JwtUtility'; 
 import { Warning, Eye, EyeSlash } from '@phosphor-icons/react';
 import './DeleteAccount.css';
-import '../../App.css';
 
 const DeleteAccount = ({ closeModal, isModalVisible }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -14,83 +13,126 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
     setPasswordVisible((prevState) => !prevState);
   };
   
-  async function deleteAccount(event) {
+  //OLD IMPLEMENTATION!!!
+
+  // async function deleteAccount(event) {
+  //   event.preventDefault();
+
+  //   // Check if the verification-keyword matches
+  //   if (document.getElementById('verify-field').value !== 'delete') {
+  //     console.log("Verification keyword does not match.");
+  //     setErrorMessage("Verification keyword does not match.");
+  //     setShowErrorMessage(true);
+  //     return; // Exit early if the verification keyword is incorrect
+  //   }
+  
+  //   const passwordField = {
+  //     password: document.getElementById('delete-account-password-field').value,
+  //   }
+
+  //   try {
+  //     const response = await fetch('http://localhost:8080/accounts', {
+  //       method: 'DELETE',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${getToken()}`,
+  //       },
+  //       body: JSON.stringify(passwordField),
+  //     });
+
+  //     if (response) {
+  //       if (response.status === 401) {
+  //         console.error("Password does not match.");
+  //         setErrorMessage("Password does not match.");
+  //         setShowErrorMessage(true);
+  //         return;
+  //       }
+
+  //       if (response.status === 403) {
+  //         console.error("You are not authorized to delete this account.");
+  //         setErrorMessage("You are not authorized to delete this account.");
+  //         setShowErrorMessage(true);
+  //         return;
+  //       }
+
+  //       if (response.status === 404) {
+  //         console.error("Account not found.");
+  //         setErrorMessage("Account not found.");
+  //         setShowErrorMessage(true);
+  //         return;
+  //       }
+
+  //       if (response.status !== 204) {
+  //         console.error(response.status + ": An unexpected error occurred:", response.statusText);
+  //         setErrorMessage("An unexpected error occurred.");
+  //         setShowErrorMessage(true);
+  //         return;
+  //       }
+
+  //       const responseDetails = await response.json();
+
+  //       console.log("Account has been deleted.");
+  //       closeModal();
+  //       return responseDetails;
+  //     }
+  //   } catch(error) {
+  //     console.error("An unexpected error occurred:", error);
+  //     setErrorMessage("An unexpected error occurred. Please try again later.");
+  //     setShowErrorMessage(true);
+  //   };
+  // }
+
+  //NEW IMPLEMNTATION!!!
+
+  async function deleteAccount(event, setErrorMessage, setShowErrorMessage, closeModal) {
     event.preventDefault();
 
-    // Check if the verification-keyword matches
-    if (document.getElementById('verify-field').value !== 'delete') {
+    if (document.getElementById("verify-field").value !== "delete") {
       console.log("Verification keyword does not match.");
       setErrorMessage("Verification keyword does not match.");
       setShowErrorMessage(true);
-      return; // Exit early if the verification keyword is incorrect
+      return;
     }
-  
+
     const passwordField = {
-      password: document.getElementById('delete-account-password-field').value,
-    }
+      password: document.getElementById("delete-account-password-field").value,
+    };
 
     try {
-      const response = await fetch('http://localhost:8080/accounts', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getToken()}`,
-        },
+      await makeApiRequest("http://localhost:8080/accounts", {
+        method: "DELETE",
         body: JSON.stringify(passwordField),
       });
-
-      if (response) {
-        if (response.status === 401) {
-          console.error("Password does not match.");
-          setErrorMessage("Password does not match.");
-          setShowErrorMessage(true);
-          return;
-        }
-
-        if (response.status === 403) {
-          console.error("You are not authorized to delete this account.");
-          setErrorMessage("You are not authorized to delete this account.");
-          setShowErrorMessage(true);
-          return;
-        }
-
-        if (response.status === 404) {
-          console.error("Account not found.");
-          setErrorMessage("Account not found.");
-          setShowErrorMessage(true);
-          return;
-        }
-
-        if (response.status !== 204) {
-          console.error(response.status + ": An unexpected error occurred:", response.statusText);
-          setErrorMessage("An unexpected error occurred.");
-          setShowErrorMessage(true);
-          return;
-        }
-
-        const responseDetails = await response.json();
-
-        console.log("Account has been deleted.");
-        closeModal();
-        return responseDetails;
+      console.log("Account has been deleted.");
+      closeModal();
+    } catch (error) {
+      if (error.cause?.status === 401) {
+        console.error("Password does not match or unauthorized.");
+        setErrorMessage("Password does not match or unauthorized.");
+      } else if (error.cause?.status === 403) {
+        console.error("You are not authorized to delete this account.");
+        setErrorMessage("You are not authorized to delete this account.");
+      } else if (error.cause?.status === 404) {
+        console.error("Account not found.");
+        setErrorMessage("Account not found.");
+      } else {
+        console.error("An unexpected error occurred:", error);
+        setErrorMessage("An unexpected error occurred. Please try again later.");
       }
-    } catch(error) {
-      console.error("An unexpected error occurred:", error);
-      setErrorMessage("An unexpected error occurred. Please try again later.");
       setShowErrorMessage(true);
-    };
+    }
   }
 
   const modalContent = (
     <main id='deleteAccountModal' className='modal' onMouseDown={closeModal}>
       <div className='modal-content' onMouseDown={(e) => e.stopPropagation()}>
         <h1 id='title'>Delete Account</h1>
-        <Warning size={32} color="#FF0000" weight="fill" />
+        <Warning size={32} color="red" weight="fill" />
         <p>Are you sure you want to delete your account?</p>
         <p>You will not be able to recover your account after deletion.</p>
         <p>All your data will be permanently removed.</p>
         <p>Do you want to proceed?</p>
-        <form id='bottom-section' onSubmit={deleteAccount}>
+        <form id='bottom-section' onSubmit={deleteAccount.bind(this, setErrorMessage, setShowErrorMessage, closeModal)}>
           <label htmlFor='password-field'>Password</label>
           <div className='toggle-password-button-container'>
             <input 
@@ -103,6 +145,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
               type="button"
               className="toggle-password-button"
               onClick={togglePasswordVisibility}
+              aria-label={passwordVisible ? "Hide password" : "Show password"}
             >
               {passwordVisible ? <EyeSlash/> : <Eye/> }
             </button>
@@ -114,8 +157,8 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
               {errorMessage}
             </p>
           )}
-          <button className='submit-button' type='submit'>Delete Account</button>
-          <button className='cancel-button' type='button' onClick={closeModal}>Cancel</button>
+          <button className='submit-button' type='submit' aria-label="Delete Account">Delete Account</button>
+          <button className='cancel-button' type='button' onClick={closeModal} aria-label="Cancel">Cancel</button>
         </form>
       </div>
     </main>

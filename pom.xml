@@ -11,7 +11,7 @@
 	<groupId>no.ntnu</groupId>
 	<artifactId>rental</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>AalesundRental</name>
+	<name>NorwegianRental</name>
 	<description>Exam-project for group 10 in Application-development and Web-development.</description>
 	<properties>
 		<java.version>17</java.version>

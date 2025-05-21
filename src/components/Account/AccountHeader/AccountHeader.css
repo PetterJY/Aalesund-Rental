@@ -4,7 +4,7 @@
   justify-content: space-between;
   margin: 0 10vh 0 10vh;
   max-width: 1600px;
-  border-bottom: #252422 1px solid;
+  border-bottom: var(--main-color) 1px solid;
   justify-self: center;
   width: 100%;
 }
@@ -21,18 +21,19 @@
 
 .account-menu-list li a {
   text-decoration: none;
-  color: #252422;
+  color: var(--main-color);
 }
 
 /* Hover styling for non-active links */
 .account-menu-list li:not(.active) a:hover {
-  color: #EB5E28;
-  border-bottom: #EB5E28 1px solid;
+  color: var(--secondary-color);
+  border-bottom: var(--secondary-color) 1px solid;
   transition: 1ms;
 }
 
 /* Styling for active links */
 .account-menu-list li.active a {
-  color: #EB5E28;
-  border-bottom: #EB5E28 1px solid;
+  color: var(--secondary-color);
+  border-bottom: var(--secondary-color) 1px solid;
 }
+

@@ -82,4 +82,9 @@ public class RentalsService {
         providerId, carId, pageable);
     return rentalsRepository.findByProviderIdAndCarId(providerId, carId, pageable);
   }
+
+  public List<Rentals> findByRenterId(Long renterId) {
+    logger.info("Fetching rentals with renter id: {}", renterId);
+    return rentalsRepository.findByRenterId(renterId);
+  }
 }

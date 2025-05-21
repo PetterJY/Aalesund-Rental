@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Warehouse, XCircle} from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
 import './OrdersCarDisplay.css';
-import '../../../App.css';
 import { tr } from 'date-fns/locale';
 
 const OrdersCarDisplay = ({rental}) => {
@@ -56,18 +55,19 @@ const OrdersCarDisplay = ({rental}) => {
 		console.log('Order cancelled successfully:', data);
 	}
 
-	const handleCancelOrder = () => {
-		try {
-			if (rental) {
-				cancelOrder(rental);
-			} else {
-				console.error('No rental details found for cancellation.');
-			}
-		}
-		catch (error) {
-			console.error('Error fetching rental details:', error);
-		}
-	}
+const handleCancelOrder = () => {
+    if (status !== "PENDING") return;
+    try {
+        if (rental) {
+            cancelOrder(rental);
+        } else {
+            console.error('No rental details found for cancellation.');
+        }
+    }
+    catch (error) {
+        console.error('Error fetching rental details:', error);
+    }
+}
 
   return (
     <div className="orders-car-display-card">
@@ -104,12 +104,19 @@ const OrdersCarDisplay = ({rental}) => {
         <p><b>Renting costs: {dailyPrice}kr/day</b></p>
         <p><b>Total: {rental.totalCost}kr</b></p>
       </div>
-			<div className="order-status-container">
-				<button className="cancel-order" onClick={handleCancelOrder}> <XCircle size={18} color="white" weight="fill" />
-					<p>Cancel Order</p>
-				</button>
-				<p>{status}</p>
-			</div>
+      <div className="order-status-container">
+        {status === "PENDING" && (
+          <button
+            className="cancel-order"
+            onClick={handleCancelOrder}
+            aria-label="Cancel order"
+          >
+            <XCircle size={18} color="white" weight="fill" />
+            <p>Cancel Order</p>
+          </button>
+        )}
+        <label className='order-status-label'>{status}</label>
+      </div>
     </div>
   );
 };

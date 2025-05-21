@@ -1,11 +1,12 @@
 .footer-section {
   position: relative;
-  z-index: 100;
-  /* additional styling */
+  z-index: 1;
+  line-height: 35px;
+  background-color: var(--main-color);
 }
 
 .footer-container {
-  background-color: #252422;
+  background-color: var(--main-color);
   display: flex;
   flex-direction: row;
   justify-content: space-evenly; /* Space between sections */
@@ -19,7 +20,6 @@
   background-color: transparent;
   color: inherit;
   border: none;
-  font-size: 1.5rem;
   cursor: pointer;
   overflow: hidden;
 }
@@ -47,7 +47,6 @@
   display: flex;
   color: white;
   flex-direction: column;
-  font-size: 20px;
   list-style: none; /* Removes bullet points */
   padding: 0; /* Removes default padding */
   margin: 0; /* Removes default margin */
@@ -59,7 +58,6 @@
 
 .footer-section li p {
   color: white;
-  font-size: 20px;
   margin: 0; /* Removes default margin */
   padding: 0; /* Removes default padding */
   
@@ -137,6 +135,14 @@
   border-radius: 12px;
 }
 
+.footer-text {
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: 10%;
+  max-width: 80%;
+}
+
+
 @media screen and (max-width: 1000px) {
   .footer-container {
     flex-direction: column; /* Stack items vertically on smaller screens */
@@ -200,6 +206,13 @@
 
   .footer-section .dropdown.visible {
     opacity: 1;
-    background-color: #252422;
+    background-color: var(--main-color);
   }
+
+  .footer-text {
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: 20px;
+  max-width: 90%;
+}
 }
