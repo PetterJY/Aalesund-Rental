@@ -84,44 +84,52 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
 
   //NEW IMPLEMNTATION!!!
 
-  async function deleteAccount(event, setErrorMessage, setShowErrorMessage, closeModal) {
-    event.preventDefault();
+async function deleteAccount(event) {
+  event.preventDefault();
 
-    if (document.getElementById("verify-field").value !== "delete") {
-      console.log("Verification keyword does not match.");
-      setErrorMessage("Verification keyword does not match.");
-      setShowErrorMessage(true);
-      return;
-    }
-
-    const passwordField = {
-      password: document.getElementById("delete-account-password-field").value,
-    };
-
-    try {
-      await makeApiRequest("http://localhost:8080/accounts", {
-        method: "DELETE",
-        body: JSON.stringify(passwordField),
-      });
-      console.log("Account has been deleted.");
-      closeModal();
-    } catch (error) {
-      if (error.cause?.status === 401) {
-        console.error("Password does not match or unauthorized.");
-        setErrorMessage("Password does not match or unauthorized.");
-      } else if (error.cause?.status === 403) {
-        console.error("You are not authorized to delete this account.");
-        setErrorMessage("You are not authorized to delete this account.");
-      } else if (error.cause?.status === 404) {
-        console.error("Account not found.");
-        setErrorMessage("Account not found.");
-      } else {
-        console.error("An unexpected error occurred:", error);
-        setErrorMessage("An unexpected error occurred. Please try again later.");
-      }
-      setShowErrorMessage(true);
-    }
+  if (document.getElementById("verify-field").value !== "delete") {
+    console.log("Verification keyword does not match.");
+    setErrorMessage("Verification keyword does not match.");
+    setShowErrorMessage(true);
+    return;
   }
+
+  const passwordField = {
+    password: document.getElementById("delete-account-password-field").value,
+  };
+
+  try {
+    await makeApiRequest("http://localhost:8080/accounts", {
+      method: "DELETE",
+      body: JSON.stringify(passwordField),
+    });
+    
+    console.log("Account has been deleted.");
+    closeModal();
+    
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    
+    sessionStorage.setItem('accountDeletedMessage', 'Your account has been successfully deleted.');
+    
+    window.location.href = '/';
+    
+  } catch (error) {
+    if (error.cause?.status === 401) {
+      setErrorMessage("Password does not match or unauthorized.");
+    } else if (error.cause?.status === 403) {
+      setErrorMessage("You are not authorized to delete this account.");
+    } else if (error.cause?.status === 404) {
+      setErrorMessage("Account not found.");
+    } else {
+      console.error("An unexpected error occurred:", error);
+      setErrorMessage("An unexpected error occurred. Please try again later.");
+    }
+    setShowErrorMessage(true);
+  }
+}
 
   const modalContent = (
     <main id='deleteAccountModal' className='modal' onMouseDown={closeModal}>
@@ -132,7 +140,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
         <p>You will not be able to recover your account after deletion.</p>
         <p>All your data will be permanently removed.</p>
         <p>Do you want to proceed?</p>
-        <form id='bottom-section' onSubmit={deleteAccount.bind(this, setErrorMessage, setShowErrorMessage, closeModal)}>
+        <form id='bottom-section' onSubmit={(e) => deleteAccount(e)}>
           <label htmlFor='password-field'>Password</label>
           <div className='toggle-password-button-container'>
             <input 
