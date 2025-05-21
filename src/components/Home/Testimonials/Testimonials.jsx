@@ -104,9 +104,6 @@ const Testimonials = () => {
     return position === 2;
   }
 
-
-
-
   return (
   <div className="testimonials-wrapper">
       <div className="testimonials-slideshow">

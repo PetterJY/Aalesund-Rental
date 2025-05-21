@@ -92,7 +92,6 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
       setIsLoading(true);
       try {
         const searchParams = new URLSearchParams();
-        // Use the providerId prop if present, otherwise fallback to getAccountId()
         searchParams.append("providerId", providerId || getAccountId());
         searchParams.append("carId", car.id);
 

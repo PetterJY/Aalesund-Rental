@@ -71,7 +71,6 @@ const MyRentals = () => {
           <span className="add-car-text">Add Car</span>
         </button>
       </div>
-
       {isLoading ? (
         <h1>
           Loading your rentals... 
@@ -86,7 +85,6 @@ const MyRentals = () => {
           ))}
         </div>
       )}
-
       <PaginationControls 
         currentPage={currentPage}
         totalPages={totalPages}

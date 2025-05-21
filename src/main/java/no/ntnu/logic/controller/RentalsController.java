@@ -62,6 +62,16 @@ public class RentalsController {
     return ResponseEntity.status(HttpStatus.OK).body(rentals);
   }
 
+
+  @GetMapping("/renter/{id}")
+  @ApiOperation(value = "Returns all rentals with the given renter ID.")
+    public ResponseEntity<List<Rentals>> getRentalsByRenterId(@PathVariable long id) {
+        logger.info("Fetching rentals with renter id: {}", id);
+        List<Rentals> rentals = rentalsService.findByRenterId(id);
+        logger.debug("Fetched {} rentals for renter id: {}", rentals.size(), id);
+        return ResponseEntity.status(HttpStatus.OK).body(rentals);
+    }
+
   /**
    * Returns a rental by its ID.
    *

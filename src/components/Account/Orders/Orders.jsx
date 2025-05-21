@@ -26,7 +26,7 @@ const Orders = () => {
     async function fetchRentals() {
       setIsLoading(true); 
       try {
-        const response = await fetch(`http://localhost:8080/rentals?userId=${getAccountId()}`, {
+        const response = await fetch(`http://localhost:8080/rentals/renter/${getAccountId()}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
