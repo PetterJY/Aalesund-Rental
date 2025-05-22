@@ -294,7 +294,7 @@ useEffect(() => {
       console.error(error);
     }
   };
-
+  
   // Reassemble children with inserted menu for the selected car.
 const renderWithInsertedMenu = () => {
   // Only show available cars

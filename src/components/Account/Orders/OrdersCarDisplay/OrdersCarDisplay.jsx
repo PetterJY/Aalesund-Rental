@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Warehouse, XCircle} from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
+import { CaretLeft } from '@phosphor-icons/react';
 import './OrdersCarDisplay.css';
 import { tr } from 'date-fns/locale';
 
@@ -9,6 +10,9 @@ const OrdersCarDisplay = ({rental}) => {
 	const endDate = new Date(rental.endDate);
 	const rentingTime = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
 
+  const [verifyPanel, setVerifyPanel] = useState(false);
+	const [status, setStatus] = React.useState(rental.status);
+
 	const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 	const formattedStartDate = startDate.toLocaleDateString(undefined, options);
 	const formattedEndDate = endDate.toLocaleDateString(undefined, options);
@@ -16,7 +20,6 @@ const OrdersCarDisplay = ({rental}) => {
 
 	const carImage = mapCarImage(rental.car.carBrand, rental.car.modelName);
 
-	const [status, setStatus] = React.useState(rental.status);
 
 	function fetchRentalDetails() {
 		const json = {
@@ -35,6 +38,9 @@ const OrdersCarDisplay = ({rental}) => {
 	}
 
 	async function cancelOrder() {
+		setVerifyPanel(false);
+
+
 		const response = await fetch(`http://localhost:8080/rentals/${rental.rentalId}`, {
 			method: 'PUT',
 			headers: {
@@ -55,19 +61,22 @@ const OrdersCarDisplay = ({rental}) => {
 		console.log('Order cancelled successfully:', data);
 	}
 
-const handleCancelOrder = () => {
+  const handleCancelOrder = () => {
     if (status !== "PENDING") return;
-    try {
-        if (rental) {
-            cancelOrder(rental);
-        } else {
-            console.error('No rental details found for cancellation.');
-        }
-    }
-    catch (error) {
-        console.error('Error fetching rental details:', error);
-    }
-}
+    setVerifyPanel(true);
+  }
+  
+  // Close the panel if ESC key is pressed
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && verifyPanel) {
+        setVerifyPanel(false);
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [verifyPanel]);
 
   return (
   <article className="orders-car-display-card">
@@ -125,6 +134,37 @@ const handleCancelOrder = () => {
       )}
       <span className='order-status-label' role="status">{status}</span>
     </div>
+		      {verifyPanel && (
+        <div className="verify-slide-panel">
+          <div className="verify-panel-content">
+            <h4>Are you sure?</h4>
+            <p>You're about to cancel your booking for:</p>
+            <div className="verify-car-info">
+              <span className="verify-car-name">{rental.car.carBrand} {rental.car.modelName}</span>
+              <span className="verify-car-dates">
+                {formattedStartDate} - {formattedEndDate}
+              </span>
+            </div>
+            <p className="verify-warning">This action cannot be undone.</p>
+            
+            <div className="verify-buttons">
+              <button 
+                className="verify-keep-btn"
+                onClick={() => setVerifyPanel(false)}
+              >
+                <CaretLeft size={16} weight="bold" />
+                Keep Reservation
+              </button>
+              <button 
+                className="verify-cancel-btn"
+                onClick={cancelOrder}
+              >
+                Cancel Booking
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
   </article>
   );
 };
