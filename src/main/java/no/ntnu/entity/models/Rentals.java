@@ -2,7 +2,7 @@ package no.ntnu.entity.models;
 
 import java.time.LocalDateTime;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,47 +23,47 @@ import jakarta.persistence.ManyToOne;
 public class Rentals {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @ApiModelProperty("The ID of the rental")
+  @Schema(description = "The ID of the rental")
   private Long rentalId;
 
   @ManyToOne
   @JoinColumn(name = "renter_id", referencedColumnName = "id", nullable = false)
-  @ApiModelProperty("The account of the renter")
+  @Schema(description = "The account of the renter")
   private Users renter;
 
   @ManyToOne
   @JoinColumn(name = "provider_id", referencedColumnName = "id", nullable = false)
-  @ApiModelProperty("The provider of the rental")
+  @Schema(description = "The provider of the rental")
   private Providers provider;
 
   @ManyToOne
   @JoinColumn(name = "car_id", referencedColumnName = "id", nullable = false)
-  @ApiModelProperty("The car of the rental")
+  @Schema(description = "The car of the rental")
   private Cars car;
 
   @Column(nullable = false)
-  @ApiModelProperty("The start date of the rental")
+  @Schema(description = "The start date of the rental")
   private LocalDateTime startDate;
 
   @Column(nullable = false)
-  @ApiModelProperty("The end date of the rental")
+  @Schema(description = "The end date of the rental")
   private LocalDateTime endDate;
 
   @Column(nullable = false)
-  @ApiModelProperty("The pickup location of the rental")
+  @Schema(description = "The pickup location of the rental")
   private String pickupLocation;
 
   @Column(nullable = false)
-  @ApiModelProperty("The drop-off location of the rental")
+  @Schema(description = "The drop-off location of the rental")
   private String dropoffLocation;
 
   @Column(nullable = false)
-  @ApiModelProperty("The total cost of the rental")
+  @Schema(description = "The total cost of the rental")
   private Double totalCost;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  @ApiModelProperty("The status of the rental")
+  @Schema(description = "The status of the rental")
   private Status status = Status.PENDING;
 
   /**

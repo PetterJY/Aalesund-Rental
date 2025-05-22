@@ -2,7 +2,7 @@ package no.ntnu.entity.models;
 
 import java.util.Set;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -18,15 +18,15 @@ import jakarta.persistence.ManyToMany;
 public class Users extends Accounts {
 
   @Column(nullable = false)
-  @ApiModelProperty("The first name of the user")
+  @Schema(description = "The first name of the user")
   private String firstName;
 
   @Column(nullable = false)
-  @ApiModelProperty("The last name of the user")
+  @Schema(description = "The last name of the user")
   private String lastName;
 
   @Column(nullable = false)
-  @ApiModelProperty("The phone number of the user")
+  @Schema(description = "The phone number of the user")
   private String phoneNumber;
 
   @ManyToMany
