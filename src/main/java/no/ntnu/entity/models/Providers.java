@@ -1,6 +1,6 @@
 package no.ntnu.entity.models;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -12,11 +12,11 @@ import jakarta.persistence.Entity;
 @Entity
 public class Providers extends Accounts {
   @Column(nullable = false)
-  @ApiModelProperty("The name of the company of the provider")
+  @Schema(description = "The name of the company of the provider")
   private String companyName;
 
   @Column(nullable = false)
-  @ApiModelProperty("The phone number of the provider's business")
+  @Schema(description = "The phone number of the provider's business")
   private String phoneNumber;
 
   public Providers() {

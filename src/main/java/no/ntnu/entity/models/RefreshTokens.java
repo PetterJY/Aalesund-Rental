@@ -2,7 +2,7 @@ package no.ntnu.entity.models;
 
 import java.util.Date;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,28 +29,28 @@ import jakarta.persistence.OneToOne;
 public class RefreshTokens {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @ApiModelProperty("The ID of the refresh token")
+  @Schema(description = "The ID of the refresh token")
   private Long id;
 
   @Column(nullable = false, unique = true, length = 512)
-  @ApiModelProperty("The refresh token string")
+  @Schema(description = "The refresh token string")
   private String token;
 
   @Column(nullable = false)
-  @ApiModelProperty("The date when the refresh token was created")
+  @Schema(description = "The date when the refresh token was created")
   private Date issuedAt;
 
   @Column(nullable = false)
-  @ApiModelProperty("The expiration date of the refresh token")
+  @Schema(description = "The expiration date of the refresh token")
   private Date expirationDate;
 
   @Column(nullable = false)
-  @ApiModelProperty("Indicates if the refresh token has been revoked")
+  @Schema(description = "Indicates if the refresh token has been revoked")
   private boolean revoked = false; 
 
   @ManyToOne
   @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-  @ApiModelProperty("The account associated with the refresh token")
+  @Schema(description = "The account associated with the refresh token")
   private Accounts account;
   
   public void setId(Long id) {

@@ -1,6 +1,6 @@
 package no.ntnu.entity.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
 /**
@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank;
  */
 public class DeleteAccountRequest {
   @NotBlank(message = "Password is required")
-  @ApiModelProperty("The password of the user")
+  @Schema(description = "The password of the user")
   private String password;
 
   public String getPassword() {
