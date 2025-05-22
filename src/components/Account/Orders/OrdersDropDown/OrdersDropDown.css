@@ -13,7 +13,7 @@
   align-items: center;
   border-radius: 0px;
   font-size: var(--font-size-xxl);
-  font-weight: var(--font-weight-bold);
+  min-width: 110px;
 }
 
 .orders-dropdown-selected:hover {
@@ -51,4 +51,17 @@
 .orders-dropdown-option.focused {
   background-color: var(--secondary-color);
   color: white;
+}
+
+@media screen and (max-width: 950px) {
+  .orders-dropdown-selected {
+    font-size: var(--font-size-xl);
+  }
+
+}
+
+@media screen and (max-width: 950px) {
+  .orders-dropdown-selected {
+    font-size: var(--font-size-l);
+  }
 }

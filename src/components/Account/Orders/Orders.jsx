@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getRole, getAccountId } from '../../utils/JwtUtility'; 
 import PaginationControls, { getPaginatedItems as getPaginatedItems } from '../../PaginationControls/PaginationControls';
 import OrdersCarDisplay from './OrdersCarDisplay/OrdersCarDisplay'; 
-import carImage from '../../../resources/images/logo.svg';
+import carImage from '../../../resources/images/logo.png';
 import OrdersDropdown from './OrdersDropDown/OrdersDropDown';
 import '../Orders/Orders.css';
 
