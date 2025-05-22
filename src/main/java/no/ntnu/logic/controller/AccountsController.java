@@ -2,7 +2,6 @@ package no.ntnu.logic.controller;
 
 import java.util.List;
 
-import org.hibernate.annotations.OptimisticLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +28,6 @@ import no.ntnu.logic.service.UsersService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -150,7 +146,7 @@ public class AccountsController {
   @GetMapping("/email/{email}")
   @Operation(
       summary = "Returns an account by its email.",
-      description = "Fetches an account by its email. If the account is not found, a 404 error is returned."
+      description = "Fetches an account by its email. If the account is not found, or if it's deleted, a 404 error is returned. If the account is found, it returns a 200 status with the account details."
   )
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Account retrieved successfully"),
@@ -170,12 +166,12 @@ public class AccountsController {
     Accounts account = accountsService.findByEmail(email);
 
     if (account == null) {
-      logger.warn("Account with email {} not found", email);
+      logger.info("Account with email {} not found", email);
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     if (account.isDeleted()) {
-      logger.warn("Account with email {} is deleted", email);
+      logger.info("Account with email {} is deleted", email);
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
@@ -196,10 +192,10 @@ public class AccountsController {
   @DeleteMapping
   @Operation(
       summary = "Deletes an account by its ID.",
-      description = "Deletes an account by its ID. If the account is not found, a 404 error is returned."
-  )
+      description = "Deletes an account by its ID. Returns 400 if request validation fails (e.g., empty password), 401 if password verification fails, 404 if account not found, and 204 on successful deletion.")
   @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Account deleted successfully"),
+        @ApiResponse(responseCode = "400", description = "Bad request"),
         @ApiResponse(responseCode = "401", description = "Unauthorized"),
         @ApiResponse(responseCode = "404", description = "Account not found"),
         @ApiResponse(responseCode = "500", description = "Internal server error")
