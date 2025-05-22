@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import { mapCarImage } from '../../utils/CarImageMapper';
-import './FeaturedCars.css'
+import { makeApiRequest } from '../../utils/JwtUtility';
+import './FeaturedCars.css' 
 
 
 const FeaturedCars = () => {
@@ -10,25 +11,17 @@ const FeaturedCars = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [autoPlayInterval, setAutoPlayInterval] = useState(null);
 
-useEffect(() => {
-  async function fetchCars() {
-    try {
-      const response = await fetch('http://localhost:8080/api/cars', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-      if (!response.ok) throw new Error('Failed to fetch cars');
-      const data = await response.json();
-      setCars(data.slice(0, 5)); // Show only 5 featured cars
-      setCardOrder([...Array(Math.min(5, data.length)).keys()]);
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    async function fetchCars() {
+      try {
+        const data = await makeApiRequest('http://localhost:8080/api/cars');
+        setCars(data.slice(0, 5)); 
+        setCardOrder([...Array(Math.min(5, data.length)).keys()]);
+      } catch (error) {
+        console.error('Error fetching featured cars:', error);
+      }
     }
-  }
-  fetchCars();
+    fetchCars();
   }, []);
 
   const handleNextClick = () => {

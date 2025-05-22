@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getRole } from '../../utils/JwtUtility';
+import { getRole, makeApiRequest } from '../../utils/JwtUtility';
 import MyRentalsCarDisplay from '../MyRentals/MyRentalsCarDisplay/MyRentalsCarDisplay';
 import { List, X } from '@phosphor-icons/react';
 import './AdminRentals.css';
@@ -68,17 +68,11 @@ const AdminRentals = () => {
     async function fetchProviders() {
       setIsLoadingProviders(true);
       try {
-        const response = await fetch('http://localhost:8080/api/providers', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-          }
-        });
-        if (!response.ok) throw new Error('Failed to fetch providers');
-        const data = await response.json();
+        const data = await makeApiRequest('http://localhost:8080/api/providers');
         setProviders(data);
         if (data.length > 0) setSelectedProviderId(data[0].id);
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error('Failed to fetch providers:', error);
       } finally {
         setIsLoadingProviders(false);
       }
@@ -91,17 +85,14 @@ const AdminRentals = () => {
     if (!selectedProviderId) return;
     setIsLoadingCars(true);
     async function fetchCars() {
+      setIsLoadingCars(true);
       try {
-        const response = await fetch(`http://localhost:8080/api/cars/my-cars/${selectedProviderId}`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-          }
-        });
-        if (!response.ok) throw new Error('Failed to fetch cars');
-        const data = await response.json();
+        const data = await makeApiRequest(
+          `http://localhost:8080/api/cars/my-cars/${selectedProviderId}`
+        );
         setCars(data);
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error('Failed to fetch cars:', error);
         setCars([]);
       } finally {
         setIsLoadingCars(false);

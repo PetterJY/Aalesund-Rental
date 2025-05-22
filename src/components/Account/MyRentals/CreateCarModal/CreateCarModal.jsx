@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getAccountId, getToken } from '../../../utils/JwtUtility'; 
+import { getAccountId, getToken, makeApiRequest } from '../../../utils/JwtUtility'; 
 import CarTypeModal from './EnumModal/CarTypeModal';
 import LocationModal from './EnumModal/LocationModal';
 import ExtraFeaturesModal from './EnumModal/ExtraFeaturesModal'; 
@@ -107,45 +107,38 @@ const retrieveCarDetails = () => {
     event.preventDefault();
   
     const carDetails = retrieveCarDetails();
-
+    
+    if (!carDetails) {
+      setShowErrorMessage(true);
+      return; 
+    }
 
     console.log('Car Details being sent:', carDetails);
   
     try {
-      const response = await fetch('http://localhost:8080/api/cars', {
+      const responseData = await makeApiRequest('http://localhost:8080/api/cars', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getToken()}`,
-        },
         body: JSON.stringify(carDetails),
       });
-  
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log('Car created successfully:', responseData);
-        onClose(); 
-      } else if (response.status === 400) {
-        const errorData = await response.json();
-        console.error('Bad Request:', errorData.message);
-        setErrorMessage("Bad Request: " + errorData.message);
-      } else if (response.status === 401) {
-        console.error('Unauthorized: Invalid or expired token.');
-        setErrorMessage("Unauthorized: Invalid or expired token.");
-      } else if (response.status === 403) {
-        console.error('Apologies, you do not have permission to create a car.');
-        setErrorMessage("Apologies, you do not have permission to create a car.");
-      } else {
-        console.log('Error creating car:', response.status, response.statusText);
-        setErrorMessage("Error creating car: " + response.statusText);
-      }
+    
+      console.log('Car created successfully:', responseData);
+      onClose(); 
     } catch (error) {
       console.error('Error creating car:', error);
-      setErrorMessage("An error occurred while creating the car. Please try again.");
-    } finally {
+      
+      if (error.message && error.message.includes("400")) {
+        setErrorMessage("Bad Request: Please check your input data.");
+      } else if (error.message && error.message.includes("401")) {
+        setErrorMessage("Unauthorized: Invalid or expired token.");
+      } else if (error.message && error.message.includes("403")) {
+        setErrorMessage("Apologies, you do not have permission to create a car.");
+      } else {
+        setErrorMessage("An error occurred while creating the car. Please try again.");
+      }
+      
       setShowErrorMessage(true);
     }
-  };
+  }
 
   const handleSelectFuel = (e) => {
     const selectedFuel = e.target.id;

@@ -1,6 +1,6 @@
 import "./CarDisplay.css";
 import React, {useState, useEffect, useContext} from "react";
-import { getAccountId } from "../../utils/JwtUtility";
+import { getAccountId, makeApiRequest } from "../../utils/JwtUtility";
 import { mapCarImage } from '../../utils/CarImageMapper';
 import passengerImage from "../../../resources/images/passenger.png";
 import { Car, Seatbelt, PlusCircle, CaretDown, Star } from "@phosphor-icons/react";
@@ -29,21 +29,15 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
     const fetchIsFavourited = async () => {
       try {
         const accountId = getAccountId();
-        const response = await fetch(`http://localhost:8080/api/users/${accountId}/favourites`, {
-          headers: {
-            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-        if (response.ok) {
-          const favourites = await response.json();
-          setIsFavourited(favourites.some(favCar => favCar.id === car.id));
-        }
+        const favourites = await makeApiRequest(`http://localhost:8080/api/users/${accountId}/favourites`);
+        setIsFavourited(favourites.some(favCar => favCar.id === car.id));
       } catch (err) {
-        // Optionally handle error
+        console.error("Error fetching favorites:", err);
       }
     };
+    
     fetchIsFavourited();
-  }, [car]);
+  }, [car, role]);
 
   const handleToggleFavourite = async (e) => {
     e.stopPropagation();
@@ -67,6 +61,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
       // Optionally handle error
     }
   };
+  
   
   if (!car) {
     return <div>Loading...</div>;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import './ChangePassword.css';
-import { getAccountId } from '../../utils/JwtUtility';
+import { getAccountId, makeApiRequest} from '../../utils/JwtUtility';
 
 const ChangePassword = ({ closeModal, isModalVisible }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -60,36 +60,25 @@ async function changePassword(event) {
   };
 
   try {
-    const response = await fetch(`http://localhost:8080/api/accounts/change-password`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-      body: JSON.stringify(requestBody),
-    });
+      await makeApiRequest(`http://localhost:8080/api/accounts/change-password`, {
+        method: 'PUT',
+        body: JSON.stringify(requestBody)
+      });
     
-    if (!response.ok) {
-      console.log("Error changing password: " + response.statusText);
+      console.log("Password has been changed successfully.");
+      closeModal();
+    } catch(error) {
+      console.error("Error changing password:", error);
       
-      if (response.status === 401) {
+      if (error.message && error.message.includes("401")) {
         setErrorMessage("Current password is incorrect.");
       } else {
         setErrorMessage("Failed to change password. Please try again.");
       }
-      
+
       setShowErrorMessage(true);
-      return; 
     }
-    
-    console.log("Password has been changed successfully.");
-    closeModal();
-  } catch(error) {
-    console.error("An error occurred:", error);
-    setErrorMessage("An unexpected error occurred.");
-    setShowErrorMessage(true);
   }
-}
 
   if (!isModalVisible) {
     return null; 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getRole, getAccountId } from '../../utils/JwtUtility';
+import { getRole, getAccountId, makeApiRequest } from '../../utils/JwtUtility';
 import { PlusCircle } from "@phosphor-icons/react";
 import PaginationControls, { getPaginatedItems } from '../../PaginationControls/PaginationControls';
 import MyRentalsCarDisplay from './MyRentalsCarDisplay/MyRentalsCarDisplay';
@@ -25,22 +25,12 @@ const MyRentals = () => {
   async function fetchCars() {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/cars/my-cars/' + getAccountId(), {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        },
-      });
-      if (!response.ok) {
-        console.error('Failed to fetch cars:', response.statusText);
-        return;
-      }
-      const data = await response.json();
+      const data = await makeApiRequest(`http://localhost:8080/api/cars/my-cars/${getAccountId()}`);
       setCars(data);
       console.log('Fetched cars:', data);
     } catch (error) {
       console.error('Error fetching cars:', error);
+      setCars([]); 
     } finally {
       setIsLoading(false);
     }

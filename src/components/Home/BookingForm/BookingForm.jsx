@@ -3,6 +3,7 @@ import { MagnifyingGlass, XCircle, X } from "@phosphor-icons/react";
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import DropDownLocationSuggestions from './DropDownLocationSuggestions/DropDownLocationSuggestions';
 import { BookingContext } from '../../utils/BookingContext'
+import { makeApiRequest } from '../../utils/JwtUtility';
 import './BookingForm.css';
 
 const BookingForm = ({
@@ -46,18 +47,7 @@ const BookingForm = ({
   async function fetchLocations() {
     setIsLoadingLocations(true);
     try {
-      const response = await fetch(`http://localhost:8080/api/cars/locations`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        },
-      });
-      if (!response.ok) {
-        console.error('Failed to fetch pickup locations:', response.statusText);
-        return;
-      }
-      const data = await response.json();
+      const data = await makeApiRequest(`http://localhost:8080/api/cars/locations`);
       setPickupLocations(data);
       setDropoffLocations(data);
       console.log('Fetched pickup locations:', data);

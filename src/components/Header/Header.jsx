@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef, useContext} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { User, X, PencilSimple, Car, UserCircleCheck } from '@phosphor-icons/react';
-import { getAccountId } from '../utils/JwtUtility';
+import { getAccountId, makeApiRequest } from '../utils/JwtUtility';
 import { useAuth } from '../utils/AuthContext';
 import { format } from 'date-fns';
 import logo from '../../resources/images/logo.png';
@@ -88,26 +88,18 @@ const Header = () => {
   };
 
   async function fetchAccountDetails() {
-    
     const accountId = getAccountId();
     
     if (!accountId) { 
       return null;
     }
     
-    const response = await fetch(`http://localhost:8080/api/accounts/${accountId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      return await makeApiRequest(`http://localhost:8080/api/accounts/${accountId}`);
+    } catch (error) {
+      console.error('Error fetching account details:', error);
+      throw error;
     }
-    
-    return await response.json();
   }
 
   const { isAuthenticated, setIsAuthenticated, setIsAuthInitialized } = useAuth();

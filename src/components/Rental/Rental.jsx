@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { FunnelSimple, CaretDown, MagnifyingGlass, XCircle } from "@phosphor-icons/react";
-import { getRole } from "../utils/JwtUtility";
+import { getRole, makeApiRequest } from "../utils/JwtUtility";
 import { BookingContext } from "../utils/BookingContext";
 import logo from "../../resources/images/logo.png";
 import CarDisplay from "./CarDisplay/CarDisplay";
@@ -294,26 +294,14 @@ useEffect(() => {
       filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString().slice(0, -1));
 
       console.log("Filter params:", filterParams.toString());
+      console.log("Request URL: ", `http://localhost:8080/api/cars/search?${filterParams.toString()}`);
 
-      console.log("Request URL: ", `http://localhost:8080/api/cars/search?${filterParams.toString()}`)
-      const response = await fetch(`http://localhost:8080/api/cars/search?${filterParams.toString()}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.log("Response not ok: ", response);
-        throw new Error("Failed to fetch car data.");
-      }
-
-      const data = await response.json();
+      const data = await makeApiRequest(`http://localhost:8080/api/cars/search?${filterParams.toString()}`);
       console.log("Filtered cars:", data);
       setCars(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching car data:", error);
+      setCars([]); 
     }
   };
 
