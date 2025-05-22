@@ -29,24 +29,86 @@ const DropDownMenuMenu = ({ toggleDropdownMenu, isDropdownVisible, navigate, han
   }, [isDropdownVisible]);
 
   return (
-    <div ref={accountHeaderRef} className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}>
-      <ul className="dropdown-menu-list">
-        <li onClick={() => navigate('/account/account')}>Account</li>
+    <nav 
+      ref={accountHeaderRef} 
+      className={`dropdown-menu ${isDropdownVisible ? 'visible' : ''}`}
+      aria-expanded={isDropdownVisible}
+      aria-label="Account navigation"
+    >
+      <ul 
+        className="dropdown-menu-list" 
+        role="menu"
+      >
+        <li role="none">
+          <a 
+            role="menuitem" 
+            onClick={() => navigate('/account/account')}
+            href="/account/account"
+            tabIndex={isDropdownVisible ? 0 : -1}
+          >
+            Account
+          </a>
+        </li>
         {role === 'ROLE_USER' && (
-          <li onClick={() => navigate('/account/orders')}>Orders</li>
+          <li role="none">
+            <a 
+              role="menuitem" 
+              onClick={() => navigate('/account/orders')}
+              href="/account/orders"
+              tabIndex={isDropdownVisible ? 0 : -1}
+            >
+              Orders
+            </a>
+          </li>
         )}
         {role === 'ROLE_PROVIDER' && (
-          <li onClick={() => navigate('/account/my-rentals')}>My Rentals</li>
+          <li role="none">
+            <a 
+              role="menuitem" 
+              onClick={() => navigate('/account/my-rentals')}
+              href="/account/my-rentals"
+              tabIndex={isDropdownVisible ? 0 : -1}
+            >
+              My Rentals
+            </a>
+          </li>
         )}
         {role === 'ROLE_USER' && (
-          <li onClick={() => navigate('/account/favourites')}>Favourites</li>
+          <li role="none">
+            <a 
+              role="menuitem" 
+              onClick={() => navigate('/account/favourites')}
+              href="/account/favourites"
+              tabIndex={isDropdownVisible ? 0 : -1}
+            >
+              Favourites
+            </a>
+          </li>
         )}
         {role === 'ROLE_ADMIN' && (
-          <li onClick={() => navigate('/account/admin-rentals')}>Rentals</li>
+          <li role="none">
+            <a 
+              role="menuitem" 
+              onClick={() => navigate('/account/admin-rentals')}
+              href="/account/admin-rentals"
+              tabIndex={isDropdownVisible ? 0 : -1}
+            >
+              Rentals
+            </a>
+          </li>
         )}
-        <li onClick={handleLogout}>Logout</li>
+        <li role="none">
+          <a 
+            role="menuitem" 
+            onClick={handleLogout}
+            href="#logout"
+            tabIndex={isDropdownVisible ? 0 : -1}
+          >
+            Logout
+          </a>
+        </li>
       </ul>
-    </div>
+    </nav>
   );
 };
 

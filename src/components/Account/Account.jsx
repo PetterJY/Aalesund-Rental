@@ -36,6 +36,8 @@ const Account = () => {
   const [accountId, setAccountId] = useState(getAccountId());
   const [role, setRole] = useState('');
 
+  const [messageType, setMessageType] = useState('error');
+
   useEffect(() => {
     setAccountId(getAccountId());
     setRole(getRole());
@@ -49,7 +51,7 @@ const Account = () => {
     } else if (role === 'ROLE_ADMIN') {
       fetchAdminData();
     }
-  });
+  }, [role, accountId]); // Add dependencies
 
   async function updateAccountInformation() {
     if (role === 'ROLE_USER') {
@@ -60,8 +62,6 @@ const Account = () => {
       await updateAdminInformation();
     }
   }
-
-  //USER SECTION:
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -87,6 +87,17 @@ const Account = () => {
       }
 
       const data = await response.json();
+
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      
+      if (document.getElementById('first-name')) {
+        document.getElementById('first-name').value = data.firstName;
+      }
+      if (document.getElementById('last-name')) {
+        document.getElementById('last-name').value = data.lastName;
+      }
+      
       return data;
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -101,18 +112,16 @@ const Account = () => {
       return;
     }
 
-    const updatedUserDetails = {
-      updatedFirstName: document.getElementById('first-name').value,
-      updatedLastName: document.getElementById('last-name').value,
-    };
+    const updatedFirstName = document.getElementById('first-name').value;
+    const updatedLastName = document.getElementById('last-name').value;
     
-    if (updatedUserDetails.updatedFirstName === '' || updatedUserDetails.updatedLastName === '') {
+    if (updatedFirstName === '' || updatedLastName === '') {
       setErrorMessage('Please fill in all fields.');
       setShowErrorMessage(true);
       return;
     }
     
-    if (updatedUserDetails.updatedFirstName === firstName && updatedUserDetails.updatedLastName === lastName) {
+    if (updatedFirstName === firstName && updatedLastName === lastName) {
       setErrorMessage('You can not update your account with the same data.');
       setShowErrorMessage(true);
       return;
@@ -127,13 +136,13 @@ const Account = () => {
         return;
       }
 
-      const oldFirstName = firstName;
-      const oldLastName = lastName;
-
+      // Create properly formatted user details object
       const userDetails = {
-        ...userData, // Include all existing fields
-        firstName: updatedUserDetails.updatedFirstName,
-        lastName: updatedUserDetails.updatedLastName,
+        firstName: updatedFirstName,
+        lastName: updatedLastName,
+        email: userData.email,
+        password: userData.password,
+        phoneNumber: userData.phoneNumber
       };
 
 
@@ -147,27 +156,33 @@ const Account = () => {
         },
         body: JSON.stringify(userDetails),
       });
+
       if (!response.ok) {
         console.error('Failed to update user data:', response.statusText);
         setErrorMessage('Failed to update user data. Please try again.');
         setShowErrorMessage(true);
         return;
       }
-      if (response.ok) {
-        const data = await response.json();
-        setFirstName(data.firstName);
-        document.getElementById('first-name').value = firstName;
-        setLastName(data.lastName);
-        document.getElementById('last-name').value = lastName;
-      }
+
+      // Update state and input fields with the new values
+      const data = await response.json();
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      
+      // Set the input fields to the NEW values from the response
+      document.getElementById('first-name').value = data.firstName;
+      document.getElementById('last-name').value = data.lastName;
+      
+      setErrorMessage("Profile updated successfully!");
+      setMessageType('success');
+      setShowErrorMessage(true);
+
     } catch (error) {
       console.error('Error updating user data:', error);
       setErrorMessage('An error occurred while updating user data. Please try again.');
       setShowErrorMessage(true);
     }
   }
-
-  // PROVIDER SECTION:
 
   async function fetchProviderData() {
     if (role !== 'ROLE_PROVIDER') {
@@ -189,7 +204,8 @@ const Account = () => {
       }
       const data = await response.json();
       setCompanyName(data.companyName);
-      document.getElementById('company-name').value = companyName;
+      // USE DATA FROM RESPONSE, not the state variable
+      document.getElementById('company-name').value = data.companyName;
       return data;
     } catch (error) {
       console.error('Error fetching provider data:', error);
@@ -229,7 +245,7 @@ const Account = () => {
       }
 
       const providerDetails = {
-        ...providerData, // Include all existing fields
+        ...providerData, 
         companyName: updatedCompanyName,
       };
 
@@ -252,7 +268,12 @@ const Account = () => {
       if (response.ok) {
         const data = await response.json();
         setCompanyName(data.companyName);
-        document.getElementById('company-name').value = companyName;
+        document.getElementById('company-name').value = data.companyName;
+
+        setErrorMessage("Company profile updated successfully!");
+        setMessageType('success');
+        setShowErrorMessage(true);
+        
       }
     } catch (error) {
       console.error('Error updating provider data:', error);
@@ -260,8 +281,6 @@ const Account = () => {
       setShowErrorMessage(true);
     }
   }
-
-  //ADMIN SECTION:
 
   async function fetchAdminData() {
     if (role !== 'ROLE_ADMIN') {
@@ -284,8 +303,11 @@ const Account = () => {
       }
 
       const data = await response.json();
-      setUsername(data.name);
-      document.getElementById('username').value = username;
+      console.log('Admin data:', data);
+
+      const usernameValue = data.name;
+      setUsername(usernameValue);
+      document.getElementById('username').value = data.name;
       return data;
     } catch (error) {
       console.error('Error fetching admin data:', error);
@@ -325,8 +347,8 @@ const Account = () => {
       }
 
       const adminDetails = {
-        ...adminData, // Include all existing fields
-        username: updatedUsername,
+        ...adminData, 
+        name: updatedUsername,
       };
 
       console.log('Updated admin details:', adminDetails);
@@ -350,7 +372,11 @@ const Account = () => {
       if (response.ok) {
         const data = await response.json();
         setUsername(data.username);
-        document.getElementById('username').value = username;
+        document.getElementById('username').value = data.name;
+
+        setErrorMessage("Admin profile updated successfully!");
+        setMessageType('success');
+        setShowErrorMessage(true);
       }
     } catch (error) {
       console.error('Error updating admin data:', error);
@@ -360,7 +386,7 @@ const Account = () => {
   }
     
   return (
-    <div className="account">
+    <main className="account">
       <section className="account-section">
         <h1>Account</h1>
         <h2>Personal Information</h2>
@@ -388,10 +414,14 @@ const Account = () => {
           </>
         )}
 
-        {showErrorMessage && <p className="error-message">{errorMessage}</p>}
+        {showErrorMessage && (
+          <p className={messageType === 'error' ? "error-message" : "success-message"}>
+            {errorMessage}
+          </p>
+        )}
 
         <button
-          className="save-button"
+          className="save"
           onClick={updateAccountInformation}
           aria-label="Save account information"
         >
@@ -426,7 +456,7 @@ const Account = () => {
         isModalVisible={isChangePasswordModalVisible}
         closeModal={closeChangePasswordModal}
       />
-    </div>
+    </main>
   );
 };
 

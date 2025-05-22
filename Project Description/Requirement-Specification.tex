@@ -1,4 +1,73 @@
-\section{Rental Roulette Ideas}
+
+\documentclass{article}
+\begin{document}
+\section{Ålesund Rental Ideas}
+
+
+\section{Product Functionality}
+
+- You first choose the cities you want to pick up and drop off the car, along with the dates.
+- Then, all the cars available for those dates and cities are displayed.
+
+\subsection{Features:}
+
+When a person places an order for a car on a specific date and city, this information is communicated to the back-end. The availability of that car is updated, ensuring no one else can rent it.
+
+\subsection{Filters:}
+\begin{itemize}
+    \item Price (range)
+    \item Passengers
+    \item Acceleration
+    \item Top speed
+    \item Sedan, SUV, cabriolet, familiebil, stasjonsvogn, elektrisk, luksus/sport
+    \item Fuel Type
+    \item Manual vs automatic
+    \item Brand/car maker – Tesla vs Volkswagen
+    \item Driver's age: the older, the cheaper it is (insurance).
+    \item Model - 2008 vs. 2020
+    \item Extra features: Bluetooth, DAB radio, heated seats
+\end{itemize}
+
+\subsection{Mandatory Requirements – Common}
+A complete website must be implemented. Both the frontend and backend must support the entire process of product filtering:
+\begin{itemize}
+    \item Landing page
+    \item Product search (search form and search result list/grid)
+    \item Choosing one specific product
+    \item Product detail page (for the chosen product):
+    \begin{itemize}
+        \item Product image
+        \item Product description
+        \item Product price for the different providers
+    \end{itemize}
+    \item Placing an order (this action may vary depending on the project theme; propose a solution and present it to the customer (teachers)).
+    \item Login form
+    \item For logged in users:
+    \begin{itemize}
+        \item Regular users:
+        \begin{itemize}
+            \item Can add a product to their favorite list.
+            \item Can see their favorite products.
+        \end{itemize}
+        \item Admin users:
+        \begin{itemize}
+            \item Can show and hide a product. A hidden product does not appear to regular users.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section{Design Ideas}
+
+\subsection{Login Page}
+\begin{itemize}
+    \item When selecting an element, the bar under the text glows orange. Normally the bar is gray
+    \item When you hover over forgot password/register, the text glows orange and the field's text moves up.
+    \item If you try to log in without filling the elements, the bar becomes red, and red text below the bar explaining the problem appears.
+
+\subsection{Booking page}
+\item When you book a car, you have a picture on the left with the car, and you can do a photo carousel to look at the different photos.
+\end{itemize}
+\end{document}\section{Rental Roulette Ideas}
 
 - You first choose the cities you want to pick up and drop off the car, along with the dates.
 - Then, all the cars available for those dates and cities are displayed.

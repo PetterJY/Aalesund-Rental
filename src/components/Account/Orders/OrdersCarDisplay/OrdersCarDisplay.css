@@ -68,6 +68,15 @@
 }
 
 .orders-car-display-card .car-details p {
+  color: var(--main-color);
+}
+
+.orders-car-display-card .car-details dl {
+  margin: 0;
+  padding: 0;
+}
+
+.orders-car-display-card .car-details dd {
   margin: 3px 0;
   padding: 0;
   color: var(--main-color);
@@ -105,7 +114,7 @@
 .orders-car-display-card .cancel-order{
   display: flex;
   flex-direction: row;
-  background-color: var(--main-color);
+  background-color: var(--secondary-color);
   border-radius: 10px;  
   color: white;
   border: none;
@@ -114,10 +123,11 @@
   align-items: center;
   padding: 0px 10px;
   margin-bottom: auto;
+  height: 40px;
 }
 
 .orders-car-display-card .cancel-order:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color-hover);
   transition: 0.3s;
 }
 

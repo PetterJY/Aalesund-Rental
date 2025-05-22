@@ -73,47 +73,71 @@ const AdminRentals = () => {
   }, [selectedProviderId]);
 
   return (
-    <div className="admin-rentals-layout">
+    <section className="admin-rentals-layout">
       <aside className="providers-list">
-        <h3>Providers</h3>
-        <input
-          type="text"
-          placeholder="Search providers..."
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-        />
+        <h2>Providers</h2>
+        
+        <div className="search-container">
+          <label htmlFor="provider-search" className="visually-hidden">
+          </label>
+          <input
+            id="provider-search"
+            type="search"
+            placeholder="Search providers..."
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            aria-label="Search providers by name or email"
+          />
+        </div>
+        
         {isLoadingProviders ? (
-          <p>Loading...</p>
+          <p aria-live="polite">Loading providers...</p>
         ) : (
-          <ul>
-            {filteredProviders.map(provider => (
-              <li
-                key={provider.id}
-                className={provider.id === selectedProviderId ? 'selected' : ''}
-                onClick={() => setSelectedProviderId(provider.id)}
-                style={{ cursor: 'pointer', fontWeight: provider.id === selectedProviderId ? 'bold' : 'normal' }}
-              >
-                {provider.companyName || provider.email}
-              </li>
-            ))}
-          </ul>
+          <nav aria-label="Providers navigation">
+            <ul role="listbox" aria-label="Provider list" className="provider-list">
+              {filteredProviders.map(provider => (
+                <li
+                  key={provider.id}
+                  role="option"
+                  aria-selected={provider.id === selectedProviderId}
+                  className={provider.id === selectedProviderId ? 'selected' : ''}
+                  onClick={() => setSelectedProviderId(provider.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      setSelectedProviderId(provider.id);
+                      e.preventDefault();
+                    }
+                  }}
+                  tabIndex={0}
+                >
+                  {provider.companyName || provider.email}
+                </li>
+              ))}
+            </ul>
+          </nav>
         )}
       </aside>
+      
       <main className="provider-cars-list">
-        <h2>Cars for Provider</h2>
-        {isLoadingCars ? (
-          <p>Loading cars...</p>
-        ) : cars.length === 0 ? (
-          <p>This provider has no cars.</p>
-        ) : (
-          <div className="my-rentals-list">
-            {cars.map(car => (
-              <MyRentalsCarDisplay key={car.id} car={car} providerId={selectedProviderId}/>
-            ))}
-          </div>
-        )}
+        <h1>Cars for Provider</h1>
+        
+        <div aria-live="polite">
+          {isLoadingCars ? (
+            <p>Loading cars...</p>
+          ) : cars.length === 0 ? (
+            <p>This provider has no cars.</p>
+          ) : (
+            <section className="my-rentals-list" aria-label="Provider's cars">
+              {cars.map(car => (
+                <article key={car.id}>
+                  <MyRentalsCarDisplay car={car} providerId={selectedProviderId}/>
+                </article>
+              ))}
+            </section>
+          )}
+        </div>
       </main>
-    </div>
+    </section>
   );
 };
 

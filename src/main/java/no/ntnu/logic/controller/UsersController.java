@@ -19,11 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import jakarta.validation.Valid;
+import no.ntnu.entity.dto.PasswordChangeRequest;
 import no.ntnu.entity.dto.UserDetails;
 import no.ntnu.entity.models.Cars;
 import no.ntnu.entity.models.Users;
 import no.ntnu.logic.service.CarsService;
 import no.ntnu.logic.service.UsersService;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Controller for managing user-related operations.
@@ -103,10 +108,11 @@ public class UsersController {
   }
 
   /**
-   * Deletes a user by its ID.
-   *
-   * @param id The ID of the user to delete.
-   * @return A response indicating the result of the operation.
+   * Adds a car to the user's favourites.
+   * 
+   * @param userId The ID of the user.
+   * @param carId The ID of the car to add to favourites.
+   * @return
    */
   @PostMapping("/{userId}/favourites/{carId}")
   @ApiOperation(value = "Adds a car to the user's favourites.")
@@ -118,11 +124,13 @@ public class UsersController {
     return ResponseEntity.ok().build();
   }
 
+
   /**
-   * Deletes a user by its ID.
+   * Removes a car from the user's favourites.
    *
-   * @param id The ID of the user to delete.
-   * @return A response indicating the result of the operation.
+   * @param userId The ID of the user.
+   * @param carId The ID of the car to remove from favourites.
+   * @return
    */
   @DeleteMapping("/{userId}/favourites/{carId}")
   @ApiOperation(value = "Removes a car from the user's favourites.")

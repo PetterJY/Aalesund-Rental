@@ -42,48 +42,46 @@ const MyRentalsCarTable = ({ rentals = [] }) => {
         <CaretDown
           size={16}
           className={`caret-icon ${sortOrder === 'desc' ? 'rotated' : ''}`}
+          aria-hidden="true"
         />
       );
     }
-    return null; // No caret if the column is not sorted
+    return null;
   };
 
-  return (
-    <div className="rentals-details-table">
-      <table>
-        <thead>
-          <tr>
-            <th onClick={() => handleSort('renter.firstName')}>
-              Renter {getCaret('renter.firstName')}
+return (
+  <div className="rentals-details-table">
+    <table aria-label="Car Rental History">
+      <thead>
+        <tr>
+          {[
+            { id: 'renter.firstName', label: 'Renter' },
+            { id: 'renter.email', label: 'Mail' },
+            { id: 'renter.phoneNumber', label: 'Phonenumber' },
+            { id: 'pickupLocation', label: 'Pick-Up Location' },
+            { id: 'dropoffLocation', label: 'Drop-Off Location' },
+            { id: 'startDate', label: 'Pick-Up Time' },
+            { id: 'endDate', label: 'Drop-Off Time' },
+            { id: 'status', label: 'Status' },
+            { id: 'totalCost', label: 'Price' }
+          ].map(column => (
+            <th 
+              key={column.id}
+              onClick={() => handleSort(column.id)}
+              onKeyDown={(e) => {if (e.key === 'Enter' || e.key === ' ') handleSort(column.id)}}
+              tabIndex="0"
+              role="button"
+              aria-sort={sortedColumn === column.id ? sortOrder : "none"}
+              style={{ cursor: 'pointer' }}
+            >
+              {column.label} {getCaret(column.id)}
             </th>
-            <th onClick={() => handleSort('renter.email')}>
-              Mail {getCaret('renter.email')}
-            </th>
-            <th onClick={() => handleSort('renter.phoneNumber')}>
-              Phonenumber {getCaret('renter.phoneNumber')}
-            </th>
-            <th onClick={() => handleSort('pickupLocation')}>
-              Pick-Up Location {getCaret('pickupLocation')}
-            </th>
-            <th onClick={() => handleSort('dropoffLocation')}>
-              Drop-Off Location {getCaret('dropoffLocation')}
-            </th>
-            <th onClick={() => handleSort('startDate')}>
-              Pick-Up Time {getCaret('startDate')}
-            </th>
-            <th onClick={() => handleSort('endDate')}>
-              Drop-Off Time {getCaret('endDate')}
-            </th>
-            <th onClick={() => handleSort('status')}>
-              Status {getCaret('status')}
-            </th>
-            <th onClick={() => handleSort('totalCost')}>
-              Price {getCaret('totalCost')}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedRentals.map((rental, index) => {
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {sortedRentals.length > 0 ? (
+          sortedRentals.map((rental, index) => {
             const startDate = new Date(rental.startDate);
             const endDate = new Date(rental.endDate);
 
@@ -98,21 +96,26 @@ const MyRentalsCarTable = ({ rentals = [] }) => {
                     ? `${rental.renter.firstName} ${rental.renter.lastName}`
                     : 'N/A'}
                 </td>
-                <td>{rental.renter.email}</td>
-                <td>{rental.renter.phoneNumber}</td>
-                <td>{rental.pickupLocation}</td>
-                <td>{rental.dropoffLocation}</td>
+                <td>{rental.renter?.email || 'N/A'}</td>
+                <td>{rental.renter?.phoneNumber || 'N/A'}</td>
+                <td>{rental.pickupLocation || 'N/A'}</td>
+                <td>{rental.dropoffLocation || 'N/A'}</td>
                 <td>{formattedStartDate}</td>
                 <td>{formattedEndDate}</td>
-                <td>{rental.status}</td>
-                <td>{rental.totalCost}kr</td>
+                <td>{rental.status || 'N/A'}</td>
+                <td>{rental.totalCost ? `${rental.totalCost}kr` : 'N/A'}</td>
               </tr>
             );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+          })
+        ) : (
+          <tr>
+            <td colSpan="9" className="no-data-message">No rental data available</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+);
+}
 
 export default MyRentalsCarTable;

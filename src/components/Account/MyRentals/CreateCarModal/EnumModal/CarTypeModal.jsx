@@ -43,41 +43,59 @@ const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, s
   }, [isCreateCarModalOpen]);
 
   return (
-    <div className="enum-modal">
-      <div className="modal-content">
-        <span className="close" onClick={toggleModal} aria-label="close Modal">&times;</span>
-        <h2>Select Car Type</h2>
-        <input
-          type="text"
-          placeholder="Search car types..."
-          className="search-input"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        {isLoading && <p>Loading...</p>}
-        {error && <p className="error-message">{error}</p>}
-        {!isLoading && !error && (
-          <div className="enum-scrollable">
-            {carTypes
-              .filter((carType) => carType.toLowerCase().includes(searchQuery.toLowerCase()))
-              .map((carType) => (
-                <div key={carType} className="enum-item">
-                  <label htmlFor={`car-type-${carType}`}>{carType}</label>
-                  <input
-                    type="radio"
-                    id={`car-type-${carType}`}
-                    name="car-type"
-                    value={carType}
-                    onChange={() => handleCarTypeSelection(carType)}
-                    checked={selectedCarType === carType}
-                  />
-                </div>
-              ))}
-          </div>
-        )}
-        <button className="confirm-button" onClick={toggleModal} aria-label="Confirm car type selection">Confirm</button>
-      </div>
+  <dialog 
+    className="enum-modal" 
+    open={isCreateCarModalOpen}
+    aria-labelledby="car-type-modal-title"
+    aria-modal="true"
+  >
+    <div className="modal-content">
+      <button 
+        className="close" 
+        onClick={toggleModal} 
+        aria-label="Close modal"
+      >
+        &times;
+      </button>
+      <h2 id="car-type-modal-title">Select Car Type</h2>
+      <input
+        type="text"
+        placeholder="Search car types..."
+        className="search-input"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        aria-label="Search car types"
+      />
+      {isLoading && <p role="status" aria-live="polite">Loading...</p>}
+      {error && <p className="error-message" role="alert">{error}</p>}
+      {!isLoading && !error && (
+        <div className="enum-scrollable">
+          {carTypes
+            .filter((carType) => carType.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((carType) => (
+              <div key={carType} className="enum-item">
+                <label htmlFor={`car-type-${carType}`}>{carType}</label>
+                <input
+                  type="radio"
+                  id={`car-type-${carType}`}
+                  name="car-type"
+                  value={carType}
+                  onChange={() => handleCarTypeSelection(carType)}
+                  checked={selectedCarType === carType}
+                />
+              </div>
+            ))}
+        </div>
+      )}
+      <button 
+        className="confirm-button" 
+        onClick={toggleModal} 
+        aria-label="Confirm car type selection"
+      >
+        Confirm
+      </button>
     </div>
+  </dialog>
   );
 };
 

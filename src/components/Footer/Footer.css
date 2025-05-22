@@ -29,6 +29,11 @@
   gap: 0;
 }
 
+.footer-section section {
+  margin-left: 20px;
+  gap: 0;
+}
+
 .footer-section .dropdown {
   position: relative;
   transition: rotate 10s ease-in-out;

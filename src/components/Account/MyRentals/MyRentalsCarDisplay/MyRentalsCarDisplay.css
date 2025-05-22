@@ -47,8 +47,9 @@
   flex-direction: row;
   align-self: flex-start;
   justify-content: space-between;
-  
+  height: 350px;
 }
+
 .rentals-car-display-card .car-details {
   display: flex;
   flex-direction: column;
@@ -99,7 +100,7 @@
   color: var(--main-color);
 }
 
-.rentals-car-display-card .car-details p {
+.rentals-car-display-card .car-details dd {
   margin: 6px 0;
   padding: 0;
   color: var(--main-color);
@@ -183,11 +184,13 @@
   color: white;
 }
 
-@media screen and (max-width: 1148px) {
+@media screen and (max-width: 900px) {
   .rentals-car-display-card {
     flex-direction: column;
     align-items: center;
   }
+
+  
   .rentals-car-display-card .car-background {
     display: none !important;
   }
@@ -202,9 +205,30 @@
   overflow-y: none;
   } 
  .rentals-car-display-card .save-discard-buttons {
-    flex-direction: column;
+    flex-direction: row;
   }
   .rentals-car-display-card .save-discard-buttons button {
     margin: 5px 0;
   }
+
+  .rentals-car-display-card .my-rental-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .rentals-car-display-card .car-display-info {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-self: flex-start;
+  justify-content: space-between;
+  height: fit-content;
+  }
+
+  .my-rentals-car-display .availability-toggle-btn {
+    margin: 8px 8px;
+    padding: 6px 16px;
+    border-radius: 6px;
+  }
+
 }

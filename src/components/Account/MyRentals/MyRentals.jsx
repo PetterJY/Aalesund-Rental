@@ -62,35 +62,45 @@ const MyRentals = () => {
   const paginatedCars = cars.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <section className="my-rentals-container">
-      <div id='my-rentals-header'>
-        <h2 className="title">My Rentals</h2>
-        {isCreateCarModalOpen && <CreateCarModal onClose={toggleCreateCarModal} isCreateCarModalOpen={isCreateCarModalOpen} />}
-        <button id="add-car-button" onClick={toggleCreateCarModal} aria-label="Add Car">
-          <PlusCircle size={32} />
-          <span className="add-car-text">Add Car</span>
-        </button>
+  <section className="my-rentals-container">
+    <header id='my-rentals-header'>
+      <h2 className="title">My Rentals</h2>
+      {isCreateCarModalOpen && <CreateCarModal onClose={toggleCreateCarModal} isCreateCarModalOpen={isCreateCarModalOpen} />}
+      <button id="add-car-button" onClick={toggleCreateCarModal} aria-label="Add Car">
+        <PlusCircle size={32} aria-hidden="true" />
+        <span className="add-car-text">Add Car</span>
+      </button>
+    </header>
+    
+    {isLoading ? (
+      <div className="loading-container" role="status" aria-live="polite">
+        <p className="loading-message">Loading your rentals...</p>
       </div>
-      {isLoading ? (
-        <h1>
-          Loading your rentals... 
-        </h1>
-      ) : (
-        <div className="my-rentals-list">
-          {paginatedCars.map(car => (
-            <MyRentalsCarDisplay 
-              key={car.id}
-              car={car}
-            />
-          ))}
-        </div>
-      )}
-      <PaginationControls 
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
-    </section>
+    ) : cars.length === 0 ? (
+      <div className="empty-state" role="status">
+        <p>You haven't added any cars yet. Click "Add Car" to get started.</p>
+      </div>
+    ) : (
+      <ul className="my-rentals-list" aria-label="Your rental vehicles">
+        {paginatedCars.map(car => (
+          <li key={car.id} className="rental-list-item">
+            <MyRentalsCarDisplay car={car} />
+          </li>
+        ))}
+      </ul>
+    )}
+    
+    {!isLoading && cars.length > 0 && (
+      <nav aria-label="Pagination navigation">
+        <PaginationControls 
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          aria-controls="my-rentals-list"
+        />
+      </nav>
+    )}
+  </section>
   );
 }
 

@@ -1,0 +1,71 @@
+\documentclass{article}
+\begin{document}
+\textbf{Sprint 2 - 10.02.25–22.02.25} 
+\textbf{Sprint Goal} 
+
+\section{Goals for the sprint:}
+
+\subsection{Front-End:}
+\begin{itemize}
+    \item Create basic HTML for all Wireframe pages of the application.
+    \begin{itemize}
+        \item Header
+        \item Footer
+        \item Front page
+        \item Car selection page
+        \item Menu when selecting a car
+        \item Login/Register popup/page
+        \item Page for filling out form 
+    \end{itemize}
+    \item Design logo
+\end{itemize}
+
+\subsection{Back-End:}
+\begin{itemize}
+    \item Create Entity-Relationship Diagram (ERD) for the database
+    \item Start building basic structure for REST API
+\end{itemize}
+
+\subsection{Questions for next meetup:}
+
+\subsubsection{Use case diagram:}
+\begin{itemize}
+    \item Should admin be able to do absolutely everything? Can we make a single arrow for him (admin mode) so we don't have to draw an arrow to every action?
+    \item How should we implement special features for admin? Obviously an admin does not need a pretty GUI - is a custom terminal enough?
+    \item Should car rental providers be able to rent cars?
+    \item Should we allow for businesses to rent cars?
+\end{itemize}
+
+\subsubsection{Database:}
+Do we need a separate table where we list all privileges and connect them to account.id? OR
+
+Is it best if we implement a check for roles before processing a rental like this:
+
+DELIMITER //
+CREATE TRIGGER block-admin-rentals
+BEFORE INSERT ON rentals
+FOR EACH ROW
+BEGIN
+    IF (SELECT role FROM accounts WHERE id = NEW.renter-id) = 'ADMIN' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE\_TEXT = 'Admins can’t rent.';
+    END IF;
+END//
+DELIMITER ;
+
+
+\section{\textbf{Use case structure:}}
+
+\subsection{Admin:}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsection{Unregistered User}
+
+\subsection{Registered User}
+
+\subsection{Car rental provider}
+
+
+
+\end{document}

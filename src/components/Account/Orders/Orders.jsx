@@ -64,17 +64,17 @@ const Orders = () => {
 
 
   return (
-    <div className="orders">
+    <main className="orders">
       <section className="orders-section">
-        <div orders-header>
-        <div className="orders-header">
+        <div className="orders-container"> 
+        <header className="orders-header">
             <h1 className="title">My Bookings - </h1> 
             <OrdersDropdown
               options={statusOptions}
               selectedOption={selectedStatus}
               onSelect={setSelectedStatus}
             />
-          </div>
+          </header>
           <div className="orders-list">
             {isLoading ? (
               <p>Loading...</p>
@@ -101,7 +101,7 @@ const Orders = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </div>
+    </main>
   );
 }
 
