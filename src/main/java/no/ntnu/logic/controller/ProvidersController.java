@@ -125,10 +125,6 @@ public class ProvidersController {
       Providers provider = new Providers();
       logger.info("Creating new provider");
       provider.setCompanyName(providerRegisterRequest.getCompanyName());
-      if (accountsService.findByEmail(providerRegisterRequest.getEmail()) == null) {
-        logger.warn("Email already in use: {}", providerRegisterRequest.getEmail());
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
-      }
       provider.setEmail(providerRegisterRequest.getEmail());
       provider.setPassword(providerRegisterRequest.getPassword());
       provider.setPhoneNumber(providerRegisterRequest.getPhoneNumber());

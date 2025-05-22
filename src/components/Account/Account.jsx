@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { getAccountId, getRole } from '../utils/JwtUtility';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
+import RegisterProvider from '../LoginRegister/Register/RegisterProvider';
 import './Account.css';
 
 const Account = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isCreateProviderModalVisible, setIsCreateProviderModalVisible] = useState(false);
   
   useEffect(() => {
     setShowErrorMessage(false);
@@ -31,6 +33,14 @@ const Account = () => {
 
   const closeChangePasswordModal = () => {
     setIsChangePasswordModalVisible(false);
+  };
+
+  const openCreateProviderModal = () => {
+    setIsCreateProviderModalVisible(true);
+  };
+
+  const closeCreateProviderModal = () => {
+    setIsCreateProviderModalVisible(false);
   };
 
   const [accountId, setAccountId] = useState(getAccountId());
@@ -443,6 +453,17 @@ const Account = () => {
               Change Password
             </button>
           </li>
+          {role === 'ROLE_ADMIN' && (
+          <li>
+            <button
+              className="bottom-button action-button"
+              onClick={openCreateProviderModal}
+              aria-label="Create Provider Account"
+            >
+              Create Provider Account
+            </button>
+          </li>
+        )}
         </ul>
       </section>
       <DeleteAccount
@@ -453,6 +474,12 @@ const Account = () => {
         isModalVisible={isChangePasswordModalVisible}
         closeModal={closeChangePasswordModal}
       />
+      {role === 'ROLE_ADMIN' && (
+      <RegisterProvider
+        isModalVisible={isCreateProviderModalVisible}
+        closeModal={closeCreateProviderModal}
+      />
+    )}
     </main>
   );
 };

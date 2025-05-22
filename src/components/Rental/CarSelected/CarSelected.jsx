@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mapCarImage } from '../../utils/CarImageMapper';
 import { Car, Seatbelt, PlusCircle, Calendar, CaretDown } from "@phosphor-icons/react";
 import './CarSelected.css';
+import {BookingContext} from "../../utils/BookingContext";
 
 const CarSelected = ({car}) => {
   const navigate = useNavigate();
-   const [showFeatures, setShowFeatures] = useState(false); // State to toggle extra features
+  const [showFeatures, setShowFeatures] = useState(false); // State to toggle extra features
+
+  const { bookingData : rentalDetails } = useContext(BookingContext);
+
+  const totalPrice = Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24),
+    car.pricePerDay)
 
   const handleRentCar = () => {
     console.log(`Renting car with ID: ${car.id}`);
     navigate(`/booking/${car.id}`);
   };
 
-    const showExtraFeatures = () => {
+  const showExtraFeatures = () => {
     setShowFeatures(!showFeatures); // Toggle the visibility of extra features
   };
 
@@ -26,11 +32,11 @@ const CarSelected = ({car}) => {
           <h2>{car.carBrand} {car.modelName}</h2>
           <h4>{car.energySource}</h4>
         </header>
-        <img 
+        <img
           src={carImage}
           alt={`${car.carBrand} ${car.modelName}`}
-          className="car-image" 
-          />
+          className="car-image"
+        />
         <footer><h3>{car.provider.companyName}</h3></footer>
       </div>
       <section className="car-details">
@@ -77,13 +83,13 @@ const CarSelected = ({car}) => {
         <div className="car-rental-economics">
           <h3>Transmission Type - {car.transmission}</h3>
           <h4>Price details</h4>
-          <h4>{car.pricePerDay},- kr / day - {car.priceTotal},- kr in total</h4>
+          <h4>{car.pricePerDay},- kr / day - {totalPrice},- kr in total</h4>
         </div>
       </section>
       <button className='next-button' onClick={handleRentCar} aria-label="Rent this car">Rent</button>
     </div>
   );
-}  
+}
 
 /* Shows CarSelected */
 

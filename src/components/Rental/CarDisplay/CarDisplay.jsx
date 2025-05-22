@@ -17,10 +17,6 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
   const totalPrice = Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24),
     car.pricePerDay)
 
-  useEffect(() => {
-    console.log("CarDisplay rentalDetails", rentalDetails);
-    console.log("totalPrice", totalPrice);
-  }, []);
 
   useEffect(() => {
     if (role !== "ROLE_USER") {
