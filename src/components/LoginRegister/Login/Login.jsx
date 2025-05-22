@@ -39,8 +39,6 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
 
   async function handleLogin(event) {
     event.preventDefault(); 
-
-    console.log("Attempting to login.");
     
     const loginDetails = retrieveData();
 
@@ -53,7 +51,6 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
         body: JSON.stringify(loginDetails),
       });
 
-      console.log("Response status: ", response.status);
       if (!response.ok) {
         console.error("Login failed: ", response.statusText);
         if (response.status === 401) {
@@ -75,10 +72,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
     
       const accessToken = data.accessToken;
       const refreshToken = data.refreshToken;
-
-      console.log("Refresh Token: ", refreshToken);
-      console.log("Access Token: ", accessToken);
-
+      
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('accessToken', accessToken); 
 

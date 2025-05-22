@@ -14,7 +14,6 @@ const ExtraFeaturesModal = ({
   const [searchQuery, setSearchQuery] = useState('');
 
 const handleFeatureSelection = (featureId) => {
-  console.log('Feature selected:', featureId);
 
   setSelectedFeatures((prevSelected) => {
     if (!Array.isArray(prevSelected)) {

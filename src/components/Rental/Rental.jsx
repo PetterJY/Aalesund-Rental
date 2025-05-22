@@ -232,7 +232,6 @@ useEffect(() => {
 }, [selectedFilterComponent, minPrice, maxPrice]);
 
   useEffect(() => {
-    console.log("MinPrice or maxPrice changed: " + minPrice, " - " + maxPrice);
     setSelectedFilterOptions((prev) => {
       return {
         ...prev,
@@ -243,7 +242,6 @@ useEffect(() => {
   }, [minPrice, maxPrice]);
 
   const handleCarClick = (carId) => {
-    console.log("Selected car:", carId);
     setSelectedCarId((prev) => (prev === carId ? null : carId));
   };
 
@@ -293,11 +291,7 @@ useEffect(() => {
       filterParams.append("pickupDate", selectedFilterOptions.pickupDate.toISOString().slice(0, -1));
       filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString().slice(0, -1));
 
-      console.log("Filter params:", filterParams.toString());
-      console.log("Request URL: ", `http://localhost:8080/api/cars/search?${filterParams.toString()}`);
-
       const data = await makeApiRequest(`http://localhost:8080/api/cars/search?${filterParams.toString()}`);
-      console.log("Filtered cars:", data);
       setCars(data);
     } catch (error) {
       console.error("Error fetching car data:", error);
@@ -351,11 +345,6 @@ const renderWithInsertedMenu = () => {
   const handleFilterChange = (event) => {
     const { name, value, checked, type } = event.target;
 
-    console.log("name: " + name);
-    console.log("value: " + value);
-    console.log("checked: " + checked);
-    console.log("type: " + type);
-
     setSelectedFilterOptions((prev) => {
       if (type === "radio") {
         return {
@@ -390,7 +379,6 @@ const renderWithInsertedMenu = () => {
       maxPrice: maxPrice,
     });
 
-    console.log("Selected filter options:", selectedFilterOptions);
     toggleFilter();
   };
 
@@ -436,7 +424,6 @@ const renderWithInsertedMenu = () => {
                      onChange={(e) => setSearchFieldValue(e.target.value)}
                      onKeyDown={(e) => {
                        if (e.key === "Enter") {
-                         console.log("Search value saved on enter key-press:", searchFieldValue);
                          setSelectedFilterOptions((prev) => ({
                            ...prev,
                            search: searchFieldValue,
@@ -444,7 +431,6 @@ const renderWithInsertedMenu = () => {
                        }
                      }}
                      onBlur={() => {
-                       console.log("Search value saved on blur:", searchFieldValue);
                        setSelectedFilterOptions((prev) => ({
                          ...prev,
                          search: searchFieldValue,

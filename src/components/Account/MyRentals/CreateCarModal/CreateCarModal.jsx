@@ -112,16 +112,13 @@ const retrieveCarDetails = () => {
       setShowErrorMessage(true);
       return; 
     }
-
-    console.log('Car Details being sent:', carDetails);
   
     try {
       const responseData = await makeApiRequest('http://localhost:8080/api/cars', {
         method: 'POST',
         body: JSON.stringify(carDetails),
       });
-    
-      console.log('Car created successfully:', responseData);
+      
       onClose(); 
     } catch (error) {
       console.error('Error creating car:', error);

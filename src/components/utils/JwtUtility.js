@@ -1,7 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
 export const tokenIsValid = () => {
-  console.log("Checking if user is logged in");
   const token = localStorage.getItem("accessToken");
   
   if (!token) {
@@ -13,11 +12,9 @@ export const tokenIsValid = () => {
     const decodedToken = jwtDecode(token);
     const currentTime = Date.now() / 1000; // Current time in seconds
     if (decodedToken.exp < currentTime) {
-      console.log("Token has expired");
       localStorage.removeItem("accessToken");
       return false;
     }
-    console.log("Valid Token");
     return true;
   } catch (error) {
     console.error("Error decoding token:", error);
@@ -26,7 +23,6 @@ export const tokenIsValid = () => {
 };
 
 export const isTokenExpired = () => {
-  console.log("Checking token expiration");
   const token = localStorage.getItem("accessToken");
   if (!token) {
     console.warn("Token not found in localStorage");
@@ -37,11 +33,9 @@ export const isTokenExpired = () => {
     const currentTime = Date.now() / 1000; // Current time in seconds
     const buffer = 30; // 30-second buffer for proactive refresh
     if (decodedToken.exp < currentTime + buffer) {
-      console.log("Token is expired or will expire soon");
       localStorage.removeItem("accessToken");
       return true;
     }
-    console.log("Valid Token");
     return false;
   } catch (error) {
     console.error("Error decoding token:", error);
@@ -51,7 +45,6 @@ export const isTokenExpired = () => {
 };
 
 export const getToken = () => {
-  console.log("Fetching token from localStorage");
   const token = localStorage.getItem("accessToken");
   if (token) {
     return token;
@@ -62,7 +55,6 @@ export const getToken = () => {
 }
 
 export const getRefreshToken = () => {
-  console.log("Fetching refresh token from localStorage");
   const refreshToken = localStorage.getItem("refreshToken");
   if (refreshToken) {
     return refreshToken;
@@ -83,7 +75,6 @@ export const getRole = () => {
 };
 
 export const getAccountId = () => {
-  console.log("Retrieving AccountID from token");
   const token = localStorage.getItem("accessToken");
   if (token) {
     const decodedToken = jwtDecode(token);
@@ -95,7 +86,6 @@ export const getAccountId = () => {
 }
 
 export const getEmail = () => {
-  console.log("Retrieving email from token");
   const token = localStorage.getItem("accessToken");
 
   if (token) {
@@ -108,7 +98,6 @@ export const getEmail = () => {
 }
 
 export const makeApiRequest = async (url, options = {}) => {
-  console.log(`Making API request to ${url}`);
   let accessToken = getToken();
 
   if (isTokenExpired()) {
@@ -119,7 +108,6 @@ export const makeApiRequest = async (url, options = {}) => {
     }
 
     try {
-      console.log("Attempting to refresh access token");
       const response = await fetch("http://localhost:8080/api/auth/refresh-token", {
         method: "POST",
         headers: {
@@ -135,7 +123,6 @@ export const makeApiRequest = async (url, options = {}) => {
       const data = await response.json();
       accessToken = data.accessToken;
       localStorage.setItem("accessToken", accessToken);
-      console.log("Access token refreshed successfully");
     } catch (error) {
       console.error("Failed to refresh token:", error);
       localStorage.removeItem("accessToken");
@@ -155,7 +142,6 @@ export const makeApiRequest = async (url, options = {}) => {
     const response = await fetch(url, options);
     if (!response.ok) {
       if (response.status === 401 && response.headers.get("x-token-error") === "expired") {
-        console.log("Received 401, attempting to refresh token");
         const refreshToken = getRefreshToken();
         if (!refreshToken) {
           console.warn("No refresh token available");
@@ -178,7 +164,6 @@ export const makeApiRequest = async (url, options = {}) => {
           const data = await refreshResponse.json();
           accessToken = data.accessToken;
           localStorage.setItem("accessToken", accessToken);
-          console.log("Access token refreshed successfully");
 
           // Retry the original request
           options.headers.Authorization = `Bearer ${accessToken}`;

@@ -163,7 +163,6 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    console.log("Logging out");
     localStorage.removeItem('accessToken');
     setIsAuthenticated(false);
     setIsDropdownVisible(false);

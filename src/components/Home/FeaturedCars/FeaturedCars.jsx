@@ -52,7 +52,6 @@ const FeaturedCars = () => {
   };
 
   const pauseAutoplay = () => {
-    console.log("paused autoplay!")
     if (autoPlayInterval) {
       clearInterval(autoPlayInterval);
       setAutoPlayInterval(null);
@@ -60,7 +59,6 @@ const FeaturedCars = () => {
   };
 
   const resumeAutoplay = () => {
-    console.log("resumed autoplay!")
     if (!autoPlayInterval) {
       const interval = setInterval(() => {
         handleNextClick();
@@ -90,7 +88,6 @@ const FeaturedCars = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handlePreviousClick();
-      console.log(cardOrder);
     }, 200000);
 
     setAutoPlayInterval(interval);

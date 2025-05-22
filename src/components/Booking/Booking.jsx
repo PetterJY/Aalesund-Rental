@@ -30,7 +30,6 @@ const Booking = () => {
         setIsLoading(true);
         try {
             const carDetails = await makeApiRequest(`http://localhost:8080/api/cars/${carId}`);
-            console.log("Car details fetched:", carDetails);
 
             setRentalDetails({
                 ...rentalDetails,
@@ -43,7 +42,6 @@ const Booking = () => {
                 totalCost: carDetails.totalCost || 0,
             });
 
-            console.log("Rental details updated:", rentalDetails);
         }
         catch(error) {
             console.error(error);
@@ -77,7 +75,6 @@ const Booking = () => {
       try {
         const accountDetails = await makeApiRequest(`http://localhost:8080/api/accounts/${accountId}`);
         setAccountDetails(accountDetails);
-        console.log("Account details fetched:", accountDetails);
       } catch (error) {
         console.error(error);
       }
@@ -127,7 +124,6 @@ const Booking = () => {
 			status: "PENDING",
 		};
 
-		console.log("Booking data: ", bookingData);
 
         try {
             const booking = await makeApiRequest("http://localhost:8080/api/rentals", {
@@ -135,7 +131,6 @@ const Booking = () => {
                 body: JSON.stringify(bookingData),
             });
             
-            console.log("Booking submitted successfully:", booking);
             navigate("/submitted-booking");
 
             return booking;

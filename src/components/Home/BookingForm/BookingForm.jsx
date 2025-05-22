@@ -50,7 +50,6 @@ const BookingForm = ({
       const data = await makeApiRequest(`http://localhost:8080/api/cars/locations`);
       setPickupLocations(data);
       setDropoffLocations(data);
-      console.log('Fetched pickup locations:', data);
     } catch (error) {
       console.error('Error fetching pickup locations:', error);
     } finally {
@@ -200,8 +199,6 @@ const BookingForm = ({
 
     onSave();
 
-    console.log("Pre Booking data:", bookingData);
-
     setBookingData({
       ...bookingData,
       pickupLocation: pickupLocationValue,
@@ -212,7 +209,6 @@ const BookingForm = ({
       dropoffTime
     });
 
-    console.log("Post Booking data:", bookingData);
   };
 
   useEffect(() => {
@@ -272,7 +268,7 @@ const BookingForm = ({
             }}
           />
 
-          {showPickupLocationSuggestions && !isLoadingLocations && (
+          {showPickupLocationSuggestions && !isLoadingLocations && pickupLocations.length > 0 && (
             <DropDownLocationSuggestions
               locations={
                 pickupLocations.filter(loc =>
