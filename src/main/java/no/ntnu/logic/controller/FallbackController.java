@@ -1,35 +1,38 @@
 package no.ntnu.logic.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+  import org.springframework.web.bind.annotation.RequestMapping;
+  import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
-/**
- * Controller that serves as a fallback for all unmatched routes.
- * <p>
- * This controller captures all requests that do not contain a period (i.e., are not file requests)
- * and forwards them to the root path ("/"), allowing the React frontend to handle routing appropriately.
- * </p>
- */
-@Controller
-@Api(value = "Fallback Controller", tags = {"Routing"})
-public class FallbackController {
+  import io.swagger.v3.oas.annotations.Operation;
+  import io.swagger.v3.oas.annotations.responses.ApiResponse;
+  import io.swagger.v3.oas.annotations.responses.ApiResponses;
+  import io.swagger.v3.oas.annotations.tags.Tag;
 
   /**
-   * Handles all unmatched routes by forwarding them to the root path ("/").
-   *
-   * @return a forward instruction to the root path
+   * Controller that serves as a fallback for all unmatched routes.
+   * <p>
+   * This controller captures all requests that do not contain a period (i.e., are not file requests)
+   * and forwards them to the root path ("/"), allowing the React frontend to handle routing appropriately.
+   * </p>
    */
-  @RequestMapping(value = "/{path:[^\\.]*}")
-  @ApiOperation(value = "Fallback Route", notes = "Forwards unmatched routes to the root path '/' to be handled by the frontend.")
-  @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Forwarded to /")
-  })
-  public String redirect() {
-    return "forward:/";
+  @RestController
+  @Tag(name = "Fallback Controller", description = "Handles routing for SPA frontend")
+  public class FallbackController {
+
+    /**
+     * Handles all unmatched routes by forwarding them to the root path ("/").
+     *
+     * @return a forward instruction to the root path
+     */
+    @RequestMapping(value = "/{path:[^\\.]*}")
+    @Operation(
+        summary = "Fallback route handler",
+        description = "Forwards unmatched routes to the root path '/' to be handled by the frontend"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Forwarded to /")
+    })
+    public String redirect() {
+      return "forward:/";
+    }
   }
-}
