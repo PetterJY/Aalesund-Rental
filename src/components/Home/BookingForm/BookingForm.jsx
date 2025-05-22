@@ -51,7 +51,6 @@ const BookingForm = ({
       setPickupLocations(data);
       setDropoffLocations(data);
     } catch (error) {
-      console.error('Error fetching pickup locations:', error);
     } finally {
       setIsLoadingLocations(false);
     }

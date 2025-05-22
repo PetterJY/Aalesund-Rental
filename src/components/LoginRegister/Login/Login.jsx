@@ -52,7 +52,6 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
       });
 
       if (!response.ok) {
-        console.error("Login failed: ", response.statusText);
         if (response.status === 401) {
           setErrorMessage("The username and/or password you specified are not correct.");
           setShowErrorMessage(true);
@@ -72,7 +71,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
     
       const accessToken = data.accessToken;
       const refreshToken = data.refreshToken;
-      
+
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('accessToken', accessToken); 
 
@@ -80,7 +79,6 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
       setIsAuthInitialized(true);
       closeModal();
     } catch(error) {
-      console.error(error);
       setErrorMessage("The username and/or password you specified are not correct.");
       setShowErrorMessage(true);
     };

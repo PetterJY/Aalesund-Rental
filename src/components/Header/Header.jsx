@@ -97,7 +97,6 @@ const Header = () => {
     try {
       return await makeApiRequest(`http://localhost:8080/api/accounts/${accountId}`);
     } catch (error) {
-      console.error('Error fetching account details:', error);
       throw error;
     }
   }

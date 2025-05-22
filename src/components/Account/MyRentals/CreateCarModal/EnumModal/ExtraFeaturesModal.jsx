@@ -17,7 +17,6 @@ const handleFeatureSelection = (featureId) => {
 
   setSelectedFeatures((prevSelected) => {
     if (!Array.isArray(prevSelected)) {
-      console.error('prevSelected is not an array:', prevSelected);
       return []; 
     }
 
@@ -38,7 +37,6 @@ const handleFeatureSelection = (featureId) => {
           const data = await makeApiRequest('http://localhost:8080/api/extra-features');
           setExtraFeatures(data);
         } catch (error) {
-          console.error('Error fetching extra features:', error);
           setError('Failed to load extra features. Please try again.');
         } finally {
           setIsLoading(false);
