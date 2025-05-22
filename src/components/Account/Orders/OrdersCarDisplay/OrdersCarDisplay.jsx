@@ -8,7 +8,7 @@ import { tr } from 'date-fns/locale';
 const OrdersCarDisplay = ({rental}) => {
 	const startDate = new Date(rental.startDate);
 	const endDate = new Date(rental.endDate);
-	const rentingTime = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+	const rentingTime = Math.round(Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)));
 
   const [verifyPanel, setVerifyPanel] = useState(false);
 	const [status, setStatus] = React.useState(rental.status);

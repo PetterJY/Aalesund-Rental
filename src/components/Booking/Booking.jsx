@@ -19,10 +19,6 @@ const Booking = () => {
 
 	const { bookingData : rentalDetails, setBookingData : setRentalDetails } = useContext(BookingContext);
 
-	useEffect(() => {
-		console.log("Updated rentalDetails:", rentalDetails);
-	}, [rentalDetails]);
-
 	const totalCost = Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24),
 		rentalDetails.pricePerDay)
 
