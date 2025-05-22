@@ -41,7 +41,7 @@ const OrdersCarDisplay = ({rental}) => {
 		setVerifyPanel(false);
 
 
-		const response = await fetch(`http://localhost:8080/rentals/${rental.rentalId}`, {
+		const response = await fetch(`http://localhost:8080/api/rentals/${rental.rentalId}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',

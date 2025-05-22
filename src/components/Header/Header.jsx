@@ -95,7 +95,7 @@ const Header = () => {
       return null;
     }
     
-    const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+    const response = await fetch(`http://localhost:8080/api/accounts/${accountId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

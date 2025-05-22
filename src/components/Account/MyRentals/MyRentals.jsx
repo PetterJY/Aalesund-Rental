@@ -25,7 +25,7 @@ const MyRentals = () => {
   async function fetchCars() {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/cars/my-cars/' + getAccountId(), {
+      const response = await fetch('http://localhost:8080/api/cars/my-cars/' + getAccountId(), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

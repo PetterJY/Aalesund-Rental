@@ -39,15 +39,15 @@ public class SecurityConfig {
     http.csrf(csrfCustomizer -> csrfCustomizer.disable())
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
-              "/auth/login", 
-              "/auth/refresh-token",
-              "/users/register",
-              "/providers/register",
-              "/admins/register",
-              "/cars/search",
-              "/cars/locations",
-              "/cars/{id}",
-              "/cars"
+              "/api/auth/login",
+              "/api/auth/refresh-token",
+              "/api/users/register",
+              "/api/providers/register",
+              "/api/admins/register",
+              "/api/cars/search",
+              "/api/cars/locations",
+              "/api/cars/{id}",
+              "/api/cars"
               ).permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

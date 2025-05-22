@@ -31,7 +31,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
   //   }
 
   //   try {
-  //     const response = await fetch('http://localhost:8080/accounts', {
+  //     const response = await fetch('http://localhost:8080/api/accounts', {
   //       method: 'DELETE',
   //       headers: {
   //         'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ async function deleteAccount(event) {
   };
 
   try {
-    await makeApiRequest("http://localhost:8080/accounts", {
+    await makeApiRequest("http://localhost:8080/api/accounts", {
       method: "DELETE",
       body: JSON.stringify(passwordField),
     });

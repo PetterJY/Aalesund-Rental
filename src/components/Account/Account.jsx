@@ -73,7 +73,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+      const response = await fetch(`http://localhost:8080/api/accounts/${accountId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ const Account = () => {
         phoneNumber: userData.phoneNumber
       };
 
-      const response = await fetch(`http://localhost:8080/users/${accountId}`, {
+      const response = await fetch(`http://localhost:8080/api/users/${accountId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -188,7 +188,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/providers/' + accountId, {
+      const response = await fetch('http://localhost:8080/api/providers/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ const Account = () => {
 
       console.log('Updated provider details:', providerDetails);
 
-      const response = await fetch('http://localhost:8080/providers/' + accountId, {
+      const response = await fetch('http://localhost:8080/api/providers/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -286,7 +286,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/admins/' + accountId, {
+      const response = await fetch('http://localhost:8080/api/admins/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -350,7 +350,7 @@ const Account = () => {
 
       console.log('Updated admin details:', adminDetails);
 
-      const response = await fetch('http://localhost:8080/admins/' + accountId, {
+      const response = await fetch('http://localhost:8080/api/admins/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

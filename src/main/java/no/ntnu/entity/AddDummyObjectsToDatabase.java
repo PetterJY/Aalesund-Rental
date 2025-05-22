@@ -207,7 +207,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
     HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/auth/login"))
+				.uri(URI.create("http://localhost:8080/api/auth/login"))
 				.header("Content-Type", "application/json")
 				.POST(HttpRequest.BodyPublishers.ofString(json))
 				.build();
@@ -280,7 +280,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/cars"))
+				.uri(URI.create("http://localhost:8080/api/cars"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -311,7 +311,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/admins/register"))
+				.uri(URI.create("http://localhost:8080/api/admins/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -359,7 +359,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/rentals"))
+				.uri(URI.create("http://localhost:8080/api/rentals"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -388,7 +388,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/extra-features"))
+				.uri(URI.create("http://localhost:8080/api/extra-features"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -421,7 +421,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/providers/register"))
+				.uri(URI.create("http://localhost:8080/api/providers/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -456,7 +456,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("http://localhost:8080/users/register"))
+				.uri(URI.create("http://localhost:8080/api/users/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))

@@ -41,7 +41,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
  */
 @RestController
 @Tag(name = "Accounts API", description = "API for managing accounts resources")
-@RequestMapping("api/accounts")
+@RequestMapping("/api/accounts")
 public class AccountsController {
   private static final Logger logger =
       LoggerFactory.getLogger(AccountsController.class.getSimpleName());

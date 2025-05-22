@@ -41,7 +41,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
  */
 @RestController
 @Tag(name = "Rentals API", description = "API for managing rental resources")
-@RequestMapping("api/rentals")
+@RequestMapping("/api/rentals")
 public class RentalsController {
 
   private final RentalsService rentalsService;

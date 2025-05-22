@@ -95,7 +95,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
         searchParams.append("providerId", providerId || getAccountId());
         searchParams.append("carId", car.id);
 
-        const url = `http://localhost:8080/rentals/my-rentals?${searchParams.toString()}`;
+        const url = `http://localhost:8080/api/rentals/my-rentals?${searchParams.toString()}`;
         console.log("Request URL: ", url);
         const response = await fetch(url, {
           method: 'GET',
@@ -167,7 +167,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
+      const response = await fetch(`http://localhost:8080/api/cars/${car.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
         available: !displayCar.available,
       };
 
-      const response = await fetch(`http://localhost:8080/cars/${car.id}`, {
+      const response = await fetch(`http://localhost:8080/api/cars/${car.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -267,7 +267,7 @@ const handleExtraFeaturesUpdate = async (selectedFeatureIds) => {
 
 const fetchFeatureName = async (featureId) => {
   try {
-    const response = await fetch(`http://localhost:8080/extra-features/${featureId}`, {
+    const response = await fetch(`http://localhost:8080/api/extra-features/${featureId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -31,7 +31,7 @@ import no.ntnu.logic.service.ProvidersService;
  */
 @RestController
 @Tag(name = "Providers API", description = "API for managing provider resources")
-@RequestMapping("api/providers")
+@RequestMapping("/api/providers")
 public class ProvidersController {
 
   private final ProvidersService providersService;

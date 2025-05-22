@@ -36,7 +36,7 @@ import no.ntnu.security.JwtUtility;
  */
 @RestController
 @Tag(name = "Refresh Token API", description = "API for managing refresh tokens")
-@RequestMapping("api/auth")
+@RequestMapping("/api/auth")
 public class RefreshTokenController {
   private static final Logger logger =
       LoggerFactory.getLogger(RefreshTokenController.class.getSimpleName());

@@ -33,7 +33,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  */
 @RestController
 @Tag(name = "Admins API", description = "API for managing admin resources")
-@RequestMapping("api/admins")
+@RequestMapping("/api/admins")
 public class AdminsController {
 
   private final AdminService adminService;

@@ -18,7 +18,7 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
       setError(null); // Reset error state
       async function fetchLocations() {
         try {
-          const response = await fetch('http://localhost:8080/cars/locations', {
+          const response = await fetch('http://localhost:8080/api/cars/locations', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

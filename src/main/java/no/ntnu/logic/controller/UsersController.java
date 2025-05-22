@@ -36,7 +36,7 @@ import no.ntnu.logic.service.UsersService;
  */
 @RestController
 @Tag(name = "Users API", description = "API for managing user resources")
-@RequestMapping("api/users")
+@RequestMapping("/api/users")
 public class UsersController {
   private static final Logger logger = 
       LoggerFactory.getLogger(UsersController.class.getSimpleName());

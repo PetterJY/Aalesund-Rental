@@ -60,7 +60,7 @@ async function changePassword(event) {
   };
 
   try {
-    const response = await fetch(`http://localhost:8080/accounts/change-password`, {
+    const response = await fetch(`http://localhost:8080/api/accounts/change-password`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
