@@ -551,6 +551,8 @@ background: var(--secondary-color-hover);
   color: white !important; /* White text */
 }
 
+
+
 /* Responsive adjustments */
 @media screen and (max-width: 1500px) {
   .date-picker-popper .react-datepicker__month-container {

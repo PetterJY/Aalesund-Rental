@@ -33,7 +33,7 @@ const handleFeatureSelection = (featureId) => {
       setIsLoading(true);
       async function fetchExtraFeatures() {
         try {
-          const response = await fetch('https://norwegian-rental.online/extra-features', {
+          const response = await fetch('https://norwegian-rental.online/api/extra-features', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

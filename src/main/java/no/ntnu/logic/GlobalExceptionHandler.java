@@ -2,10 +2,13 @@ package no.ntnu.logic;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -150,5 +153,32 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> handleProviderNotFoundException(ProviderNotFoundException ex) {
     logger.error("Provider not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+  }
+
+  /**
+   * Handles BadCredentialsException thrown during authentication.
+   * Returns a 401 Unauthorized response with a user-friendly message.
+   *
+   * @param ex the BadCredentialsException thrown by the application
+   * @return ResponseEntity with status 401 and error message
+   */
+  @ExceptionHandler(BadCredentialsException.class)
+  public ResponseEntity<String> handleBadCredentialsException(BadCredentialsException ex) {
+    logger.error("Authentication failed: ", ex);
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+  }
+
+    /**
+     * Handles generic exceptions thrown by the application.
+     * Returns a 500 Internal Server Error response with a generic error message.
+     *
+     * @param ex the Exception thrown by the application
+     * @return ResponseEntity with status 500 and error message
+     */
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<String> handleGenericException(Exception ex) {
+    logger.error("Unexpected exception occurred: ", ex);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body("An unexpected error occurred");
   }
 }

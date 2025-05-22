@@ -101,26 +101,48 @@ export default function Rental() {
       ))}
     </div>
   );
-  const renderDropdown = (category, title, options, customContent = null) => (
+const renderDropdown = (category, title, options, customContent = null) => {
+  // Get count of selected items for this category
+  let selectedCount = 0;
+  
+  if (category === 'priceRange') {
+    // Special case for price range - only show count if different from default
+    if (minPrice > 0 || maxPrice < maxCarRentalPrice) {
+      selectedCount = 1;
+    }
+  } else if (Array.isArray(selectedFilterOptions[category])) {
+    selectedCount = selectedFilterOptions[category].length;
+  }
+  
+  // Format title with count if items are selected
+  const displayTitle = selectedCount > 0 ? `${title} (${selectedCount})` : title;
+  
+  return (
     <div className="dropdown-group" id={`${category}-checkbox`}>
       <button
         className="dropdown-button"
         onClick={() => {
           toggleDropdown(category);
-          setSelectedFilterComponent({...selectedFilterComponent, [category] : true})}}>
-        {title} <CaretDown size={16} />
+          setSelectedFilterComponent({...selectedFilterComponent, [category] : true})
+        }}
+      >
+        {displayTitle} <CaretDown size={16} />
       </button>
       {openDropdown === category && (
-        <div ref={filterRefs[category]}
-             className={`dropdown-content ${customContent != null ? 'custom' : ''}`}>
+        <div 
+          ref={filterRefs[category]}
+          className={`dropdown-content ${customContent != null ? 'custom' : ''}`}
+        >
           {customContent || (
             (category === "sortBy" || category === "passengers")
               ? renderRadioButtons(category, options)
-              : renderCheckboxes(category, options))}
+              : renderCheckboxes(category, options)
+          )}
         </div>
       )}
     </div>
   );
+};
 
   const filterOptions = {
     sortBy: [
@@ -273,8 +295,8 @@ useEffect(() => {
 
       console.log("Filter params:", filterParams.toString());
 
-      console.log("Request URL: ", `https://norwegian-rental.online/cars/search?${filterParams.toString()}`)
-      const response = await fetch(`https://norwegian-rental.online/cars/search?${filterParams.toString()}`, {
+      console.log("Request URL: ", `https://norwegian-rental.online/api/cars/search?${filterParams.toString()}`)
+      const response = await fetch(`https://norwegian-rental.online/api/cars/search?${filterParams.toString()}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

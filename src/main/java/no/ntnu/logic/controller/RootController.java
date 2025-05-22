@@ -3,10 +3,10 @@ package no.ntnu.logic.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * Controller responsible for handling requests to frontend routes of the single-page application (SPA).
@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiResponses;
  * </p>
  */
 @Controller
-@Api(value = "Root Controller", tags = {"Routing"})
+@Tag(name = "Routing", description = "Basic navigation endpoints")
 public class RootController {
     /**
      * Handles HTTP GET requests for frontend routes, forwarding them to the React application's
@@ -32,12 +32,12 @@ public class RootController {
      */
     @GetMapping(value = {"/", "/home", "/rental", "/booking", "/booking/{carId}", 
         "/submitted-booking", "/account", "/account/{subPath:.*}", "/about-us", "/{path:[^\\.]*}"})
-    @ApiOperation(
-        value = "Serve SPA Routes", 
-        notes = "Forwards frontend routes to index.html for React SPA routing.")
+    @Operation(
+        summary = "Serve SPA Routes", 
+        description = "Forwards frontend routes to index.html for React SPA routing.")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Successfully served index.html"),
-        @ApiResponse(code = 404, message = "Resource not found if index.html is missing")
+        @ApiResponse(responseCode = "200", description = "Successfully served index.html"),
+        @ApiResponse(responseCode = "404", description = "Resource not found if index.html is missing")
     })
     public String serveSpa() {
         return "forward:/index.html";

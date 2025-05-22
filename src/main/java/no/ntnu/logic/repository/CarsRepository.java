@@ -18,7 +18,7 @@ public interface CarsRepository extends JpaRepository<Cars, Long> {
       "AND c.energySource IN :energySourceParam " +
       "AND c.pricePerDay BETWEEN :minPricePerDayParam AND :maxPricePerDayParam " +
       "AND c.location = :pickupLocation " +
-      "AND (r IS NULL OR NOT (r.startDate < :dropoffDateParam AND r.endDate > :pickupDateParam)) " +
+      "AND (r IS NULL OR NOT (r.startDate <= :dropoffDateParam AND r.endDate >= :pickupDateParam)) " +
       "AND (c.carBrand LIKE CONCAT('%', :search, '%') " +
       "OR c.modelName LIKE CONCAT('%', :search, '%') " +
       "OR CONCAT(c.carBrand, ' ', c.modelName) LIKE CONCAT('%', :search, '%')" +

@@ -60,7 +60,7 @@ async function changePassword(event) {
   };
 
   try {
-    const response = await fetch(`https://norwegian-rental.online/accounts/change-password`, {
+    const response = await fetch(`https://norwegian-rental.online/api/accounts/change-password`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

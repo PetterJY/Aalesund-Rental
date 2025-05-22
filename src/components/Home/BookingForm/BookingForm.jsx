@@ -46,7 +46,7 @@ const BookingForm = ({
   async function fetchLocations() {
     setIsLoadingLocations(true);
     try {
-      const response = await fetch(`https://norwegian-rental.online/cars/locations`, {
+      const response = await fetch(`https://norwegian-rental.online/api/cars/locations`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

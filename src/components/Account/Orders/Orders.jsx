@@ -26,7 +26,7 @@ const Orders = () => {
     async function fetchRentals() {
       setIsLoading(true); 
       try {
-        const response = await fetch(`https://norwegian-rental.online/rentals/renter/${getAccountId()}`, {
+        const response = await fetch(`https://norwegian-rental.online/api/rentals/renter/${getAccountId()}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

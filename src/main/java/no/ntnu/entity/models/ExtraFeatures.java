@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,19 +21,19 @@ import jakarta.persistence.ManyToMany;
 public class ExtraFeatures {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @ApiModelProperty("The ID of the extra feature")
+  @Schema(description = "The ID of the extra feature")
   private int id;
 
   @Column(nullable = false, length = 32)
-  @ApiModelProperty("The name of the extra feature")
+  @Schema(description = "The name of the extra feature")
   private String name;
 
   @Column(length = 255)
-  @ApiModelProperty("The description of the extra feature")
+  @Schema(description = "The description of the extra feature")
   private String description;
 
   @ManyToMany(mappedBy = "extraFeatures")
-  @ApiModelProperty("The cars that have this extra feature")
+  @Schema(description = "The cars that have this extra feature")
   @JsonBackReference
   private Set<Cars> cars;
   

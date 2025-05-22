@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getRole } from '../../utils/JwtUtility';
 import MyRentalsCarDisplay from '../MyRentals/MyRentalsCarDisplay/MyRentalsCarDisplay';
+import { List, X } from '@phosphor-icons/react';
 import './AdminRentals.css';
 
 const AdminRentals = () => {
   const navigate = useNavigate();
   const role = getRole();
+
+  const [sidebarVisible, setSidebarVisible] = useState(window.innerWidth > 1150);
+  const sidebarRef = useRef(null);
 
   const [providers, setProviders] = useState([]);
   const [selectedProviderId, setSelectedProviderId] = useState(null);
@@ -14,6 +18,40 @@ const AdminRentals = () => {
   const [isLoadingProviders, setIsLoadingProviders] = useState(true);
   const [isLoadingCars, setIsLoadingCars] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  useEffect(() => {
+  const handleResize = () => {
+    // When width changes, update sidebar visibility based on screen size
+    if (window.innerWidth > 1150) {
+      setSidebarVisible(true);
+    } else {
+      setSidebarVisible(false); // Hide sidebar on mobile by default
+    }
+  };  
+  
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (window.innerWidth <= 1150 && 
+          sidebarRef.current && 
+          !sidebarRef.current.contains(event.target) &&
+          !event.target.classList.contains('toggle-sidebar-btn')) {
+        setSidebarVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const filteredProviders = providers.filter(provider =>
     provider.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -30,7 +68,7 @@ const AdminRentals = () => {
     async function fetchProviders() {
       setIsLoadingProviders(true);
       try {
-        const response = await fetch('https://norwegian-rental.online/providers', {
+        const response = await fetch('https://norwegian-rental.online/api/providers', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
           }
@@ -54,7 +92,7 @@ const AdminRentals = () => {
     setIsLoadingCars(true);
     async function fetchCars() {
       try {
-        const response = await fetch(`https://norwegian-rental.online/cars/my-cars/${selectedProviderId}`, {
+        const response = await fetch(`https://norwegian-rental.online/api/cars/my-cars/${selectedProviderId}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
           }
@@ -74,12 +112,23 @@ const AdminRentals = () => {
 
   return (
     <section className="admin-rentals-layout">
-      <aside className="providers-list">
-        <h2>Providers</h2>
+        <aside 
+        ref={sidebarRef}
+        className={`providers-list ${sidebarVisible ? 'visible' : 'hidden'}`}
+      >
+        <div className="providers-header">
+          <h2>Providers</h2>
+          {/* Close button - only visible on mobile */}
+          <button 
+            className="close-sidebar-btn mobile-only"
+            onClick={toggleSidebar}
+            aria-label="Close providers sidebar"
+          >
+            <X size={24} weight="bold" />
+          </button>
+        </div>
         
         <div className="search-container">
-          <label htmlFor="provider-search" className="visually-hidden">
-          </label>
           <input
             id="provider-search"
             type="search"
@@ -101,11 +150,21 @@ const AdminRentals = () => {
                   role="option"
                   aria-selected={provider.id === selectedProviderId}
                   className={provider.id === selectedProviderId ? 'selected' : ''}
-                  onClick={() => setSelectedProviderId(provider.id)}
+                  onClick={() => {
+                    setSelectedProviderId(provider.id);
+                    // On mobile, close sidebar after selection
+                    if (window.innerWidth <= 1150) {
+                      setSidebarVisible(false);
+                    }
+                  }}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       setSelectedProviderId(provider.id);
                       e.preventDefault();
+                      // On mobile, close sidebar after selection
+                      if (window.innerWidth <= 1150) {
+                        setSidebarVisible(false);
+                      }
                     }
                   }}
                   tabIndex={0}
@@ -118,9 +177,18 @@ const AdminRentals = () => {
         )}
       </aside>
       
-      <main className="provider-cars-list">
-        <h1>Cars for Provider</h1>
-        
+      <main className={`provider-cars-list ${sidebarVisible ? 'sidebar-visible' : 'sidebar-hidden'}`}>
+        <div className="provider-cars-list-header">      
+          <button 
+            className="toggle-sidebar-btn mobile-only"
+            onClick={toggleSidebar}
+            aria-label={sidebarVisible ? "Hide providers sidebar" : "Show providers sidebar"}
+            aria-expanded={sidebarVisible}
+          >
+            <List size={24} weight="bold" />
+        </button>
+          <h1>Cars for {selectedProviderId ? providers.find(p => p.id === selectedProviderId)?.companyName : 'Provider'}</h1>
+        </div>
         <div aria-live="polite">
           {isLoadingCars ? (
             <p>Loading cars...</p>

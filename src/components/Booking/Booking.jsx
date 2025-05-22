@@ -19,10 +19,6 @@ const Booking = () => {
 
 	const { bookingData : rentalDetails, setBookingData : setRentalDetails } = useContext(BookingContext);
 
-	useEffect(() => {
-		console.log("Updated rentalDetails:", rentalDetails);
-	}, [rentalDetails]);
-
 	const totalCost = Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24),
 		rentalDetails.pricePerDay)
 
@@ -33,7 +29,7 @@ const Booking = () => {
 	async function fetchCarDetails() {
 		setIsLoading(true);
 		try {
-			const response = await fetch(`https://norwegian-rental.online/cars/${carId}`, {
+			const response = await fetch(`https://norwegian-rental.online/api/cars/${carId}`, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
@@ -92,7 +88,7 @@ const Booking = () => {
 
 			const accountId = getAccountId();
       try {
-        const response = await fetch(`https://norwegian-rental.online/accounts/${accountId}`, {
+        const response = await fetch(`https://norwegian-rental.online/api/accounts/${accountId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -159,7 +155,7 @@ const Booking = () => {
 		console.log("Booking data: ", bookingData);
 
 		try {
-			const response = await fetch("https://norwegian-rental.online/rentals", {
+			const response = await fetch("https://norwegian-rental.online/api/rentals", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

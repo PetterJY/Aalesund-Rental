@@ -95,7 +95,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
         searchParams.append("providerId", providerId || getAccountId());
         searchParams.append("carId", car.id);
 
-        const url = `https://norwegian-rental.online/rentals/my-rentals?${searchParams.toString()}`;
+        const url = `https://norwegian-rental.online/api/rentals/my-rentals?${searchParams.toString()}`;
         console.log("Request URL: ", url);
         const response = await fetch(url, {
           method: 'GET',
@@ -167,7 +167,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`https://norwegian-rental.online/cars/${car.id}`, {
+      const response = await fetch(`https://norwegian-rental.online/api/cars/${car.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
         available: !displayCar.available,
       };
 
-      const response = await fetch(`https://norwegian-rental.online/cars/${car.id}`, {
+      const response = await fetch(`https://norwegian-rental.online/api/cars/${car.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -267,7 +267,7 @@ const handleExtraFeaturesUpdate = async (selectedFeatureIds) => {
 
 const fetchFeatureName = async (featureId) => {
   try {
-    const response = await fetch(`https://norwegian-rental.online/extra-features/${featureId}`, {
+    const response = await fetch(`https://norwegian-rental.online/api/extra-features/${featureId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

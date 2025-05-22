@@ -73,7 +73,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch(`https://norwegian-rental.online/accounts/${accountId}`, {
+      const response = await fetch(`https://norwegian-rental.online/api/accounts/${accountId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -145,10 +145,7 @@ const Account = () => {
         phoneNumber: userData.phoneNumber
       };
 
-
-      console.log('Updated user details:', userDetails);
-
-      const response = await fetch(`https://norwegian-rental.online/users/${accountId}`, {
+      const response = await fetch(`https://norwegian-rental.online/api/users/${accountId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -191,7 +188,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('https://norwegian-rental.online/providers/' + accountId, {
+      const response = await fetch('https://norwegian-rental.online/api/providers/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -251,7 +248,7 @@ const Account = () => {
 
       console.log('Updated provider details:', providerDetails);
 
-      const response = await fetch('https://norwegian-rental.online/providers/' + accountId, {
+      const response = await fetch('https://norwegian-rental.online/api/providers/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -289,7 +286,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('https://norwegian-rental.online/admins/' + accountId, {
+      const response = await fetch('https://norwegian-rental.online/api/admins/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -353,7 +350,7 @@ const Account = () => {
 
       console.log('Updated admin details:', adminDetails);
 
-      const response = await fetch('https://norwegian-rental.online/admins/' + accountId, {
+      const response = await fetch('https://norwegian-rental.online/api/admins/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

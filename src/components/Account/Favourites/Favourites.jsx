@@ -17,7 +17,7 @@ const Favourites = () => {
       setIsLoading(true);
       try {
 
-        const response = await fetch(`https://norwegian-rental.online/users/${getAccountId()}/favourites`, {
+        const response = await fetch(`https://norwegian-rental.online/api/users/${getAccountId()}/favourites`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

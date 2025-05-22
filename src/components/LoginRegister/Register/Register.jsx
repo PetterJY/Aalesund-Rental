@@ -80,7 +80,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
     console.log("Data object: ", data);
 
     try {
-      const response = await fetch('https://norwegian-rental.online/users/register', {
+      const response = await fetch('https://norwegian-rental.online/api/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
 
   async function login(loginDetails) {
     try {
-      const response = await fetch('https://norwegian-rental.online/auth/login', {
+      const response = await fetch('https://norwegian-rental.online/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

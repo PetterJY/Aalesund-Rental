@@ -49,6 +49,8 @@
   z-index: 0; /* Behind the logo but above the container background */
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   border-radius: 12px;
+  
+  z-index: 0;
 }
 
 .rental-page .no-cars-image {
@@ -56,11 +58,12 @@
   width: 100%;
   height: auto;
   max-width: 685px;
+  z-index: 0;
 }
 
 .rental-page .no-cars-message-text {
   color: white;
-  z-index: 1000000;
+  z-index: 1;
   font-size: var(--font-size-xl);
   margin-top: calc(-1*var(--spacing-xl));
 }

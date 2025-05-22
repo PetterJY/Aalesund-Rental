@@ -18,7 +18,7 @@ const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, s
       setError(null); // Reset error state
       async function fetchCarTypes() {
         try {
-          const response = await fetch('https://norwegian-rental.online/cars/car-types', {
+          const response = await fetch('https://norwegian-rental.online/api/cars/car-types', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

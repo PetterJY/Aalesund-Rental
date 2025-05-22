@@ -120,7 +120,7 @@ export const makeApiRequest = async (url, options = {}) => {
 
     try {
       console.log("Attempting to refresh access token");
-      const response = await fetch("https://norwegian-rental.online/auth/refresh-token", {
+      const response = await fetch("https://norwegian-rental.online/api/auth/refresh-token", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -163,7 +163,7 @@ export const makeApiRequest = async (url, options = {}) => {
         }
 
         try {
-          const refreshResponse = await fetch("https://norwegian-rental.online/auth/refresh-token", {
+          const refreshResponse = await fetch("https://norwegian-rental.online/api/auth/refresh-token", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

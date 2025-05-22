@@ -1,18 +1,27 @@
 import "./CarDisplay.css";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { getAccountId } from "../../utils/JwtUtility";
 import { mapCarImage } from '../../utils/CarImageMapper';
 import passengerImage from "../../../resources/images/passenger.png";
 import { Car, Seatbelt, PlusCircle, CaretDown, Star } from "@phosphor-icons/react";
+import {BookingContext} from "../../utils/BookingContext";
 
 const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
   const [isFavourited, setIsFavourited] = useState(false);
   const carImage = mapCarImage(car.carBrand, car.modelName);
-  const rentalDays = car.rentalDays || 1; // fallback to 1 if not present
-  const totalPrice = car.priceTotal || (car.pricePerDay * rentalDays);
 
-  const visibileStar = role === "ROLE_USER" ? true : false;
-  
+  const visibileStar = role === "ROLE_USER";
+
+  const { bookingData : rentalDetails } = useContext(BookingContext);
+
+  const totalPrice = Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24),
+    car.pricePerDay)
+
+  useEffect(() => {
+    console.log("CarDisplay rentalDetails", rentalDetails);
+    console.log("totalPrice", totalPrice);
+  }, []);
+
   useEffect(() => {
     if (role !== "ROLE_USER") {
       console.warn("Account is not of ROLE_USER.");
@@ -24,7 +33,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
     const fetchIsFavourited = async () => {
       try {
         const accountId = getAccountId();
-        const response = await fetch(`https://norwegian-rental.online/users/${accountId}/favourites`, {
+        const response = await fetch(`https://norwegian-rental.online/api/users/${accountId}/favourites`, {
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
           },
@@ -49,7 +58,7 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
     }
 
     try {
-      const response = await fetch(`https://norwegian-rental.online/users/${getAccountId()}/favourites/${car.id}`, {
+      const response = await fetch(`https://norwegian-rental.online/api/users/${getAccountId()}/favourites/${car.id}`, {
         method : isFavourited ? "DELETE" : "POST",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,

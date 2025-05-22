@@ -1,6 +1,6 @@
 package no.ntnu.entity.models;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -13,7 +13,7 @@ import jakarta.persistence.Entity;
 public class Admins extends Accounts {
 
   @Column(nullable = false)
-  @ApiModelProperty("The name of the admin")
+  @Schema(description = "The name of the admin")
   private String name;
 
   public Admins() {

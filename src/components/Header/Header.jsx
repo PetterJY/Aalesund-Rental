@@ -95,7 +95,7 @@ const Header = () => {
       return null;
     }
     
-    const response = await fetch(`https://norwegian-rental.online/accounts/${accountId}`, {
+    const response = await fetch(`https://norwegian-rental.online/api/accounts/${accountId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

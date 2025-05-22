@@ -207,7 +207,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
     HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://norwegian-rental.online/auth/login"))
+				.uri(URI.create("https://norwegian-rental.online/api/auth/login"))
 				.header("Content-Type", "application/json")
 				.POST(HttpRequest.BodyPublishers.ofString(json))
 				.build();
@@ -280,7 +280,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://norwegian-rental.online/cars"))
+				.uri(URI.create("https://norwegian-rental.online/api/cars"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -311,7 +311,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://norwegian-rental.online/admins/register"))
+				.uri(URI.create("https://norwegian-rental.online/api/admins/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -359,7 +359,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://norwegian-rental.online/rentals"))
+				.uri(URI.create("https://norwegian-rental.online/api/rentals"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -388,7 +388,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://norwegian-rental.online/extra-features"))
+				.uri(URI.create("https://norwegian-rental.online/api/extra-features"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -421,7 +421,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://norwegian-rental.online/providers/register"))
+				.uri(URI.create("https://norwegian-rental.online/api/providers/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))
@@ -456,7 +456,7 @@ public class AddDummyObjectsToDatabase {
 				+ "}";
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://norwegian-rental.online/users/register"))
+				.uri(URI.create("https://norwegian-rental.online/api/users/register"))
 				.header("Content-Type", "application/json")
 				.header("Authorization", "Bearer " + jwt_token)
 				.POST(HttpRequest.BodyPublishers.ofString(json))

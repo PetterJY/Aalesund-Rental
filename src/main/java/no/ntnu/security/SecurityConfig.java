@@ -55,15 +55,15 @@ public class SecurityConfig {
               "/account/favourites",
               "/account/admin-rentals",
 
-              "/auth/login", 
-              "/auth/refresh-token",
-              "/users/register",
-              "/providers/register",
-              "/admins/register",
-              "/cars/search",
-              "/cars/locations",
-              "/cars/{id}",
-              "/cars"
+              "/api/auth/login",
+              "/api/auth/refresh-token",
+              "/api/users/register",
+              "/api/providers/register",
+              "/api/admins/register",
+              "/api/cars/search",
+              "/api/cars/locations",
+              "/api/cars/{id}",
+              "/api/cars"
               ).permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
