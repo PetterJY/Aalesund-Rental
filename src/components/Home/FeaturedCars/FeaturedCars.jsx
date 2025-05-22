@@ -18,7 +18,6 @@ const FeaturedCars = () => {
         setCars(data.slice(0, 5)); 
         setCardOrder([...Array(Math.min(5, data.length)).keys()]);
       } catch (error) {
-        console.error('Error fetching featured cars:', error);
       }
     }
     fetchCars();

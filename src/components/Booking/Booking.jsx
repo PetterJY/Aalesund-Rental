@@ -44,7 +44,6 @@ const Booking = () => {
 
         }
         catch(error) {
-            console.error(error);
         } finally {
             setIsLoading(false);
         }
@@ -76,7 +75,6 @@ const Booking = () => {
         const accountDetails = await makeApiRequest(`http://localhost:8080/api/accounts/${accountId}`);
         setAccountDetails(accountDetails);
       } catch (error) {
-        console.error(error);
       }
     }
 
@@ -135,7 +133,6 @@ const Booking = () => {
 
             return booking;
         } catch (error) {
-            console.error(error);
         }
     }
 

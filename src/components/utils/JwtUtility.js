@@ -17,7 +17,6 @@ export const tokenIsValid = () => {
     }
     return true;
   } catch (error) {
-    console.error("Error decoding token:", error);
     return false;
   }
 };
@@ -38,7 +37,6 @@ export const isTokenExpired = () => {
     }
     return false;
   } catch (error) {
-    console.error("Error decoding token:", error);
     localStorage.removeItem("accessToken");
     return true;
   }
@@ -124,7 +122,6 @@ export const makeApiRequest = async (url, options = {}) => {
       accessToken = data.accessToken;
       localStorage.setItem("accessToken", accessToken);
     } catch (error) {
-      console.error("Failed to refresh token:", error);
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       throw error;
@@ -173,7 +170,6 @@ export const makeApiRequest = async (url, options = {}) => {
           }
           return retryResponse.status === 204 ? {} : await retryResponse.json();
         } catch (refreshError) {
-          console.error("Failed to refresh token:", refreshError);
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
           throw refreshError;
@@ -183,7 +179,6 @@ export const makeApiRequest = async (url, options = {}) => {
     }
     return response.status === 204 ? {} : await response.json();
   } catch (error) {
-    console.error("API request error:", error);
     throw error;
   }
 };

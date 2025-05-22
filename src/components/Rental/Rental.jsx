@@ -294,7 +294,6 @@ useEffect(() => {
       const data = await makeApiRequest(`http://localhost:8080/api/cars/search?${filterParams.toString()}`);
       setCars(data);
     } catch (error) {
-      console.error("Error fetching car data:", error);
       setCars([]); 
     }
   };

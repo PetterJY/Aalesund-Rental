@@ -32,7 +32,6 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
         const favourites = await makeApiRequest(`http://localhost:8080/api/users/${accountId}/favourites`);
         setIsFavourited(favourites.some(favCar => favCar.id === car.id));
       } catch (err) {
-        console.error("Error fetching favorites:", err);
       }
     };
     

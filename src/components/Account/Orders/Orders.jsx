@@ -28,9 +28,7 @@ const Orders = () => {
       try {
         const rentalDetails = await makeApiRequest(`http://localhost:8080/api/rentals/renter/${getAccountId()}`);
         setRentals(rentalDetails);
-        console.log('Fetched rentals:', rentalDetails);
       } catch (error) {
-        console.error('Error fetching rentals:', error);
         setRentals([]); 
       } finally {
         setIsLoading(false);
@@ -39,10 +37,12 @@ const Orders = () => {
     fetchRentals();
   }, []);
 
-  const filteredRentals = rentals.filter((rental) => {
-    if (selectedStatus === 'All') return true;
-    return rental.status === selectedStatus;
-  });
+  const filteredRentals = Array.isArray(rentals) 
+  ? rentals.filter((rental) => {
+      if (selectedStatus === 'All') return true;
+      return rental.status === selectedStatus;
+    })
+  : [];
 
   const statusOptions = ['All', 'PENDING', 'ACTIVE', 'CANCELLED', 'COMPLETED'];
 

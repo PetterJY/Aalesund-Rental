@@ -98,7 +98,6 @@ const retrieveCarDetails = () => {
       extraFeatureIds: selectedFeatures.length > 0 ? selectedFeatures : []
     };
   } catch (error) {
-    console.error('Error retrieving car details:', error);
     return null;
   }
 };
@@ -118,11 +117,9 @@ const retrieveCarDetails = () => {
         method: 'POST',
         body: JSON.stringify(carDetails),
       });
-      
+
       onClose(); 
     } catch (error) {
-      console.error('Error creating car:', error);
-      
       if (error.message && error.message.includes("400")) {
         setErrorMessage("Bad Request: Please check your input data.");
       } else if (error.message && error.message.includes("401")) {
