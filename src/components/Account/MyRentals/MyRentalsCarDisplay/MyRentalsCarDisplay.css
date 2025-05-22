@@ -47,6 +47,7 @@
   flex-direction: row;
   align-self: flex-start;
   justify-content: space-between;
+  height: 350px;
 }
 
 .rentals-car-display-card .car-details {
@@ -99,7 +100,7 @@
   color: var(--main-color);
 }
 
-.rentals-car-display-card .car-details p {
+.rentals-car-display-card .car-details dd {
   margin: 6px 0;
   padding: 0;
   color: var(--main-color);
@@ -210,6 +211,10 @@
     margin: 5px 0;
   }
 
+  .rentals-car-display-card .my-rental-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 
   .rentals-car-display-card .car-display-info {
   display: flex;
@@ -217,6 +222,13 @@
   flex-direction: column;
   align-self: flex-start;
   justify-content: space-between;
-  
-}
+  height: fit-content;
+  }
+
+  .my-rentals-car-display .availability-toggle-btn {
+    margin: 8px 8px;
+    padding: 6px 16px;
+    border-radius: 6px;
+  }
+
 }

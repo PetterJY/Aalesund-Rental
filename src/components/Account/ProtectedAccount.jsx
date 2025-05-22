@@ -13,20 +13,20 @@ const ProtectedAccount = () => {
       navigate('/home');
     }
   }, [isAuthenticated, isAuthInitialized, navigate]);
-
+  
   if (!isAuthInitialized) {
     return (
-      <div className="loading">
-        <h1>Loading...</h1>
+      <div className="loading" role="status" aria-live="polite">
+        <p>Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="account">
+    <main className="account">
       <AccountHeader />
       <Outlet />
-    </div>
+    </main>
   );
 };
 

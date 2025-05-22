@@ -57,44 +57,59 @@ const handleFeatureSelection = (featureId) => {
   }, [isCreateCarModalOpen]);
 
   return (
-    <div className="enum-modal">
-      <div className="modal-content">
-        <span className="close" onClick={toggleModal} aria-label="Close modal" tabIndex={0} role="button">
-          &times;
-        </span>
-        <h2>Select Extra Features</h2>
-        <input
-          type="text"
-          placeholder="Search features..."
-          className="search-input"
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        {isLoading && <p>Loading...</p>}
-        {!isLoading && (
-          <div className="enum-scrollable">
-            {extraFeatures
-              .filter((feature) =>
-                feature.name.toLowerCase().includes(searchQuery.toLowerCase())
-              )
-              .map((feature) => (
-                <div key={feature.id} className="enum-item">
-                  <label htmlFor={`feature-${feature.id}`}>{feature.name}</label>
-                  <input
-                    type="checkbox"
-                    id={`feature-${feature.id}`}
-                    value={feature.id}
-                    onChange={() => handleFeatureSelection(feature.id)}
-                    checked={selectedFeatures.includes(feature.id)}
-                  />
-                </div>
-              ))}
-          </div>
-        )}
-        <button className="confirm-button" onClick={toggleModal} aria-label="Confirm extra features selection">
-          Confirm
-        </button>
-      </div>
+  <dialog 
+    className="enum-modal" 
+    open={isCreateCarModalOpen}
+    aria-labelledby="extra-features-title"
+    aria-modal="true"
+  >
+    <div className="modal-content">
+      <button 
+        className="close" 
+        onClick={toggleModal} 
+        aria-label="Close modal"
+      >
+        &times;
+      </button>
+      <h2 id="extra-features-title">Select Extra Features</h2>
+      <input
+        type="text"
+        placeholder="Search features..."
+        className="search-input"
+        onChange={(e) => setSearchQuery(e.target.value)}
+        aria-label="Search extra features"
+      />
+      {isLoading && <p role="status" aria-live="polite">Loading...</p>}
+      {!isLoading && (
+        <fieldset className="enum-scrollable">
+          <legend className="visually-hidden">Available extra features</legend>
+          {extraFeatures
+            .filter((feature) =>
+              feature.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((feature) => (
+              <div key={feature.id} className="enum-item">
+                <label htmlFor={`feature-${feature.id}`}>{feature.name}</label>
+                <input
+                  type="checkbox"
+                  id={`feature-${feature.id}`}
+                  value={feature.id}
+                  onChange={() => handleFeatureSelection(feature.id)}
+                  checked={selectedFeatures.includes(feature.id)}
+                />
+              </div>
+            ))}
+        </fieldset>
+      )}
+      <button 
+        className="confirm-button" 
+        onClick={toggleModal} 
+        aria-label="Confirm extra features selection"
+      >
+        Confirm
+      </button>
     </div>
+  </dialog>
   );
 };
 

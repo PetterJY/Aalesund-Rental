@@ -522,7 +522,7 @@ background: var(--secondary-color-hover);
 }
 
 .react-datepicker__day--highlighted-custom-1 {
-  background-color: white !important;
+  background-color: var(--hover-color) !important;
 }
 
 .react-datepicker__day--highlighted-custom-2 {
@@ -550,6 +550,8 @@ background: var(--secondary-color-hover);
   background-color: black; /* Black background */
   color: white !important; /* White text */
 }
+
+
 
 /* Responsive adjustments */
 @media screen and (max-width: 1500px) {

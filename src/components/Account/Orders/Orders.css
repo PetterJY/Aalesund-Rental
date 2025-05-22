@@ -19,6 +19,13 @@
   width: 100%;
 }
 
+.orders .orders-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  max-width: 1600px;
+}
+
 .orders .orders-header {
   display: flex;
   flex-direction: row;
@@ -29,16 +36,19 @@
 }
 
 
-.orders .orders-header h1 {
+.orders .orders-header h2 {
+  font-size: 24px;
+  font-weight: bold;
   margin: 0 5px 0 0;
   padding: 0;
-  color: var(--main-color);
+  color: #252422;
   text-align: center;
   border-bottom: 2px solid white;
 }
 
 .orders .no-matching-status {
-  color: var(--main-color);
+  font-size: 20px;
+  color: #252422;
   text-align: center;
   margin-top: 20px;
   max-width: 1200px;

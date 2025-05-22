@@ -57,7 +57,21 @@ public class AddDummyObjectsToDatabase {
 		addUser("Sophia", "Anderson", "sophia.anderson@example.com", "password222", "66778899");
 		addUser("Michael", "Thomas", "michael.thomas@example.com", "password333", "77889900");
 		addUser("Olivia", "Martinez", "olivia.martinez@example.com", "password444", "99001122");
-		addUser("dave", "dave", "dave", "Dangerous2024", "12312312");
+		addUser("Lucas", "Evans", "lucas.evans@example.com", "password555", "22334455");
+		addUser("Mia", "Walker", "mia.walker@example.com", "password666", "33445566");
+		addUser("Ethan", "Hall", "ethan.hall@example.com", "password777", "44556677");
+		addUser("Ava", "Young", "ava.young@example.com", "password888", "55667788");
+		addUser("Noah", "King", "noah.king@example.com", "password999", "66778899");
+		addUser("Isabella", "Wright", "isabella.wright@example.com", "password000", "77889900");
+		addUser("Logan", "Scott", "logan.scott@example.com", "password101", "88990011");
+		addUser("Charlotte", "Green", "charlotte.green@example.com", "password202", "99001122");
+		addUser("James", "Baker", "james.baker@example.com", "password303", "10111213");
+		addUser("Amelia", "Adams", "amelia.adams@example.com", "password404", "12131415");
+		addUser("Benjamin", "Nelson", "benjamin.nelson@example.com", "password505", "13141516");
+		addUser("Harper", "Carter", "harper.carter@example.com", "password606", "14151617");
+		addUser("Elijah", "Mitchell", "elijah.mitchell@example.com", "password707", "15161718");
+		addUser("Emily", "Perez", "emily.perez@example.com", "password808", "16171819");
+		addUser("Alexander", "Roberts", "alexander.roberts@example.com", "password909", "17181920");
 
 		logger.info("Finished adding renters to the database.");
 
@@ -140,37 +154,45 @@ public class AddDummyObjectsToDatabase {
 
 		logger.info("Adding rentals to the database.");
 
-		addRental("18", "1", "1", "2025-06-01T00:00:00", "2025-06-05T00:00:00", "Oslo", "Bergen", 2800.0, "COMPLETED");
-		addRental("18", "1", "1", "2024-10-01T00:00:00", "2024-10-05T00:00:00", "Bergen", "Oslo", 2800.0, "PENDING");
-		addRental("19", "2", "2", "2025-06-02T00:00:00", "2025-06-06T00:00:00", "Stavanger", "Kristiansand", 2800.0, "ACTIVE");
-		addRental("20", "3", "3", "2025-06-03T00:00:00", "2025-06-07T00:00:00", "Trondheim", "Ålesund", 2800.0, "PENDING");
-		addRental("21", "4", "4", "2025-06-04T00:00:00", "2025-06-08T00:00:00", "Bergen", "Stavanger", 2800.0, "CANCELLED");
-		addRental("22", "5", "5", "2025-06-05T00:00:00", "2025-06-09T00:00:00", "Oslo", "Trondheim", 2800.0, "COMPLETED");
-		addRental("23", "6", "6", "2025-06-06T00:00:00", "2025-06-10T00:00:00", "Stavanger", "Oslo", 2800.0, "ACTIVE");
-		addRental("24", "7", "7", "2025-06-07T00:00:00", "2025-06-11T00:00:00", "Kristiansand", "Bergen", 2800.0, "PENDING");
-		addRental("25", "8", "8", "2025-06-08T00:00:00", "2025-06-12T00:00:00", "Ålesund", "Stavanger", 2800.0, "CANCELLED");
-		addRental("26", "9", "9", "2025-06-09T00:00:00", "2025-06-13T00:00:00", "Oslo", "Kristiansand", 2800.0, "COMPLETED");
-		addRental("27", "10", "10", "2025-06-10T00:00:00", "2025-06-14T00:00:00", "Bergen", "Ålesund", 2800.0, "ACTIVE");
+		// Special requirement rentals
+		// 1. CARS THAT ARE ALWAYS AVAILABLE - Mazda 2 (car ID 7) - no bookings
 
-		// June 2025 Rentals
-		addRental("18", "3", "3", "2025-06-01T00:00:00", "2025-06-07T00:00:00", "Bergen", "Oslo", 3200.0, "PENDING");
-		addRental("19", "5", "7", "2025-06-05T00:00:00", "2025-06-12T00:00:00", "Trondheim", "Stavanger", 2800.0, "ACTIVE");
-		addRental("20", "7", "9", "2025-06-10T00:00:00", "2025-06-18T00:00:00", "Drammen", "Bergen", 3000.0, "COMPLETED");
-		addRental("21", "12", "13", "2025-06-15T00:00:00", "2025-06-22T00:00:00", "Oslo", "Tromsø", 3500.0, "CANCELLED");
-		addRental("22", "17", "21", "2025-06-20T00:00:00", "2025-06-27T00:00:00", "Stavanger", "Kristiansand", 2900.0, "PENDING");
+		// 2. CARS BUSY FOR ONE PROVIDER BUT AVAILABLE FROM ANOTHER
+		// Volkswagen Golf - Provider 1's car is busy but Provider 2's car is always available
+		addRental("18", "1", "1", "2025-01-01T00:00:00", "2025-01-10T00:00:00", "Oslo", "Bergen", 5400.0, "COMPLETED");
+		addRental("19", "1", "1", "2025-03-05T00:00:00", "2025-03-15T00:00:00", "Oslo", "Bergen", 5400.0, "COMPLETED");
+		addRental("20", "1", "1", "2025-06-10T00:00:00", "2025-06-20T00:00:00", "Oslo", "Bergen", 5400.0, "PENDING");
+		addRental("21", "1", "1", "2025-09-01T00:00:00", "2025-09-10T00:00:00", "Oslo", "Bergen", 5400.0, "PENDING");
+		addRental("22", "1", "1", "2025-12-20T00:00:00", "2025-12-31T00:00:00", "Oslo", "Bergen", 5940.0, "PENDING");
+		// No rentals for Provider 2's Golf (car ID 2) - always available
 
-		// July 2025 Rentals
-		addRental("23", "1", "1", "2025-07-01T00:00:00", "2025-07-09T00:00:00", "Oslo", "Ålesund", 3400.0, "ACTIVE");
-		addRental("24", "4", "6", "2025-07-05T00:00:00", "2025-07-12T00:00:00", "Stavanger", "Bergen", 2700.0, "COMPLETED");
-		addRental("25", "6", "22", "2025-07-10T00:00:00", "2025-07-17T00:00:00", "Trondheim", "Oslo", 3100.0, "CANCELLED");
-		addRental("26", "8", "10", "2025-07-15T00:00:00", "2025-07-23T00:00:00", "Ålesund", "Stavanger", 3300.0, "PENDING");
-		addRental("27", "14", "16", "2025-07-20T00:00:00", "2025-07-28T00:00:00", "Bergen", "Drammen", 3000.0, "ACTIVE");
+		// 3. CARS BUSY FROM ALL PROVIDERS FOR SPECIFIC WEEKS
+		// Tesla Model Y - Both providers have cars booked the same weeks
+		// Spring vacation period - already past in May 2025
+		addRental("23", "3", "5", "2025-02-15T00:00:00", "2025-02-28T00:00:00", "Stavanger", "Oslo", 11700.0, "COMPLETED");
+		addRental("24", "4", "6", "2025-02-15T00:00:00", "2025-02-28T00:00:00", "Stavanger", "Oslo", 9100.0, "COMPLETED");
+		// Summer vacation period - future dates
+		addRental("25", "3", "5", "2025-07-01T00:00:00", "2025-07-31T00:00:00", "Stavanger", "Oslo", 27900.0, "PENDING"); 
+		addRental("26", "4", "6", "2025-07-01T00:00:00", "2025-07-31T00:00:00", "Stavanger", "Oslo", 21700.0, "PENDING");
+		// Christmas period - future dates
+		addRental("27", "3", "5", "2025-12-15T00:00:00", "2025-12-31T00:00:00", "Stavanger", "Oslo", 14400.0, "PENDING");
+		addRental("28", "4", "6", "2025-12-15T00:00:00", "2025-12-31T00:00:00", "Stavanger", "Oslo", 11200.0, "PENDING");
 
-		// August 2025 Rentals
-		addRental("18", "9", "11", "2025-08-01T00:00:00", "2025-08-08T00:00:00", "Ålesund", "Trondheim", 2800.0, "COMPLETED");
-		addRental("19", "10", "12", "2025-08-05T00:00:00", "2025-08-13T00:00:00", "Tromsø", "Oslo", 3600.0, "PENDING");
-		addRental("20", "13", "15", "2025-08-10T00:00:00", "2025-08-17T00:00:00", "Oslo", "Bergen", 3200.0, "ACTIVE");
-		addRental("21", "15", "18", "2025-08-15T00:00:00", "2025-08-22T00:00:00", "Tromsø", "Stavanger", 2900.0, "CANCELLED");
+		// 4. CARS FULLY BOOKED FOR THE ENTIRE YEAR (BMW M3)
+		// Provider 11 - spans in sequence covering the whole year
+		addRental("29", "11", "11", "2025-01-01T00:00:00", "2025-04-30T00:00:00", "Oslo", "Oslo", 48000.0, "COMPLETED");
+		addRental("30", "11", "11", "2025-05-01T00:00:00", "2025-08-31T00:00:00", "Oslo", "Oslo", 49200.0, "ACTIVE");
+		addRental("31", "11", "11", "2025-09-01T00:00:00", "2025-12-31T00:00:00", "Oslo", "Oslo", 48400.0, "PENDING");
+
+		// Provider 12 - two long periods covering the year
+		addRental("32", "12", "12", "2025-01-01T00:00:00", "2025-06-30T00:00:00", "Oslo", "Oslo", 81000.0, "ACTIVE");
+		addRental("23", "12", "12", "2025-07-01T00:00:00", "2025-12-31T00:00:00", "Oslo", "Oslo", 82800.0, "PENDING");
+
+		// Provider 13 - quarterly bookings
+		addRental("24", "13", "13", "2025-01-01T00:00:00", "2025-03-31T00:00:00", "Oslo", "Oslo", 39951.0, "COMPLETED");
+		addRental("25", "13", "13", "2025-04-01T00:00:00", "2025-06-30T00:00:00", "Oslo", "Oslo", 40861.0, "ACTIVE");
+		addRental("26", "13", "13", "2025-07-01T00:00:00", "2025-09-30T00:00:00", "Oslo", "Oslo", 41391.0, "PENDING");
+		addRental("27", "13", "13", "2025-10-01T00:00:00", "2025-12-31T00:00:00", "Oslo", "Oslo", 41859.0, "PENDING");
 
 		logger.info("Finished adding rentals to the database.");
 	}

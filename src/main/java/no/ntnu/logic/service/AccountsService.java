@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import no.ntnu.entity.CustomUserDetails;
@@ -25,15 +26,20 @@ public class AccountsService implements UserDetailsService {
 
   private final AccountsRepository accountsRepository;
 
+  private final PasswordEncoder passwordEncoder;
+
+
   /**
    * Constructor for AccountsService.
    *
    * @param accountsRepository the repository for accounts
    */
   @Autowired
-  public AccountsService(AccountsRepository accountsRepository) {
+  public AccountsService(AccountsRepository accountsRepository, 
+                         PasswordEncoder passwordEncoder) {
     logger.info("AccountsService initialized");
     this.accountsRepository = accountsRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   /**
@@ -71,6 +77,7 @@ public class AccountsService implements UserDetailsService {
    */
   public Accounts save(Accounts account) {
     logger.info("Saving account with id: {}", account.getId());
+    account.setPassword(passwordEncoder.encode(account.getPassword()));
     return accountsRepository.save(account);
   }
 

@@ -1,11 +1,9 @@
 .orders-dropdown {
   position: relative;
-  width: 200px;
-  font-family: Arial, sans-serif;
 }
 
 .orders-dropdown-selected {
-  border: 1px solid #252422;
+  border: 1px solid var(--main-color);
   border-radius: 5px;
   cursor: pointer;
   background-color: white;
@@ -15,6 +13,7 @@
   align-items: center;
   border-radius: 0px;
   font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
 }
 
 .orders-dropdown-selected:hover {
@@ -26,7 +25,7 @@
   top: 100%;
   left: 0;
   width: 100%;
-  border: 1px solid #252422;
+  border: 1px solid var(--main-color);
   border-radius: 5px;
   background-color: white;
   z-index: 10;
@@ -45,6 +44,11 @@
 }
 
 .orders-dropdown-option:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.orders-dropdown-option.focused {
   background-color: var(--secondary-color);
   color: white;
 }

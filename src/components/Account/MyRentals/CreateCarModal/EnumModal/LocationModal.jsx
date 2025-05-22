@@ -42,41 +42,53 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
   }, [isCreateCarModalOpen]);
 
   return (
-    <div className="enum-modal">
-      <div className="modal-content">
-        <span className="close" onClick={toggleModal}>&times;</span>
-        <h2>Select Location</h2>
-        <input
-          type="text"
-          placeholder="Search locations..."
-          className="search-input"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        {isLoading && <p>Loading...</p>}
-        {error && <p className="error-message">{error}</p>}
-        {!isLoading && !error && (
-          <div className="enum-scrollable">
-            {locations
-              .filter((location) => location.toLowerCase().includes(searchQuery.toLowerCase()))
-              .map((location) => (
-                <div key={location} className="enum-item">
-                  <label htmlFor={`location-${location}`}>{location}</label>
-                  <input
-                    type="radio"
-                    id={`location-${location}`}
-                    name="location"
-                    value={location}
-                    onChange={() => handleLocationSelection(location)}
-                    checked={selectedLocation === location}
-                  />
-                </div>
-              ))}
-          </div>
-        )}
+  <dialog 
+    className="enum-modal"
+    open={isCreateCarModalOpen}
+    aria-labelledby="location-modal-title"
+    aria-modal="true"
+  >
+    <div className="modal-content">
+      <button 
+        className="close" 
+        onClick={toggleModal}
+        aria-label="Close location selection"
+      >
+        &times;
+      </button>
+      <h2 id="location-modal-title">Select Location</h2>
+      <input
+        type="text"
+        placeholder="Search locations..."
+        className="search-input"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        aria-label="Search locations"
+      />
+      {isLoading && <p role="status" aria-live="polite">Loading...</p>}
+      {error && <p className="error-message" role="alert">{error}</p>}
+      {!isLoading && !error && (
+        <div className="enum-scrollable" role="radiogroup" aria-label="Available locations">
+          {locations
+            .filter((location) => location.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((location) => (
+              <div key={location} className="enum-item">
+                <label htmlFor={`location-${location}`}>{location}</label>
+                <input
+                  type="radio"
+                  id={`location-${location}`}
+                  name="location"
+                  value={location}
+                  onChange={() => handleLocationSelection(location)}
+                  checked={selectedLocation === location}
+                />
+              </div>
+            ))}
+        </div>
+      )}
       <button className="confirm-button" onClick={toggleModal} aria-label="Confirm location selection">Confirm</button>
-      </div>
     </div>
+  </dialog>
   );
 };
 

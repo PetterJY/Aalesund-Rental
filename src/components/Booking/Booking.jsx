@@ -239,56 +239,65 @@ const Booking = () => {
 				</header>
 				<section className="rental-schedule-container">
 					<div className="rental-schedule-logos">
-							<img src={storageLogo} className="pickup-logo" alt="pickup-logo"></img>
-							<div className="vertical-line"></div>
-							<img src={storageLogo} className="dropoff-logo" alt="dropoff-logo"></img>
+						<img src={storageLogo} className="pickup-logo" alt="Pickup location icon" />
+						<div className="vertical-line" aria-hidden="true"></div>
+						<img src={storageLogo} className="dropoff-logo" alt="Dropoff location icon" />
 					</div>
 					<div className="rental-schedule-text">
-						<div className="pickup-info">
-							<p className="pickup-dropoff-title">Pickup</p>
+						<dl className="pickup-info">
+							<dt className="pickup-dropoff-title">Pickup</dt>
 							{isLoading ? (
-								<p>Loading...</p>
+								<dd>Loading...</dd>
 							) : (
 								<>
-									<p>{`${rentalDetails.pickupLocation}`}</p>
-									<p className="pickup-dropoff-time">
-										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} , 
-										${formatDate(rentalDetails.pickupDate, "d. MMM, yyyy")}  | 
-										${formatDate(rentalDetails.pickupTime, "HH:mm")}`}
-									</p>
+									<dd>{rentalDetails.pickupLocation}</dd>
+									<dd className="pickup-dropoff-time">
+										<time dateTime={new Date(rentalDetails.pickupDate).toISOString()}>
+											{`${new Date().toLocaleDateString('en-US', {weekday: 'short'})} , 
+											${formatDate(rentalDetails.pickupDate, "d. MMM, yyyy")}  | 
+											${formatDate(rentalDetails.pickupTime, "HH:mm")}`}
+										</time>
+									</dd>
 								</>
 							)}
-						</div>
-						<div className="dropoff-info">
-							<p className="pickup-dropoff-title">Dropoff</p>
+						</dl>
+						<dl className="dropoff-info">
+							<dt className="pickup-dropoff-title">Dropoff</dt>
 							{isLoading ? (
-								<p>Loading...</p>
+								<dd>Loading...</dd>
 							) : (
-								<><p>{`${rentalDetails.dropoffLocation}`}</p>
-									<p className="pickup-dropoff-time">
-										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} ,
-										${formatDate(rentalDetails.dropoffDate, "d. MMM, yyyy")}  |
-								  	${formatDate(rentalDetails.dropoffTime, "HH:mm")}`}
-									</p>
+								<>
+									<dd>{rentalDetails.dropoffLocation}</dd>
+									<dd className="pickup-dropoff-time">
+										<time dateTime={new Date(rentalDetails.dropoffDate).toISOString()}>
+											{`${new Date().toLocaleDateString('en-US', {weekday: 'short'})} ,
+											${formatDate(rentalDetails.dropoffDate, "d. MMM, yyyy")}  |
+											${formatDate(rentalDetails.dropoffTime, "HH:mm")}`}
+										</time>
+									</dd>
 								</>
 							)}
-						</div>
+						</dl>
 					</div>
 				</section>
-				<footer className="payment-details">
-					<p className="booking-details-title">Renting costs</p>
+
+				<section className="payment-details">
+					<h3 className="booking-details-title">Renting costs</h3>
 					{isLoading ? (
-						<p>Loading...</p>
+						<p role="status" aria-live="polite">Loading...</p>
 					) : (
-						<>
-							<p>{`${(rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
-							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
-							<p>
-								{totalCost} kr/total
-							</p>
-						</>
+						<dl className="cost-breakdown">
+							<dt>Duration:</dt>
+							<dd>{`${Math.round((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24))} days`}</dd>
+							
+							<dt>Daily rate:</dt>
+							<dd>{`${Math.round(rentalDetails.pricePerDay)} kr/day`}</dd>
+							
+							<dt>Total cost:</dt>
+							<dd><strong>{Math.round(totalCost)} kr/total</strong></dd>
+						</dl>
 					)}
-				</footer>
+				</section>
 			</div>
 		</main>
   )
