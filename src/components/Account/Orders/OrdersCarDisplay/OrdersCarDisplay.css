@@ -6,7 +6,7 @@
   margin-bottom: 10px;
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  border: #252422 2px solid;
+  border: var(--main-color) 2px solid;
 }
 
 .orders-car-display-card:hover {
@@ -50,11 +50,9 @@
 }
 
 .orders-car-display-card #provider-name {
-  font-size: 20px;
-  color: #ffffff;
+  color: white;
   margin-left: 10px;
   margin-top: -20px;
-  font-weight: 200;
 }
 
 .orders-car-display-card .car-details {
@@ -66,19 +64,22 @@
 .orders-car-display-card .car-details h3 {
   margin: 0;
   padding: 0;
-  font-size: 20px;
-  color: #252422;
+  color: var(--main-color);
 }
 
 .orders-car-display-card .car-details p {
-  margin: 3px 0;
-  padding: 0;
-  font-size: 16px;
-  color: #252422;
+  color: var(--main-color);
 }
 
-.orders-car-display-card .car-details b {
-  font-weight: 500;
+.orders-car-display-card .car-details dl {
+  margin: 0;
+  padding: 0;
+}
+
+.orders-car-display-card .car-details dd {
+  margin: 3px 0;
+  padding: 0;
+  color: var(--main-color);
 }
 
 .orders-car-display-card .rental-schedule-container {
@@ -113,7 +114,7 @@
 .orders-car-display-card .cancel-order{
   display: flex;
   flex-direction: row;
-  background-color: #252422;
+  background-color: var(--secondary-color);
   border-radius: 10px;  
   color: white;
   border: none;
@@ -122,16 +123,17 @@
   align-items: center;
   padding: 0px 10px;
   margin-bottom: auto;
+  height: 40px;
 }
 
 .orders-car-display-card .cancel-order:hover {
-  background-color: #FF5F00;
+  background-color: var(--secondary-color-hover);
   transition: 0.3s;
 }
 
 /*chenges color when pressed*/
 .orders-car-display-card .cancel-order:active {
-  background-color: #252422;
+  background-color: var(--main-color);
   transition: 0.1s;
 }
 
@@ -145,12 +147,95 @@
 }
 
 
-.orders-car-display-card .order-status-container p {
+ .orders-car-display-card .order-status-label {
   color: black;
-}
+  margin: auto 12px 12px auto
+ }
+
 
 .orders-car-display-card .cancel-order p {
   color: white;
+}
+.verify-slide-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 380px;
+  background-color: white;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: slide-in 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.orders-car-display-card .verify-panel-content {
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.orders-car-display-card .verify-panel-content h4 {
+  font-size: 22px;
+  margin-bottom: 16px;
+  color: var(--secondary-color);
+}
+
+.orders-car-display-card .verify-car-info {
+  background-color: var(--hover-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.orders-car-display-card .verify-car-name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.orders-car-display-card .verify-warning {
+  color: var(--secondary-color);
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.orders-car-display-card .verify-buttons {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.orders-car-display-card .verify-keep-btn {
+  padding: 12px;
+  border: 1px solid var(--hover-color-darker);
+  background-color: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.orders-car-display-card .verify-cancel-btn {
+  padding: 12px;
+  border: none;
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 950px) {
@@ -166,7 +251,7 @@
     min-width: 100px;
     min-height: none;
   }
-
+  
   .orders-car-display-card .car-image {
     width: 50% ;
     height: auto;
@@ -183,7 +268,7 @@
   .orders-car-display-card .cancel-order{
     display: flex;
     flex-direction: row;
-    background-color: #252422;
+    background-color: var(--main-color);
     border-radius: 10px;  
     color: white;
     border: none;
@@ -193,7 +278,7 @@
     padding: 0px 10px;
     margin-left: 0px;
   }
-
+  
   .orders-car-display-card .order-status-container {
     margin-left: 30px;
     display: flex;
@@ -203,6 +288,24 @@
     height:100%;
   }
   
+
+}
+
+@media (max-width: 768px) {
+   .orders-car-display-card .verify-slide-panel {
+    max-width: none;
+  }
+  
+  .orders-car-display-card .verify-slide-panel::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background-color);
+    z-index: -1;
+  }
 }
 
 @media screen and (max-width: 650px) {
@@ -216,7 +319,7 @@
     min-width: 100px;
     min-height: none;
   }
-
+  
   .orders-car-display-card .car-image {
     width: 50% ;
     height: auto;

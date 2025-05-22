@@ -13,7 +13,7 @@ const FeaturedCars = () => {
 useEffect(() => {
   async function fetchCars() {
     try {
-      const response = await fetch('http://localhost:8080/cars', {
+      const response = await fetch('http://localhost:8080/api/cars', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,6 @@ useEffect(() => {
     if (position === 1) return 'car-left-card';
     if (position === 2) return 'car-right-card';
     if (position === 3) return 'hidden-card-right';
-    if (position === 4) return 'hidden-card-right';
   }
 
   const shouldIndicatorBeActive = (cardId) => {
@@ -115,7 +114,7 @@ useEffect(() => {
         <h1>Our Featured Cars</h1>
         <div className="featured-cars-with-controls">
           <div className="featured-cars">
-            {cardOrder.map((id) => {
+            {cardOrder.slice(0, 4).map((id) => {
               const car = cars[id];
               if (!car) return null;
               return (
@@ -131,9 +130,6 @@ useEffect(() => {
                     alt={`${car.carBrand} ${car.modelName}`}
                     className="featured-car-image"
                   />
-                  <div className="featured-car-info">
-                    <h2>{car.carBrand} {car.modelName} {car.id}</h2>
-                  </div>
                 </div>
               );
             })}
@@ -144,17 +140,22 @@ useEffect(() => {
               <div className={`indicator ${shouldIndicatorBeActive(1) ? 'active' : ''}`}/>
               <div className={`indicator ${shouldIndicatorBeActive(2) ? 'active' : ''}`}/>
               <div className={`indicator ${shouldIndicatorBeActive(3) ? 'active' : ''}`}/>
-              <div className={`indicator ${shouldIndicatorBeActive(4) ? 'active' : ''}`}/>
             </div>
             <div className="buttons">
-              <button className={`prev-button ${isButtonDisabled ? 'disabled' : ''}`}
-                      onClick={handlePreviousClick}
-                      disabled={isButtonDisabled}>
+              <button
+                className={`prev-button ${isButtonDisabled ? 'disabled' : ''}`}
+                onClick={handlePreviousClick}
+                disabled={isButtonDisabled}
+                aria-label="Show previous featured car"
+              >
                 <CaretLeft size={18} weight="bold" className="caret-icon" id="caret-previous"/>
               </button>
-              <button className={`next-button ${isButtonDisabled ? 'disabled' : ''}`}
-                      onClick={handleNextClick}
-                      disabled={isButtonDisabled}>
+              <button
+                className={`next-button ${isButtonDisabled ? 'disabled' : ''}`}
+                onClick={handleNextClick}
+                disabled={isButtonDisabled}
+                aria-label="Show next featured car"
+              >
                 <CaretRight size={18} weight="bold" className="caret-icon" id="caret-next"/>
               </button>
             </div>

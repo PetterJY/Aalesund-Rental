@@ -19,6 +19,13 @@
   width: 100%;
 }
 
+.orders .orders-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  max-width: 1600px;
+}
+
 .orders .orders-header {
   display: flex;
   flex-direction: row;

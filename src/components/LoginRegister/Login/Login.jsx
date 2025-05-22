@@ -4,7 +4,6 @@ import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import { useAuth } from '../../utils/AuthContext';
 import { Eye, EyeSlash } from '@phosphor-icons/react';
 import '../LoginRegister.css';
-import '../../App.css';
 
 const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
   const [mode, setMode] = useState(defaultMode);
@@ -46,7 +45,7 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
     const loginDetails = retrieveData();
 
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
+      const response = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,8 +127,9 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
                       type="button"
                       className="toggle-password-button"
                       onClick={togglePasswordVisibility}
+                      aria-label={passwordVisible ? "Hide password" : "Show password"}
                     >
-                      {passwordVisible ? <EyeSlash color="#FF5F00" /> : <Eye color="#FF5F00" />}
+                      {passwordVisible ? <EyeSlash color="var(--secondary-color)" /> : <Eye color="var(--secondary-color)" />}
                     </button>
                   </div>
 
@@ -139,11 +139,11 @@ const LoginButton = ({ closeModal, isModalVisible, defaultMode }) => {
                     </p>
                   )}
 
-                  <button id="submit-button" type="submit">Login</button>
+                  <button id="submit-button" type="submit" aria-label="Login">Login</button>
                 </form>
                 <section id="register-forgot-wrapper">
-                  <button className="toggle-login-register-button" onClick={() => toggleMode('register')}>Create account</button>
-                  <button className="forgot-password-button" onClick={() => toggleMode('forgotPassword')}>Forgot password</button>
+                  <button className="toggle-login-register-button" onClick={() => toggleMode('register')} aria-label="Create account">Create account</button>
+                  <button className="forgot-password-button" onClick={() => toggleMode('forgotPassword')} aria-label="Forgot password">Forgot password</button>
                 </section>
               </>
             )}

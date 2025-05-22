@@ -1,11 +1,10 @@
 .top-header {
   position: relative;
-  z-index: 1000;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #1A1A1A;
+  background-color: var(--main-color);
   padding: 0 80px 0 80px;
 }
 
@@ -15,7 +14,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--neutral-color-hover);
 }
 
 .desktop-header {
@@ -77,6 +76,41 @@
   visibility 0s 0.4s;
 }
 
+.date-time-menu-desktop {
+  display: flex;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: 24px;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+  background-color: var(--neutral-color-background);
+  height: 44px;
+  width: 500px;
+  border-radius: 16px;
+  padding: 12px;
+  justify-content: space-between;
+  transition: transform 2s ease-in-out;
+}
+
+.date-time-menu-mobile {
+  display: flex;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+  flex-direction: row;
+  align-items: center;
+  align-self: center;
+  height: 44px;
+  width: 100%;
+  border-radius: 160px;
+  padding: 12px;
+  margin-bottom: 6px;
+  justify-content: space-between;
+  transition: transform 2s ease-in-out;
+  background-color: var(--neutral-color-background);
+}
+
 .date-time-popup-menu.open {
   transform: translateY(0);
   visibility: visible;
@@ -100,16 +134,18 @@
 }
 
 .nav-bar {
+  position: relative;
   display: flex;
   flex-direction: row;
   margin-left: auto;
 }
 
 #login-create {
-  font-size: 16px;
-  margin-left: auto;
+  position: relative;
+  margin-left: 12px;
   display: flex;
   align-items: center;
+  text-wrap: nowrap;
   color: white;
   background: none;
   border: none;
@@ -148,7 +184,7 @@
     width: 100vw;
     transition: none;
   }
-  
+
   .menu-wrapper {
     box-sizing: border-box;
     margin-bottom: auto;
@@ -195,3 +231,6 @@
     color: black;
   }
 }
+
+
+  

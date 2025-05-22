@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { getAccountId, getRole } from '../utils/JwtUtility';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
+import RegisterProvider from '../LoginRegister/Register/RegisterProvider';
 import './Account.css';
-import '../App.css';
 
 const Account = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isCreateProviderModalVisible, setIsCreateProviderModalVisible] = useState(false);
   
   useEffect(() => {
     setShowErrorMessage(false);
@@ -34,8 +35,18 @@ const Account = () => {
     setIsChangePasswordModalVisible(false);
   };
 
+  const openCreateProviderModal = () => {
+    setIsCreateProviderModalVisible(true);
+  };
+
+  const closeCreateProviderModal = () => {
+    setIsCreateProviderModalVisible(false);
+  };
+
   const [accountId, setAccountId] = useState(getAccountId());
   const [role, setRole] = useState('');
+
+  const [messageType, setMessageType] = useState('error');
 
   useEffect(() => {
     setAccountId(getAccountId());
@@ -50,7 +61,7 @@ const Account = () => {
     } else if (role === 'ROLE_ADMIN') {
       fetchAdminData();
     }
-  });
+  }, [role, accountId]); // Add dependencies
 
   async function updateAccountInformation() {
     if (role === 'ROLE_USER') {
@@ -62,8 +73,6 @@ const Account = () => {
     }
   }
 
-  //USER SECTION:
-
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -74,7 +83,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+      const response = await fetch(`http://localhost:8080/api/accounts/${accountId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -88,6 +97,17 @@ const Account = () => {
       }
 
       const data = await response.json();
+
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      
+      if (document.getElementById('first-name')) {
+        document.getElementById('first-name').value = data.firstName;
+      }
+      if (document.getElementById('last-name')) {
+        document.getElementById('last-name').value = data.lastName;
+      }
+      
       return data;
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -102,18 +122,16 @@ const Account = () => {
       return;
     }
 
-    const updatedUserDetails = {
-      updatedFirstName: document.getElementById('first-name').value,
-      updatedLastName: document.getElementById('last-name').value,
-    };
+    const updatedFirstName = document.getElementById('first-name').value;
+    const updatedLastName = document.getElementById('last-name').value;
     
-    if (updatedUserDetails.updatedFirstName === '' || updatedUserDetails.updatedLastName === '') {
+    if (updatedFirstName === '' || updatedLastName === '') {
       setErrorMessage('Please fill in all fields.');
       setShowErrorMessage(true);
       return;
     }
     
-    if (updatedUserDetails.updatedFirstName === firstName && updatedUserDetails.updatedLastName === lastName) {
+    if (updatedFirstName === firstName && updatedLastName === lastName) {
       setErrorMessage('You can not update your account with the same data.');
       setShowErrorMessage(true);
       return;
@@ -128,19 +146,16 @@ const Account = () => {
         return;
       }
 
-      const oldFirstName = firstName;
-      const oldLastName = lastName;
-
+      // Create properly formatted user details object
       const userDetails = {
-        ...userData, // Include all existing fields
-        firstName: updatedUserDetails.updatedFirstName,
-        lastName: updatedUserDetails.updatedLastName,
+        firstName: updatedFirstName,
+        lastName: updatedLastName,
+        email: userData.email,
+        password: userData.password,
+        phoneNumber: userData.phoneNumber
       };
 
-
-      console.log('Updated user details:', userDetails);
-
-      const response = await fetch(`http://localhost:8080/users/${accountId}`, {
+      const response = await fetch(`http://localhost:8080/api/users/${accountId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -148,27 +163,33 @@ const Account = () => {
         },
         body: JSON.stringify(userDetails),
       });
+
       if (!response.ok) {
         console.error('Failed to update user data:', response.statusText);
         setErrorMessage('Failed to update user data. Please try again.');
         setShowErrorMessage(true);
         return;
       }
-      if (response.ok) {
-        const data = await response.json();
-        setFirstName(data.firstName);
-        document.getElementById('first-name').value = firstName;
-        setLastName(data.lastName);
-        document.getElementById('last-name').value = lastName;
-      }
+
+      // Update state and input fields with the new values
+      const data = await response.json();
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      
+      // Set the input fields to the NEW values from the response
+      document.getElementById('first-name').value = data.firstName;
+      document.getElementById('last-name').value = data.lastName;
+      
+      setErrorMessage("Profile updated successfully!");
+      setMessageType('success');
+      setShowErrorMessage(true);
+
     } catch (error) {
       console.error('Error updating user data:', error);
       setErrorMessage('An error occurred while updating user data. Please try again.');
       setShowErrorMessage(true);
     }
   }
-
-  // PROVIDER SECTION:
 
   async function fetchProviderData() {
     if (role !== 'ROLE_PROVIDER') {
@@ -177,7 +198,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/providers/' + accountId, {
+      const response = await fetch('http://localhost:8080/api/providers/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -190,7 +211,8 @@ const Account = () => {
       }
       const data = await response.json();
       setCompanyName(data.companyName);
-      document.getElementById('company-name').value = companyName;
+      // USE DATA FROM RESPONSE, not the state variable
+      document.getElementById('company-name').value = data.companyName;
       return data;
     } catch (error) {
       console.error('Error fetching provider data:', error);
@@ -230,13 +252,13 @@ const Account = () => {
       }
 
       const providerDetails = {
-        ...providerData, // Include all existing fields
+        ...providerData, 
         companyName: updatedCompanyName,
       };
 
       console.log('Updated provider details:', providerDetails);
 
-      const response = await fetch('http://localhost:8080/providers/' + accountId, {
+      const response = await fetch('http://localhost:8080/api/providers/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -253,7 +275,12 @@ const Account = () => {
       if (response.ok) {
         const data = await response.json();
         setCompanyName(data.companyName);
-        document.getElementById('company-name').value = companyName;
+        document.getElementById('company-name').value = data.companyName;
+
+        setErrorMessage("Company profile updated successfully!");
+        setMessageType('success');
+        setShowErrorMessage(true);
+        
       }
     } catch (error) {
       console.error('Error updating provider data:', error);
@@ -262,8 +289,6 @@ const Account = () => {
     }
   }
 
-  //ADMIN SECTION:
-
   async function fetchAdminData() {
     if (role !== 'ROLE_ADMIN') {
       console.error('Unauthorized access: Admin role is not ROLE_ADMIN');
@@ -271,7 +296,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/admins/' + accountId, {
+      const response = await fetch('http://localhost:8080/api/admins/' + accountId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -285,8 +310,11 @@ const Account = () => {
       }
 
       const data = await response.json();
-      setUsername(data.name);
-      document.getElementById('username').value = username;
+      console.log('Admin data:', data);
+
+      const usernameValue = data.name;
+      setUsername(usernameValue);
+      document.getElementById('username').value = data.name;
       return data;
     } catch (error) {
       console.error('Error fetching admin data:', error);
@@ -326,13 +354,13 @@ const Account = () => {
       }
 
       const adminDetails = {
-        ...adminData, // Include all existing fields
-        username: updatedUsername,
+        ...adminData, 
+        name: updatedUsername,
       };
 
       console.log('Updated admin details:', adminDetails);
 
-      const response = await fetch('http://localhost:8080/admins/' + accountId, {
+      const response = await fetch('http://localhost:8080/api/admins/' + accountId, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -351,7 +379,11 @@ const Account = () => {
       if (response.ok) {
         const data = await response.json();
         setUsername(data.username);
-        document.getElementById('username').value = username;
+        document.getElementById('username').value = data.name;
+
+        setErrorMessage("Admin profile updated successfully!");
+        setMessageType('success');
+        setShowErrorMessage(true);
       }
     } catch (error) {
       console.error('Error updating admin data:', error);
@@ -361,48 +393,77 @@ const Account = () => {
   }
     
   return (
-    <div className="account">
+    <main className="account">
       <section className="account-section">
         <h1>Account</h1>
         <h2>Personal Information</h2>
 
         {role === 'ROLE_USER' && (
           <>
-            <h3>First name</h3>
+            <label htmlFor="first-name">First name</label>
             <input type="text" id="first-name" name="first-name" required />
-            <h3>Last name</h3>
+            <label htmlFor="last-name">Last name</label>
             <input type="text" id="last-name" name="last-name" required />
           </>
         )}
 
         {role === 'ROLE_PROVIDER' && (
           <>
-            <h3>Company name</h3>
+            <label htmlFor="company-name">Company name</label>
             <input type="text" id="company-name" name="company-name" required />    
           </>  
         )}
 
         {role === 'ROLE_ADMIN' && (
           <>
-            <h3>Username</h3>
+            <label htmlFor="username">Username</label>
             <input type="text" id="username" name="name" required />
           </>
         )}
 
-        {showErrorMessage && <p className="error-message">{errorMessage}</p>}
+        {showErrorMessage && (
+          <p className={messageType === 'error' ? "error-message" : "success-message"}>
+            {errorMessage}
+          </p>
+        )}
 
-        <button className="save-button" onClick={updateAccountInformation}>Save</button>
+        <button
+          className="save"
+          onClick={updateAccountInformation}
+          aria-label="Save account information"
+        >
+          Save
+        </button>
         <ul className="bottom-button-list">
           <li>
-            <button className="bottom-button" onClick={openDeleteModal}>
+            <button
+              className="bottom-button"
+              onClick={openDeleteModal}
+              aria-label="Delete Account"
+            >
               Delete Account
             </button>
           </li>
           <li>
-            <button className="bottom-button" onClick={openChangePasswordModal}>
+            <button
+              className="bottom-button"
+              onClick={openChangePasswordModal}
+              aria-label="Change Password"
+            >
               Change Password
             </button>
           </li>
+          {role === 'ROLE_ADMIN' && (
+          <li>
+            <button
+              className="bottom-button action-button"
+              onClick={openCreateProviderModal}
+              aria-label="Create Provider Account"
+            >
+              Create Provider Account
+            </button>
+          </li>
+        )}
         </ul>
       </section>
       <DeleteAccount
@@ -413,7 +474,13 @@ const Account = () => {
         isModalVisible={isChangePasswordModalVisible}
         closeModal={closeChangePasswordModal}
       />
-    </div>
+      {role === 'ROLE_ADMIN' && (
+      <RegisterProvider
+        isModalVisible={isCreateProviderModalVisible}
+        closeModal={closeCreateProviderModal}
+      />
+    )}
+    </main>
   );
 };
 

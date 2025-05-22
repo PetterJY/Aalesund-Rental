@@ -1,8 +1,8 @@
 package no.ntnu.entity.models;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 /**
  * Represents a refresh token entity in the system.
@@ -18,7 +19,7 @@ import jakarta.persistence.ManyToOne;
  * <ul>
  *   <li>id - The ID of the refresh token</li>
  *   <li>token - The refresh token string</li>
- *   <li>userId - The ID of the user</li>
+ *   <li>accountId - The ID of the account</li>
  *   <li>createdAt - The date when the refresh token was created</li>
  *   <li>expirationDate - The expiration date of the refresh token</li>
  *   <li>revoked - Indicates if the refresh token has been revoked</li>
@@ -28,32 +29,28 @@ import jakarta.persistence.ManyToOne;
 public class RefreshTokens {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @ApiModelProperty("The ID of the refresh token")
+  @Schema(description = "The ID of the refresh token")
   private Long id;
 
-  @Column(nullable = false, unique = true)
-  @ApiModelProperty("The refresh token string")
+  @Column(nullable = false, unique = true, length = 512)
+  @Schema(description = "The refresh token string")
   private String token;
 
   @Column(nullable = false)
-  @ApiModelProperty("The ID of the user associated with the refresh token")
-  private Long userId;
+  @Schema(description = "The date when the refresh token was created")
+  private Date issuedAt;
 
   @Column(nullable = false)
-  @ApiModelProperty("The date when the refresh token was created")
-  private LocalDateTime createdAt;
+  @Schema(description = "The expiration date of the refresh token")
+  private Date expirationDate;
 
   @Column(nullable = false)
-  @ApiModelProperty("The expiration date of the refresh token")
-  private LocalDateTime expirationDate;
-
-  @Column(nullable = false)
-  @ApiModelProperty("Indicates if the refresh token has been revoked")
-  private boolean revoked;
+  @Schema(description = "Indicates if the refresh token has been revoked")
+  private boolean revoked = false; 
 
   @ManyToOne
   @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-  @ApiModelProperty("The account associated with the refresh token")
+  @Schema(description = "The account associated with the refresh token")
   private Accounts account;
   
   public void setId(Long id) {
@@ -72,27 +69,19 @@ public class RefreshTokens {
     return token;
   }
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
+  public void setIssuedAt(Date createdAt) {
+    this.issuedAt = createdAt;
   }
 
-  public Long getUserId() {
-    return userId;
+  public Date getIssuedAt() {
+    return issuedAt;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setExpirationDate(LocalDateTime expirationDate) {
+  public void setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
   }
 
-  public LocalDateTime getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 

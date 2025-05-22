@@ -14,20 +14,16 @@
   margin: 0;
 }
 
-
-.car-display h2, h1, h3, h4, p {
-  font-weight: 200;
-}
-
 .car-display:hover {
-  outline: #252422 3px solid;
+  outline: var(--main-color) 3px solid;
   outline-offset: 3px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: 0.1s;
 }
 
 .car-display.selected {
-  outline: #EB5E28 3px solid;
+  position: relative;
+  outline: var(--secondary-color) 3px solid;
   outline-offset: 3px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: 0.1s;
@@ -46,8 +42,7 @@
 }
 
 .car-display .car-name {
-  font-size: 20px;
-  color: #ffffff;
+  color: white;
   margin: 0 0 0 10px;
 }
 
@@ -65,7 +60,6 @@
 
 .car-display .passenger-count {
   color: white;
-  font-size: 20px;
   margin-left: 8px;
 }
 
@@ -76,11 +70,10 @@
 }
 
 .car-display .car-tag {
-  background-color: #EB5E28;
+  background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
 
   width: 100px;
   height: 30px;
@@ -90,7 +83,7 @@
 }
 
 .car-display .bottom-section {
-  margin-top: auto;
+  margin-top: -20%;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
@@ -98,7 +91,6 @@
 
 .car-display .rental-place {
   color: white;
-  font-size: 16px;
   text-align: left;
 }
 
@@ -110,12 +102,10 @@
 
 .car-display #price-day {
   color: white;
-  font-size: 16px;
 }
 
 .car-display #price-total {
-  color: #CCC5B9;
-  font-size: 16px;
+  color: var(--hover-color-darker);
   margin-left: 10px;
 }
 
@@ -132,15 +122,14 @@
 .car-display .favourite-btn {
     background: none;
   border: none;
-  font-size: 2rem;
-  color: #ccc;
+  color: var(--hover-color-darker);
   cursor: pointer;
   margin-top: 8px;
   transition: color 0.2s;
 }
 .car-display .favourite-btn.favourited,
 .car-display .favourite-btn:hover {
-  color: #EB5E28;
+  color: var(--secondary-color);
 }
 
 .selected-arrow {
@@ -188,5 +177,4 @@
     left: 50%;
     transform: translateX(-100%);
   }
-
 }

@@ -11,28 +11,61 @@ const Testimonials = () => {
   const handleNextClick = () => {
     if (isButtonDisabled) return;
 
-    if (autoPlayInterval) clearInterval(autoPlayInterval);
-    const interval = setInterval(() => {
-      handlePreviousClick();
-    }, 5000);
-    setAutoPlayInterval(interval);
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      setAutoPlayInterval(null);
+      console.log("calling start autoplay from next click");
+      startAutoplay();
+    }
 
     setCardOrder(prev => [...prev.slice(1), prev[0]]);
     setIsButtonDisabled(true);
+
     setTimeout(() => {
       setIsButtonDisabled(false);
     }, 500);
   };
+
 
   const handlePreviousClick = () => {
     if (isButtonDisabled) return;
 
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      setAutoPlayInterval(null);
+      startAutoplay();
+      console.log("calling start autoplay from previous click");
+    }
+
     setCardOrder(prev => [prev[prev.length - 1], ...prev.slice(0, -1)]);
     setIsButtonDisabled(true);
+
     setTimeout(() => {
       setIsButtonDisabled(false);
     }, 500);
   };
+
+  const startAutoplay = () => {
+    if (autoPlayInterval) {
+      console.log("Autoplay already running, not starting again.");
+      return;
+    } // Prevent multiple intervals
+
+    const interval = setInterval(() => {
+      console.log("Autoplay interval running...");
+      handleNextClick();
+    }, 7500);
+    setAutoPlayInterval(interval);
+  };
+
+  useEffect(() => {
+    startAutoplay(); // Start auto-play on mount
+    console.log("calling start autoplay from useEffect");
+
+    return () => {
+      if (autoPlayInterval) clearInterval(autoPlayInterval); // Cleanup on unmount
+    };
+  }, []);
 
   const pauseAutoplay = () => {
     console.log("paused autoplay!")
@@ -71,19 +104,6 @@ const Testimonials = () => {
     return position === 2;
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handlePreviousClick();
-    }, 5000);
-
-    setAutoPlayInterval(interval);
-
-    return () => {
-      clearInterval(interval);
-    }
-  }, []);
-
-
   return (
   <div className="testimonials-wrapper">
       <div className="testimonials-slideshow">
@@ -115,7 +135,7 @@ const Testimonials = () => {
             className={`testimonial ${isCardActive(2) ? 'active' : ''} ${getCardPosition(2)}`}
             id="testimonial-3">
             <Quotes weight="fill" className="quote-icon"/>
-            <p className="testimonial-quote">"Sometimes cars make me happy, other times Ålesund Rental makes me even happier!"</p>
+            <p className="testimonial-quote">"Sometimes cars make me happy, other times Norwegian Rental makes me even happier!"</p>
             <p className="testimonial-name">- John Doe</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>
@@ -136,7 +156,7 @@ const Testimonials = () => {
             id="testimonial-5">
             <Quotes weight="fill" className="quote-icon"/>
             <p className="testimonial-quote">"Car goes "Wrooooooom""</p>
-            <p className="testimonial-name">- John Doe</p>
+            <p className="testimonial-name">- Jon Flesk</p>
             <img src={testimonialPersonImg} alt="Testimonial" className="testimonial-image"/>
           </div>
         </div>
@@ -149,14 +169,20 @@ const Testimonials = () => {
               <div className={`indicator ${shouldIndicatorBeActive(4) ? 'active' : ''}`}/>
             </div>
             <div className="buttons">
-              <button className={`prev-button ${isButtonDisabled ? 'disabled' : ''}`}
-                      onClick={handlePreviousClick}
-                      disabled={isButtonDisabled}>
+              <button
+                className={`prev-button ${isButtonDisabled ? 'disabled' : ''}`}
+                onClick={handlePreviousClick}
+                disabled={isButtonDisabled}
+                aria-label="Show previous testimonial"
+              >
                 <CaretLeft size={18} weight="bold" className="caret-icon" id="caret-previous"/>
               </button>
-              <button className={`next-button ${isButtonDisabled ? 'disabled' : ''}`}
-                      onClick={handleNextClick}
-                      disabled={isButtonDisabled}>
+              <button
+                className={`next-button ${isButtonDisabled ? 'disabled' : ''}`}
+                onClick={handleNextClick}
+                disabled={isButtonDisabled}
+                aria-label="Show next testimonial"
+              >
                 <CaretRight size={18} weight="bold" className="caret-icon" id="caret-next"/>
               </button>
             </div>

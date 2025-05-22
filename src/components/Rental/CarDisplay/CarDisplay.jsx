@@ -1,23 +1,35 @@
-import "../../App.css";
 import "./CarDisplay.css";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { getAccountId } from "../../utils/JwtUtility";
 import { mapCarImage } from '../../utils/CarImageMapper';
 import passengerImage from "../../../resources/images/passenger.png";
 import { Car, Seatbelt, PlusCircle, CaretDown, Star } from "@phosphor-icons/react";
+import {BookingContext} from "../../utils/BookingContext";
 
-const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
+const CarDisplay = ({ displayCar: car, isSelected, onClick, role }) => {
   const [isFavourited, setIsFavourited] = useState(false);
   const carImage = mapCarImage(car.carBrand, car.modelName);
 
-  
-  
+  const visibileStar = role === "ROLE_USER";
+
+  const { bookingData : rentalDetails } = useContext(BookingContext);
+
+  const totalPrice = Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24),
+    car.pricePerDay)
+
+
   useEffect(() => {
+    if (role !== "ROLE_USER") {
+      console.warn("Account is not of ROLE_USER.");
+      return;
+    }
+
     if (!car) return;
+
     const fetchIsFavourited = async () => {
       try {
-        const userId = getAccountId();
-        const response = await fetch(`http://localhost:8080/users/${userId}/favourites`, {
+        const accountId = getAccountId();
+        const response = await fetch(`http://localhost:8080/api/users/${accountId}/favourites`, {
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
           },
@@ -36,8 +48,13 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
   const handleToggleFavourite = async (e) => {
     e.stopPropagation();
 
+    if (role !== "ROLE_USER") {
+      console.warn("Account is not of ROLE_USER.");
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:8080/users/${getAccountId()}/favourites/${car.id}`, {
+      const response = await fetch(`http://localhost:8080/api/users/${getAccountId()}/favourites/${car.id}`, {
         method : isFavourited ? "DELETE" : "POST",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
@@ -61,22 +78,24 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
           <h2 className="car-name">{car.carBrand} {car.modelName}</h2>
           <aside className="passenger-tag">
             <Seatbelt size={24} color="#ffffff" weight="fill"/>
-            <h2 className="passenger-count">{car.passengers}</h2>
+            <h3 className="passenger-count">{car.passengers}</h3>
           </aside>
         </section>
         <section className="top-right-section">
           <article className="car-tag">{car.energySource}</article>
-          <button
-            className={`favourite-btn${isFavourited ? " favourited" : ""}`}
-            onClick={handleToggleFavourite}
-            aria-label={isFavourited ? "Remove from favourites" : "Add to favourites"}
-          >
-            <Star
-              size={28}
-              color={isFavourited ? "#eee" : "#EEE"}
-              weight={isFavourited ? "fill" : "regular"}
-            />
-          </button>
+          {visibileStar && (
+            <button
+              className={`favourite-btn${isFavourited ? " favourited" : ""}`}
+              onClick={handleToggleFavourite}
+              aria-label={isFavourited ? "Remove from favourites" : "Add to favourites"}
+            >
+              <Star
+                size={28}
+                color={isFavourited ? "#eee" : "#EEE"}
+                weight={isFavourited ? "fill" : "regular"}
+              />
+            </button>
+          )}
         </section>
       </section>
 
@@ -87,17 +106,17 @@ const CarDisplay = ({ displayCar: car, isSelected, onClick }) => {
       />
       {isSelected && (
         <div className="selected-arrow">
-          <CaretDown size={24} color="#EB5E28" weight="fill" />
+          <CaretDown size={24} color="var(--secondary-color)" weight="fill" />
         </div>
       )}
       
       <section className="bottom-section">
-      <h2 className="rental-place">
+      <h3 className="rental-place">
           {car.provider.companyName}
-        </h2>
+        </h3>
         <section className="price-section">
-          <h2 id="price-day">{car.pricePerDay},-kr/dag</h2>
-          <h2 id="price-total">{car.priceTotal},-kr/total</h2>
+          <h4 id="price-day">{car.pricePerDay},-kr/dag</h4>
+          <h4 id="price-total">{totalPrice},-kr/total</h4>      
         </section>
       </section>
     </button> 

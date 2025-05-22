@@ -38,16 +38,8 @@ public class SecurityConfig {
     logger.info("Configuring security filter chain.");
     http.csrf(csrfCustomizer -> csrfCustomizer.disable())
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(
-              "/auth/login", 
-              "/users/register",
-              "/providers/register",
-              "/admins/register",
-              "/cars/search",
-              "/cars/locations",
-              "/cars/{id}"
-              ).permitAll()
-            .anyRequest().authenticated())
+        .requestMatchers(PublicEndpoints.PATHS.toArray(new String[0])).permitAll()
+        .anyRequest().authenticated())
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     logger.info("Security filter chain configured successfully.");
     return http.build();

@@ -56,6 +56,7 @@ public class JwtFilter extends OncePerRequestFilter {
     logger.info("Starting JWT filter for request: {}", request.getRequestURI());
     
     String jwtToken = getJwtToken(request);
+    
     if (jwtToken == null) {
       logger.warn("No JWT token found in request: {}", request.getRequestURI());
       filterChain.doFilter(request, response);
@@ -72,6 +73,19 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     filterChain.doFilter(request, response);
+  }
+
+  /**
+   * Returns the user details from the database using the username.
+   * If the user is not found, it returns null.
+   *
+   * @param username The username of the user
+   * @return The user details object, or null if not found
+   */
+  @Override
+  protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    String path = request.getRequestURI();
+    return PublicEndpoints.REGEX_PATHS.stream().anyMatch(path::matches);
   }
   
   /**

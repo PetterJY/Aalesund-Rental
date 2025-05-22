@@ -1,13 +1,12 @@
-import React, {useState, useRef, useEffect, useContext} from "react";
-import {FunnelSimple, CaretDown, MagnifyingGlass, XCircle} from "@phosphor-icons/react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { FunnelSimple, CaretDown, MagnifyingGlass, XCircle } from "@phosphor-icons/react";
+import { getRole } from "../utils/JwtUtility";
+import { BookingContext } from "../utils/BookingContext";
+import logo from "../../resources/images/logo.png";
 import CarDisplay from "./CarDisplay/CarDisplay";
 import CarSelected from './CarSelected/CarSelected';
 import IntervalSlider from "./IntervalSlider/IntervalSlider";
 import "./Rental.css";
-import "../App.css";
-import {BookingContext} from "../utils/BookingContext";
-// import '../Home/BookingForm/BookingForm.css';
-
 
 export default function Rental() {
   const [cars, setCars] = useState([]);
@@ -56,8 +55,8 @@ export default function Rental() {
     passengers: [],
     energySource: [],
     search: "",
-    minPrice: null,
-    maxPrice: null,
+    minPrice: 0,
+    maxPrice: 1000,
     pickupLocation: bookingData.pickupLocation,
     pickupDate: bookingData.pickupDate,
     dropoffDate: bookingData.dropoffDate,
@@ -102,26 +101,48 @@ export default function Rental() {
       ))}
     </div>
   );
-  const renderDropdown = (category, title, options, customContent = null) => (
+const renderDropdown = (category, title, options, customContent = null) => {
+  // Get count of selected items for this category
+  let selectedCount = 0;
+  
+  if (category === 'priceRange') {
+    // Special case for price range - only show count if different from default
+    if (minPrice > 0 || maxPrice < maxCarRentalPrice) {
+      selectedCount = 1;
+    }
+  } else if (Array.isArray(selectedFilterOptions[category])) {
+    selectedCount = selectedFilterOptions[category].length;
+  }
+  
+  // Format title with count if items are selected
+  const displayTitle = selectedCount > 0 ? `${title} (${selectedCount})` : title;
+  
+  return (
     <div className="dropdown-group" id={`${category}-checkbox`}>
       <button
         className="dropdown-button"
         onClick={() => {
           toggleDropdown(category);
-          setSelectedFilterComponent({...selectedFilterComponent, [category] : true})}}>
-        {title} <CaretDown size={16} />
+          setSelectedFilterComponent({...selectedFilterComponent, [category] : true})
+        }}
+      >
+        {displayTitle} <CaretDown size={16} />
       </button>
       {openDropdown === category && (
-        <div ref={filterRefs[category]}
-             className={`dropdown-content ${customContent != null ? 'custom' : ''}`}>
+        <div 
+          ref={filterRefs[category]}
+          className={`dropdown-content ${customContent != null ? 'custom' : ''}`}
+        >
           {customContent || (
             (category === "sortBy" || category === "passengers")
               ? renderRadioButtons(category, options)
-              : renderCheckboxes(category, options))}
+              : renderCheckboxes(category, options)
+          )}
         </div>
       )}
     </div>
   );
+};
 
   const filterOptions = {
     sortBy: [
@@ -274,8 +295,8 @@ useEffect(() => {
 
       console.log("Filter params:", filterParams.toString());
 
-      console.log("Request URL: ", `http://localhost:8080/cars/search?${filterParams.toString()}`)
-      const response = await fetch(`http://localhost:8080/cars/search?${filterParams.toString()}`, {
+      console.log("Request URL: ", `http://localhost:8080/api/cars/search?${filterParams.toString()}`)
+      const response = await fetch(`http://localhost:8080/api/cars/search?${filterParams.toString()}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -297,45 +318,47 @@ useEffect(() => {
   };
 
   // Reassemble children with inserted menu for the selected car.
-  const renderWithInsertedMenu = () => {
-    if (cars.length === 0) return null;
+const renderWithInsertedMenu = () => {
+  // Only show available cars
+  const availableCars = cars.filter(car => car.available);
 
-    // Find the index of the selected car
-    const selectedIndex = cars.findIndex((car) => car.id === selectedCarId);
+  if (availableCars.length === 0) return null;
 
-    let insertionIndex = -1;
-    if (selectedIndex >= 0) {
-      // Determine the end index of the row.
-      insertionIndex =
-        Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
-      insertionIndex = Math.min(insertionIndex, cars.length - 1);
-    }
+  // Find the index of the selected car
+  const selectedIndex = availableCars.findIndex((car) => car.id === selectedCarId);
 
-    // Build the final array of components
-    const combined = [];
-    cars.forEach((car, index) => {
+  let insertionIndex = -1;
+  if (selectedIndex >= 0) {
+    insertionIndex =
+      Math.ceil((selectedIndex + 1) / carsPerRow) * carsPerRow - 1;
+    insertionIndex = Math.min(insertionIndex, availableCars.length - 1);
+  }
+
+  // Build the final array of components
+  const role = getRole();
+  const combined = [];
+  availableCars.forEach((car, index) => {
+    combined.push(
+      <CarDisplay
+        key={car.id}
+        displayCar={car}
+        onClick={() => handleCarClick(car.id)}
+        isSelected={car.id === selectedCarId}
+        role={role}
+      />
+    );
+    if (index === insertionIndex && selectedCarId) {
+      const selectedCar = availableCars.find((car) => car.id === selectedCarId);
       combined.push(
-        <CarDisplay
-          key={car.id}
-          displayCar={car}
-          onClick={() => handleCarClick(car.id)}
-          isSelected={car.id === selectedCarId}
-        />
+        <div key={`menu-${selectedCarId}`} className="car-selected-menu">
+          <CarSelected car={selectedCar}/>
+        </div>
       );
-      if (index === insertionIndex && selectedCarId) {
-        const selectedCar = cars.find((car) => car.id === selectedCarId); // Get the full car object
-        combined.push(
-          <div key={`menu-${selectedCarId}`} className="car-selected-menu">
-            {/* Pass the full car object to CarSelected */}
-            <CarSelected car={selectedCar}/>
-          </div>
-        );
-      }
-    });
+    }
+  });
 
-    return combined;
-  };
-
+  return combined;
+};
 
   const handleFilterChange = (event) => {
     const { name, value, checked, type } = event.target;
@@ -368,11 +391,15 @@ useEffect(() => {
 
   const handleSaveFilters = () => {
     setSelectedFilterOptions({
+      ...selectedFilterOptions,
       sortBy: Array.from(document.querySelectorAll('input[name="sortBy"]:checked')).map(input => input.value),
       carType: Array.from(document.querySelectorAll('input[name="carType"]:checked')).map(input => input.value),
       transmission: Array.from(document.querySelectorAll('input[name="transmission"]:checked')).map(input => input.value),
       passengers: Array.from(document.querySelectorAll('input[name="passengers"]:checked')).map(input => input.value),
       energySource: Array.from(document.querySelectorAll('input[name="energySource"]:checked')).map(input => input.value),
+      search: document.getElementById("search-cars-input-field").value,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
     });
 
     console.log("Selected filter options:", selectedFilterOptions);
@@ -404,8 +431,7 @@ useEffect(() => {
 
 
   return (
-    <div className="rental-page">
-      <section className="main-section">
+
         <div className ="rental-page">
           <nav className="sort-bar">
             <div className={`search-cars-field ${isSearchFieldSelected ? 'selected' : ''}`}
@@ -439,7 +465,8 @@ useEffect(() => {
               value={searchFieldValue}>
               </input>
               <button className="xCircleButton"
-                      onClick={handleSearchFieldXCircleClick}>
+                      onClick={handleSearchFieldXCircleClick}
+                      aria-label="Clear search field">
                 <XCircle className={`cross-icon ${isSearchFieldHovered && searchFieldValue !== "" ? 'visible' : ''}`}
                          size={24}
                          weight="bold"/>
@@ -458,10 +485,10 @@ useEffect(() => {
             {renderDropdown("energySource", "Energy Source", filterOptions.energySource)}
             {renderDropdown("transmission", "Transmission", filterOptions.transmission)}
             {renderDropdown("passengers", "Passengers", filterOptions.passengers)}
-            <button className="clear-button" onClick={handleClearFilters} type="button">
+            <button className="clear-button" onClick={handleClearFilters} type="button" aria-label="Clear all filters">
               Clear Filters
             </button>
-            <button className="filter-button" onClick={toggleFilter}>
+            <button className="filter-button" onClick={toggleFilter} aria-label="Open sort and filter panel">
               <FunnelSimple size={20} color="#252322" /> Sort and filter
             </button>
             </section>
@@ -471,7 +498,7 @@ useEffect(() => {
             <div className="filter-panel">
               <div className="filter-content">
                 <h2>Sort and Filter</h2>
-                <button className="clear-button-mobile" onClick={handleClearFilters} type="button">
+                <button className="clear-button-mobile" onClick={handleClearFilters} type="button" aria-label="Clear all filters (mobile)">
                   Clear Filters
                 </button>
                 <div className="filter-group">
@@ -506,17 +533,23 @@ useEffect(() => {
                 </div>
               </div>
               <hr></hr>
-              <button className="close-button" onClick={handleSaveFilters}>
+              <button className="close-button" onClick={handleSaveFilters} aria-label="Save filter changes">
                 Save Changes
               </button>
             </div>
           )}
 
           <main className="main-body" ref={containerRef}>
-            {renderWithInsertedMenu()}
+            {cars.length === 0 ? (
+              <div className="no-cars-message">
+                <img src={logo} alt="no-cars-image" className="no-cars-image" />
+                <p className="no-cars-message-text">No cars available for the selected filters</p>
+              </div>
+            ) : (
+              renderWithInsertedMenu()
+            )}
           </main>
         </div>
-      </section>
-    </div>
+
   );
 }

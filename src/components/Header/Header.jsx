@@ -9,7 +9,6 @@ import LoginButton from '../LoginRegister/Login/Login';
 import BookingForm from '../Home/BookingForm/BookingForm';
 import HeaderDropDownMenuMenu from './HeaderDropDownMenu/HeaderDropDownMenuMenu';
 import './Header.css';
-import '../App.css';
 import {BookingContext} from "../utils/BookingContext";
 
 const Header = () => {
@@ -30,7 +29,7 @@ const Header = () => {
     const handleWindowResize = () => {
       if (window.innerWidth >= 1500) {
         setMobileDisplaySize(false);
-      } else if (window.innerWidth > 1000) {
+      } else if (window.innerWidth > 700) {
         setMobileDisplaySize(false);
       } else {
         setMobileDisplaySize(true);
@@ -81,7 +80,7 @@ const Header = () => {
             {format(bookingData.dropoffDate, 'd. MMM')} <span className="separator"> | </span> {format(bookingData.dropoffTime, 'HH:mm')}
           </div>
         </div>
-        <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu}>
+        <button id="showMenuButton" ref={buttonRef} onClick={toggleMenu} aria-label="Edit booking details">
           <PencilSimple size={24} weight="fill" className="edit-icon" />
         </button>
       </div>
@@ -96,7 +95,7 @@ const Header = () => {
       return null;
     }
     
-    const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+    const response = await fetch(`http://localhost:8080/api/accounts/${accountId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -185,7 +184,7 @@ const Header = () => {
   return (
     <header className="top-header">
       <div className={mobileDisplaySize ? "mobile-header" : "desktop-header"}>
-        <button onClick={navigateToHomePage} className="home-button">
+        <button onClick={navigateToHomePage} className="home-button" aria-label="Go to home page">
           <img src={logo} id="logo-image" alt="Logo" />
         </button>
 
@@ -196,14 +195,14 @@ const Header = () => {
 
         <div className={`date-time-popup-menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
           <div className="menu-wrapper">
-            {mobileDisplaySize && (
-              <div className="mobile-display-top-menu">
-                <button className="x-button">
-                  <X className="x-icon" size={24} weight="bold" onClick={handleXClick}/>
-                </button>
-                <h2 className="booking-details-title">Your booking details</h2>
-              </div>
-            )}
+            {/*{mobileDisplaySize && (*/}
+            {/*  <div className="mobile-display-top-menu">*/}
+            {/*    <button className="x-button">*/}
+            {/*      <X className="x-icon" size={24} weight="bold" onClick={handleXClick}/>*/}
+            {/*    </button>*/}
+            {/*    <h2 className="booking-details-title">Your booking details</h2>*/}
+            {/*  </div>*/}
+            {/*)}*/}
 
             <BookingForm
               initialData={bookingData}
@@ -221,10 +220,13 @@ const Header = () => {
             defaultMode="login"
           />
 
-          <button id="login-create" onMouseDown={(event) => {
-            event.stopPropagation();
-            handleUserClick()
-          }}>
+          <button id="login-create" 
+            onMouseDown={(event) => {
+              event.stopPropagation();
+              handleUserClick()
+            }}
+            aria-label={isAuthenticated ? "Open user menu" : "Login or register"}
+          >
             {userIcon}
             {!isAuthenticated && <span className="login-register-text">Login | Register</span>}
             {isAuthenticated && <span id="logged-in-text" className="login-register-text">{userDisplayName}</span>}

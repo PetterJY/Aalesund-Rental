@@ -2,7 +2,7 @@ package no.ntnu.entity.models;
 
 import java.time.LocalDateTime;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,17 +24,37 @@ import jakarta.persistence.PrePersist;
 public class Accounts {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @ApiModelProperty("The ID of the account")
+  @Schema(description = "The ID of the account")
   private Long id;
 
   @Column(nullable = false, unique = true)
-  @ApiModelProperty("The email of the account")
+  @Schema(description = "The email of the account")
   private String email;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  @ApiModelProperty("The role of the account")
+  @Schema(description = "The role of the account")
   private final Role role;
+
+  @Column(nullable = false)
+  @Schema(description = "The password of the account")
+  private String password;
+
+  @Column(nullable = false)
+  @Schema(description = "The creation time of the account")
+  private LocalDateTime createdAt;
+
+  @Column(nullable = false)
+  @Schema(description = "Boolean indicating if the account is deleted")
+  private boolean isDeleted = false;
+  
+  /**
+   * Default constructor for the Accounts class.
+   * Initializes the role to ROLE_USER.
+   */
+  public Accounts() {
+    this.role = Role.ROLE_USER;
+  }
 
   /**
    * Enum representing the different roles an account can have.
@@ -46,25 +66,6 @@ public class Accounts {
     ROLE_ADMIN, ROLE_PROVIDER, ROLE_USER
   }
 
-  @Column(nullable = false)
-  @ApiModelProperty("The password of the account")
-  private String password;
-
-  @Column(nullable = false)
-  @ApiModelProperty("The creation time of the account")
-  private LocalDateTime createdAt;
-
-  @Column(nullable = false)
-  @ApiModelProperty("Boolean indicating if the account is deleted")
-  private boolean isDeleted = false;
-  
-  /**
-   * Default constructor for the Accounts class.
-   * Initializes the role to ROLE_USER.
-   */
-  public Accounts() {
-    this.role = Role.ROLE_USER;
-  }
 
   @PrePersist
   protected void onCreate() {

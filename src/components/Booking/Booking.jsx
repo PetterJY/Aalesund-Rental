@@ -5,7 +5,6 @@ import { getRole, getAccountId } from "../utils/JwtUtility";
 import { useAuth } from "../utils/AuthContext";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
-import "../App.css";
 import {BookingContext} from "../utils/BookingContext";
 import {formatDate} from "date-fns";
 
@@ -20,10 +19,6 @@ const Booking = () => {
 
 	const { bookingData : rentalDetails, setBookingData : setRentalDetails } = useContext(BookingContext);
 
-	useEffect(() => {
-		console.log("Updated rentalDetails:", rentalDetails);
-	}, [rentalDetails]);
-
 	const totalCost = Math.imul((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24),
 		rentalDetails.pricePerDay)
 
@@ -34,7 +29,7 @@ const Booking = () => {
 	async function fetchCarDetails() {
 		setIsLoading(true);
 		try {
-			const response = await fetch(`http://localhost:8080/cars/${carId}`, {
+			const response = await fetch(`http://localhost:8080/api/cars/${carId}`, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
@@ -93,7 +88,7 @@ const Booking = () => {
 
 			const accountId = getAccountId();
       try {
-        const response = await fetch(`http://localhost:8080/accounts/${accountId}`, {
+        const response = await fetch(`http://localhost:8080/api/accounts/${accountId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -160,7 +155,7 @@ const Booking = () => {
 		console.log("Booking data: ", bookingData);
 
 		try {
-			const response = await fetch("http://localhost:8080/rentals", {
+			const response = await fetch("http://localhost:8080/api/rentals", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -200,7 +195,7 @@ const Booking = () => {
 					</div>
 					<div className="last-name">
 						<label htmlFor="last-name">Last Name:</label>
-						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || "llokasldaklsjd"} readOnly required></input>
+						<input type="text" id="last-name" name="last-name" value={accountDetails?.lastName || ""} readOnly required></input>
 					</div>
 					<br/>
 					<div className="phone-number">
@@ -211,7 +206,9 @@ const Booking = () => {
 						<button
 							onClick={submitBooking}
 							className="book-now-button"
-							disabled={!isAuthenticated}>
+							disabled={!isAuthenticated}
+							aria-label="Book Now"
+						>
 							Book Now
 						</button>
 						{!isAuthenticated && (
@@ -242,56 +239,65 @@ const Booking = () => {
 				</header>
 				<section className="rental-schedule-container">
 					<div className="rental-schedule-logos">
-							<img src={storageLogo} className="pickup-logo"></img>
-							<div className="vertical-line"></div>
-							<img src={storageLogo} className="dropoff-logo"></img>
+						<img src={storageLogo} className="pickup-logo" alt="Pickup location icon" />
+						<div className="vertical-line" aria-hidden="true"></div>
+						<img src={storageLogo} className="dropoff-logo" alt="Dropoff location icon" />
 					</div>
 					<div className="rental-schedule-text">
-						<div className="pickup-info">
-							<p className="pickup-dropoff-title">Pickup</p>
+						<dl className="pickup-info">
+							<dt className="pickup-dropoff-title">Pickup</dt>
 							{isLoading ? (
-								<p>Loading...</p>
+								<dd>Loading...</dd>
 							) : (
 								<>
-									<p>{`${rentalDetails.pickupLocation}`}</p>
-									<p className="pickup-dropoff-time">
-										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} , 
-										${formatDate(rentalDetails.pickupDate, "d. MMM, yyyy")}  | 
-										${formatDate(rentalDetails.pickupTime, "HH:mm")}`}
-									</p>
+									<dd>{rentalDetails.pickupLocation}</dd>
+									<dd className="pickup-dropoff-time">
+										<time dateTime={new Date(rentalDetails.pickupDate).toISOString()}>
+											{`${new Date().toLocaleDateString('en-US', {weekday: 'short'})} , 
+											${formatDate(rentalDetails.pickupDate, "d. MMM, yyyy")}  | 
+											${formatDate(rentalDetails.pickupTime, "HH:mm")}`}
+										</time>
+									</dd>
 								</>
 							)}
-						</div>
-						<div className="dropoff-info">
-							<p className="pickup-dropoff-title">Dropoff</p>
+						</dl>
+						<dl className="dropoff-info">
+							<dt className="pickup-dropoff-title">Dropoff</dt>
 							{isLoading ? (
-								<p>Loading...</p>
+								<dd>Loading...</dd>
 							) : (
-								<><p>{`${rentalDetails.dropoffLocation}`}</p>
-									<p className="pickup-dropoff-time">
-										{`${new Date().toLocaleDateString('en-US', {weekday : 'short'})} ,
-										${formatDate(rentalDetails.dropoffDate, "d. MMM, yyyy")}  |
-								  	${formatDate(rentalDetails.dropoffTime, "HH:mm")}`}
-									</p>
+								<>
+									<dd>{rentalDetails.dropoffLocation}</dd>
+									<dd className="pickup-dropoff-time">
+										<time dateTime={new Date(rentalDetails.dropoffDate).toISOString()}>
+											{`${new Date().toLocaleDateString('en-US', {weekday: 'short'})} ,
+											${formatDate(rentalDetails.dropoffDate, "d. MMM, yyyy")}  |
+											${formatDate(rentalDetails.dropoffTime, "HH:mm")}`}
+										</time>
+									</dd>
 								</>
 							)}
-						</div>
+						</dl>
 					</div>
 				</section>
-				<footer className="payment-details">
-					<p className="booking-details-title">Renting costs</p>
+
+				<section className="payment-details">
+					<h3 className="booking-details-title">Renting costs</h3>
 					{isLoading ? (
-						<p>Loading...</p>
+						<p role="status" aria-live="polite">Loading...</p>
 					) : (
-						<>
-							<p>{`${(rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24)} days`}</p>
-							<p>{`${rentalDetails.pricePerDay} kr/day`}</p>
-							<p>
-								{totalCost} in total
-							</p>
-						</>
+						<dl className="cost-breakdown">
+							<dt>Duration:</dt>
+							<dd>{`${Math.round((rentalDetails.dropoffDate - rentalDetails.pickupDate) / (1000 * 60 * 60 * 24))} days`}</dd>
+							
+							<dt>Daily rate:</dt>
+							<dd>{`${Math.round(rentalDetails.pricePerDay)} kr/day`}</dd>
+							
+							<dt>Total cost:</dt>
+							<dd><strong>{Math.round(totalCost)} kr/total</strong></dd>
+						</dl>
 					)}
-				</footer>
+				</section>
 			</div>
 		</main>
   )

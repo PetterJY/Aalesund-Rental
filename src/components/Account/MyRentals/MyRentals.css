@@ -29,37 +29,59 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FF5F00; 
+  background-color: var(--secondary-color); 
   color: white;
   border: none;
   border-radius: 6px; 
   padding: 6px 16px; 
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease;
   width: 125px; 
 }
 
 #add-car-button:hover {
-  background-color: #E65500; /* Slightly darker shade on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+  background-color: var(--secondary-color-hover); 
+  transform: scale(1.05);
 }
 
 #add-car-button:active {
-  background-color: #CC4A00; /* Even darker shade on click */
+  background-color: var(--secondary-color-active); /* Even darker shade on click */
   transform: scale(0.95); /* Slight shrink effect */
 }
 
 #add-car-button .add-car-text {
   margin-left: 8px;
-  font-size: 1rem;
 }
 
 #add-car-button svg {
   width: 24px;
   height: 24px;
   flex-shrink: 0; 
+}
+
+.rental-list-item {
+  margin: 0;
+  padding: 0;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-message {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+header#my-rentals-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  padding: 0 20px;
 }
 
 @media screen and (max-width: 850px) {

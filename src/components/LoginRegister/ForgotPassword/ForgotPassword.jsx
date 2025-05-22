@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../App.css';
 import '../LoginRegister.css';
 
 const ForgotPassword = ({ closeModal, isModalVisible, toggleMode }) => {
@@ -11,9 +10,9 @@ const ForgotPassword = ({ closeModal, isModalVisible, toggleMode }) => {
             <h2 className="title">Forgot Password</h2>
             <form>
               <input className='input-field' id='forgotpassword-email-field' type="text" placeholder="E-mail" required />
-              <button id="submit-button" type="submit">Reset Password</button>
+              <button id="submit-button" type="submit" aria-label="Reset Password">Reset Password</button>
             </form>
-            <button className="toggle-login-register-button" onClick={toggleMode}>Back to Login</button>
+            <button className="toggle-login-register-button" onClick={toggleMode} aria-label="Back to Login">Back to Login</button>
           </div>
         </div>
       )}

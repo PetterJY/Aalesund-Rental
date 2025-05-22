@@ -2,6 +2,7 @@ package no.ntnu.logic.controller;
 
 import java.util.List;
 
+import no.ntnu.logic.service.AccountsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import no.ntnu.entity.dto.ProviderDetails;
 import no.ntnu.entity.models.Providers;
 import no.ntnu.logic.service.ProvidersService;
@@ -24,16 +30,20 @@ import no.ntnu.logic.service.ProvidersService;
  * Controller for managing provider-related operations.
  */
 @RestController
-@RequestMapping("/providers")
+@Tag(name = "Providers API", description = "API for managing provider resources")
+@RequestMapping("/api/providers")
 public class ProvidersController {
 
   private final ProvidersService providersService;
-  private static final Logger logger 
+  private final AccountsService accountsService;
+
+  private static final Logger logger
       = LoggerFactory.getLogger(ProvidersController.class.getSimpleName());
 
   @Autowired
-  public ProvidersController(ProvidersService providersService) {
+  public ProvidersController(ProvidersService providersService, AccountsService accountsService) {
     this.providersService = providersService;
+    this.accountsService = accountsService;
   }
 
   /**
@@ -42,12 +52,23 @@ public class ProvidersController {
    * @return List of all providers.
    */
   @GetMapping
-  @ApiOperation(value = "Returns all providers.")
+  @Operation(
+      summary = "Get all providers",
+      description = "Retrieves a list of all registered providers in the system")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "List of providers retrieved successfully"),
+      @ApiResponse(responseCode = "204", description = "No providers found"),
+      @ApiResponse(responseCode = "500", description = "Internal server error")
+  })
   public ResponseEntity<List<Providers>> getAllProviders() {
-    logger.info("Fetching all providers");
-    List<Providers> providers = providersService.findAll();
-    logger.debug("Fetched {} providers", providers.size());
-    return ResponseEntity.status(HttpStatus.OK).body(providers);
+      logger.info("Fetching all providers");
+      List<Providers> providers = providersService.findAll();
+      if (providers.isEmpty()) {
+        logger.warn("No providers found");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+      }
+      logger.debug("Fetched {} providers", providers.size());
+      return ResponseEntity.status(HttpStatus.OK).body(providers);
   }
 
   /**
@@ -57,13 +78,27 @@ public class ProvidersController {
    * @return The provider with the specified ID.
    */
   @GetMapping("/{id}")
-  @ApiOperation(value = "Returns a provider by its ID.", 
-      notes = "If the provider is not found, a 404 error is returned.")
-  public ResponseEntity<Providers> getProviderById(@PathVariable Long id) {
-    logger.info("Fetching provider with id: {}", id);
-    Providers provider = providersService.findById(id);
-    logger.debug("Fetched provider: {}", provider);
-    return ResponseEntity.status(HttpStatus.OK).body(provider);
+  @Operation(
+      summary = "Get a provider by ID",
+      description = "Retrieves the provider with the specified ID")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Provider found"),
+      @ApiResponse(responseCode = "404", description = "Provider not found"),
+      @ApiResponse(responseCode = "500", description = "Internal server error")
+  })
+  public ResponseEntity<Providers> getProviderById(
+      @Parameter(
+          description = "ID of the provider to be fetched",
+          required = true)
+      @PathVariable Long id) {
+      logger.info("Fetching provider with id: {}", id);
+      Providers provider = providersService.findById(id);
+      if (provider == null) {
+        logger.debug("Provider with id {} not found", id);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+      }
+      logger.debug("Fetched provider: {}", provider);
+      return ResponseEntity.status(HttpStatus.OK).body(provider);
   }
 
   /**
@@ -73,20 +108,30 @@ public class ProvidersController {
    * @return The created provider.
    */
   @PostMapping("/register")
-  @ApiOperation(value = "Creates a new provider.", 
-      notes = "The newly created provider is returned.")
+  @Operation(
+      summary = "Create a new provider",
+      description = "Registers a new provider in the system")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "Provider created successfully"),
+      @ApiResponse(responseCode = "400", description = "Invalid input data"),
+      @ApiResponse(responseCode = "409", description = "Email already in use"),
+      @ApiResponse(responseCode = "500", description = "Internal server error")
+  })
   public ResponseEntity<Providers> register(
+      @Parameter(
+          description = "Provider registration details",
+          required = true)
       @RequestBody ProviderDetails providerRegisterRequest) {
-    Providers provider = new Providers();
-    provider.setCompanyName(providerRegisterRequest.getCompanyName());
-    provider.setEmail(providerRegisterRequest.getEmail());
-    provider.setPassword(providerRegisterRequest.getPassword());
-    provider.setPhoneNumber(providerRegisterRequest.getPhoneNumber());
+      Providers provider = new Providers();
+      logger.info("Creating new provider");
+      provider.setCompanyName(providerRegisterRequest.getCompanyName());
+      provider.setEmail(providerRegisterRequest.getEmail());
+      provider.setPassword(providerRegisterRequest.getPassword());
+      provider.setPhoneNumber(providerRegisterRequest.getPhoneNumber());
 
-    logger.info("Creating new provider");
-    Providers createdProvider = providersService.save(provider);
-    logger.debug("Created provider: {}", createdProvider);
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdProvider);
+      Providers createdProvider = providersService.save(provider);
+      logger.debug("Created provider: {}", createdProvider);
+      return ResponseEntity.status(HttpStatus.CREATED).body(createdProvider);
   }
 
   /**
@@ -97,12 +142,30 @@ public class ProvidersController {
    * @return The updated provider.
    */
   @PutMapping("/{id}")
-  @ApiOperation(value = "Updates a provider by its ID.", 
-      notes = "If the provider is not found, a 404 error is returned.")
+  @Operation(
+      summary = "Update a provider",
+      description = "Updates an existing provider with the provided details")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Provider updated"),
+      @ApiResponse(responseCode = "400", description = "Invalid input data"),
+      @ApiResponse(responseCode = "404", description = "Provider not found"),
+      @ApiResponse(responseCode = "500", description = "Internal server error")
+  })
   public ResponseEntity<Providers> updateProvider(
-      @PathVariable Long id, @RequestBody Providers providerDetails) {
+      @Parameter(
+          description = "ID of the provider to be updated",
+          required = true)
+      @PathVariable Long id,
+      @Parameter(
+          description = "Updated details of the provider",
+          required = true)
+      @RequestBody Providers providerDetails) {
     logger.info("Updating provider with id: {}", id);
     Providers provider = providersService.findById(id);
+    if (provider == null) {
+      logger.debug("Provider with id {} not found", id);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
     provider.setCompanyName(providerDetails.getCompanyName());
     provider.setEmail(providerDetails.getEmail());
     provider.setPassword(providerDetails.getPassword());

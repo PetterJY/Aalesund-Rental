@@ -14,8 +14,13 @@
 }
 
 .completed-booking-message {
-  color: lawngreen;
-  font-weight: 400;
-  font-size: 2.5rem;
+  color: var(--secondary-color);
   margin-bottom: -0.5rem;
+}
+
+.view-orders-link {
+  color: var(--main-color);
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
 }

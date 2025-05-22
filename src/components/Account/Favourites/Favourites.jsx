@@ -17,7 +17,7 @@ const Favourites = () => {
       setIsLoading(true);
       try {
 
-        const response = await fetch(`http://localhost:8080/users/${getAccountId()}/favourites`, {
+        const response = await fetch(`http://localhost:8080/api/users/${getAccountId()}/favourites`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -102,13 +102,13 @@ const Favourites = () => {
     <section className="favourites-container">
       <h2 className="title">My Favourite Cars</h2>
       {isLoading ? (
-        <p>Loading favourites...</p>
+      <p aria-live="polite">Loading favourites...</p>
       ) : favouriteCars.length === 0 ? (
         <div className="no-favourites-message">
           <p>You have no favourite cars yet.</p>
         </div>
       ) : (
-      <div className="favourites-list" ref={containerRef}>
+      <div className="favourites-list" ref={containerRef} role="list">
         {renderWithInsertedMenu()}
       </div>
       )}

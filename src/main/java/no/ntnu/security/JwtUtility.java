@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import no.ntnu.entity.CustomUserDetails;
@@ -61,7 +62,7 @@ public class JwtUtility {
         .claim("type", "refresh")
         .claim("id", userDetails.getId())
         .setIssuedAt(new Date(System.currentTimeMillis()))
-        .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 30)) // 30 days
+        .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30)) // 30 days
         .signWith(getSigningKey())
         .compact();
   }
@@ -116,13 +117,29 @@ public class JwtUtility {
    * @return the expiration date of the token.
    * @throws IllegalArgumentException if the token is invalid or expired.
    */
-  public Date getExpirationDateFromToken(String token) throws IllegalArgumentException {
+  public Date getExpirationDateFromToken(String token) throws ExpiredJwtException {
     return Jwts.parserBuilder()
         .setSigningKey(getSigningKey())
         .build()
         .parseClaimsJws(token)
         .getBody()
         .getExpiration();
+  }
+
+  /**
+   * Returns the issued date of the token.
+   *
+   * @param token the token to parse.
+   * @return the issued date of the token.
+   * @throws IllegalArgumentException if the token is invalid or expired.
+   */
+  public Date getIssuedAtDateFromToken(String token) throws ExpiredJwtException {
+    return Jwts.parserBuilder()
+        .setSigningKey(getSigningKey())
+        .build()
+        .parseClaimsJws(token)
+        .getBody()
+        .getIssuedAt();
   }
 
   /**

@@ -6,7 +6,6 @@ import OrdersCarDisplay from './OrdersCarDisplay/OrdersCarDisplay';
 import carImage from '../../../resources/images/logo.svg';
 import OrdersDropdown from './OrdersDropDown/OrdersDropDown';
 import '../Orders/Orders.css';
-import '../../App.css';
 
 const Orders = () => { 
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ const Orders = () => {
     async function fetchRentals() {
       setIsLoading(true); 
       try {
-        const response = await fetch(`http://localhost:8080/rentals?userId=${getAccountId()}`, {
+        const response = await fetch(`http://localhost:8080/api/rentals/renter/${getAccountId()}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -65,17 +64,17 @@ const Orders = () => {
 
 
   return (
-    <div className="orders">
+    <main className="orders">
       <section className="orders-section">
-        <div orders-header>
-        <div className="orders-header">
-            <h2 className="title">My Bookings - </h2> 
+        <div className="orders-container"> 
+        <header className="orders-header">
+            <h1 className="title">My Bookings - </h1> 
             <OrdersDropdown
               options={statusOptions}
               selectedOption={selectedStatus}
               onSelect={setSelectedStatus}
             />
-          </div>
+          </header>
           <div className="orders-list">
             {isLoading ? (
               <p>Loading...</p>
@@ -102,7 +101,7 @@ const Orders = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </div>
+    </main>
   );
 }
 
