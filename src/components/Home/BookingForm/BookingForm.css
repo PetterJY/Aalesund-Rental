@@ -243,7 +243,7 @@ p {
 .time-options-label {
   margin: 0;
   box-sizing: border-box;
-  background-color: var(--background-color);
+  background-color: var(--secondary-button-color);
   border-radius: 12px; /* Optional: rounded corners */
   height: 52px;
   width: 150px;
