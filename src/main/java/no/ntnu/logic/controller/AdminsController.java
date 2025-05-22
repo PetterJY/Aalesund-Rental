@@ -145,13 +145,6 @@ public class AdminsController {
           required = true
       )
       @RequestBody AdminDetails adminRegisterRequest) {
-    try {
-      if (accountsService.findByEmail(adminRegisterRequest.getEmail()) != null) {
-        logger.warn("Email already in use: {}", adminRegisterRequest.getEmail());
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-            .body(Map.of("error", "Email already in use"));
-      }
-
       Admins admin = new Admins();
       admin.setName(adminRegisterRequest.getName());
       admin.setPassword(adminRegisterRequest.getPassword());
@@ -161,10 +154,6 @@ public class AdminsController {
       Admins createdAdmin = adminService.save(admin);
       logger.info("Created admin: {}", createdAdmin);
       return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
-    } catch (Exception e) {
-      logger.error("Error creating admin: {}", e.getMessage());
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
   }
 
   /**
