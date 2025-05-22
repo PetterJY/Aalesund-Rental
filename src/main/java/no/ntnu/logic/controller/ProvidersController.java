@@ -61,7 +61,6 @@ public class ProvidersController {
       @ApiResponse(responseCode = "500", description = "Internal server error")
   })
   public ResponseEntity<List<Providers>> getAllProviders() {
-    try {
       logger.info("Fetching all providers");
       List<Providers> providers = providersService.findAll();
       if (providers.isEmpty()) {
@@ -70,10 +69,6 @@ public class ProvidersController {
       }
       logger.debug("Fetched {} providers", providers.size());
       return ResponseEntity.status(HttpStatus.OK).body(providers);
-    } catch (Exception e) {
-      logger.error("Error fetching providers: {}", e.getMessage());
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
   }
 
   /**
@@ -96,7 +91,6 @@ public class ProvidersController {
           description = "ID of the provider to be fetched",
           required = true)
       @PathVariable Long id) {
-    try {
       logger.info("Fetching provider with id: {}", id);
       Providers provider = providersService.findById(id);
       if (provider == null) {
@@ -105,10 +99,6 @@ public class ProvidersController {
       }
       logger.debug("Fetched provider: {}", provider);
       return ResponseEntity.status(HttpStatus.OK).body(provider);
-    } catch (Exception e) {
-      logger.error("Error fetching provider: {}", e.getMessage());
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-    }
   }
 
   /**
@@ -132,7 +122,6 @@ public class ProvidersController {
           description = "Provider registration details",
           required = true)
       @RequestBody ProviderDetails providerRegisterRequest) {
-    try {
       Providers provider = new Providers();
       logger.info("Creating new provider");
       provider.setCompanyName(providerRegisterRequest.getCompanyName());
@@ -147,10 +136,6 @@ public class ProvidersController {
       Providers createdProvider = providersService.save(provider);
       logger.debug("Created provider: {}", createdProvider);
       return ResponseEntity.status(HttpStatus.CREATED).body(createdProvider);
-    } catch (Exception e) {
-      logger.error("Error creating provider: {}", e.getMessage());
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
   }
 
   /**
@@ -165,26 +150,25 @@ public class ProvidersController {
       summary = "Update a provider",
       description = "Updates an existing provider with the provided details")
   @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Provider updated"),
-        @ApiResponse(responseCode = "400", description = "Invalid input data"),
-        @ApiResponse(responseCode = "404", description = "Provider not found"),
-        @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
+      @ApiResponse(responseCode = "200", description = "Provider updated"),
+      @ApiResponse(responseCode = "400", description = "Invalid input data"),
+      @ApiResponse(responseCode = "404", description = "Provider not found"),
+      @ApiResponse(responseCode = "500", description = "Internal server error")
+  })
   public ResponseEntity<Providers> updateProvider(
-        @Parameter(
-            description = "ID of the provider to be updated",
-            required = true)
-        @PathVariable Long id,
-        @Parameter(
-            description = "Updated details of the provider",
-            required = true)
-        @RequestBody Providers providerDetails) {
-    try {
+      @Parameter(
+          description = "ID of the provider to be updated",
+          required = true)
+      @PathVariable Long id,
+      @Parameter(
+          description = "Updated details of the provider",
+          required = true)
+      @RequestBody Providers providerDetails) {
     logger.info("Updating provider with id: {}", id);
     Providers provider = providersService.findById(id);
     if (provider == null) {
-        logger.debug("Provider with id {} not found", id);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+      logger.debug("Provider with id {} not found", id);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     provider.setCompanyName(providerDetails.getCompanyName());
     provider.setEmail(providerDetails.getEmail());
@@ -193,9 +177,5 @@ public class ProvidersController {
     Providers updatedProvider = providersService.save(provider, false);
     logger.debug("Updated provider: {}", updatedProvider);
     return ResponseEntity.status(HttpStatus.OK).body(updatedProvider);
-    } catch (Exception e) {
-        logger.error("Error updating provider: {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
   }
 }
