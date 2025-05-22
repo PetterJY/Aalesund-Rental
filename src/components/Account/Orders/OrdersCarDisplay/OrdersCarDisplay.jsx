@@ -135,8 +135,8 @@ const OrdersCarDisplay = ({rental}) => {
       <span className='order-status-label' role="status">{status}</span>
     </div>
 		      {verifyPanel && (
-        <div className="verify-slide-panel">
-          <div className="verify-panel-content">
+        <aside className="verify-slide-panel">
+          <aside className="verify-panel-content">
             <h4>Are you sure?</h4>
             <p>You're about to cancel your booking for:</p>
             <div className="verify-car-info">
@@ -162,8 +162,8 @@ const OrdersCarDisplay = ({rental}) => {
                 Cancel Booking
               </button>
             </div>
-          </div>
-        </div>
+          </aside>
+        </aside>
       )}
   </article>
   );
