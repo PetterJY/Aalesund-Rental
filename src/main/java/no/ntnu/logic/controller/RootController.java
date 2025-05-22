@@ -3,10 +3,10 @@ package no.ntnu.logic.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * Controller responsible for handling requests to the root path ("/").
@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiResponses;
  * </p>
  */
 @Controller
-@Api(value = "Root Controller", tags = {"Routing"})
+@Tag(name = "Routing", description = "Basic navigation endpoints")
 public class RootController {
 
   /**
@@ -25,9 +25,11 @@ public class RootController {
    * @return a redirect instruction to the "/home" path
    */
   @GetMapping("/")
-  @ApiOperation(value = "Redirect to Home", notes = "Redirects requests from the root path '/' to the '/home' endpoint.")
+  @Operation(
+      summary = "Redirect to Home",
+      description = "Redirects requests from the root path '/' to the '/home' endpoint.")
   @ApiResponses(value = {
-    @ApiResponse(code = 302, message = "Redirect to /home")
+      @ApiResponse(responseCode = "302", description = "Redirect to /home")
   })
   public String redirectToHome() {
     return "redirect:/home";
