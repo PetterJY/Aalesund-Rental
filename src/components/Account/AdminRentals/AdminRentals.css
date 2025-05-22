@@ -1,6 +1,9 @@
 .admin-rentals-layout {
   display: flex;
   min-height: 80vh;
+  max-width: 1600px;
+  width: 100%;
+  justify-self: center;
 }
 
 .admin-rentals-layout .providers-list {
@@ -21,6 +24,7 @@
 .admin-rentals-layout .providers-list li {
   padding: 8px 0;
   cursor: pointer;
+  
 }
 
 .admin-rentals-layout .providers-list li.selected {
@@ -32,8 +36,14 @@
 
 .admin-rentals-layout .provider-cars-list {
   flex: 1;
-  padding: 32px;
+  padding: 22px;
   
+}
+
+.admin-rentals-layout .provider-cars-list-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .admin-rentals-layout .provider-cars-list p {
@@ -47,4 +57,122 @@
   padding: 6px 10px;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* For sidebar toggle functionality */
+.toggle-sidebar-btn,
+.close-sidebar-btn {
+  display: none; 
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.toggle-sidebar-btn:hover,
+.close-sidebar-btn:hover {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.providers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1150px) {
+  .admin-rentals-layout {
+    display: block;
+    position: relative;
+  }
+  
+  .mobile-only {
+    display: block;
+  }
+  
+  .toggle-sidebar-btn {
+    position:relative;
+    z-index: 10;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .providers-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+  
+  .providers-list.hidden {
+    transform: translateX(-100%);
+  }
+  
+  .providers-list.visible {
+    transform: translateX(0);
+  }
+  
+  .provider-cars-list {
+    width: 100%;
+    padding: 1rem;
+    padding-top: 3rem; 
+    display: block !important;
+  }
+  
+  .provider-cars-list.sidebar-visible {
+    display: none;
+  }
+  
+  .close-sidebar-btn {
+    display: block;
+    padding: 8px;
+  }
+
+  .admin-rentals-layout .my-rentals-list {
+    padding: 0;
+  }
+
+   .admin-rentals-layout .provider-cars-list {
+    padding: 0;
+   }
+
+}
+
+/* Desktop styles */
+@media screen and (min-width: 1151px) {
+  .providers-list.hidden {
+    display: none;
+  }
+  
+  .provider-cars-list.sidebar-hidden {
+    width: 100%;
+  }
+  .admin-rentals-layout .providers-list {
+    /* Always display sidebar on desktop */
+    display: block !important;
+    transform: translateX(0) !important;
+  }
+  
+  /* Hide toggle buttons on desktop */
+  .toggle-sidebar-btn,
+  .close-sidebar-btn {
+    display: none !important;
+  }
+  
+  /* Ensure provider cars list takes remaining space */
+  .provider-cars-list {
+    flex: 1;
+  }
 }
