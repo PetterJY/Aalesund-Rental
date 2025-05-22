@@ -39,39 +39,75 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
     setIsExtraFeaturesModalOpen(!isExtraFeaturesModalOpen);
   };
 
-  const retrieveCarDetails = () => {
-    try {
-      return {
-        providerId: getAccountId(),
-        plateNumber: document.getElementById('plate-number').value,
-        carBrand: document.getElementById('car-brand').value,
-        modelName: document.getElementById('model-name').value,
-        carType: selectedCarType,
-        pricePerDay: document.getElementById('price-per-day').value,
-        productionYear: document.getElementById('production-year').value,
-        passengers: document.getElementById('passengers').value,
-        transmission: document.querySelector('.create-car-button-wrapper .selectedTransmission')?.id.toUpperCase(),
-        energySource: document.querySelector('.create-car-button-wrapper .selectedFuel')?.id.toUpperCase(),
-        location: selectedLocation,
-        extraFeatureIds: selectedFeatures,
-      };
-    } catch (error) {
-      console.error('Error retrieving car details:', error);
-      return null; 
+const retrieveCarDetails = () => {
+  try {
+    // Check if required enums are selected
+    if (!selectedFuel || !selectedTransmission || !selectedCarType || !selectedLocation) {
+      setErrorMessage("Please select all required options: fuel type, transmission, car type, and location");
+      return null;
     }
-  };
+
+    if (productionYear < 1886 || productionYear > new Date().getFullYear()) {
+      setErrorMessage("Please enter a valid production year.");
+      alert("Please enter a valid production year.");
+      return null;
+    }
+
+    if (plateNumber.length < 5 || plateNumber.length > 11) {
+      setErrorMessage("Plate number must be between 5 and 11 characters.");
+      alert("Plate number must be between 5 and 11 characters.");
+      return null;
+    }
+
+    if (carBrand.length < 1 || carBrand.length > 50) {
+      setErrorMessage("Car brand must be between 1 and 50 characters.");
+      alert("Car brand must be between 1 and 50 characters.");
+      return null;
+    }
+
+    if (modelName.length < 1 || modelName.length > 50) {
+      setErrorMessage("Model name must be between 1 and 50 characters.");
+      alert("Model name must be between 1 and 50 characters.");
+      return null;
+    }
+
+    if (pricePerDay <= 0) {
+      setErrorMessage("Price per day must be a positive number");
+      alert("Price per day must be a positive number");
+      return null;
+    }
+
+    if (passengers <= 0 || passengers > 24) {
+      setErrorMessage("Number of passengers must be a positive number and less than 25");
+      alert("Number of passengers must be a positive number and less than 25");
+      return null;
+    }
+
+    return {
+      providerId: getAccountId(),
+      plateNumber: plateNumber,
+      carBrand: carBrand,
+      modelName: modelName,
+      pricePerDay: Number(pricePerDay),
+      productionYear: Number(productionYear),
+      passengers: Number(passengers),
+      carType: selectedCarType,
+      transmission: selectedTransmission,
+      energySource: selectedFuel,
+      location: selectedLocation,
+      extraFeatureIds: selectedFeatures.length > 0 ? selectedFeatures : []
+    };
+  } catch (error) {
+    console.error('Error retrieving car details:', error);
+    return null;
+  }
+};
 
   async function createCar(event) {
     event.preventDefault();
   
     const carDetails = retrieveCarDetails();
 
-    if (!carDetails) {
-      console.error('Failed to retrieve car details. Please check the form inputs.');
-      setErrorMessage("Failed to retrieve car details. Please check the form inputs.");
-      setShowErrorMessage(true);
-      return;
-    }
 
     console.log('Car Details being sent:', carDetails);
   
@@ -100,8 +136,8 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
         console.error('Apologies, you do not have permission to create a car.');
         setErrorMessage("Apologies, you do not have permission to create a car.");
       } else {
-        console.error('Failed to create car:', response.statusText);
-        setErrorMessage("Failed to create car. Please try again.");
+        console.log('Error creating car:', response.status, response.statusText);
+        setErrorMessage("Error creating car: " + response.statusText);
       }
     } catch (error) {
       console.error('Error creating car:', error);
@@ -238,15 +274,6 @@ const CreateCarModal = ({ onClose, isCreateCarModalOpen }) => {
           <button id="automatic" type="button" onClick={handleSelectTransmission} aria-pressed={selectedTransmission === "AUTOMATIC"} aria-label="Select Automatic Transmission">Automatic</button>
           <button id="manual" type="button" onClick={handleSelectTransmission} aria-pressed={selectedTransmission === "MANUAL"} aria-label="Select Manual Transmission">Manual</button>
         </fieldset>
-
-        {showErrorMessage && (
-          <div className="error-container" role="alert" aria-live="assertive">
-            <p className="error-message" id="register-error-message">
-              {errorMessage}
-            </p>
-          </div>
-        )}
-
         <button type="submit" aria-label="Create Car">Create Car</button>
       </form>
     </div>

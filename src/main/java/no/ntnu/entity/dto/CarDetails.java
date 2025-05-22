@@ -1,5 +1,7 @@
 package no.ntnu.entity.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import jakarta.validation.constraints.Max;
@@ -37,8 +39,8 @@ public class CarDetails {
   private int pricePerDay;
 
   @NotNull(message = "Production year is required")
-  @Min(value = 1900, message = "Production year must be at least 1900")
-  @Max(value = 2100, message = "Production year must not exceed 2100")
+  @Min(value = 1886, message = "Production year must be at least 1900")
+  @Max(value = 2025, message = "Production year must not exceed 2025")
   private int productionYear;
 
   @NotNull(message = "Number of passengers is required")

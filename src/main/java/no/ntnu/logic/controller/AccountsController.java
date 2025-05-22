@@ -287,7 +287,8 @@ public class AccountsController {
 
     logger.debug("Account found: {}", account);
 
-    markAccountAsDeleted(account);
+    account.setDeleted(true);
+    accountsService.save(account);
     logger.info("Account with identifier: {} deleted successfully", email);
     return ResponseEntity.noContent().build();
   }
@@ -310,16 +311,5 @@ public class AccountsController {
       logger.warn("Password verification failed for account: {}", email);
       return false;
     }
-  }
-
-  /**
-   * Marks an account as deleted.
-   *
-   * @param account the account to mark as deleted
-   */
-  private void markAccountAsDeleted(Accounts account) {
-    account.setDeleted(true);
-    accountsService.save(account);
-    logger.debug("Account marked as deleted: {}", account);
   }
 }

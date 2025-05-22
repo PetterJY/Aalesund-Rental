@@ -170,7 +170,7 @@ public class ProvidersController {
     provider.setEmail(providerDetails.getEmail());
     provider.setPassword(providerDetails.getPassword());
     provider.setPhoneNumber(providerDetails.getPhoneNumber());
-    Providers updatedProvider = providersService.save(provider, false);
+    Providers updatedProvider = providersService.saveWithoutEncode(provider);
     logger.debug("Updated provider: {}", updatedProvider);
     return ResponseEntity.status(HttpStatus.OK).body(updatedProvider);
   }

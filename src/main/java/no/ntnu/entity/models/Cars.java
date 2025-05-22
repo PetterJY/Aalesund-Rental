@@ -195,7 +195,7 @@ public class Cars {
     return passengers;
   }
 
-  public void setPassengers(byte passengers) {
+  public void setPassengers(int passengers) {
     this.passengers = passengers;
   }
 

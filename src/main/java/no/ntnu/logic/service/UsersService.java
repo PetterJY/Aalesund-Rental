@@ -72,17 +72,12 @@ public class UsersService {
   }
 
   /**
-   * Saves a user to the database with the option to not encode the password.
+   * Saves a user to the database without encoding the password.
    *
    * @param user the user to save.
-   * @param encodePassword whether to encode the password or not.
    * @return the saved user.
    */
-  public Users save(Users user, boolean encodePassword) {
-    if (encodePassword) {
-      logger.debug("Encoding password for user with email: {}", user.getEmail());
-      return save(user);
-    }
+  public Users saveWithoutEncode(Users user) {
     logger.info("Saving user with email: {}", user.getEmail());
     return usersRepository.save(user);
   }
