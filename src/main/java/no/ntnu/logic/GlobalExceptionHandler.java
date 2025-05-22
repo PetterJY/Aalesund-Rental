@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -154,6 +155,18 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
+  /**
+   * Handles BadCredentialsException thrown during authentication.
+   * Returns a 401 Unauthorized response with a user-friendly message.
+   *
+   * @param ex the BadCredentialsException thrown by the application
+   * @return ResponseEntity with status 401 and error message
+   */
+  @ExceptionHandler(BadCredentialsException.class)
+  public ResponseEntity<String> handleBadCredentialsException(BadCredentialsException ex) {
+    logger.error("Authentication failed: ", ex);
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+  }
 
     /**
      * Handles generic exceptions thrown by the application.
@@ -163,7 +176,6 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity with status 500 and error message
      */
   @ExceptionHandler(Exception.class)
-  @Order(Ordered.LOWEST_PRECEDENCE)
   public ResponseEntity<String> handleGenericException(Exception ex) {
     logger.error("Unexpected exception occurred: ", ex);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
