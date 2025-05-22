@@ -32,7 +32,7 @@ import no.ntnu.logic.service.ExtraFeaturesService;
  */
 @RestController
 @Tag(name = "Extra Features API", description = "API for managing extra-feature resources")
-@RequestMapping("/extra-features")
+@RequestMapping("api/extra-features")
 public class ExtraFeaturesController {
 
   private final ExtraFeaturesService extraFeaturesService;

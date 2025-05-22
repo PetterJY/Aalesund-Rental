@@ -42,7 +42,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @Tag(name = "Cars API", description = "API for managing car resources")
-@RequestMapping("/cars")
+@RequestMapping("api/cars")
 public class CarsController {
 
   private final CarsService carsService;
