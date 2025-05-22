@@ -2,6 +2,8 @@ package no.ntnu.logic;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -150,5 +152,21 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> handleProviderNotFoundException(ProviderNotFoundException ex) {
     logger.error("Provider not found exception: ", ex);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+  }
+
+
+    /**
+     * Handles generic exceptions thrown by the application.
+     * Returns a 500 Internal Server Error response with a generic error message.
+     *
+     * @param ex the Exception thrown by the application
+     * @return ResponseEntity with status 500 and error message
+     */
+  @ExceptionHandler(Exception.class)
+  @Order(Ordered.LOWEST_PRECEDENCE)
+  public ResponseEntity<String> handleGenericException(Exception ex) {
+    logger.error("Unexpected exception occurred: ", ex);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body("An unexpected error occurred");
   }
 }
