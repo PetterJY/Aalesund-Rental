@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.5ba9d17f.css",
-    "main.js": "/static/js/main.0a3fd726.js",
+    "main.css": "/static/css/main.865b2572.css",
+    "main.js": "/static/js/main.12d51885.js",
     "static/media/scenic-ride-forest.jpg": "/static/media/scenic-ride-forest.002c6f34b3316e6d853a.jpg",
     "static/media/van-nature.jpg": "/static/media/van-nature.03bf6a6a91d77dcd09ba.jpg",
     "static/media/scenic-ride-winter.jpg": "/static/media/scenic-ride-winter.7c3d5177df4539cdc2fd.jpg",
@@ -24,11 +24,11 @@
     "static/media/car-background.webp": "/static/media/car-background.1b9451c74ad891fb79ca.webp",
     "static/media/logo.svg": "/static/media/logo.cfc2ecffbb4c189d392cdf880d14c35e.svg",
     "index.html": "/index.html",
-    "main.5ba9d17f.css.map": "/static/css/main.5ba9d17f.css.map",
-    "main.0a3fd726.js.map": "/static/js/main.0a3fd726.js.map"
+    "main.865b2572.css.map": "/static/css/main.865b2572.css.map",
+    "main.12d51885.js.map": "/static/js/main.12d51885.js.map"
   },
   "entrypoints": [
-    "static/css/main.5ba9d17f.css",
-    "static/js/main.0a3fd726.js"
+    "static/css/main.865b2572.css",
+    "static/js/main.12d51885.js"
   ]
 }
