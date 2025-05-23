@@ -16,7 +16,7 @@ const Favourites = () => {
       setIsLoading(true);
       try {
         const data = await makeApiRequest(`https://norwegian-rental.online/api/users/${getAccountId()}/favourites`);
-        setFavouriteCars(data);
+        setFavouriteCars(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching favourites:", error);
         setFavouriteCars([]);
@@ -51,7 +51,7 @@ const Favourites = () => {
   };
 
     const renderWithInsertedMenu = () => {
-    if (favouriteCars.length === 0) return null;
+    if (!Array.isArray(favouriteCars) || favouriteCars.length === 0) return null;
 
     const selectedIndex = favouriteCars.findIndex((car) => car.id === selectedCarId);
     let insertionIndex = -1;
