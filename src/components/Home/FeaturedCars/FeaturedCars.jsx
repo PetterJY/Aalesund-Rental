@@ -14,7 +14,15 @@ const FeaturedCars = () => {
   useEffect(() => {
     async function fetchCars() {
       try {
-        const data = await makeApiRequest('https://norwegian-rental.online/api/cars');
+        const response = await fetch('http://localhost:8080/api/cars', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        if (!response.ok) throw new Error('Failed to fetch cars');
+        const data = await response.json();
         setCars(data.slice(0, 5)); 
         setCardOrder([...Array(Math.min(5, data.length)).keys()]);
       } catch (error) {

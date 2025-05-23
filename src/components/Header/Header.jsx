@@ -162,6 +162,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     setIsAuthenticated(false);
     setIsDropdownVisible(false);
     navigate('/home');

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { getToken, makeApiRequest } from '../../../../utils/JwtUtility';
+import { useState, useEffect } from 'react';
+import { getToken } from '../../../../utils/JwtUtility';
 import './EnumModal.css'
 
 const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation, selectedLocation }) => {
@@ -19,8 +19,18 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
       
       async function fetchLocations() {
         try {
-          const data = await makeApiRequest('https://norwegian-rental.online/api/cars/locations');
-          setLocations(data);
+          const response = await fetch('http://localhost:8080/api/cars/locations', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${getToken()}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error(`Failed to fetch locations: ${response.statusText}`);
+          }
+          const data = await response.json();
+          setLocations(data); // Expecting an array of strings (enum values)
         } catch (error) {
           console.error('Error fetching locations:', error);
           setError('Failed to load locations. Please try again later.');
