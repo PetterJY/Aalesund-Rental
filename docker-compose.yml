@@ -6,6 +6,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=NorwegianPassword123
       - MYSQL_DATABASE=rental
+      - MYSQL_USER=RudolfTheRed
+      - MYSQL_PASSWORD=TheRedNose1001
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
@@ -21,6 +23,7 @@ services:
   app:
     image: ntnu/docker-demo:1.0
     container_name: my-spring-app
+    restart: always
     ports:
       - "[::]:8080:8081"  # IPv6
       - "0.0.0.0:8080:8081"  # IPv4
@@ -28,9 +31,9 @@ services:
       db:
         condition: service_healthy
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/rental?allowPublicKeyRetrieval=true&useSSL=true&requireSSL=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=NorwegianPassword123
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/rental?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=RudolfTheRed
+      - SPRING_DATASOURCE_PASSWORD=TheRedNose1001
       - JWT_SECRET_KEY=qZx9pL2wK7mN4vJ8hR5tY3uI6oE1aS0dF3gH9jB4kC2lM5nX8qW7eT6rU1yP0iA3sD2fG5hJ4kL9mN8vB1cQ6wE2
     networks:
       - rental-network
