@@ -6,6 +6,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=NorwegianPassword123
       - MYSQL_DATABASE=rental
+      - MYSQL_USER=RudolfTheRed
+      - MYSQL_PASSWORD=TheRedNose1001
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
@@ -21,12 +23,17 @@ services:
   app:
     image: ntnu/docker-demo:1.0
     container_name: my-spring-app
+    restart: always
     ports:
       - "[::]:8080:8081"  # IPv6
       - "0.0.0.0:8080:8081"  # IPv4
     depends_on:
       db:
         condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/rental?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=RudolfTheRed
+      - SPRING_DATASOURCE_PASSWORD=TheRedNose1001
     networks:
       - rental-network
 

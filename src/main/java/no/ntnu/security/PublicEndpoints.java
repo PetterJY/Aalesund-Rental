@@ -3,34 +3,6 @@ package no.ntnu.security;
 import java.util.List;
 
 /**
- * "/",
-              "/index.html",
-              "/static/**",
-
-              "/home",
-              "/rental",
-              "/booking",
-              "/submitted-booking",
-              "/about-us",
-              "/account",
-              "/account/account",
-              "/account/orders",
-              "/account/my-rentals",
-              "/account/favourites",
-              "/account/admin-rentals",
-
-              "/api/auth/login",
-              "/api/auth/refresh-token",
-              "/api/users/register",
-              "/api/providers/register",
-              "/api/admins/register",
-              "/api/cars/search",
-              "/api/cars/locations",
-              "/api/cars/{id}",
-              "/api/cars"
- */
-
-/**
  * This class contains the public endpoints of the application.
  * These endpoints are accessible without authentication.
  */
@@ -39,6 +11,7 @@ public class PublicEndpoints {
     "/",
     "/index.html",
     "/static/**",
+    "/favicon.ico",
 
     "/home",
     "/rental",
@@ -69,6 +42,7 @@ public class PublicEndpoints {
     "^/$",
     "^/index\\.html$",
     "^/static/.*$",
+    "^/favicon\\.ico$",
     
     "^/home$",
     "^/rental$",
