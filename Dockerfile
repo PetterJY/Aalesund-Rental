@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 # Copy the fat JAR
-COPY target/rental-0.0.1-SNAPSHOT.jar app.jar
+COPY target/rental-1.0.0.jar app.jar
 
 RUN mkdir -p /app/static/js && \
 	jar xf app.jar BOOT-INF/classes/static/static/js && \
