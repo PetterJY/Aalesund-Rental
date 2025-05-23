@@ -1,0 +1,79 @@
+% Setting up the document with a comprehensive preamble
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\title{Sprint 5 Retrospective}
+\author{Team}
+\date{May 20, 2025}
+
+\begin{document}
+
+\maketitle
+\textbf{Sprint 5 - 21.04.25–09.05.25} 
+
+\section*{Sprint 5 Overview}
+Sprint 5, spanning from April 21, 2025, to May 9, 2025, focused on the user interface and functionality of the website. We successfully completed all planned tasks, including filtering features, provider account enhancements, user experience improvements, and database initialization. Below is a retrospective of the sprint, highlighting successes, areas for improvement, and action items for future sprints.
+
+\section*{Sprint Goals}
+\begin{itemize}
+    \item Enhance user interface and functionality for the website
+    \begin{itemize}
+        \item Implement filtering and navigation features
+        \begin{itemize}
+            \item Add price range filter with visual slider
+            \item Add filtering feature for cars
+            \item Add save changes button next to filters for non-phone-sized screens
+        \end{itemize}
+        \item Improve provider account functionality
+        \begin{itemize}
+            \item Style drop-down menu for account
+            \item Create "Add Car" button/menu for providers
+            \item Create "My Cars" page for providers in account
+            \item Create "Orders" page for users to see their car orders
+            \item Add image mapping to relevant cars
+        \end{itemize}
+        \item Enhance user experience
+        \begin{itemize}
+            \item Create "Site not found" page
+            \item Update header on login
+        \end{itemize}
+        \item Initialize database content
+        \begin{itemize}
+            \item Create template objects for cars, rentals, users, etc. in the database
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section*{What Went Well}
+\begin{itemize}
+    \item \textbf{Task Completion}: The team successfully completed all planned tasks, including complex features like the price range filter with a visual slider, the "Orders" page, and image mapping for cars.
+    \item \textbf{Team Collaboration}: We effectively divided responsibilities, with Mathias focusing on filtering features, Marcus and Petter on provider account enhancements, and all contributing to user experience improvements, ensuring a balanced workload.
+    \item \textbf{UI/UX Improvements}: The addition of the "Site not found" page, updated login header, and styled drop-down menu significantly improved the platform’s usability and aesthetics.
+    \item \textbf{Database Setup}: The creation of template objects for cars, rentals, and users was completed efficiently, providing a solid foundation for future development and testing.
+    \item \textbf{Responsiveness}: The save changes button for non-phone-sized screens was implemented successfully, enhancing the user experience on larger devices.
+    \item \textbf{Peer Programming}: Continue with the peer programming so that everyone learns everything.
+\end{itemize}
+
+\section*{What Could Be Improved}
+\begin{itemize}
+    \item \textbf{Time Allocation}: Some tasks, such as image mapping and the visual slider, took longer than expected due to integration complexities. Better time estimates could optimize future sprints.
+    \item \textbf{Documentation Updates}: While Swagger documentation was maintained for back-end features in previous sprints, front-end features like the filters and provider pages could benefit from more detailed documentation.
+    \item \textbf{Task Granularity}: Some tasks, such as improving provider account functionality, were broad, leading to occasional overlap in efforts. Breaking tasks into smaller subtasks could improve clarity.
+
+\end{itemize}
+
+\section*{Action Items for Next Sprint}
+\begin{itemize}
+    \item \textbf{Increase Testing Efforts}: Implement automated unit and integration tests for all new UI and database features to catch potential issues early.
+    \item \textbf{Refine Time Estimates}: Conduct a planning session to break down tasks into smaller, more predictable units and use historical data from Sprint 5 to improve estimation accuracy.
+    \item \textbf{Enhance Documentation}: Extend documentation practices to include front-end features, ensuring all new components (e.g., filters, provider pages) are well-documented for future reference.
+    \item \textbf{Define Granular Tasks}: Break down large tasks into smaller, actionable subtasks during sprint planning to reduce overlap and improve task clarity.
+\end{itemize}
+
+\end{document}

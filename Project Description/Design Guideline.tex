@@ -17,7 +17,10 @@ In the concept phase, before writing code, you should decide the general rules a
     \item Theme: The design should be serious, since it's a car rental rental company, which should show professionalism.
     \item Color scheme:
     \begin{itemize}
-        \item The color theme of the company is Orange and Gray.
+        \item The color theme of the company is Black, Orange and White.
+         \item main-color: #1A1A1A;
+                  \item secondary-color: #FF5F00;
+                  \item background-color: #FFFFFF;
     \end{itemize}
     \item Hierarchy and layout:
     \begin{itemize}
@@ -37,18 +40,19 @@ In the concept phase, before writing code, you should decide the general rules a
             \item Rentalpage
             \item Bookingpage
             \item Homepage.
+            \item Accountpage
         \end{itemize}
         \item What layout(s) will you use for the sections?
         \begin{itemize}
             \item We have a nav-bar in the header. Which consist of logo, time-picker and login button.
             \item In the hero section we have the date-time-picker for pickup and dropoff with a 'show cars' call to action button.
-            \item The booking page's hero section consists of the avilable cars.
+            \item The booking page's hero section consists of the booking details
             \item In the footer we have contacts and social network.
+            \item The rental page's hero section consists of all available cars.
         \end{itemize}
     \end{itemize}
     \item Images:
     \begin{itemize}
-        \item Gather the available images
         \item Will there be text on images or aside images?
         \begin{itemize}
             \item There will be text on the side of the images.
@@ -108,8 +112,7 @@ In the concept phase, before writing code, you should decide the general rules a
 
 \section{Sketching}
 Create a sketch of the page which shows the general layout of the page.
-d
-\href{https://www.figma.com/design/Bad0CJ6dLRK9TCG3znJ58A/Rental-Roulette?node-id=5-2&t=mhheIDBxt3o2sYmw-0https://www.figma.com/design/Bad0CJ6dLRK9TCG3znJ58A/Rental-Roulette?node-id=5-2&t=mhheIDBxt3o2sYmw-0}{This is the figma.}
+\href{https://www.figma.com/design/Bad0CJ6dLRK9TCG3znJ58A/Rental-Roulette?node-id=448-2&p=f&t=oREOp7yr8ViVVVtf-0}{This is the figma.}
 
 
 \section{Specific Technical Decisions }
@@ -117,12 +120,10 @@ This comes at a later stage when you start implementing the site:
 \begin{enumerate}
     \item Colours:
     \begin{itemize}
-        \item Generate color shades/tints (See video 2.2.3 Colors)
-        \item FFFCF2 - Floral White 
-        \item CCC5B9 - Pale Silver
-        \item 403D39 - Black Olive
-        \item 252422 - Raisin Black
-        \item EB5E28 - Halloween Orange
+        \item 1A1A1A - Black
+        \item FF5F00 - Orange
+        \item FFFFFF - White
+        \item We generate different tints based on color strength.
     \end{itemize}
     \item Typography:
     \begin{enumerate}
@@ -130,7 +131,16 @@ This comes at a later stage when you start implementing the site:
 start with something) - Poppins, Serif.
         \item[b] If body text needs another font, choose it. Preferably, use the same font for all texts.
         We use Poppins
-        \item[c] Define font scale using https://type-scale.com/
+        \item[c] Define font scale: based on 14px
+        \begin{enumerate}
+            \item           --font-size-xxxl: 2.5rem; 
+         \item --font-size-xxl: 1.8rem;
+                 \item  --font-size-xl: 1.5rem;
+                 \item --font-size-l: 1rem;
+                 \item --font-size-m: 0.85rem;
+                \item  --font-size-s: 0.75rem;
+        \end{enumerate}
+
     \end{enumerate}
     \item Hierarchy and layout:
     \begin{enumerate}
@@ -140,8 +150,7 @@ hierarchy?
     \end{enumerate}
     \item Icons:
     \begin{enumerate}
-        \item[a] Choose icon pack if you need one. See http://codingheroes.io/resources/icons
-        \item \href{https://phosphoricons.com/}{Icon samples}
+        \item[a] Choose icon pack if you need one: \href{https://phosphoricons.com/}{Icon samples}
     \end{enumerate}
     \item  Spacing:
         \begin{enumerate}

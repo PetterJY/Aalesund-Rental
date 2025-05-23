@@ -1,0 +1,94 @@
+% Setting up the document with a comprehensive preamble
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\title{Sprint 5 Plan}
+\author{Team}
+\date{May 20, 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Sprint 5 - 21.04.25--09.05.25}
+\textbf{Sprint Goal}
+
+\begin{itemize}
+    \item Enhance user interface and functionality for the Aalesund Rental platform
+    \begin{itemize}
+        \item Implement filtering and navigation features
+        \begin{itemize}
+            \item Add price range filter with visual slider
+            \item Add filtering feature for cars
+            \item Add save changes button next to filters for non-phone-sized screens
+        \end{itemize}
+        \item Improve provider account functionality
+        \begin{itemize}
+            \item Style drop-down menu for account
+            \item Create "Add Car" button/menu for providers
+            \item Create "My Cars" page for providers in account
+            \item Create "Orders" page for users to see their car orders.
+            \item Add image mapping to relevant cars.
+        \end{itemize}
+        \item Enhance user experience
+        \begin{itemize}
+            \item Create "Site not found" page
+            \item Update header on login
+        \end{itemize}
+        \item Initialize database content
+        \begin{itemize}
+            \item Create template objects for cars, rentals, users, etc. in the database
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section*{Sprint Backlog}
+
+\textbf{Time Frame}
+
+21.04.25--09.04.25
+
+\textbf{Roles and Responsibilities}
+
+\begin{itemize}
+    \item \textbf{Marcus (MSkaue)} $\rightarrow$ Improve provider account functionality, Initialize database content.
+    \item \textbf{Mathias (mathiaslovnes)} $\rightarrow$ Implement filtering and navigation features
+    \item \textbf{Petter (PetterJY)} $\rightarrow$ Improve provider account functionality, Enhance user experience. 
+\end{itemize}
+
+\section*{Expected Results}
+
+\begin{enumerate}
+    \item \textbf{Enhanced Filtering Features}
+    \begin{itemize}
+        \item Price range filter with a visual slider implemented and functional.
+        \item Car filtering feature available, allowing users to filter cars based on criteria.
+        \item Save changes button implemented for non-phone-sized screens.
+    \end{itemize}
+    \item \textbf{Improved Provider Account Functionality}
+    \begin{itemize}
+        \item Styled drop-down menu for account, improving usability and aesthetics.
+        \item "Add Car" button/menu implemented, enabling providers to add cars easily.
+        \item "My Cars" page created, allowing providers to view and manage their cars.
+        \item "Orders" page created, allowing users to view their rental orders.
+        \item Image mapping give users and providers a visual representation of the cars.
+    \end{itemize}
+    \item \textbf{Enhanced User Experience}
+    \begin{itemize}
+        \item "Site not found" page created to handle invalid URLs gracefully.
+        \item  Update header based on the user that i logged in. 
+    \end{itemize}
+    \item \textbf{Database Initialization}
+    \begin{itemize}
+        \item Template objects for cars, rentals, users, etc., added to the database to support development and testing.
+    \end{itemize}
+\end{enumerate}
+
+
+\end{document}
