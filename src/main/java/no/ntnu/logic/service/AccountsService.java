@@ -54,6 +54,7 @@ public class AccountsService implements UserDetailsService {
         .filter(account -> !account.isDeleted())
         .toList();
   }
+  
 
   /**
    * Fetches an account by its ID.
@@ -83,16 +84,12 @@ public class AccountsService implements UserDetailsService {
 
   @Override
   public CustomUserDetails loadUserByUsername(String email) throws AccountNotFoundException {
-    try {
       Accounts account = findByEmail(email);
       if (account.isDeleted()) {
         logger.warn("Attempted to load a deleted account with email: {}", email);
         throw new AccountNotFoundException("Account is deleted with email: " + email);
       }
       return new CustomUserDetails(account);
-    } catch (AccountNotFoundException e) {
-      throw new UsernameNotFoundException("Account not found with email: " + email);
-    }
   }
 
   /**
