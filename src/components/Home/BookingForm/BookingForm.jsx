@@ -47,7 +47,18 @@ const BookingForm = ({
   async function fetchLocations() {
     setIsLoadingLocations(true);
     try {
-      const data = await makeApiRequest(`https://norwegian-rental.online/api/cars/locations`);
+      const response = await fetch(`https://norwegian-rental.online/api/cars/locations`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        },
+      });
+      if (!response.ok) {
+        console.error('Failed to fetch pickup locations:', response.statusText);
+        return;
+      }
+      const data = await response.json();
       setPickupLocations(data);
       setDropoffLocations(data);
     } catch (error) {
