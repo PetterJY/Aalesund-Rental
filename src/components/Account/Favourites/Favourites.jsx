@@ -16,7 +16,10 @@ const Favourites = () => {
       setIsLoading(true);
       try {
         const data = await makeApiRequest(`http://localhost:8080/api/users/${getAccountId()}/favourites`);
-        setFavouriteCars(data);
+        
+        // Ensure data is an array
+        setFavouriteCars(Array.isArray(data) ? data : []);
+        console.log('Fetched favorites:', data);
       } catch (error) {
         console.error("Error fetching favourites:", error);
         setFavouriteCars([]);
@@ -51,7 +54,7 @@ const Favourites = () => {
   };
 
     const renderWithInsertedMenu = () => {
-    if (favouriteCars.length === 0) return null;
+    if (!Array.isArray(favouriteCars) || favouriteCars.length === 0) return null;
 
     const selectedIndex = favouriteCars.findIndex((car) => car.id === selectedCarId);
     let insertionIndex = -1;
