@@ -19,7 +19,6 @@ const Favourites = () => {
         
         // Ensure data is an array
         setFavouriteCars(Array.isArray(data) ? data : []);
-        console.log('Fetched favorites:', data);
       } catch (error) {
         console.error("Error fetching favourites:", error);
         setFavouriteCars([]);

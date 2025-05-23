@@ -15,7 +15,6 @@ const CarSelected = ({car}) => {
     car.pricePerDay)
 
   const handleRentCar = () => {
-    console.log(`Renting car with ID: ${car.id}`);
     navigate(`/booking/${car.id}`);
   };
 

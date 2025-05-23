@@ -34,7 +34,6 @@ const OrdersCarDisplay = ({rental}) => {
 			totalCost: rental.totalCost,
 			status: rental.status,
 		}
-		console.log('Fetching details for PUT request:', json);
 		return json;
 	}
 
@@ -51,7 +50,6 @@ const OrdersCarDisplay = ({rental}) => {
       });
       
       setStatus(data.status);
-      console.log('Order cancelled successfully:', data);
     } catch (error) {
       console.error('Failed to cancel order:', error);
     }

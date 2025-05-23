@@ -14,7 +14,6 @@ const Testimonials = () => {
     if (autoPlayInterval) {
       clearInterval(autoPlayInterval);
       setAutoPlayInterval(null);
-      console.log("calling start autoplay from next click");
       startAutoplay();
     }
 
@@ -34,7 +33,6 @@ const Testimonials = () => {
       clearInterval(autoPlayInterval);
       setAutoPlayInterval(null);
       startAutoplay();
-      console.log("calling start autoplay from previous click");
     }
 
     setCardOrder(prev => [prev[prev.length - 1], ...prev.slice(0, -1)]);
@@ -47,12 +45,10 @@ const Testimonials = () => {
 
   const startAutoplay = () => {
     if (autoPlayInterval) {
-      console.log("Autoplay already running, not starting again.");
       return;
     } // Prevent multiple intervals
 
     const interval = setInterval(() => {
-      console.log("Autoplay interval running...");
       handleNextClick();
     }, 7500);
     setAutoPlayInterval(interval);
@@ -60,7 +56,6 @@ const Testimonials = () => {
 
   useEffect(() => {
     startAutoplay(); // Start auto-play on mount
-    console.log("calling start autoplay from useEffect");
 
     return () => {
       if (autoPlayInterval) clearInterval(autoPlayInterval); // Cleanup on unmount
@@ -68,7 +63,6 @@ const Testimonials = () => {
   }, []);
 
   const pauseAutoplay = () => {
-    console.log("paused autoplay!")
     if (autoPlayInterval) {
       clearInterval(autoPlayInterval);
       setAutoPlayInterval(null);
@@ -76,7 +70,6 @@ const Testimonials = () => {
   };
 
   const resumeAutoplay = () => {
-    console.log("resumed autoplay!")
     if (!autoPlayInterval) {
       const interval = setInterval(() => {
         handleNextClick();

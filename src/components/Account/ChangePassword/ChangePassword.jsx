@@ -38,7 +38,6 @@ async function changePassword(event) {
   const formData = retrieveData();
 
   if (formData.newPassword !== formData.confirmPassword) {
-    console.log("Passwords do not match.");
     setErrorMessage("New password and confirmation do not match.");
     setShowErrorMessage(true);
     return; 
@@ -80,7 +79,6 @@ async function changePassword(event) {
     }
     
     alert("Password changed successfully!");
-    console.log("Password has been changed successfully.");
     closeModal();
   } catch(error) {
     console.error("Error changing password:", error);

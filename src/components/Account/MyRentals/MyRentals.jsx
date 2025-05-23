@@ -27,10 +27,8 @@ const MyRentals = () => {
     try {
       const data = await makeApiRequest(`http://localhost:8080/api/cars/my-cars/${getAccountId()}`);
       setCars(data);
-      console.log('Fetched cars:', data);
     } catch (error) {
-      console.error('Error fetching cars:', error);
-      setCars([]); 
+      setCars([]);
     } finally {
       setIsLoading(false);
     }

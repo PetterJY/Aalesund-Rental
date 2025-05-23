@@ -42,8 +42,6 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
   async function handleRegister(event) {
     event.preventDefault(); 
 
-    console.log("Register button clicked.");
-
     const data = retrieveData();
 
     /**
@@ -77,8 +75,6 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       return;
     }
     
-    console.log("Data object: ", data);
-
     try {
       const response = await fetch('http://localhost:8080/api/users/register', {
         method: 'POST',
@@ -92,9 +88,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
         throw new Error("Registration failed: " + response.statusText);
       }
 
-      console.log("User has been registered.");
       const responseData = await response.json();
-      console.log("Response data: ", responseData);
       const loginDetails = {
         email: data.email,
         password: data.password,
@@ -118,7 +112,6 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
         body: JSON.stringify(loginDetails),
       });
 
-      console.log("Response status: ", response.status);
       if (!response.ok) {
         console.error("Login failed: ", response.statusText);
         if (response.status === 401) {;
@@ -133,8 +126,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       const data = await response.json();
       const token = data.accessToken;
 
-      console.log("Token: ", token);
-      localStorage.setItem('accessToken', token); 
+      localStorage.setItem('accessToken', token);
       setIsAuthenticated(true);
       setIsAuthInitialized(true);
     } catch(error) {

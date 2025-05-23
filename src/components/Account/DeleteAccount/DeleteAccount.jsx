@@ -20,7 +20,6 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
 
   //   // Check if the verification-keyword matches
   //   if (document.getElementById('verify-field').value !== 'delete') {
-  //     console.log("Verification keyword does not match.");
   //     setErrorMessage("Verification keyword does not match.");
   //     setShowErrorMessage(true);
   //     return; // Exit early if the verification keyword is incorrect
@@ -71,7 +70,6 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
 
   //       const responseDetails = await response.json();
 
-  //       console.log("Account has been deleted.");
   //       closeModal();
   //       return responseDetails;
   //     }
@@ -88,7 +86,6 @@ async function deleteAccount(event) {
   event.preventDefault();
 
   if (document.getElementById("verify-field").value !== "delete") {
-    console.log("Verification keyword does not match.");
     setErrorMessage("Verification keyword does not match.");
     setShowErrorMessage(true);
     return;
@@ -104,7 +101,6 @@ async function deleteAccount(event) {
       body: JSON.stringify(passwordField),
     });
     
-    console.log("Account has been deleted.");
     closeModal();
     
     localStorage.removeItem('accessToken');

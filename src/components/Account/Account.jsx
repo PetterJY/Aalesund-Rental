@@ -221,7 +221,6 @@ const Account = () => {
         companyName: updatedCompanyName,
       };
 
-      console.log('Updated provider details:', providerDetails);
 
       const response = await makeApiRequest(`http://localhost:8080/api/providers/${accountId}`, {
         method: 'PUT',
@@ -260,8 +259,6 @@ const Account = () => {
     try {
       const data = await makeApiRequest(`http://localhost:8080/api/admins/${accountId}`);
       
-      console.log('Admin data:', data);
-
       const usernameValue = data.name;
       setUsername(usernameValue);
       document.getElementById('username').value = data.name;
@@ -307,8 +304,6 @@ const Account = () => {
         ...adminData, 
         name: updatedUsername,
       };
-
-      console.log('Updated admin details:', adminDetails);
 
       const response = await makeApiRequest(`http://localhost:8080/api/admins/${accountId}`, {
         method: 'PUT',

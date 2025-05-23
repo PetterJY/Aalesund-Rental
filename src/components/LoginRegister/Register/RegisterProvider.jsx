@@ -46,8 +46,6 @@ const RegisterProviderModal = ({ closeModal, isModalVisible, toggleMode }) => {
   async function handleRegister(event) {
     event.preventDefault();
 
-    console.log('Provider register button clicked.');
-
     const data = retrieveData();
 
     // Check if password and confirm password match
@@ -83,8 +81,6 @@ const RegisterProviderModal = ({ closeModal, isModalVisible, toggleMode }) => {
       return;
     }
 
-    console.log('Provider data object: ', data);
-
   try {
     const response = await fetch('http://localhost:8080/api/providers/register', {
       method: 'POST',
@@ -112,9 +108,7 @@ const RegisterProviderModal = ({ closeModal, isModalVisible, toggleMode }) => {
       throw new Error('Provider registration failed');
     }
 
-      console.log('Provider has been registered.');
       const responseData = await response.json();
-      console.log('Response data: ', responseData);
       closeModal();
       alert('Provider account created successfully!');
     } catch (error) {

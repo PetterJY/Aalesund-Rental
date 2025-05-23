@@ -95,15 +95,11 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
         searchParams.append("carId", car.id);
 
         const url = `http://localhost:8080/api/rentals/my-rentals?${searchParams.toString()}`;
-        console.log("Request URL: ", url);
-        
         // Replace fetch with makeApiRequest
         const rentalDetails = await makeApiRequest(url, { signal });
         setRentalDetails(rentalDetails);
-        console.log('Fetched rental:', rentalDetails);
       } catch (error) {
         if (error.name === 'AbortError') {
-          console.log('Fetch aborted:', error.message);
         } else {
           console.error('Error fetching rental:', error);
         }
@@ -147,8 +143,6 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
       available: rentalDetails.available,
     }
 
-    console.log('Formatted rental details:', formattedDetails);
-
     return formattedDetails;
   }
 
@@ -159,8 +153,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
         body: JSON.stringify(formatRentalDetails(editedCar)),
       });
       
-      console.log('Updated car:', updatedCar);
-      setDisplayCar(updatedCar); 
+      setDisplayCar(updatedCar);
     } catch (error) {
       console.error('Error updating car:', error);
     }
@@ -227,11 +220,6 @@ const handleExtraFeaturesUpdate = async (selectedFeatureIds) => {
     ...prev,
     extraFeatures: updatedFeatures,
   }));
-
-  editedCar.extraFeatures.map((feature) => {
-    console.log('Feature ID:', feature.id);
-    console.log('Feature Name:', feature.name);
-  });
 };
 
   const fetchFeatureName = async (featureId) => {
