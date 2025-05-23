@@ -87,9 +87,7 @@ const AdminRentals = () => {
     async function fetchCars() {
       setIsLoadingCars(true);
       try {
-        const data = await makeApiRequest(
-          `https://norwegian-rental.online/api/cars/my-cars/${selectedProviderId}`
-        );
+        const data = await makeApiRequest(`https://norwegian-rental.online/api/cars/my-cars/${selectedProviderId}`);
         setCars(data);
       } catch (error) {
         console.error('Failed to fetch cars:', error);

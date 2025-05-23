@@ -26,26 +26,36 @@ const Booking = () => {
 
 	const [isLoading, setIsLoading] = useState(true);
 
-    async function fetchCarDetails() {
+        async function fetchCarDetails() {
         setIsLoading(true);
         try {
-            const carDetails = await makeApiRequest(`https://norwegian-rental.online/api/cars/${carId}`);
+					const response = await fetch(`http://localhost:8080/api/cars/${carId}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+						},
+					})
+					if (!response.ok) {
+						throw new Error('Failed to fetch car details', response.statusText);
+					}
 
-            setRentalDetails({
-                ...rentalDetails,
-                carId: carDetails.id,
-                providerId: carDetails.provider.id,
-                carBrand: carDetails.carBrand,
-                modelName: carDetails.modelName,
-                companyName: carDetails.provider.companyName,
-                pricePerDay: carDetails.pricePerDay,
-                totalCost: carDetails.totalCost || 0,
-            });
+					const carDetails = await response.json();
 
+					setRentalDetails({
+						...rentalDetails,
+						carId: carDetails.id,
+						providerId: carDetails.provider.id,
+						carBrand: carDetails.carBrand,
+						modelName: carDetails.modelName,
+						companyName: carDetails.provider.companyName,
+						pricePerDay: carDetails.pricePerDay,
+						totalCost: carDetails.totalCost || 0, // Ensure fallback
+					});
         }
         catch(error) {
         } finally {
-            setIsLoading(false);
+					setIsLoading(false);
         }
     }
 
