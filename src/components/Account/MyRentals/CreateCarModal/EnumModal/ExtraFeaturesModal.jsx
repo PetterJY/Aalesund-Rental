@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, setError } from 'react';
+import { useState, useEffect } from 'react';
 import { getToken, makeApiRequest } from '../../../../utils/JwtUtility';
 import './EnumModal.css';
 
@@ -29,14 +29,12 @@ const handleFeatureSelection = (featureId) => {
   useEffect(() => {
     if (isCreateCarModalOpen) {
       setIsLoading(true);
-      setError(null);
       
       async function fetchExtraFeatures() {
         try {
           const data = await makeApiRequest('https://norwegian-rental.online/api/extra-features');
           setExtraFeatures(data);
         } catch (error) {
-          setError('Failed to load extra features. Please try again.');
         } finally {
           setIsLoading(false);
         }
