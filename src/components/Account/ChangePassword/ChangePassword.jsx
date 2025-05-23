@@ -54,31 +54,40 @@ async function changePassword(event) {
   }
   
   const requestBody = {
-    id: userId,  // Change userId to id
+    id: userId,
     oldPassword: formData.oldPassword,
     newPassword: formData.newPassword
   };
 
   try {
-      await makeApiRequest(`http://localhost:8080/api/accounts/change-password`, {
-        method: 'PUT',
-        body: JSON.stringify(requestBody)
-      });
+    const response = await fetch(`http://localhost:8080/api/accounts/change-password`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      },
+      body: JSON.stringify(requestBody)
+    });
     
-      console.log("Password has been changed successfully.");
-      closeModal();
-    } catch(error) {
-      console.error("Error changing password:", error);
-      
-      if (error.message && error.message.includes("401")) {
+    if (!response.ok) {
+      if (response.status === 401) {
         setErrorMessage("Current password is incorrect.");
       } else {
         setErrorMessage("Failed to change password. Please try again.");
       }
-
       setShowErrorMessage(true);
+      return;
     }
+    
+    alert("Password changed successfully!");
+    console.log("Password has been changed successfully.");
+    closeModal();
+  } catch(error) {
+    console.error("Error changing password:", error);
+    setErrorMessage("Network error. Please try again.");
+    setShowErrorMessage(true);
   }
+}
 
   if (!isModalVisible) {
     return null; 
