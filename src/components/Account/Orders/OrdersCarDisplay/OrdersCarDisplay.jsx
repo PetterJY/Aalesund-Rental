@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Warehouse, XCircle} from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
 import { CaretLeft } from '@phosphor-icons/react';
+import { makeApiRequest } from '../../../utils/JwtUtility';
 import './OrdersCarDisplay.css';
 import { tr } from 'date-fns/locale';
 
@@ -37,29 +38,24 @@ const OrdersCarDisplay = ({rental}) => {
 		return json;
 	}
 
-	async function cancelOrder() {
-		setVerifyPanel(false);
+    async function cancelOrder() {
+        setVerifyPanel(false);
 
-
-		const response = await fetch(`http://localhost:8080/api/rentals/${rental.rentalId}`, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-			},
-			body: JSON.stringify({
-				...fetchRentalDetails(),
-				status: 'CANCELLED',
-			}),
-		});
-		if (!response.ok) {
-			console.error('Failed to cancel order:', response.statusText);
-			return;
-		}
-		const data = await response.json();
-		setStatus(data.status);
-		console.log('Order cancelled successfully:', data);
-	}
+    try {
+      const data = await makeApiRequest(`http://localhost:8080/api/rentals/${rental.rentalId}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          ...fetchRentalDetails(),
+          status: 'CANCELLED',
+        }),
+      });
+      
+      setStatus(data.status);
+      console.log('Order cancelled successfully:', data);
+    } catch (error) {
+      console.error('Failed to cancel order:', error);
+    }
+  }
 
   const handleCancelOrder = () => {
     if (status !== "PENDING") return;

@@ -23,7 +23,6 @@
 
   font-size: 14px;
 
-  /* Typography Scale (based on the provided type scale) */
   --font-size-xxxl: 2.5rem; 
   --font-size-xxl: 1.8rem;
   --font-size-xl: 1.5rem;
@@ -31,13 +30,11 @@
   --font-size-m: 0.85rem;
   --font-size-s: 0.75rem;
 
-  /* Font Weights and Lightness */
   --font-weight-bold: 700;
   --font-weight-regular: 400;
   --lightness-100: 100%;
   --lightness-65: 65%;
 
-  /* Spacing Scale (based on the provided margins) */
   --spacing-xxs: 0.25rem;
   --spacing-xs: 0.5rem;
   --spacing-s: 0.75rem;

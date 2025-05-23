@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { getToken } from '../../../../utils/JwtUtility';
+import { useState, useEffect, setError } from 'react';
+import { getToken, makeApiRequest } from '../../../../utils/JwtUtility';
 import './EnumModal.css';
 
 const ExtraFeaturesModal = ({
@@ -14,11 +14,9 @@ const ExtraFeaturesModal = ({
   const [searchQuery, setSearchQuery] = useState('');
 
 const handleFeatureSelection = (featureId) => {
-  console.log('Feature selected:', featureId);
 
   setSelectedFeatures((prevSelected) => {
     if (!Array.isArray(prevSelected)) {
-      console.error('prevSelected is not an array:', prevSelected);
       return []; 
     }
 
@@ -31,27 +29,20 @@ const handleFeatureSelection = (featureId) => {
   useEffect(() => {
     if (isCreateCarModalOpen) {
       setIsLoading(true);
+      setError(null);
+      
       async function fetchExtraFeatures() {
         try {
-          const response = await fetch('http://localhost:8080/api/extra-features', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${getToken()}`,
-            },
-          });
-          if (!response.ok) {
-            console.error('Failed to fetch extra features:', response.statusText);
-            return;
-          }
-          const data = await response.json();
+          // Replace fetch with makeApiRequest
+          const data = await makeApiRequest('http://localhost:8080/api/extra-features');
           setExtraFeatures(data);
         } catch (error) {
-          console.error('Error fetching extra features:', error);
+          setError('Failed to load extra features. Please try again.');
         } finally {
           setIsLoading(false);
         }
       }
+      
       fetchExtraFeatures();
     }
   }, [isCreateCarModalOpen]);

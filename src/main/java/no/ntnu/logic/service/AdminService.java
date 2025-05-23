@@ -85,20 +85,13 @@ public class AdminService {
   }
 
   /**
-   * Saves an admin with the option to not encode the password.
+   * Saves an admin without encoding the password.
    *
    * @param admin the admin to save
-   * @param encodePassword whether to encode the password or not
    * @return the saved admin
    */
-  public Admins save(Admins admin, boolean encodePassword) {
-    if (encodePassword) {
-      logger.debug("Encoding password for admin with email: {}", admin.getEmail());
-      return save(admin);
-    }
+  public Admins saveWithoutEncode(Admins admin) {
     logger.info("Saving admin with email: {}", admin.getEmail());
     return adminRepository.save(admin);
   }
-
-  // TODO: Include both of these methods?
 }

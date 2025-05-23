@@ -78,17 +78,12 @@ public class ProvidersService {
   }
 
   /**
-   * Saves a provider with the option to not encode the password.
+   * Saves a provider without encoding the password.
    *
    * @param provider        the provider to save
-   * @param encodePassword  whether to encode the password
    * @return the saved provider
    */
-  public Providers save(Providers provider, boolean encodePassword) {
-    if (encodePassword) {
-      logger.debug("Encoding password for provider with email: {}", provider.getEmail());
-      return save(provider);
-    }
+  public Providers saveWithoutEncode(Providers provider) {
     logger.info("Saving provider with email: {}", provider.getEmail());
     return providersRepository.save(provider);
   }

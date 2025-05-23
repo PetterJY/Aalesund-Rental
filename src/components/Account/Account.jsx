@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { getAccountId, getRole } from '../utils/JwtUtility';
+import { getAccountId, getRole, makeApiRequest } from '../utils/JwtUtility';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
+import RegisterProvider from '../LoginRegister/Register/RegisterProvider';
 import './Account.css';
 
 const Account = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isCreateProviderModalVisible, setIsCreateProviderModalVisible] = useState(false);
   
   useEffect(() => {
     setShowErrorMessage(false);
@@ -31,6 +33,14 @@ const Account = () => {
 
   const closeChangePasswordModal = () => {
     setIsChangePasswordModalVisible(false);
+  };
+
+  const openCreateProviderModal = () => {
+    setIsCreateProviderModalVisible(true);
+  };
+
+  const closeCreateProviderModal = () => {
+    setIsCreateProviderModalVisible(false);
   };
 
   const [accountId, setAccountId] = useState(getAccountId());
@@ -73,21 +83,8 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/accounts/${accountId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.error('Failed to fetch user data:', response.statusText);
-        return;
-      }
-
-      const data = await response.json();
-
+      const data = await makeApiRequest(`http://localhost:8080/api/accounts/${accountId}`);
+      
       setFirstName(data.firstName);
       setLastName(data.lastName);
       
@@ -112,6 +109,7 @@ const Account = () => {
       return;
     }
 
+    // Define these variables from the input fields
     const updatedFirstName = document.getElementById('first-name').value;
     const updatedLastName = document.getElementById('last-name').value;
     
@@ -129,7 +127,7 @@ const Account = () => {
 
     try {
       const userData = await fetchUserData();
-
+      
       if (!userData) {
         setErrorMessage('Failed to fetch user data. Please try again.');
         setShowErrorMessage(true);
@@ -145,35 +143,22 @@ const Account = () => {
         phoneNumber: userData.phoneNumber
       };
 
-      const response = await fetch(`http://localhost:8080/api/users/${accountId}`, {
+      // makeApiRequest returns the parsed JSON directly
+      const data = await makeApiRequest(`http://localhost:8080/api/users/${accountId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
         body: JSON.stringify(userDetails),
       });
 
-      if (!response.ok) {
-        console.error('Failed to update user data:', response.statusText);
-        setErrorMessage('Failed to update user data. Please try again.');
-        setShowErrorMessage(true);
-        return;
-      }
-
-      // Update state and input fields with the new values
-      const data = await response.json();
+      // Update state and input fields
       setFirstName(data.firstName);
       setLastName(data.lastName);
       
-      // Set the input fields to the NEW values from the response
       document.getElementById('first-name').value = data.firstName;
       document.getElementById('last-name').value = data.lastName;
       
       setErrorMessage("Profile updated successfully!");
       setMessageType('success');
       setShowErrorMessage(true);
-
     } catch (error) {
       console.error('Error updating user data:', error);
       setErrorMessage('An error occurred while updating user data. Please try again.');
@@ -188,18 +173,8 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/providers/' + accountId, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-      if (!response.ok) {
-        console.error('Failed to fetch provider data:', response.statusText);
-        return;
-      }
-      const data = await response.json();
+      const data = await makeApiRequest(`http://localhost:8080/api/providers/${accountId}`);
+      
       setCompanyName(data.companyName);
       // USE DATA FROM RESPONSE, not the state variable
       document.getElementById('company-name').value = data.companyName;
@@ -248,14 +223,11 @@ const Account = () => {
 
       console.log('Updated provider details:', providerDetails);
 
-      const response = await fetch('http://localhost:8080/api/providers/' + accountId, {
+      const response = await makeApiRequest(`http://localhost:8080/api/providers/${accountId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
         body: JSON.stringify(providerDetails),
       });
+
       if (!response.ok) {
         console.error('Failed to update provider data:', response.statusText);
         setErrorMessage('Failed to update provider data. Please try again.');
@@ -286,20 +258,8 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/admins/' + accountId, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.error('Failed to fetch admin data:', response.statusText);
-        return;
-      }
-
-      const data = await response.json();
+      const data = await makeApiRequest(`http://localhost:8080/api/admins/${accountId}`);
+      
       console.log('Admin data:', data);
 
       const usernameValue = data.name;
@@ -350,12 +310,8 @@ const Account = () => {
 
       console.log('Updated admin details:', adminDetails);
 
-      const response = await fetch('http://localhost:8080/api/admins/' + accountId, {
+      const response = await makeApiRequest(`http://localhost:8080/api/admins/${accountId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
         body: JSON.stringify(adminDetails),
       });
 
@@ -443,6 +399,17 @@ const Account = () => {
               Change Password
             </button>
           </li>
+          {role === 'ROLE_ADMIN' && (
+          <li>
+            <button
+              className="bottom-button action-button"
+              onClick={openCreateProviderModal}
+              aria-label="Create Provider Account"
+            >
+              Create Provider Account
+            </button>
+          </li>
+        )}
         </ul>
       </section>
       <DeleteAccount
@@ -453,6 +420,12 @@ const Account = () => {
         isModalVisible={isChangePasswordModalVisible}
         closeModal={closeChangePasswordModal}
       />
+      {role === 'ROLE_ADMIN' && (
+      <RegisterProvider
+        isModalVisible={isCreateProviderModalVisible}
+        closeModal={closeCreateProviderModal}
+      />
+    )}
     </main>
   );
 };

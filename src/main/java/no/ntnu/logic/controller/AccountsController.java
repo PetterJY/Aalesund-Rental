@@ -166,14 +166,8 @@ public class AccountsController {
           example = "example@email.com"
       )
       @PathVariable String email) {
-    try {
       logger.info("Fetching account with email: {}", email);
       Accounts account = accountsService.findByEmail(email);
-
-      if (account == null) {
-        logger.info("Account with email {} not found", email);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-      }
 
       if (account.isDeleted()) {
         logger.info("Account with email {} is deleted", email);
@@ -182,10 +176,6 @@ public class AccountsController {
 
       logger.debug("Fetched account: {}", account);
       return ResponseEntity.status(HttpStatus.OK).body(account);
-    } catch (Exception e) {
-      logger.error("Error fetching account with email {}: {}", email, e.getMessage(), e);
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
   }
 
   /**
@@ -295,14 +285,10 @@ public class AccountsController {
 
     Accounts account = accountsService.findByEmail(email);
 
-    if (account == null) {
-      logger.warn("Account with identifier: {} not found", email);
-      return ResponseEntity.status(404).build();
-    }
-
     logger.debug("Account found: {}", account);
 
-    markAccountAsDeleted(account);
+    account.setDeleted(true);
+    accountsService.save(account);
     logger.info("Account with identifier: {} deleted successfully", email);
     return ResponseEntity.noContent().build();
   }
@@ -325,16 +311,5 @@ public class AccountsController {
       logger.warn("Password verification failed for account: {}", email);
       return false;
     }
-  }
-
-  /**
-   * Marks an account as deleted.
-   *
-   * @param account the account to mark as deleted
-   */
-  private void markAccountAsDeleted(Accounts account) {
-    account.setDeleted(true);
-    accountsService.save(account);
-    logger.debug("Account marked as deleted: {}", account);
   }
 }

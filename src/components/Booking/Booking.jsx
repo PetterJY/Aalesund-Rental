@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { mapCarImage } from '../utils/CarImageMapper';
-import { getRole, getAccountId } from "../utils/JwtUtility";
+import { getRole, getAccountId, makeApiRequest } from "../utils/JwtUtility";
 import { useAuth } from "../utils/AuthContext";
 import storageLogo from "../../resources/images/storage-logo.png";
 import "./Booking.css";
@@ -26,44 +26,28 @@ const Booking = () => {
 
 	const [isLoading, setIsLoading] = useState(true);
 
-	async function fetchCarDetails() {
-		setIsLoading(true);
-		try {
-			const response = await fetch(`http://localhost:8080/api/cars/${carId}`, {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-				},
-			})
-			
-			if (!response.ok) {
-				throw new Error('Failed to fetch car details', response.statusText);
-			}
+    async function fetchCarDetails() {
+        setIsLoading(true);
+        try {
+            const carDetails = await makeApiRequest(`http://localhost:8080/api/cars/${carId}`);
 
-			const carDetails = await response.json();
-			console.log("Car details fetched:", carDetails);
+            setRentalDetails({
+                ...rentalDetails,
+                carId: carDetails.id,
+                providerId: carDetails.provider.id,
+                carBrand: carDetails.carBrand,
+                modelName: carDetails.modelName,
+                companyName: carDetails.provider.companyName,
+                pricePerDay: carDetails.pricePerDay,
+                totalCost: carDetails.totalCost || 0,
+            });
 
-			setRentalDetails({
-				...rentalDetails,
-				carId: carDetails.id,
-				providerId: carDetails.provider.id,
-				carBrand: carDetails.carBrand,
-				modelName: carDetails.modelName,
-				companyName: carDetails.provider.companyName,
-				pricePerDay: carDetails.pricePerDay,
-				totalCost: carDetails.totalCost || 0, // Ensure fallback
-			});
-
-			console.log("Rental details updated:", rentalDetails);
-		}
-
-		catch(error) {
-			console.error(error);
-		} finally {
-			setIsLoading(false);
-		}
-	}
+        }
+        catch(error) {
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
 	useEffect(() => {
 		fetchCarDetails();
@@ -76,35 +60,21 @@ const Booking = () => {
 		}
 
     async function fetchAccountDetails() {
-			if (!isAuthenticated) {
-				console.warn("Can't fetch Account Details. User is not logged in.");
-				return;
-			}
+            if (!isAuthenticated) {
+                console.warn("Can't fetch Account Details. User is not logged in.");
+                return;
+            }
 
-			if (role !== "ROLE_USER") {
-				console.warn("Account is not of role USER.");
-				return;
-			}
+            if (role !== "ROLE_USER") {
+                console.warn("Account is not of role USER.");
+                return;
+            }
 
-			const accountId = getAccountId();
+            const accountId = getAccountId();
       try {
-        const response = await fetch(`http://localhost:8080/api/accounts/${accountId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch account details', response.statusText);
-        }
-
-        const accountDetails = await response.json();
+        const accountDetails = await makeApiRequest(`http://localhost:8080/api/accounts/${accountId}`);
         setAccountDetails(accountDetails);
-        console.log("Account details fetched:", accountDetails);
       } catch (error) {
-        console.error(error);
       }
     }
 
@@ -152,31 +122,19 @@ const Booking = () => {
 			status: "PENDING",
 		};
 
-		console.log("Booking data: ", bookingData);
 
-		try {
-			const response = await fetch("http://localhost:8080/api/rentals", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-				},
-				body: JSON.stringify(bookingData),
-			});
+        try {
+            const booking = await makeApiRequest("http://localhost:8080/api/rentals", {
+                method: "POST",
+                body: JSON.stringify(bookingData),
+            });
+            
+            navigate("/submitted-booking");
 
-			if (!response.ok) {
-				throw new Error('Failed to submit booking', response.statusText);
-			}
-
-			const booking = await response.json();
-			console.log("Booking submitted successfully:", booking);
-			navigate("/submitted-booking");
-
-			return booking;
-		} catch (error) {
-			console.error(error);
-		}
-	}
+            return booking;
+        } catch (error) {
+        }
+    }
 
 
 

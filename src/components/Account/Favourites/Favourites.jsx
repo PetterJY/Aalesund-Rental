@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef} from "react";
-import { getAccountId } from "../../utils/JwtUtility";
+import { getAccountId, makeApiRequest } from "../../utils/JwtUtility";
 import CarDisplay from "../../Rental/CarDisplay/CarDisplay";
 import CarSelected from "../../Rental/CarSelected/CarSelected";
 import "./Favourites.css";
@@ -12,26 +12,14 @@ const Favourites = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Fetch favourite cars for the current user
     async function fetchFavourites() {
       setIsLoading(true);
       try {
-
-        const response = await fetch(`http://localhost:8080/api/users/${getAccountId()}/favourites`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
+        const data = await makeApiRequest(`http://localhost:8080/api/users/${getAccountId()}/favourites`);
         
-        if (!response.ok) {
-          console.error("Failed to fetch favourites:", response.statusText);
-          setFavouriteCars([]);
-        } else {
-          const data = await response.json();
-          setFavouriteCars(data);
-        }
+        // Ensure data is an array
+        setFavouriteCars(Array.isArray(data) ? data : []);
+        console.log('Fetched favorites:', data);
       } catch (error) {
         console.error("Error fetching favourites:", error);
         setFavouriteCars([]);
@@ -66,7 +54,7 @@ const Favourites = () => {
   };
 
     const renderWithInsertedMenu = () => {
-    if (favouriteCars.length === 0) return null;
+    if (!Array.isArray(favouriteCars) || favouriteCars.length === 0) return null;
 
     const selectedIndex = favouriteCars.findIndex((car) => car.id === selectedCarId);
     let insertionIndex = -1;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getRole, getAccountId } from '../../utils/JwtUtility'; 
+import { getRole, getAccountId, makeApiRequest } from '../../utils/JwtUtility'; 
 import PaginationControls, { getPaginatedItems as getPaginatedItems } from '../../PaginationControls/PaginationControls';
 import OrdersCarDisplay from './OrdersCarDisplay/OrdersCarDisplay'; 
-import carImage from '../../../resources/images/logo.svg';
+import carImage from '../../../resources/images/logo.png';
 import OrdersDropdown from './OrdersDropDown/OrdersDropDown';
 import '../Orders/Orders.css';
 
@@ -26,22 +26,10 @@ const Orders = () => {
     async function fetchRentals() {
       setIsLoading(true); 
       try {
-        const response = await fetch(`http://localhost:8080/api/rentals/renter/${getAccountId()}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        if (!response.ok) {
-          console.error('Failed to fetch rentals:', response.statusText);
-          return;
-        }
-        const rentalDetails = await response.json();
+        const rentalDetails = await makeApiRequest(`http://localhost:8080/api/rentals/renter/${getAccountId()}`);
         setRentals(rentalDetails);
-        console.log('Fetched rentals:', rentalDetails);
       } catch (error) {
-        console.error('Error fetching rentals:', error);
+        setRentals([]); 
       } finally {
         setIsLoading(false);
       }
@@ -49,10 +37,12 @@ const Orders = () => {
     fetchRentals();
   }, []);
 
-  const filteredRentals = rentals.filter((rental) => {
-    if (selectedStatus === 'All') return true;
-    return rental.status === selectedStatus;
-  });
+  const filteredRentals = Array.isArray(rentals) 
+  ? rentals.filter((rental) => {
+      if (selectedStatus === 'All') return true;
+      return rental.status === selectedStatus;
+    })
+  : [];
 
   const statusOptions = ['All', 'PENDING', 'ACTIVE', 'CANCELLED', 'COMPLETED'];
 

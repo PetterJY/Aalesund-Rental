@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NotePencil } from "@phosphor-icons/react";
 import { mapCarImage } from '../../../utils/CarImageMapper';
-import { getRole } from '../../../utils/JwtUtility';
+import { getRole, makeApiRequest, getAccountId, getToken } from '../../../utils/JwtUtility';
 import MyRentalsCarTable from '../MyRentalsCarTable/MyRentalsCarTable';
 import ExtraFeaturesModal from '../CreateCarModal/EnumModal/ExtraFeaturesModal';
 import LocationModal from '../CreateCarModal/EnumModal/LocationModal';
 import CarTypeModal from '../CreateCarModal/EnumModal/CarTypeModal';
-import { getAccountId, getToken } from '../../../utils/JwtUtility';
 import './MyRentalsCarDisplay.css';
 
 const MyRentalsCarDisplay = ({ car, providerId }) => {
@@ -97,22 +96,10 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
 
         const url = `http://localhost:8080/api/rentals/my-rentals?${searchParams.toString()}`;
         console.log("Request URL: ", url);
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-          },
-          signal,
-        });
-        if (!response.ok) {
-          const errorDetails = await response.text();
-          console.error("Failed to fetch car data:", response.status, errorDetails);
-          return;
-        }
-        const rentalDetails = await response.json();
+        
+        // Replace fetch with makeApiRequest
+        const rentalDetails = await makeApiRequest(url, { signal });
         setRentalDetails(rentalDetails);
-
         console.log('Fetched rental:', rentalDetails);
       } catch (error) {
         if (error.name === 'AbortError') {
@@ -167,21 +154,13 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/cars/${car.id}`, {
+      const updatedCar = await makeApiRequest(`http://localhost:8080/api/cars/${car.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
-        },
         body: JSON.stringify(formatRentalDetails(editedCar)),
       });
-      if (!response.ok) {
-        console.error('Failed to update car:', response.statusText);
-        return;
-      }
-      await response.json();
-      console.log('Updated car:', editedCar);
-      setDisplayCar(editedCar); 
+      
+      console.log('Updated car:', updatedCar);
+      setDisplayCar(updatedCar); 
     } catch (error) {
       console.error('Error updating car:', error);
     }
@@ -201,21 +180,11 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
         available: !displayCar.available,
       };
 
-      const response = await fetch(`http://localhost:8080/api/cars/${car.id}`, {
+      const updatedCar = await makeApiRequest(`http://localhost:8080/api/cars/${car.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        alert('Failed to update availability');
-        return;
-      }
-
-      const updatedCar = await response.json();
       setDisplayCar(updatedCar);
       setEditedCar(updatedCar);
       setIsAvailable(updatedCar.available);
@@ -265,28 +234,15 @@ const handleExtraFeaturesUpdate = async (selectedFeatureIds) => {
   });
 };
 
-const fetchFeatureName = async (featureId) => {
-  try {
-    const response = await fetch(`http://localhost:8080/api/extra-features/${featureId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    });
-
-    if (!response.ok) {
-      console.error('Failed to fetch feature name:', response.statusText);
+  const fetchFeatureName = async (featureId) => {
+    try {
+      const featureData = await makeApiRequest(`http://localhost:8080/api/extra-features/${featureId}`);
+      return featureData.name;
+    } catch (error) {
+      console.error('Error fetching feature name:', error);
       return `Unknown Feature (${featureId})`; 
     }
-
-    const featureData = await response.json();
-    return featureData.name;
-  } catch (error) {
-    console.error('Error fetching feature name:', error);
-    return `Unknown Feature (${featureId})`; 
-  }
-};
+  };
 
 
 
