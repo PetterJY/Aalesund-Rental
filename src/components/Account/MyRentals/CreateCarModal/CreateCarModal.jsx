@@ -113,11 +113,7 @@ const retrieveCarDetails = () => {
     }
   
     try {
-      await fetch('https://norwegian-rental.online/api/cars', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      await makeApiRequest('https://norwegian-rental.online/api/cars', {
         body: JSON.stringify(carDetails),
       });
 

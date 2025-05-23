@@ -291,7 +291,7 @@ useEffect(() => {
       filterParams.append("pickupDate", selectedFilterOptions.pickupDate.toISOString().slice(0, -1));
       filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString().slice(0, -1));
 
-      const response = await fetch(`http://localhost:8080/api/cars/search?${filterParams.toString()}`, {
+      const response = await fetch(`https://norwegian-rental.online/api/cars/search?${filterParams.toString()}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

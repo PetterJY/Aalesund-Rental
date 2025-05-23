@@ -19,7 +19,7 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
       
       async function fetchLocations() {
         try {
-          const response = await fetch('http://localhost:8080/api/cars/locations', {
+          const response = await fetch('https://norwegian-rental.online/api/cars/locations', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
