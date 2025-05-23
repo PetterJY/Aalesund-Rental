@@ -72,7 +72,7 @@ const AdminRentals = () => {
         setProviders(data);
         if (data.length > 0) setSelectedProviderId(data[0].id);
       } catch (error) {
-        console.error('Failed to fetch providers:', error);
+        
       } finally {
         setIsLoadingProviders(false);
       }
@@ -92,7 +92,7 @@ const AdminRentals = () => {
         );
         setCars(data);
       } catch (error) {
-        console.error('Failed to fetch cars:', error);
+        
         setCars([]);
       } finally {
         setIsLoadingCars(false);

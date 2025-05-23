@@ -101,7 +101,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
       } catch (error) {
         if (error.name === 'AbortError') {
         } else {
-          console.error('Error fetching rental:', error);
+          
         }
       } finally {
         setIsLoading(false);
@@ -155,7 +155,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
       
       setDisplayCar(updatedCar);
     } catch (error) {
-      console.error('Error updating car:', error);
+      
     }
     setIsEditing(false);
   };
@@ -200,7 +200,7 @@ const MyRentalsCarDisplay = ({ car, providerId }) => {
 
 const handleExtraFeaturesUpdate = async (selectedFeatureIds) => {
   if (!Array.isArray(selectedFeatureIds)) {
-    console.error('selectedFeatureIds is not an array:', selectedFeatureIds);
+    
     selectedFeatureIds = []; 
   }
 
@@ -227,7 +227,7 @@ const handleExtraFeaturesUpdate = async (selectedFeatureIds) => {
       const featureData = await makeApiRequest(`http://localhost:8080/api/extra-features/${featureId}`);
       return featureData.name;
     } catch (error) {
-      console.error('Error fetching feature name:', error);
+      
       return `Unknown Feature (${featureId})`; 
     }
   };

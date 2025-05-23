@@ -96,7 +96,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       await login(loginDetails);
       closeModal();
     } catch(error) {
-      console.error(error);
+      
       setErrorMessage("Error creating account. Please try again later.");
       setShowErrorMessage(true);
     };
@@ -113,7 +113,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       });
 
       if (!response.ok) {
-        console.error("Login failed: ", response.statusText);
+        
         if (response.status === 401) {;
           throw new Error("Login Failed: The username and/or password you specified are not correct.");
         } else if (response.status === 403) {
@@ -130,7 +130,7 @@ const RegisterButton = ({ closeModal, isModalVisible, toggleMode }) => {
       setIsAuthenticated(true);
       setIsAuthInitialized(true);
     } catch(error) {
-      console.error(error);
+      
     }
   }
 

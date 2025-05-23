@@ -9,7 +9,7 @@ const ProtectedAccount = () => {
 
   useEffect(() => {
     if (!isAuthenticated && isAuthInitialized) {
-      console.error('User is not authenticated. Redirecting to home page.');
+      
       navigate('/home');
     }
   }, [isAuthenticated, isAuthInitialized, navigate]);

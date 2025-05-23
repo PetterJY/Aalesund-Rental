@@ -51,7 +51,7 @@ const OrdersCarDisplay = ({rental}) => {
       
       setStatus(data.status);
     } catch (error) {
-      console.error('Failed to cancel order:', error);
+      
     }
   }
 

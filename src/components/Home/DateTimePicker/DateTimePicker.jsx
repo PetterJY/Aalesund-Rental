@@ -169,6 +169,7 @@ const DateTimePicker = memo(function DateTimePicker({ format: type, selectedDate
           monthsShown={monthsToShow}
           dateFormat="d. MMM"
           className="date-input"
+          aria-label="Select booking date"
           popperClassName="date-picker-popper"
           minDate={new Date()}
           showDisabledMonthNavigation

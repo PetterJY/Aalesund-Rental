@@ -41,28 +41,28 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
 
   //     if (response) {
   //       if (response.status === 401) {
-  //         console.error("Password does not match.");
+  //         
   //         setErrorMessage("Password does not match.");
   //         setShowErrorMessage(true);
   //         return;
   //       }
 
   //       if (response.status === 403) {
-  //         console.error("You are not authorized to delete this account.");
+  //         
   //         setErrorMessage("You are not authorized to delete this account.");
   //         setShowErrorMessage(true);
   //         return;
   //       }
 
   //       if (response.status === 404) {
-  //         console.error("Account not found.");
+  //         
   //         setErrorMessage("Account not found.");
   //         setShowErrorMessage(true);
   //         return;
   //       }
 
   //       if (response.status !== 204) {
-  //         console.error(response.status + ": An unexpected error occurred:", response.statusText);
+  //         
   //         setErrorMessage("An unexpected error occurred.");
   //         setShowErrorMessage(true);
   //         return;
@@ -74,7 +74,7 @@ const DeleteAccount = ({ closeModal, isModalVisible }) => {
   //       return responseDetails;
   //     }
   //   } catch(error) {
-  //     console.error("An unexpected error occurred:", error);
+  //     
   //     setErrorMessage("An unexpected error occurred. Please try again later.");
   //     setShowErrorMessage(true);
   //   };
@@ -120,7 +120,7 @@ async function deleteAccount(event) {
     } else if (error.cause?.status === 404) {
       setErrorMessage("Account not found.");
     } else {
-      console.error("An unexpected error occurred:", error);
+      
       setErrorMessage("An unexpected error occurred. Please try again later.");
     }
     setShowErrorMessage(true);

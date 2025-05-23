@@ -78,7 +78,7 @@ const Account = () => {
 
   async function fetchUserData() {
     if (role !== 'ROLE_USER') {
-      console.error('Unauthorized access: User role is not ROLE_USER');
+      
       return;
     }
 
@@ -97,13 +97,13 @@ const Account = () => {
       
       return data;
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      
     }
   }
 
   async function updateUserInformation() {    
     if (role !== 'ROLE_USER') {
-      console.error('Unauthorized access: Account role is not ROLE_USER');
+      
       setErrorMessage('Unauthorized access: Account role is not ROLE_USER');
       setShowErrorMessage(true);
       return;
@@ -160,7 +160,7 @@ const Account = () => {
       setMessageType('success');
       setShowErrorMessage(true);
     } catch (error) {
-      console.error('Error updating user data:', error);
+      
       setErrorMessage('An error occurred while updating user data. Please try again.');
       setShowErrorMessage(true);
     }
@@ -168,7 +168,7 @@ const Account = () => {
 
   async function fetchProviderData() {
     if (role !== 'ROLE_PROVIDER') {
-      console.error('Unauthorized access: Provider role is not ROLE_PROVIDER');
+      
       return;
     }
 
@@ -180,7 +180,7 @@ const Account = () => {
       document.getElementById('company-name').value = data.companyName;
       return data;
     } catch (error) {
-      console.error('Error fetching provider data:', error);
+      
     }
   }
       
@@ -188,7 +188,7 @@ const Account = () => {
 
   async function updateProviderInformation() {
     if (role !== 'ROLE_PROVIDER') {
-      console.error('Unauthorized access: Account role is not ROLE_PROVIDER');
+      
       setErrorMessage('Unauthorized access: Account role is not ROLE_PROVIDER');
       setShowErrorMessage(true);
       return;
@@ -228,7 +228,7 @@ const Account = () => {
       });
 
       if (!response.ok) {
-        console.error('Failed to update provider data:', response.statusText);
+        
         setErrorMessage('Failed to update provider data. Please try again.');
         setShowErrorMessage(true);
         return;
@@ -244,7 +244,7 @@ const Account = () => {
         
       }
     } catch (error) {
-      console.error('Error updating provider data:', error);
+      
       setErrorMessage('An error occurred while updating provider data. Please try again.');
       setShowErrorMessage(true);
     }
@@ -252,7 +252,7 @@ const Account = () => {
 
   async function fetchAdminData() {
     if (role !== 'ROLE_ADMIN') {
-      console.error('Unauthorized access: Admin role is not ROLE_ADMIN');
+      
       return;
     }
 
@@ -264,7 +264,7 @@ const Account = () => {
       document.getElementById('username').value = data.name;
       return data;
     } catch (error) {
-      console.error('Error fetching admin data:', error);
+      
     }
   }
 
@@ -272,7 +272,7 @@ const Account = () => {
 
   async function updateAdminInformation() {
     if (role !== 'ROLE_ADMIN') {
-      console.error('Unauthorized access: Account role is not ROLE_ADMIN');
+      
       setErrorMessage('Unauthorized access: Account role is not ROLE_ADMIN');
       setShowErrorMessage(true);
       return;
@@ -311,7 +311,7 @@ const Account = () => {
       });
 
       if (!response.ok) {
-        console.error('Failed to update admin data:', response.statusText);
+        
         setErrorMessage('Failed to update admin data. Please try again.');
         setShowErrorMessage(true);
         return;
@@ -327,7 +327,7 @@ const Account = () => {
         setShowErrorMessage(true);
       }
     } catch (error) {
-      console.error('Error updating admin data:', error);
+      
       setErrorMessage('An error occurred while updating admin data. Please try again.');
       setShowErrorMessage(true);
     }

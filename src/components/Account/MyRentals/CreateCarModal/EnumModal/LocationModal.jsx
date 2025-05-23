@@ -22,7 +22,7 @@ const LocationModal = ({ toggleModal, isCreateCarModalOpen, setSelectedLocation,
           const data = await makeApiRequest('http://localhost:8080/api/cars/locations');
           setLocations(data);
         } catch (error) {
-          console.error('Error fetching locations:', error);
+          
           setError('Failed to load locations. Please try again later.');
         } finally {
           setIsLoading(false);

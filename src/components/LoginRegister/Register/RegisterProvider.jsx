@@ -93,7 +93,7 @@ const RegisterProviderModal = ({ closeModal, isModalVisible, toggleMode }) => {
     if (!response.ok) {
       // Get more detailed error information
       const errorData = await response.json().catch(() => null);
-      console.error('Registration failed:', response.status, errorData);
+      
       
       // Show more specific error message based on status code
       if (response.status === 400) {
@@ -112,7 +112,7 @@ const RegisterProviderModal = ({ closeModal, isModalVisible, toggleMode }) => {
       closeModal();
       alert('Provider account created successfully!');
     } catch (error) {
-      console.error(error);
+      
       setErrorMessage('Error creating provider account. Please try again later.');
       setShowErrorMessage(true);
     }

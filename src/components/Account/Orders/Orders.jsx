@@ -13,7 +13,7 @@ const Orders = () => {
   
   useEffect(() => {
     if (role !== 'ROLE_ADMIN' && role !== 'ROLE_USER') {
-      console.error('Unauthorized access to My Rentals page. Redirecting to home.');
+      
       navigate('/home');
     }
   }, [navigate, role]);

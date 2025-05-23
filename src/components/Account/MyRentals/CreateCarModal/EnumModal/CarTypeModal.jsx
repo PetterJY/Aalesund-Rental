@@ -21,7 +21,7 @@ const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, s
           const data = await makeApiRequest('http://localhost:8080/api/cars/car-types');
           setCarTypes(data);
         } catch (error) {
-          console.error('Error fetching car types:', error);
+          
           setError('Failed to load car types. Please try again later.');
         } finally {
           setIsLoading(false);

@@ -46,7 +46,7 @@ async function changePassword(event) {
   const userId = getAccountId();
 
   if (!userId) {
-    console.error("Could not get account ID from token");
+    
     setErrorMessage("Authentication error. Please log in again.");
     setShowErrorMessage(true);
     return;
@@ -81,7 +81,7 @@ async function changePassword(event) {
     alert("Password changed successfully!");
     closeModal();
   } catch(error) {
-    console.error("Error changing password:", error);
+    
     setErrorMessage("Network error. Please try again.");
     setShowErrorMessage(true);
   }
