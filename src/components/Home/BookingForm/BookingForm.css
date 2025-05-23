@@ -473,7 +473,6 @@ background: var(--secondary-color-hover);
   margin: 2px;
   cursor: pointer;
   border: none; 
-  background: none; 
 }
 
 .date-picker-popper .react-datepicker__day--outside-month {
