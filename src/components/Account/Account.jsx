@@ -109,6 +109,7 @@ const Account = () => {
       return;
     }
 
+    // Define these variables from the input fields
     const updatedFirstName = document.getElementById('first-name').value;
     const updatedLastName = document.getElementById('last-name').value;
     
@@ -126,7 +127,7 @@ const Account = () => {
 
     try {
       const userData = await fetchUserData();
-
+      
       if (!userData) {
         setErrorMessage('Failed to fetch user data. Please try again.');
         setShowErrorMessage(true);
@@ -142,32 +143,22 @@ const Account = () => {
         phoneNumber: userData.phoneNumber
       };
 
-      const response = await makeApiRequest(`http://localhost:8080/api/users/${accountId}`, {
+      // makeApiRequest returns the parsed JSON directly
+      const data = await makeApiRequest(`http://localhost:8080/api/users/${accountId}`, {
         method: 'PUT',
         body: JSON.stringify(userDetails),
       });
 
-
-      if (!response.ok) {
-        console.error('Failed to update user data:', response.statusText);
-        setErrorMessage('Failed to update user data. Please try again.');
-        setShowErrorMessage(true);
-        return;
-      }
-
-      // Update state and input fields with the new values
-      const data = await response.json();
+      // Update state and input fields
       setFirstName(data.firstName);
       setLastName(data.lastName);
       
-      // Set the input fields to the NEW values from the response
       document.getElementById('first-name').value = data.firstName;
       document.getElementById('last-name').value = data.lastName;
       
       setErrorMessage("Profile updated successfully!");
       setMessageType('success');
       setShowErrorMessage(true);
-
     } catch (error) {
       console.error('Error updating user data:', error);
       setErrorMessage('An error occurred while updating user data. Please try again.');
