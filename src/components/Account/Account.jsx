@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { getAccountId, getRole } from '../utils/JwtUtility';
+import React, { useState, useEffect } from 'react';import { getAccountId, getRole, makeApiRequest } from '../utils/JwtUtility';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import ChangePassword from './ChangePassword/ChangePassword';
 import RegisterProvider from '../LoginRegister/Register/RegisterProvider';
@@ -83,21 +82,8 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch(`https://norwegian-rental.online/api/accounts/${accountId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.error('Failed to fetch user data:', response.statusText);
-        return;
-      }
-
-      const data = await response.json();
-
+      const data = await makeApiRequest(`https://norwegian-rental.online/api/accounts/${accountId}`);
+      
       setFirstName(data.firstName);
       setLastName(data.lastName);
       
@@ -155,14 +141,11 @@ const Account = () => {
         phoneNumber: userData.phoneNumber
       };
 
-      const response = await fetch(`https://norwegian-rental.online/api/users/${accountId}`, {
+      const response = await makeApiRequest(`https://norwegian-rental.online/api/users/${accountId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
         body: JSON.stringify(userDetails),
       });
+
 
       if (!response.ok) {
         console.error('Failed to update user data:', response.statusText);
@@ -198,18 +181,8 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('https://norwegian-rental.online/api/providers/' + accountId, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-      if (!response.ok) {
-        console.error('Failed to fetch provider data:', response.statusText);
-        return;
-      }
-      const data = await response.json();
+      const data = await makeApiRequest(`https://norwegian-rental.online/api/providers/${accountId}`);
+      
       setCompanyName(data.companyName);
       // USE DATA FROM RESPONSE, not the state variable
       document.getElementById('company-name').value = data.companyName;
@@ -258,14 +231,11 @@ const Account = () => {
 
       console.log('Updated provider details:', providerDetails);
 
-      const response = await fetch('https://norwegian-rental.online/api/providers/' + accountId, {
+      const response = await makeApiRequest(`https://norwegian-rental.online/api/providers/${accountId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
         body: JSON.stringify(providerDetails),
       });
+
       if (!response.ok) {
         console.error('Failed to update provider data:', response.statusText);
         setErrorMessage('Failed to update provider data. Please try again.');
@@ -296,20 +266,8 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch('https://norwegian-rental.online/api/admins/' + accountId, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.error('Failed to fetch admin data:', response.statusText);
-        return;
-      }
-
-      const data = await response.json();
+      const data = await makeApiRequest(`https://norwegian-rental.online/api/admins/${accountId}`);
+      
       console.log('Admin data:', data);
 
       const usernameValue = data.name;
@@ -360,7 +318,7 @@ const Account = () => {
 
       console.log('Updated admin details:', adminDetails);
 
-      const response = await fetch('https://norwegian-rental.online/api/admins/' + accountId, {
+      const response = await makeApiRequest(`https://norwegian-rental.online/api/admins/${accountId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -391,6 +349,7 @@ const Account = () => {
       setShowErrorMessage(true);
     }
   }
+
     
   return (
     <main className="account">

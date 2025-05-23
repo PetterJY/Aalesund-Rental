@@ -112,7 +112,7 @@ public class UsersController {
     user.setLastName(userDetails.getLastName());
     user.setEmail(userDetails.getEmail());
     user.setPassword(userDetails.getPassword());
-    Users updatedUser = usersService.save(user, false);
+    Users updatedUser = usersService.saveWithoutEncode(user);
     logger.debug("Updated user: {}", updatedUser);
     return ResponseEntity.ok(updatedUser);
   }
@@ -142,7 +142,7 @@ public class UsersController {
     Users user = usersService.findById(userId);
     Cars car = carsService.findById(carId);
     user.getFavouriteCars().add(car);
-    usersService.save(user);
+    usersService.saveWithoutEncode(user);
     logger.debug("Car with id {} added to favourites of user with id {}", carId, userId);
     return ResponseEntity.ok().build();
   }
@@ -174,7 +174,7 @@ public class UsersController {
     Users user = usersService.findById(userId); // Will throw UserNotFoundException if not found
     Cars car = carsService.findById(carId); // Will throw CarNotFoundException if not found
     user.getFavouriteCars().remove(car);
-    usersService.save(user);
+    usersService.saveWithoutEncode(user);
     logger.debug("Car with id {} removed from favourites of user with id {}", carId, userId);
     return ResponseEntity.ok().build();
   }

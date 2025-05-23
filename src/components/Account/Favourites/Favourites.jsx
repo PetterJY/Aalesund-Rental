@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef} from "react";
-import { getAccountId } from "../../utils/JwtUtility";
+import { getAccountId, makeApiRequest } from "../../utils/JwtUtility";
 import CarDisplay from "../../Rental/CarDisplay/CarDisplay";
 import CarSelected from "../../Rental/CarSelected/CarSelected";
 import "./Favourites.css";
@@ -12,26 +12,11 @@ const Favourites = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Fetch favourite cars for the current user
     async function fetchFavourites() {
       setIsLoading(true);
       try {
-
-        const response = await fetch(`https://norwegian-rental.online/api/users/${getAccountId()}/favourites`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-        
-        if (!response.ok) {
-          console.error("Failed to fetch favourites:", response.statusText);
-          setFavouriteCars([]);
-        } else {
-          const data = await response.json();
-          setFavouriteCars(data);
-        }
+        const data = await makeApiRequest(`https://norwegian-rental.online/api/users/${getAccountId()}/favourites`);
+        setFavouriteCars(data);
       } catch (error) {
         console.error("Error fetching favourites:", error);
         setFavouriteCars([]);

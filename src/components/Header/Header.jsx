@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef, useContext} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { User, X, PencilSimple, Car, UserCircleCheck } from '@phosphor-icons/react';
-import { getAccountId } from '../utils/JwtUtility';
+import { getAccountId, makeApiRequest } from '../utils/JwtUtility';
 import { useAuth } from '../utils/AuthContext';
 import { format } from 'date-fns';
 import logo from '../../resources/images/logo.png';
@@ -88,26 +88,16 @@ const Header = () => {
   };
 
   async function fetchAccountDetails() {
-    
     const accountId = getAccountId();
     
     if (!accountId) { 
       return null;
     }
     
-    const response = await fetch(`https://norwegian-rental.online/api/accounts/${accountId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      return await makeApiRequest(`https://norwegian-rental.online/api/accounts/${accountId}`);
+    } catch (error) {
     }
-    
-    return await response.json();
   }
 
   const { isAuthenticated, setIsAuthenticated, setIsAuthInitialized } = useAuth();
@@ -171,7 +161,6 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    console.log("Logging out");
     localStorage.removeItem('accessToken');
     setIsAuthenticated(false);
     setIsDropdownVisible(false);

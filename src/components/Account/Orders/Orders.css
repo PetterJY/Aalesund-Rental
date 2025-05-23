@@ -13,7 +13,6 @@
 .orders-list {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   background-color: white;
   max-width: 1200px;
   width: 100%;
@@ -35,26 +34,57 @@
   margin-bottom: 10px;
 }
 
+.orders .orders-header h1 {
+  text-align: center;
+  wrap: nowrap;
+  font-size: var(--font-size-xxl);
+}
 
 .orders .orders-header h2 {
   font-size: 24px;
   font-weight: bold;
   margin: 0 5px 0 0;
   padding: 0;
-  color: #252422;
+  color: var(--main-color);
   text-align: center;
   border-bottom: 2px solid white;
 }
 
 .orders .no-matching-status {
   font-size: 20px;
-  color: #252422;
+  color: var(--background-color);
   text-align: center;
   margin-top: 20px;
   max-width: 1200px;
   min-width: 100%;
 }
 
+.orders .no-matching h3 {
+  color: var(--background-color);
+  text-align: center;
+  margin: 0;
+}
+
+.orders .no-matching {
+  position: relative;
+  display: flex;
+  max-width: 300px;
+  max-height: 400px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto 1rem auto;
+  text-align: center;
+  z-index: 0;
+  border-radius: 15px;
+  background-color: var(--neutral-color-background);
+}
+
+
+  .no-rentals-image {
+    width: 100%;
+    height: auto;
+  }
 
 @media screen and (max-width: 950px) {
   .orders-list {
@@ -63,5 +93,15 @@
     justify-content: space-between;
     
   }
+
+  .orders .orders-header h1 {
+    font-size: var(--font-size-xl);
+  }
 }
   
+@media screen and (max-width: 650px) {
+  .orders .orders-header h1 {
+    font-size: var(--font-size-l);
+  }
+
+}

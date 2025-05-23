@@ -86,7 +86,7 @@ const RegisterProviderModal = ({ closeModal, isModalVisible, toggleMode }) => {
     console.log('Provider data object: ', data);
 
   try {
-    const response = await fetch('http://localhost:8080/api/providers/register', {
+    const response = await fetch('https://norwegian-rental.online/api/providers/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

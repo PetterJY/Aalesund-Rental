@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { FunnelSimple, CaretDown, MagnifyingGlass, XCircle } from "@phosphor-icons/react";
-import { getRole } from "../utils/JwtUtility";
+import { getRole, makeApiRequest } from "../utils/JwtUtility";
 import { BookingContext } from "../utils/BookingContext";
 import logo from "../../resources/images/logo.png";
 import CarDisplay from "./CarDisplay/CarDisplay";
@@ -232,7 +232,6 @@ useEffect(() => {
 }, [selectedFilterComponent, minPrice, maxPrice]);
 
   useEffect(() => {
-    console.log("MinPrice or maxPrice changed: " + minPrice, " - " + maxPrice);
     setSelectedFilterOptions((prev) => {
       return {
         ...prev,
@@ -243,7 +242,6 @@ useEffect(() => {
   }, [minPrice, maxPrice]);
 
   const handleCarClick = (carId) => {
-    console.log("Selected car:", carId);
     setSelectedCarId((prev) => (prev === carId ? null : carId));
   };
 
@@ -293,27 +291,10 @@ useEffect(() => {
       filterParams.append("pickupDate", selectedFilterOptions.pickupDate.toISOString().slice(0, -1));
       filterParams.append("dropoffDate", selectedFilterOptions.dropoffDate.toISOString().slice(0, -1));
 
-      console.log("Filter params:", filterParams.toString());
-
-      console.log("Request URL: ", `https://norwegian-rental.online/api/cars/search?${filterParams.toString()}`)
-      const response = await fetch(`https://norwegian-rental.online/api/cars/search?${filterParams.toString()}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.log("Response not ok: ", response);
-        throw new Error("Failed to fetch car data.");
-      }
-
-      const data = await response.json();
-      console.log("Filtered cars:", data);
+      const data = await makeApiRequest(`https://norwegian-rental.online/api/cars/search?${filterParams.toString()}`);
       setCars(data);
     } catch (error) {
-      console.error(error);
+      setCars([]); 
     }
   };
 
@@ -363,11 +344,6 @@ const renderWithInsertedMenu = () => {
   const handleFilterChange = (event) => {
     const { name, value, checked, type } = event.target;
 
-    console.log("name: " + name);
-    console.log("value: " + value);
-    console.log("checked: " + checked);
-    console.log("type: " + type);
-
     setSelectedFilterOptions((prev) => {
       if (type === "radio") {
         return {
@@ -402,7 +378,6 @@ const renderWithInsertedMenu = () => {
       maxPrice: maxPrice,
     });
 
-    console.log("Selected filter options:", selectedFilterOptions);
     toggleFilter();
   };
 
@@ -448,7 +423,6 @@ const renderWithInsertedMenu = () => {
                      onChange={(e) => setSearchFieldValue(e.target.value)}
                      onKeyDown={(e) => {
                        if (e.key === "Enter") {
-                         console.log("Search value saved on enter key-press:", searchFieldValue);
                          setSelectedFilterOptions((prev) => ({
                            ...prev,
                            search: searchFieldValue,
@@ -456,7 +430,6 @@ const renderWithInsertedMenu = () => {
                        }
                      }}
                      onBlur={() => {
-                       console.log("Search value saved on blur:", searchFieldValue);
                        setSelectedFilterOptions((prev) => ({
                          ...prev,
                          search: searchFieldValue,

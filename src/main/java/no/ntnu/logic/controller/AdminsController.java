@@ -198,7 +198,7 @@ public class AdminsController {
       existingAdmin.setPassword(adminDetails.getPassword());
       existingAdmin.setEmail(adminDetails.getEmail());
       logger.info("Updating admin: {}", existingAdmin);
-      Admins updatedAdmin = adminService.save(existingAdmin, false);
+      Admins updatedAdmin = adminService.saveWithoutEncode(existingAdmin);
       logger.info("Updated admin: {}", updatedAdmin);
 
       return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);

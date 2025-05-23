@@ -3,6 +3,7 @@ import { MagnifyingGlass, XCircle, X } from "@phosphor-icons/react";
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
 import DropDownLocationSuggestions from './DropDownLocationSuggestions/DropDownLocationSuggestions';
 import { BookingContext } from '../../utils/BookingContext'
+import { makeApiRequest } from '../../utils/JwtUtility';
 import './BookingForm.css';
 
 const BookingForm = ({
@@ -46,23 +47,10 @@ const BookingForm = ({
   async function fetchLocations() {
     setIsLoadingLocations(true);
     try {
-      const response = await fetch(`https://norwegian-rental.online/api/cars/locations`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        },
-      });
-      if (!response.ok) {
-        console.error('Failed to fetch pickup locations:', response.statusText);
-        return;
-      }
-      const data = await response.json();
+      const data = await makeApiRequest(`https://norwegian-rental.online/api/cars/locations`);
       setPickupLocations(data);
       setDropoffLocations(data);
-      console.log('Fetched pickup locations:', data);
     } catch (error) {
-      console.error('Error fetching pickup locations:', error);
     } finally {
       setIsLoadingLocations(false);
     }
@@ -210,8 +198,6 @@ const BookingForm = ({
 
     onSave();
 
-    console.log("Pre Booking data:", bookingData);
-
     setBookingData({
       ...bookingData,
       pickupLocation: pickupLocationValue,
@@ -222,7 +208,6 @@ const BookingForm = ({
       dropoffTime
     });
 
-    console.log("Post Booking data:", bookingData);
   };
 
   useEffect(() => {
@@ -282,7 +267,7 @@ const BookingForm = ({
             }}
           />
 
-          {showPickupLocationSuggestions && !isLoadingLocations && (
+          {showPickupLocationSuggestions && !isLoadingLocations && pickupLocations.length > 0 && (
             <DropDownLocationSuggestions
               locations={
                 pickupLocations.filter(loc =>

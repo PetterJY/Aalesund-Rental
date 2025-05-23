@@ -30,6 +30,7 @@ public class Users extends Accounts {
   private String phoneNumber;
 
   @ManyToMany
+  @Schema(description = "The cars that the user has marked as favourite")
   @JoinTable(
     name = "user_favourites",
     joinColumns = @JoinColumn(name = "user_id"),

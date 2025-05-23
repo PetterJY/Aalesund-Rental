@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getToken } from '../../../../utils/JwtUtility';
+import { getToken, makeApiRequest } from '../../../../utils/JwtUtility';
 import './EnumModal.css'
 
 const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, selectedCarType }) => {
@@ -15,20 +15,10 @@ const CarTypeModal = ({ toggleModal, isCreateCarModalOpen, setSelectedCarType, s
   useEffect(() => {
     if (isCreateCarModalOpen) {
       setIsLoading(true);
-      setError(null); // Reset error state
+      setError(null); 
       async function fetchCarTypes() {
         try {
-          const response = await fetch('https://norwegian-rental.online/api/cars/car-types', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${getToken()}`,
-            },
-          });
-          if (!response.ok) {
-            throw new Error(`Failed to fetch car types: ${response.statusText}`);
-          }
-          const data = await response.json();
+          const data = await makeApiRequest('https://norwegian-rental.online/api/cars/car-types');
           setCarTypes(data);
           console.log('Fetched car types:', data);
         } catch (error) {

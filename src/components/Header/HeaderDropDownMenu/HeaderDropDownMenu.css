@@ -2,10 +2,9 @@
   position: absolute;
   display: flex; 
   flex-direction: column;
-
-
+  width: 99%;
   top: 100%;
-  left: 25%;
+  left: 20%;
   margin-top: 12px; 
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.06) 0px 1px 3px;
@@ -72,6 +71,7 @@
   cursor: pointer;
   width: 100%;
   text-align: left;
+  text-wrap: nowrap;
 }
 
 .dropdown-menu a:hover,
