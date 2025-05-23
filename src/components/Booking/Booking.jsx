@@ -29,13 +29,14 @@ const Booking = () => {
         async function fetchCarDetails() {
         setIsLoading(true);
         try {
-					const response = await fetch(`http://localhost:8080/api/cars/${carId}`, {
+					const response = await fetch(`https://norwegian-rental.online/api/cars/${carId}`, {
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
 							Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
 						},
 					})
+					
 					if (!response.ok) {
 						throw new Error('Failed to fetch car details', response.statusText);
 					}
