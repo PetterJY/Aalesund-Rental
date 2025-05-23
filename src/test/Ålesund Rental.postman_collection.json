@@ -1,0 +1,2300 @@
+{
+	"info": {
+		"_postman_id": "8c3af7f9-50fe-4192-ab65-b0e894e525bc",
+		"name": "Ålesund Rental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42034864",
+		"_collection_link": "https://norwegian-rental.postman.co/workspace/Norwegian-Rental-Workspace~ea44e137-2f66-45ce-8f98-77c3450e9bb8/collection/42034864-8c3af7f9-50fe-4192-ab65-b0e894e525bc?action=share&source=collection_link&creator=42034864"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let requestData;\r",
+									"try {\r",
+									"    requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Request body is valid JSON\", function () {\r",
+									"        throw new Error(\"Request body is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.be.a('number');\r",
+									"    pm.expect(responseData.email).to.be.a('string');\r",
+									"    pm.expect(responseData.role).to.be.a('string');\r",
+									"    pm.expect(responseData.password).to.be.a('string');\r",
+									"    pm.expect(responseData.createdAt).to.be.a('string');\r",
+									"    pm.expect(responseData.firstName).to.be.a('string');\r",
+									"    pm.expect(responseData.lastName).to.be.a('string');\r",
+									"    pm.expect(responseData.phoneNumber).to.be.a('string');\r",
+									"    pm.expect(responseData.favouriteCars).to.be.oneOf([null, []]);\r",
+									"    pm.expect(responseData.deleted).to.be.a('boolean');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String fields are non-empty\", function () {\r",
+									"    pm.expect(responseData.email).to.have.lengthOf.at.least(1, \"Email should not be empty\");\r",
+									"    pm.expect(responseData.role).to.have.lengthOf.at.least(1, \"Role should not be empty\");\r",
+									"    pm.expect(responseData.password).to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"    pm.expect(responseData.createdAt).to.have.lengthOf.at.least(1, \"CreatedAt should not be empty\");\r",
+									"    pm.expect(responseData.firstName).to.have.lengthOf.at.least(1, \"FirstName should not be empty\");\r",
+									"    pm.expect(responseData.lastName).to.have.lengthOf.at.least(1, \"LastName should not be empty\");\r",
+									"    pm.expect(responseData.phoneNumber).to.have.lengthOf.at.least(1, \"PhoneNumber should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response matches input data\", function () {\r",
+									"    pm.expect(responseData.email).to.equal(requestData.email);\r",
+									"    pm.expect(responseData.firstName).to.equal(requestData.firstName);\r",
+									"    pm.expect(responseData.lastName).to.equal(requestData.lastName);\r",
+									"    pm.expect(responseData.phoneNumber).to.equal(requestData.phoneNumber);\r",
+									"    pm.expect(responseData.role).to.equal(\"ROLE_USER\");\r",
+									"    pm.expect(responseData.deleted).to.be.false;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"userEmail\", requestData.email);\r",
+									"pm.environment.set(\"userPassword\", requestData.password);\r",
+									"pm.environment.set(\"userID\", responseData.id);\r",
+									"\r",
+									"pm.test(\"User ID is stored in environment variable\", function () {\r",
+									"    const storedUserId = pm.environment.get(\"userID\");\r",
+									"    pm.expect(storedUserId).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(Number(storedUserId)).to.be.a('number');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User password is stored in environment variable\", function () {\r",
+									"    const storedUserPassword = pm.environment.get(\"userPassword\");\r",
+									"    pm.expect(storedUserPassword).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(storedUserPassword).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User email is stored in environment variable\", function () {\r",
+									"    const storedUserEmail = pm.environment.get(\"userEmail\");\r",
+									"    pm.expect(storedUserEmail).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(storedUserEmail).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"activeEmail\", requestData.email);\r",
+									"pm.environment.set(\"activePassword\", requestData.password);\r",
+									"pm.environment.set(\"activeID\", responseData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Rudolf\",\r\n    \"lastName\": \"TheReindeer\",\r\n    \"password\": \"Red-Nose123\",\r\n    \"email\": \"rudolf@west-pole.no\", \r\n    \"phoneNumber\" : \"18812003\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}users/register",
+							"host": [
+								"{{base-url}}users"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has the required fields - accessToken and refreshToken\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.accessToken).to.exist;\r",
+									"    pm.expect(responseData.refreshToken).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"AccessToken is a non-empty string\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData.accessToken).to.be.a('string').and.to.have.lengthOf.at.least(1, \"AccessToken should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"RefreshToken is a non-empty string\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"\r",
+									"  pm.expect(responseData.refreshToken).to.be.a('string').and.to.have.lengthOf.at.least(1, \"RefreshToken should not be empty\");\r",
+									"});\r",
+									"\r",
+									"const responseData = pm.response.json();\r",
+									"pm.environment.set(\"accessToken\", responseData.accessToken);\r",
+									"pm.environment.set(\"refreshToken\", responseData.refreshToken);\r",
+									"\r",
+									"pm.test(\"AccessToken is stored in the accessToken environment variable\", function () {\r",
+									"    const storedAccessToken = pm.environment.get(\"accessToken\");\r",
+									"    pm.expect(storedAccessToken).to.equal(responseData.accessToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RefreshToken is stored in the refreshToken environment variable\", function () {\r",
+									"    const storedRefreshToken = pm.environment.get(\"refreshToken\");\r",
+									"    pm.expect(storedRefreshToken).to.equal(responseData.refreshToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"AccessToken is a valid JWT format\", function () {\r",
+									"    pm.expect(responseData.accessToken.split('.').length).to.equal(3, \"AccessToken should be a valid JWT with three parts\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RefreshToken is a valid JWT format\", function () {\r",
+									"    pm.expect(responseData.refreshToken.split('.').length).to.equal(3, \"RefreshToken should be a valid JWT with three parts\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{activeEmail}}\",\r\n    \"password\": \"{{activePassword}}\"\r\n}  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}auth/login",
+							"host": [
+								"{{base-url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response contains an array.\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All users have role ROLE_USER\", function () {\r",
+									"    responseData.forEach(function (account) {\r",
+									"        pm.expect(account.role).to.equal('ROLE_USER', \"User role should be ROLE_USER\");\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}users",
+							"host": [
+								"{{base-url}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let requestData;\r",
+									"try {\r",
+									"    requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Request body is valid JSON\", function () {\r",
+									"        throw new Error(\"Request body is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"activePassword\", requestData.newPassword);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"{{activeID}}\",\r\n    \"oldPassword\" : \"{{activePassword}}\",\r\n    \"newPassword\" : \"Red-Nose\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}users/change-password",
+							"host": [
+								"{{base-url}}users"
+							],
+							"path": [
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse response body\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains a valid accessToken\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.accessToken).to.be.a('string').and.to.have.lengthOf.at.least(1, \"AccessToken should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"AccessToken is a valid JWT\", function () {\r",
+									"    const token = responseData.accessToken;\r",
+									"    pm.expect(token).to.match(/^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$/, \"AccessToken should be a valid JWT format\");\r",
+									"    const parts = token.split('.');\r",
+									"    pm.expect(parts).to.have.length(3, \"JWT should have three parts: header, payload, signature\");\r",
+									"    try {\r",
+									"        const payload = JSON.parse(atob(parts[1]));\r",
+									"        pm.expect(payload).to.be.an('object');\r",
+									"        pm.expect(payload.sub).to.be.a('string').and.to.have.lengthOf.at.least(1, \"JWT payload should contain a non-empty subject\");\r",
+									"        pm.expect(payload.exp).to.be.a('number', \"JWT payload should contain an expiration timestamp\");\r",
+									"        pm.expect(payload.iat).to.be.a('number', \"JWT payload should contain an issued-at timestamp\");\r",
+									"        pm.expect(payload.roles).to.be.an('array', \"JWT payload should contain roles\");\r",
+									"    } catch (e) {\r",
+									"        pm.test(\"JWT payload is valid JSON\", function () {\r",
+									"            throw new Error(\"Invalid JWT payload: \" + e.message);\r",
+									"        });\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"accessToken\", responseData.accessToken);\r",
+									"\r",
+									"pm.test(\"AccessToken is stored in environment variable\", function () {\r",
+									"    const storedAccessToken = pm.environment.get(\"accessToken\");\r",
+									"    pm.expect(storedAccessToken).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(storedAccessToken).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\" : \"{{refreshToken}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base-url}}auth/refresh-token",
+							"host": [
+								"{{base-url}}auth"
+							],
+							"path": [
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Get All Accounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response contains an array.\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains accounts with expected roles\", function () {\r",
+									"    responseData.forEach(account => {\r",
+									"        pm.expect(account).to.be.an('object');\r",
+									"        pm.expect(account.role).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Account role should not be empty\");\r",
+									"        pm.expect(account.role).to.be.oneOf(['ROLE_USER', 'ROLE_PROVIDER', 'ROLE_ADMIN'], \"Account role should be one of 'ROLE_USER', 'ROLE_PROVIDER', or 'ROLE_ADMIN'\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}accounts",
+							"host": [
+								"{{base-url}}accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account By Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.email).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.role).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.password).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.createdAt).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.deleted).to.exist.and.to.be.a('boolean');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String fields are non-empty\", function () {\r",
+									"    pm.expect(responseData.email).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Email should not be empty\");\r",
+									"    pm.expect(responseData.role).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Role should not be empty\");\r",
+									"    pm.expect(responseData.password).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"    pm.expect(responseData.createdAt).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CreatedAt should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"FavouriteCars array contains valid car objects\", function () {\r",
+									"    responseData.favouriteCars.forEach(car => {\r",
+									"        pm.expect(car).to.be.an('object');\r",
+									"        pm.expect(car.id).to.be.a('number');\r",
+									"        pm.expect(car.plateNumber).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"        pm.expect(car.carBrand).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"        pm.expect(car.modelName).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"        pm.expect(car.carType).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"        pm.expect(car.pricePerDay).to.be.a('number');\r",
+									"        pm.expect(car.productionYear).to.be.a('number');\r",
+									"        pm.expect(car.passengers).to.be.a('number');\r",
+									"        pm.expect(car.available).to.be.a('boolean');\r",
+									"        pm.expect(car.transmission).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"        pm.expect(car.energySource).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"        pm.expect(car.location).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"        pm.expect(car.extraFeatures).to.be.an('array');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response matches expected account ID and role\", function () {\r",
+									"    pm.expect(responseData.id).to.equal(pm.environment.get(\"activeID\"), \"Account ID should match requested ID\");\r",
+									"    pm.expect(responseData.role).to.equal(\"ROLE_USER\", \"Role should be ROLE_USER\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}accounts/email/{{userEmail}}",
+							"host": [
+								"{{base-url}}accounts"
+							],
+							"path": [
+								"email",
+								"{{userEmail}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.email).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.role).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.password).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.createdAt).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.deleted).to.exist.and.to.be.a('boolean');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String fields are non-empty\", function () {\r",
+									"    pm.expect(responseData.email).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Email should not be empty\");\r",
+									"    pm.expect(responseData.role).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Role should not be empty\");\r",
+									"    pm.expect(responseData.password).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"    pm.expect(responseData.createdAt).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CreatedAt should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response matches expected account ID and role\", function () {\r",
+									"    pm.expect(responseData.id).to.equal(pm.environment.get(\"activeID\"), \"Account ID should match requested ID\");\r",
+									"    pm.expect(responseData.role).to.equal(\"ROLE_USER\", \"Role should be ROLE_USER\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"CreatedAt is a valid ISO 8601 date\", function () {\r",
+									"    pm.expect(Date.parse(responseData.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}accounts/{{userID}}",
+							"host": [
+								"{{base-url}}accounts"
+							],
+							"path": [
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Providers",
+			"item": [
+				{
+					"name": "Create Provider",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let requestData;\r",
+									"try {\r",
+									"    requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Request body is valid JSON\", function () {\r",
+									"        throw new Error(\"Request body is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.be.a('number');\r",
+									"    pm.expect(responseData.role).to.be.a('string');\r",
+									"    pm.expect(responseData.email).to.be.a('string');\r",
+									"    pm.expect(responseData.password).to.be.a('string');\r",
+									"    pm.expect(responseData.phoneNumber).to.be.a('string');\r",
+									"    pm.expect(responseData.createdAt).to.be.a('string');\r",
+									"    pm.expect(responseData.deleted).to.be.a('boolean');\r",
+									"    pm.expect(responseData.companyName).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String fields are non-empty\", function () {\r",
+									"    pm.expect(responseData.role).to.have.lengthOf.at.least(1, \"Role should not be empty\");\r",
+									"    pm.expect(responseData.email).to.have.lengthOf.at.least(1, \"Email should not be empty\");\r",
+									"    pm.expect(responseData.password).to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"    pm.expect(responseData.phoneNumber).to.have.lengthOf.at.least(1, \"PhoneNumber should not be empty\");\r",
+									"    pm.expect(responseData.createdAt).to.have.lengthOf.at.least(1, \"CreatedAt should not be empty\");\r",
+									"    pm.expect(responseData.companyName).to.have.lengthOf.at.least(1, \"FirstName should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response matches input data\", function () {\r",
+									"    pm.expect(responseData.email).to.equal(requestData.email);\r",
+									"    pm.expect(responseData.firstName).to.equal(requestData.firstName);\r",
+									"    pm.expect(responseData.lastName).to.equal(requestData.lastName);\r",
+									"    pm.expect(responseData.phoneNumber).to.equal(requestData.phoneNumber);\r",
+									"    pm.expect(responseData.role).to.equal(\"ROLE_PROVIDER\");\r",
+									"    pm.expect(responseData.deleted).to.be.false;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"providerEmail\", requestData.email);\r",
+									"pm.environment.set(\"providerPassword\", requestData.password);\r",
+									"pm.environment.set(\"providerID\", responseData.id);\r",
+									"\r",
+									"pm.test(\"Provider ID is stored in environment variable\", function () {\r",
+									"    const storedProviderId = pm.environment.get(\"providerID\");\r",
+									"    pm.expect(storedProviderId).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(Number(storedProviderId)).to.be.a('number');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Provider password is stored in environment variable\", function () {\r",
+									"    const storedProviderPassword = pm.environment.get(\"providerPassword\");\r",
+									"    pm.expect(storedProviderPassword).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(storedProviderPassword).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Provider email is stored in environment variable\", function () {\r",
+									"    const storedProviderEmail = pm.environment.get(\"providerEmail\");\r",
+									"    pm.expect(storedProviderEmail).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(storedProviderEmail).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"activeEmail\", requestData.email);\r",
+									"pm.environment.set(\"activePassword\", requestData.password);\r",
+									"pm.environment.set(\"activeID\", responseData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"companyName\" : \"Biller Bil\",\r\n    \"email\": \"biller@bil.com\",\r\n    \"password\": \"billerbil\",\r\n    \"phoneNumber\" : \"22222222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}providers/register",
+							"host": [
+								"{{base-url}}providers"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Providers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response contains an array.\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All accounts have role ROLE_PROVIDER\", function () {\r",
+									"    responseData.forEach(function (account) {\r",
+									"        pm.expect(account.role).to.equal('ROLE_PROVIDER', \"User role should be ROLE_PROVIDER\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array of valid account objects\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"    responseData.forEach(account => {\r",
+									"        pm.expect(account).to.be.an('object');\r",
+									"        pm.expect(account.id).to.be.a('number');\r",
+									"        pm.expect(account.role).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Role should not be empty\");\r",
+									"        pm.expect(account.email).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Email should not be empty\");\r",
+									"        pm.expect(account.password).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"        pm.expect(account.createdAt).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CreatedAt should not be empty\");\r",
+									"        pm.expect(account.phoneNumber).to.be.a('string').and.to.have.lengthOf.at.least(1, \"PhoneNumber should not be empty\");\r",
+									"        pm.expect(account.companyName).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CompanyName should not be empty\");\r",
+									"        pm.expect(account.deleted).to.be.a('boolean');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}providers",
+							"host": [
+								"{{base-url}}providers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admins",
+			"item": [
+				{
+					"name": "Create Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let requestData;\r",
+									"try {\r",
+									"    requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Request body is valid JSON\", function () {\r",
+									"        throw new Error(\"Request body is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.be.a('number');\r",
+									"    pm.expect(responseData.role).to.be.a('string');\r",
+									"    pm.expect(responseData.email).to.be.a('string');\r",
+									"    pm.expect(responseData.password).to.be.a('string');\r",
+									"    pm.expect(responseData.createdAt).to.be.a('string');\r",
+									"    pm.expect(responseData.deleted).to.be.a('boolean');\r",
+									"    pm.expect(responseData.name).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String fields are non-empty\", function () {\r",
+									"    pm.expect(responseData.role).to.have.lengthOf.at.least(1, \"Role should not be empty\");\r",
+									"    pm.expect(responseData.email).to.have.lengthOf.at.least(1, \"Email should not be empty\");\r",
+									"    pm.expect(responseData.password).to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"    pm.expect(responseData.createdAt).to.have.lengthOf.at.least(1, \"CreatedAt should not be empty\");\r",
+									"    pm.expect(responseData.name).to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response matches input data\", function () {\r",
+									"    pm.expect(responseData.email).to.equal(requestData.email);\r",
+									"    pm.expect(responseData.role).to.equal(\"ROLE_ADMIN\");\r",
+									"    pm.expect(responseData.deleted).to.be.false;\r",
+									"    pm.expect(responseData.name).to.equal(requestData.name);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"adminEmail\", requestData.email);\r",
+									"pm.environment.set(\"adminPassword\", requestData.password);\r",
+									"pm.environment.set(\"adminID\", responseData.id);\r",
+									"\r",
+									"pm.test(\"Admin ID is stored in environment variable\", function () {\r",
+									"    const storedAdminId = pm.environment.get(\"adminID\");\r",
+									"    pm.expect(storedAdminId).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(Number(storedAdminId)).to.be.a('number');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Admin password is stored in environment variable\", function () {\r",
+									"    const storedAdminPassword = pm.environment.get(\"adminPassword\");\r",
+									"    pm.expect(storedAdminPassword).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(storedAdminPassword).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Admin email is stored in environment variable\", function () {\r",
+									"    const storedAdminEmail = pm.environment.get(\"adminEmail\");\r",
+									"    pm.expect(storedAdminEmail).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(storedAdminEmail).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"activeEmail\", requestData.email);\r",
+									"pm.environment.set(\"activePassword\", requestData.password);\r",
+									"pm.environment.set(\"activeID\", responseData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"administrators\",\r\n    \"email\" : \"admin@admin.com\",\r\n    \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}admins/register",
+							"host": [
+								"{{base-url}}admins"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Admins",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response contains an array.\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All users have role ROLE_ADMIN\", function () {\r",
+									"    responseData.forEach(function (account) {\r",
+									"        pm.expect(account.role).to.equal('ROLE_ADMIN', \"User role should be ROLE_ADMIN\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array of valid account objects\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"    responseData.forEach(account => {\r",
+									"        pm.expect(account).to.be.an('object');\r",
+									"        pm.expect(account.id).to.be.a('number');\r",
+									"        pm.expect(account.role).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Role should not be empty\");\r",
+									"        pm.expect(account.email).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Email should not be empty\");\r",
+									"        pm.expect(account.password).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"        pm.expect(account.createdAt).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CreatedAt should not be empty\");\r",
+									"        pm.expect(account.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+									"        pm.expect(account.deleted).to.be.a('boolean');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}admins",
+							"host": [
+								"{{base-url}}admins"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ExtraFeatures",
+			"item": [
+				{
+					"name": "Create ExtraFeature",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let requestData;\r",
+									"try {\r",
+									"    requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Request body is valid JSON\", function () {\r",
+									"        throw new Error(\"Request body is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.be.a('number');\r",
+									"    pm.expect(responseData.name).to.be.a('string');\r",
+									"    pm.expect(responseData.description).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String fields are non-empty\", function () {\r",
+									"    pm.expect(responseData.name).to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+									"    pm.expect(responseData.description).to.have.lengthOf.at.least(1, \"Description should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response matches input data\", function () {\r",
+									"    pm.expect(responseData.name).to.equal(requestData.name, \"Name should match request\");\r",
+									"    pm.expect(responseData.description).to.equal(requestData.description, \"Description should match request\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"featureId\", responseData.id);\r",
+									"pm.environment.set(\"featureName\", responseData.name);\r",
+									"\r",
+									"pm.test(\"Feature ID and Name are set in environment variables\", function () {\r",
+									"    pm.expect(pm.environment.get(\"featureId\")).to.be.a('number');\r",
+									"    pm.expect(pm.environment.get(\"featureName\")).to.be.a('string');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Seat Warmer\",\r\n    \"description\" : \"Heated front-seats.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}extra-features",
+							"host": [
+								"{{base-url}}extra-features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All ExtraFeatures",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array of feature objects\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"    responseData.forEach(feature => {\r",
+									"        pm.expect(feature).to.be.an('object');\r",
+									"        pm.expect(feature.id).to.be.a('number');\r",
+									"        pm.expect(feature.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+									"        pm.expect(feature.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}extra-features",
+							"host": [
+								"{{base-url}}extra-features"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Create Car",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let requestData;\r",
+									"try {\r",
+									"    requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Request body is valid JSON\", function () {\r",
+									"        throw new Error(\"Request body is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.be.a('number');\r",
+									"    pm.expect(responseData.provider).to.be.an('object');\r",
+									"    pm.expect(responseData.plateNumber).to.be.a('string');\r",
+									"    pm.expect(responseData.carBrand).to.be.a('string');\r",
+									"    pm.expect(responseData.modelName).to.be.a('string');\r",
+									"    pm.expect(responseData.carType).to.be.a('string');\r",
+									"    pm.expect(responseData.pricePerDay).to.be.a('number');\r",
+									"    pm.expect(responseData.productionYear).to.be.a('number');\r",
+									"    pm.expect(responseData.passengers).to.be.a('number');\r",
+									"    pm.expect(responseData.available).to.be.a('boolean');\r",
+									"    pm.expect(responseData.transmission).to.be.a('string');\r",
+									"    pm.expect(responseData.energySource).to.be.a('string');\r",
+									"    pm.expect(responseData.location).to.be.a('string');\r",
+									"    pm.expect(responseData.extraFeatures).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String fields are non-empty\", function () {\r",
+									"    pm.expect(responseData.plateNumber).to.have.lengthOf.at.least(1, \"PlateNumber should not be empty\");\r",
+									"    pm.expect(responseData.carBrand).to.have.lengthOf.at.least(1, \"CarBrand should not be empty\");\r",
+									"    pm.expect(responseData.modelName).to.have.lengthOf.at.least(1, \"ModelName should not be empty\");\r",
+									"    pm.expect(responseData.carType).to.have.lengthOf.at.least(1, \"CarType should not be empty\");\r",
+									"    pm.expect(responseData.transmission).to.have.lengthOf.at.least(1, \"Transmission should not be empty\");\r",
+									"    pm.expect(responseData.energySource).to.have.lengthOf.at.least(1, \"EnergySource should not be empty\");\r",
+									"    pm.expect(responseData.location).to.have.lengthOf.at.least(1, \"Location should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Provider has required fields\", function () {\r",
+									"    const provider = responseData.provider;\r",
+									"    pm.expect(provider.id).to.be.a('number');\r",
+									"    pm.expect(provider.email).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Provider email should not be empty\");\r",
+									"    pm.expect(provider.role).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Provider role should not be empty\");\r",
+									"    pm.expect(provider.password).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Provider password should not be empty\");\r",
+									"    pm.expect(provider.createdAt).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Provider createdAt should not be empty\");\r",
+									"    pm.expect(provider.companyName).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Provider companyName should not be empty\");\r",
+									"    pm.expect(provider.phoneNumber).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Provider phoneNumber should not be empty\");\r",
+									"    pm.expect(provider.deleted).to.be.a('boolean');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Extra features have valid structure\", function () {\r",
+									"    responseData.extraFeatures.forEach(feature => {\r",
+									"        pm.expect(feature).to.be.an('object');\r",
+									"        pm.expect(feature.id).to.be.a('number');\r",
+									"        pm.expect(feature.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Feature name should not be empty\");\r",
+									"        pm.expect(feature.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Feature description should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response matches input data\", function () {\r",
+									"    pm.expect(responseData.provider.id).to.equal(Number(requestData.providerId), \"Provider ID should match request\");\r",
+									"    pm.expect(responseData.plateNumber).to.equal(requestData.plateNumber, \"PlateNumber should match request\");\r",
+									"    pm.expect(responseData.carBrand).to.equal(requestData.carBrand, \"CarBrand should match request\");\r",
+									"    pm.expect(responseData.modelName).to.equal(requestData.modelName, \"ModelName should match request\");\r",
+									"    pm.expect(responseData.carType).to.equal(requestData.carType, \"CarType should match request\");\r",
+									"    pm.expect(responseData.pricePerDay).to.equal(requestData.pricePerDay, \"PricePerDay should match request\");\r",
+									"    pm.expect(responseData.productionYear).to.equal(requestData.productionYear, \"ProductionYear should match request\");\r",
+									"    pm.expect(responseData.passengers).to.equal(requestData.passengers, \"Passengers should match request\");\r",
+									"    pm.expect(responseData.available).to.equal(requestData.available, \"Available should match request\");\r",
+									"    pm.expect(responseData.transmission).to.equal(requestData.transmission, \"Transmission should match request\");\r",
+									"    pm.expect(responseData.energySource).to.equal(requestData.energySource, \"EnergySource should match request\");\r",
+									"    pm.expect(responseData.location).to.equal(requestData.location, \"Location should match request\");\r",
+									"    pm.expect(responseData.extraFeatures.map(f => f.id)).to.have.members(requestData.extraFeatureIds, \"ExtraFeatureIds should match request\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"CreatedAt is a valid ISO 8601 date\", function () {\r",
+									"    pm.expect(Date.parse(responseData.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"carId\", responseData.id);\r",
+									"\r",
+									"pm.test(\"Car ID is stored in environment variable\", function () {\r",
+									"    const storedCarId = pm.environment.get(\"carId\");\r",
+									"    pm.expect(storedCarId).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(Number(storedCarId)).to.be.a('number');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n  \"providerId\": \"{{providerID}}\",\r\n  \"plateNumber\": \"DKHA12\",\r\n  \"carBrand\": \"Ford\",\r\n  \"modelName\": \"Model S\",\r\n  \"carType\": \"SUV\",\r\n  \"pricePerDay\": 400,\r\n  \"productionYear\": 2022,\r\n  \"passengers\": 3,\r\n  \"transmission\": \"AUTOMATIC\",\r\n  \"energySource\": \"ELECTRIC\",\r\n  \"location\" : \"OSLO\",\r\n  \"available\": false,\r\n  \"extraFeatureIds\" : [2, 3, 4]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}cars",
+							"host": [
+								"{{base-url}}cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Cars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array of car objects\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"    responseData.forEach(car => {\r",
+									"        pm.expect(car).to.be.an('object');\r",
+									"        pm.expect(car.id).to.be.a('number');\r",
+									"        pm.expect(car.provider).to.be.an('object');\r",
+									"        pm.expect(car.plateNumber).to.be.a('string').and.to.have.lengthOf.at.least(1, \"PlateNumber should not be empty\");\r",
+									"        pm.expect(car.carBrand).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CarBrand should not be empty\");\r",
+									"        pm.expect(car.modelName).to.be.a('string').and.to.have.lengthOf.at.least(1, \"ModelName should not be empty\");\r",
+									"        pm.expect(car.carType).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CarType should not be empty\");\r",
+									"        pm.expect(car.pricePerDay).to.be.a('number');\r",
+									"        pm.expect(car.productionYear).to.be.a('number');\r",
+									"        pm.expect(car.passengers).to.be.a('number');\r",
+									"        pm.expect(car.available).to.be.a('boolean');\r",
+									"        pm.expect(car.transmission).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Transmission should not be empty\");\r",
+									"        pm.expect(car.energySource).to.be.a('string').and.to.have.lengthOf.at.least(1, \"EnergySource should not be empty\");\r",
+									"        pm.expect(car.location).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Location should not be empty\");\r",
+									"        pm.expect(car.extraFeatures).to.be.an('array');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"CreatedAt fields are valid ISO 8601 dates\", function () {\r",
+									"    responseData.forEach(car => {\r",
+									"        pm.expect(Date.parse(car.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}cars",
+							"host": [
+								"{{base-url}}cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Cars By ProviderId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array of car objects\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"    responseData.forEach(car => {\r",
+									"        pm.expect(car).to.be.an('object');\r",
+									"        pm.expect(car.id).to.be.a('number');\r",
+									"        pm.expect(car.provider).to.be.an('object');\r",
+									"        pm.expect(car.plateNumber).to.be.a('string').and.to.have.lengthOf.at.least(1, \"PlateNumber should not be empty\");\r",
+									"        pm.expect(car.carBrand).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CarBrand should not be empty\");\r",
+									"        pm.expect(car.modelName).to.be.a('string').and.to.have.lengthOf.at.least(1, \"ModelName should not be empty\");\r",
+									"        pm.expect(car.carType).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CarType should not be empty\");\r",
+									"        pm.expect(car.pricePerDay).to.be.a('number');\r",
+									"        pm.expect(car.productionYear).to.be.a('number');\r",
+									"        pm.expect(car.passengers).to.be.a('number');\r",
+									"        pm.expect(car.available).to.be.a('boolean');\r",
+									"        pm.expect(car.transmission).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Transmission should not be empty\");\r",
+									"        pm.expect(car.energySource).to.be.a('string').and.to.have.lengthOf.at.least(1, \"EnergySource should not be empty\");\r",
+									"        pm.expect(car.location).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Location should not be empty\");\r",
+									"        pm.expect(car.extraFeatures).to.be.an('array');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All cars belong to the specified provider\", function () {\r",
+									"    const providerId = pm.variables.get(\"providerID\");\r",
+									"    responseData.forEach(car => {\r",
+									"        pm.expect(car.provider.id).to.equal(Number(providerId), `Car ID ${car.id} should belong to provider ID ${providerId}`);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"CreatedAt fields are valid ISO 8601 dates\", function () {\r",
+									"    responseData.forEach(car => {\r",
+									"        pm.expect(Date.parse(car.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}cars/my-cars/{{providerID}}",
+							"host": [
+								"{{base-url}}cars"
+							],
+							"path": [
+								"my-cars",
+								"{{providerID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Locations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}cars/locations",
+							"host": [
+								"{{base-url}}cars"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Car By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is a car object with required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.be.a('number');\r",
+									"    pm.expect(responseData.provider).to.be.an('object');\r",
+									"    pm.expect(responseData.plateNumber).to.be.a('string').and.to.have.lengthOf.at.least(1, \"PlateNumber should not be empty\");\r",
+									"    pm.expect(responseData.carBrand).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CarBrand should not be empty\");\r",
+									"    pm.expect(responseData.modelName).to.be.a('string').and.to.have.lengthOf.at.least(1, \"ModelName should not be empty\");\r",
+									"    pm.expect(responseData.carType).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CarType should not be empty\");\r",
+									"    pm.expect(responseData.pricePerDay).to.be.a('number');\r",
+									"    pm.expect(responseData.productionYear).to.be.a('number');\r",
+									"    pm.expect(responseData.passengers).to.be.a('number');\r",
+									"    pm.expect(responseData.available).to.be.a('boolean');\r",
+									"    pm.expect(responseData.transmission).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Transmission should not be empty\");\r",
+									"    pm.expect(responseData.energySource).to.be.a('string').and.to.have.lengthOf.at.least(1, \"EnergySource should not be empty\");\r",
+									"    pm.expect(responseData.location).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Location should not be empty\");\r",
+									"    pm.expect(responseData.extraFeatures).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Car ID matches requested ID\", function () {\r",
+									"    const carId = pm.variables.get(\"carId\");\r",
+									"    pm.expect(responseData.id).to.equal(Number(carId), \"Car ID should match requested ID\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"CreatedAt is a valid ISO 8601 date\", function () {\r",
+									"    pm.expect(Date.parse(responseData.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}cars/{{carId}}",
+							"host": [
+								"{{base-url}}cars"
+							],
+							"path": [
+								"{{carId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rentals",
+			"item": [
+				{
+					"name": "Create Rental",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let requestData;\r",
+									"try {\r",
+									"    requestData = pm.request.body.raw ? JSON.parse(pm.request.body.raw) : {};\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Request body is valid JSON\", function () {\r",
+									"        throw new Error(\"Request body is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.rentalId).to.be.a('number');\r",
+									"    pm.expect(responseData.renter).to.be.an('object');\r",
+									"    pm.expect(responseData.provider).to.be.an('object');\r",
+									"    pm.expect(responseData.car).to.be.an('object');\r",
+									"    pm.expect(responseData.startDate).to.be.a('string');\r",
+									"    pm.expect(responseData.endDate).to.be.a('string');\r",
+									"    pm.expect(responseData.pickupLocation).to.be.a('string');\r",
+									"    pm.expect(responseData.dropoffLocation).to.be.a('string');\r",
+									"    pm.expect(responseData.totalCost).to.be.a('number');\r",
+									"    pm.expect(responseData.status).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String fields are non-empty\", function () {\r",
+									"    pm.expect(responseData.startDate).to.have.lengthOf.at.least(1, \"StartDate should not be empty\");\r",
+									"    pm.expect(responseData.endDate).to.have.lengthOf.at.least(1, \"EndDate should not be empty\");\r",
+									"    pm.expect(responseData.pickupLocation).to.have.lengthOf.at.least(1, \"PickupLocation should not be empty\");\r",
+									"    pm.expect(responseData.dropoffLocation).to.have.lengthOf.at.least(1, \"DropoffLocation should not be empty\");\r",
+									"    pm.expect(responseData.status).to.have.lengthOf.at.least(1, \"Status should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response matches input data\", function () {\r",
+									"    pm.expect(responseData.renter.id).to.equal(Number(requestData.renterId), \"Renter ID should match request\");\r",
+									"    pm.expect(responseData.provider.id).to.equal(Number(requestData.providerId), \"Provider ID should match request\");\r",
+									"    pm.expect(responseData.car.id).to.equal(Number(requestData.carId), \"Car ID should match request\");\r",
+									"    pm.expect(responseData.startDate).to.equal(requestData.startDate, \"StartDate should match request\");\r",
+									"    pm.expect(responseData.endDate).to.equal(requestData.endDate, \"EndDate should match request\");\r",
+									"    pm.expect(responseData.pickupLocation).to.equal(requestData.pickupLocation, \"PickupLocation should match request\");\r",
+									"    pm.expect(responseData.dropoffLocation).to.equal(requestData.dropoffLocation, \"DropoffLocation should match request\");\r",
+									"    pm.expect(responseData.totalCost).to.equal(requestData.totalCost, \"TotalCost should match request\");\r",
+									"    pm.expect(responseData.status).to.equal(requestData.status, \"Status should match request\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Date fields are valid ISO 8601\", function () {\r",
+									"    pm.expect(Date.parse(responseData.startDate)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    pm.expect(Date.parse(responseData.endDate)).to.be.a('number').and.to.not.be.NaN;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"rentalId\", responseData.rentalId);\r",
+									"\r",
+									"pm.test(\"Rental ID is stored in environment variable\", function () {\r",
+									"    const storedRentalId = pm.environment.get(\"rentalId\");\r",
+									"    pm.expect(storedRentalId).to.not.be.undefined.and.to.not.be.null;\r",
+									"    pm.expect(Number(storedRentalId)).to.be.a('number');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"renterId\": \"{{userID}}\",\r\n  \"providerId\": {{providerID}},\r\n  \"carId\": {{carId}},\r\n  \"startDate\": \"2025-04-25T10:00:00\",\r\n  \"endDate\": \"2025-05-30T10:00:00\",\r\n  \"pickupLocation\": \"Aalesund Airport\",\r\n  \"dropoffLocation\": \"Aalesund City Center\",\r\n  \"totalCost\": 5000,\r\n  \"status\": \"PENDING\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}rentals",
+							"host": [
+								"{{base-url}}rentals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Rentals",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array of rental objects\", function () {\r",
+									"    pm.expect(responseData).to.be.an('array', \"Response should be an array\");\r",
+									"    responseData.forEach(rental => {\r",
+									"        pm.expect(rental).to.be.an('object');\r",
+									"        pm.expect(rental.rentalId).to.be.a('number');\r",
+									"        pm.expect(rental.renter).to.be.an('object');\r",
+									"        pm.expect(rental.provider).to.be.an('object');\r",
+									"        pm.expect(rental.car).to.be.an('object');\r",
+									"        pm.expect(rental.startDate).to.be.a('string').and.to.have.lengthOf.at.least(1, \"StartDate should not be empty\");\r",
+									"        pm.expect(rental.endDate).to.be.a('string').and.to.have.lengthOf.at.least(1, \"EndDate should not be empty\");\r",
+									"        pm.expect(rental.pickupLocation).to.be.a('string').and.to.have.lengthOf.at.least(1, \"PickupLocation should not be empty\");\r",
+									"        pm.expect(rental.dropoffLocation).to.be.a('string').and.to.have.lengthOf.at.least(1, \"DropoffLocation should not be empty\");\r",
+									"        pm.expect(rental.totalCost).to.be.a('number');\r",
+									"        pm.expect(rental.status).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Status should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Date fields are valid ISO 8601\", function () {\r",
+									"    responseData.forEach(rental => {\r",
+									"        pm.expect(Date.parse(rental.startDate)).to.be.a('number').and.to.not.be.NaN;\r",
+									"        pm.expect(Date.parse(rental.endDate)).to.be.a('number').and.to.not.be.NaN;\r",
+									"        pm.expect(Date.parse(rental.renter.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"        pm.expect(Date.parse(rental.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"        pm.expect(Date.parse(rental.car.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}rentals",
+							"host": [
+								"{{base-url}}rentals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rental By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse response body\r",
+									"let responseData;\r",
+									"try {\r",
+									"    responseData = pm.response.json();\r",
+									"} catch (e) {\r",
+									"    pm.test(\"Response is valid JSON\", function () {\r",
+									"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+									"    });\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is a rental object with required fields\", function () {\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.rentalId).to.be.a('number');\r",
+									"    pm.expect(responseData.renter).to.be.an('object');\r",
+									"    pm.expect(responseData.provider).to.be.an('object');\r",
+									"    pm.expect(responseData.car).to.be.an('object');\r",
+									"    pm.expect(responseData.startDate).to.be.a('string').and.to.have.lengthOf.at.least(1, \"StartDate should not be empty\");\r",
+									"    pm.expect(responseData.endDate).to.be.a('string').and.to.have.lengthOf.at.least(1, \"EndDate should not be empty\");\r",
+									"    pm.expect(responseData.pickupLocation).to.be.a('string').and.to.have.lengthOf.at.least(1, \"PickupLocation should not be empty\");\r",
+									"    pm.expect(responseData.dropoffLocation).to.be.a('string').and.to.have.lengthOf.at.least(1, \"DropoffLocation should not be empty\");\r",
+									"    pm.expect(responseData.totalCost).to.be.a('number');\r",
+									"    pm.expect(responseData.status).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Status should not be empty\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Rental ID matches requested ID\", function () {\r",
+									"    const rentalId = pm.variables.get(\"rentalId\");\r",
+									"    pm.expect(responseData.rentalId).to.equal(Number(rentalId), \"Rental ID should match requested ID\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Date fields are valid ISO 8601\", function () {\r",
+									"    pm.expect(Date.parse(responseData.startDate)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    pm.expect(Date.parse(responseData.endDate)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    pm.expect(Date.parse(responseData.renter.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    pm.expect(Date.parse(responseData.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    pm.expect(Date.parse(responseData.car.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    responseData.renter.favouriteCars.forEach(favCar => {\r",
+									"        pm.expect(Date.parse(favCar.provider.createdAt)).to.be.a('number').and.to.not.be.NaN;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct Content-Type header\", function () {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}rentals/{{rentalId}}",
+							"host": [
+								"{{base-url}}rentals"
+							],
+							"path": [
+								"{{rentalId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Rental By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1 second\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has no content\", function () {\r",
+									"    pm.expect(pm.response.text()).to.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"rentalId\");\r",
+									"\r",
+									"pm.test(\"Rental ID environment variable is cleared\", function () {\r",
+									"    const storedRentalId = pm.environment.get(\"rentalId\");\r",
+									"    pm.expect(storedRentalId).to.be.undefined;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base-url}}rentals/{{rentalId}}",
+							"host": [
+								"{{base-url}}rentals"
+							],
+							"path": [
+								"{{rentalId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Car By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has no content\", function () {\r",
+							"    pm.expect(pm.response.text()).to.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.environment.unset(\"carId\");\r",
+							"\r",
+							"pm.test(\"Car ID environment variable is cleared\", function () {\r",
+							"    const storedCarId = pm.environment.get(\"carId\");\r",
+							"    pm.expect(storedCarId).to.be.undefined;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base-url}}cars/{{carId}}",
+					"host": [
+						"{{base-url}}cars"
+					],
+					"path": [
+						"{{carId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete ExtraFeature By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has no body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.environment.unset(\"featureId\");\r",
+							"pm.environment.unset(\"featureName\");\r",
+							"\r",
+							"pm.test(\"Feature ID is removed from environment variables\", function () {\r",
+							"    const storedFeatureId = pm.environment.get(\"featureId\");\r",
+							"    pm.expect(storedFeatureId).to.be.undefined;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Feature name is removed from environment variables\", function () {\r",
+							"    const storedFeatureName = pm.environment.get(\"featureName\");\r",
+							"    pm.expect(storedFeatureName).to.be.undefined;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base-url}}extra-features/{{featureId}}",
+					"host": [
+						"{{base-url}}extra-features"
+					],
+					"path": [
+						"{{featureId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has no body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.be.empty;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\" : \"{{activePassword}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}accounts",
+					"host": [
+						"{{base-url}}accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revoke Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"// Verify refreshToken is revoked by attempting to reuse it\r",
+							"pm.test(\"Revoked refreshToken cannot be reused\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: `${pm.variables.get(\"base-url\")}auth/refresh-token`,\r",
+							"        method: 'POST',\r",
+							"        header: {\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"            mode: 'raw',\r",
+							"            raw: JSON.stringify({\r",
+							"                refreshToken: pm.environment.get(\"refreshToken\")\r",
+							"            })\r",
+							"        }\r",
+							"    }, function (err, response) {\r",
+							"        pm.expect(response.code).to.be.oneOf([400, 401], \"Reusing revoked refreshToken should return 400 or 401\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Clear refreshToken environment variable\r",
+							"pm.environment.unset(\"refreshToken\");\r",
+							"\r",
+							"pm.test(\"RefreshToken environment variable is cleared\", function () {\r",
+							"    const storedRefreshToken = pm.environment.get(\"refreshToken\");\r",
+							"    pm.expect(storedRefreshToken).to.be.undefined;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refreshToken\" : \"{{refreshToken}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{base-url}}auth/revoke-token",
+					"host": [
+						"{{base-url}}auth"
+					],
+					"path": [
+						"revoke-token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "refreshToken",
+			"value": ""
+		}
+	]
+}
