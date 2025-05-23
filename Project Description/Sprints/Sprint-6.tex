@@ -1,0 +1,151 @@
+% Setting up the document with a comprehensive preamble
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\title{Sprint 6 Plan}
+\author{Team}
+\date{May 20, 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Sprint 6 - 10.05.25--24.05.25}
+\textbf{Sprint Goal}
+
+\begin{itemize}
+    \item Finalize the Aalesund Rental app for production release
+    \begin{itemize}
+        \item Enhance user interface consistency and usability
+        \begin{itemize}
+            \item Standardize font sizes and create visual hierarchies using boldness and brightness
+            \item Display saved filter changes upon closing and opening of filter menus
+        \end{itemize}
+        \item Fix critical bugs
+        \begin{itemize}
+            \item Fix homepage issues
+            \item Fix car type filtering on rental page
+            \item Fix CSS formatting issue on booking page 
+            \item Fix search cars button in header to trigger reload with new parameters
+            \item Fix location drop-down menu to appear in header on rental page
+            \item Fix issue where user cannot access /account right after logging in
+            \item Fix "Book now" section call at the bottom of the booking-page
+            \item Make cancel order button disappear when order is cancelled
+            \item Add search filter and price filter to mobile display size on rental page
+        \end{itemize}
+        \item Improve functionality and user experience
+        \begin{itemize}
+            \item Show "No cars found" when no cars are found on rental page
+            \item Make featured cars section display cars from rental page
+            \item Make pickup location a required field to view rentals
+            \item Finish "My Rentals" page
+            \item Create a favorites page
+            \item Create a wiki-page
+        \end{itemize}
+        \item Finalize back-end and database
+        \begin{itemize}
+            \item Add search bar for rentals page
+            \item Make "Book now" button complete a booking with a POST request
+            \item Add constraints to database
+            \item Add detailed logging
+            \item Store database passwords and JWT secret key in environment files
+            \item Add refresh-token to the database
+            \item Implement token-refresh endpoint for the backend
+            \item Fix expiration date on tokens
+            \item Finish token-refresh functionality
+            \item Make a check on backend for disabled accounts
+            \item Add a pop-up confirmation page for 'Cancel Order' in 'account/orders'
+            \item Set up connection between REST-APIs and the container
+            \item Use 'useLoaderData' from react-router-dom to load data from database to front-end
+            \item Secure backend and frontend with HTTPS
+            \item Provide re-entrant test set
+            \item Document API endpoints
+        \end{itemize}
+        \item Finalize project requirements
+        \begin{itemize}
+            \item        Include README file(s) in the project
+            \item Look over code quality and accessibility
+            \item Look over deliverables
+            \item Create video presentation
+            \item Prepare demo data
+        \end{itemize}
+
+    \end{itemize}
+\end{itemize}
+
+\section*{Sprint Backlog}
+
+\textbf{Time Frame}
+
+10.05.25--24.05.25
+
+\textbf{Roles and Responsibilities}
+
+\begin{itemize}
+    \item \textbf{Marcus (MSkaue)} $\rightarrow$ All, responsible specifically for Documentation and Front-End
+    \item \textbf{Mathias (mathiaslovnes)} $\rightarrow$ All, responsible specifically for Front-End and Back-End
+    \item \textbf{Petter (PetterJY)} $\rightarrow$ All, responsible specifically for Back-End  and Database
+\end{itemize}
+
+\section*{Expected Results}
+
+\begin{enumerate}
+    \item \textbf{Enhanced User Interface Consistency and Usability}
+    \begin{itemize}
+        \item Standardized font sizes and visual hierarchies using boldness and brightness for a cohesive look.
+        \item Filter menus display saved changes and show the number of selected filters.
+    \end{itemize}
+    \item \textbf{Resolved Critical Bugs}
+    \begin{itemize}
+        \item Homepage issues resolved for a polished user experience.
+        \item Car type filtering fully functional on the rental page.
+        \item CSS formatting issue on booking page fixed.
+        \item Search cars button in header triggers reload with new parameters.
+        \item Location drop-down menu appears in header on rental page.
+        \item Users can access /account immediately after logging in.
+        \item "Book now" section call at page bottom fixed.
+        \item Cancel order button disappears when an order is cancelled.
+        \item Search and price filters functional on mobile display sizes.
+    \end{itemize}
+    \item \textbf{Improved Functionality and User Experience}
+    \begin{itemize}
+        \item "No cars found" message displayed when no cars match filters on rental page.
+        \item Featured cars section displays cars from the rental page.
+        \item Pickup location set as a required field to view rentals.
+        \item "My Rentals" page fully functional, showing user rental details.
+        \item Favorites page created, allowing users to manage favorite cars.
+        \item Wiki-page created to document app usage and features.
+    \end{itemize}
+    \item \textbf{Finalized Back-End and Database}
+    \begin{itemize}
+        \item Service and Repository classes implemented for modular back-end logic.
+        \item Controller and database table for favorites fully functional.
+        \item Search bar added to rentals page, integrated with back-end.
+        \item "Book now" button sends POST request to complete bookings.
+        \item Database constraints added to ensure data integrity.
+        \item Detailed logging implemented for debugging and monitoring.
+        \item Database passwords and JWT secret key stored securely in environment files.
+        \item Refresh-token stored in the database and token-refresh endpoint implemented.
+        \item Token expiration dates fixed and token-refresh functionality completed.
+        \item Backend check for disabled accounts implemented.
+        \item Pop-up confirmation page added for 'Cancel Order' in 'account/orders'.
+        \item REST-APIs connected to the container for seamless operation.
+        \item 'useLoaderData' used to load database data to the front-end efficiently.
+    \end{itemize}
+\item \textbf{Finalized project requirements}
+    \begin{itemize}
+        \item Include the README file(s) in the project
+        \item The code quality and accessibility is as expected
+        \item All the deliverables are ready to get handed in.
+        \item Have a video presentation lasting between 12-15 min
+        \item Have a demo data to demonstrate different scenarios.
+    \end{itemize}
+\end{enumerate}
+
+\end{document}
