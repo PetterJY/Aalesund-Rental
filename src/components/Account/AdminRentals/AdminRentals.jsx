@@ -68,7 +68,7 @@ const AdminRentals = () => {
     async function fetchProviders() {
       setIsLoadingProviders(true);
       try {
-        const response = await fetch('http://localhost:8080/api/providers', {
+        const response = await fetch('/api/providers', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
           }
@@ -92,7 +92,7 @@ const AdminRentals = () => {
     setIsLoadingCars(true);
     async function fetchCars() {
       try {
-        const response = await fetch(`http://localhost:8080/api/cars/my-cars/${selectedProviderId}`, {
+        const response = await fetch(`/api/cars/my-cars/${selectedProviderId}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
           }

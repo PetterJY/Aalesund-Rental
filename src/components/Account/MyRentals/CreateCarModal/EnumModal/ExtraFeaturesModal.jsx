@@ -33,7 +33,7 @@ const handleFeatureSelection = (featureId) => {
       setIsLoading(true);
       async function fetchExtraFeatures() {
         try {
-          const response = await fetch('http://localhost:8080/api/extra-features', {
+          const response = await fetch('/api/extra-features', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

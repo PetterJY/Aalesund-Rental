@@ -1,0 +1,23 @@
+# ---- Stage 1: build the Spring Boot jar ----
+FROM docker.io/library/maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /app
+
+# Download dependencies first so this layer is cached between builds
+COPY pom.xml ./
+RUN mvn -B -q dependency:go-offline
+
+COPY src/main ./src/main
+RUN mvn -B -q package -DskipTests
+
+# ---- Stage 2: run it on a plain Java runtime ----
+FROM docker.io/library/eclipse-temurin:17-jre
+WORKDIR /app
+
+COPY --from=build /app/target/rental-0.0.1-SNAPSHOT.jar app.jar
+
+EXPOSE 8080
+
+# Database and JWT settings come from environment variables (see rental-api.container):
+# SPRING_DATASOURCE_URL, SPRING_DATASOURCE_USERNAME, SPRING_DATASOURCE_PASSWORD,
+# JWT_SECRET_KEY and CORS_ALLOWED_ORIGINS
+CMD ["java", "-jar", "app.jar"]

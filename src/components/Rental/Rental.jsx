@@ -295,8 +295,8 @@ useEffect(() => {
 
       console.log("Filter params:", filterParams.toString());
 
-      console.log("Request URL: ", `http://localhost:8080/api/cars/search?${filterParams.toString()}`)
-      const response = await fetch(`http://localhost:8080/api/cars/search?${filterParams.toString()}`, {
+      console.log("Request URL: ", `/api/cars/search?${filterParams.toString()}`)
+      const response = await fetch(`/api/cars/search?${filterParams.toString()}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

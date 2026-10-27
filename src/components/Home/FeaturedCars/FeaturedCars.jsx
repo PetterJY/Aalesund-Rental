@@ -13,7 +13,7 @@ const FeaturedCars = () => {
 useEffect(() => {
   async function fetchCars() {
     try {
-      const response = await fetch('http://localhost:8080/api/cars', {
+      const response = await fetch('/api/cars', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

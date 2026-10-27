@@ -1,0 +1,17 @@
+node_modules
+build
+target
+.git
+.gitignore
+.idea
+.vscode
+Project Description
+README.md
+*.log
+Containerfile*
+.containerignore
+
+# The .env points at the old school database. If it ends up in the jar, Spring uses it
+# instead of the Environment= settings in rental-api.container, so keep it out.
+src/main/resources/.env
+.env*
